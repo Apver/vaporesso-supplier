@@ -1,0 +1,208 @@
+body * {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+body {
+  font-family: PingFangSC-Regular, Roboto, Helvetica Neue, Helvetica, Tahoma, Arial,
+    PingFang SC-Light, Microsoft YaHei;
+  margin: 0;
+}
+input {
+  background-color: transparent;
+  border: 0;
+}
+button {
+  margin: 0;
+  padding: 0;
+  border: 1px solid transparent;
+  outline: none;
+  background-color: transparent;
+}
+
+button:active {
+  opacity: 0.6;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+.align-start {
+  display: flex;
+  align-items: flex-start;
+}
+.align-center {
+  display: flex;
+  align-items: center;
+}
+.align-end {
+  display: flex;
+  align-items: flex-end;
+}
+@font-face {
+  font-family: 'D-DINCondensed-Bold'; /* 自定义字体名称 */
+  src: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINCondensed-Bold.otf') format('otf'),
+    /* 字体文件路径 */ url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINCondensed-Bold.ttf') format('ttf'),
+    url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINCondensed-Bold.woff') format('woff'),
+    url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINCondensed-Bold.woff2') format('woff2');
+  font-weight: normal; /* 字体粗细 */
+  font-style: normal; /* 字体样式 */
+}
+@font-face {
+  font-family: 'D-DINCondensed'; /* 自定义字体名称 */
+  src: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINCondensed.otf') format('otf'),
+    /* 字体文件路径 */ url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINCondensed.ttf') format('ttf'),
+    url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINCondensed.woff') format('woff'),
+    url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINCondensed.woff2') format('woff2');
+  font-weight: normal; /* 字体粗细 */
+  font-style: normal; /* 字体样式 */
+}
+@font-face {
+  font-family: 'D-DINExp-Bold';
+  src: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINExp-Bold.woff2') format('woff2'),
+       url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINExp-Bold.woff') format('woff'),
+       url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINExp-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'D-DINExp';
+  src: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINExp.woff2') format('woff2'),
+       url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINExp.woff') format('woff'),
+       url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/D-DIN-Condensed-Bold/D-DINExp.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LaBelleAurore';
+  src: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/font/La_Belle_Aurore/LaBelleAurore-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.pure-menu-box {
+  position: absolute;
+  top: 10.96vw;
+  left: 0;
+}
+.menu-fixed {
+  position: fixed;
+  top: 100px;
+  left: 0;
+}
+.highlight {
+  color: red; /* 高亮颜色 */
+  font-weight: bold; /* 加粗 */
+}
+
+.img-slide-section {
+  width: 100%;
+  height: 200vh;
+  position: relative;
+}
+.img-slide-layout {
+  width: 1280px;
+  height: 100vh;
+  max-height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.img-slide-wrapper {
+  width: 800px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.img-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* right: 0; */
+  /* bottom: 0; */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+.img-slide-wrapper img {
+  width: 800px;
+  box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.29);
+  /* width: 100%; */
+}
+.video-section {
+  width: 100%;
+  height: 150vh;
+}
+.video-layout {
+  width: 1280px;
+  height: 100vh;
+  max-height: 100vh;
+  position: relative;
+  margin: 0 auto;
+}
+.video-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 5% 0;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+.video-box {
+  /* height: 60vh */
+}
+.video-wrapper video {
+  width: 90vw;
+  max-width: 1000px;
+}
+.pure-menu-box {
+  position: fixed;
+  top: 10.96vw;
+  left: 0;
+  z-index: 9;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  opacity: 0;
+  pointer-events: none;
+}
+.menu-fixed {
+  opacity: 1;
+  pointer-events: auto;
+}
+.menu-fixed span {
+  cursor: pointer;
+}

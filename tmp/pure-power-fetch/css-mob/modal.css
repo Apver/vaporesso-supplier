@@ -1,0 +1,222 @@
+.m-1-text-wrapper_3 {
+    background-color: rgba(0, 0, 0, 1);
+    padding: 18px 40px 18px 41px;
+  }
+  
+  .m-1-paragraph_3 {
+    width: 294px;
+    height: 44px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 17px;
+    font-family: D-DIN-Bold;
+    font-weight: normal;
+    text-align: right;
+    line-height: 22px;
+  }
+  
+  .m-1-group_1 {
+    /* height: 812px; */
+    background-size: 100% 100%;
+    width: 100%;
+    padding: 75px 5px 20px 5px;
+  }
+  
+  .m-1-group_2 {
+    background: url(https://lanhu-oss.lanhuapp.com/SketchPng8ee1ccaa8efe675748c14d44a5db06e586a1544e5c97b24b1dde5af4d97275b0)
+      100% no-repeat;
+    background-size: 100% 100%;
+    padding: 95px 6px 73px 25px;
+  }
+  
+  .m-1-text-wrapper_4 {
+    margin-right: 46px;
+  }
+  
+  .m-1-text_1 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 22px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 20px;
+  }
+  
+  .m-1-section_1 {
+    /* width: 304px; */
+    margin-top: 30px;
+  }
+  
+  .m-1-paragraph_2 {
+    width: 285px;
+    height: 440px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 15px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    line-height: 20px;
+    overflow-y: scroll;
+  }
+  
+  .m-2-gift-box {
+    padding: 53px 5px 0 5px;
+  }
+  .m-2-gif-img {
+    width: 255px;
+    height: 299px;
+  }
+  .m-2-title {
+    font-family: D-DINExp-Bold, D-DINExp;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000000;
+    line-height: 26px;
+    text-align: center;
+    font-style: normal;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .m-2-text {
+    font-family: D-DINExp, D-DINEx;
+    font-weight: normal;
+    font-size: 15px;
+    color: #000000;
+    line-height: 20px;
+    text-align: center;
+  font-style: normal;
+    margin-top: 12px;
+    /* letter-spacing: -0.5px; */
+  }
+  .m-2-try-btn {
+    width: 245px;
+    height: 44px;
+    margin-top: 36px;
+    cursor: pointer;
+    background: #36DD51;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 36px auto 36px auto;
+    font-family: D-DINExp-Bold, D-DINExp;
+  }
+  .m-2-try-btn:hover  {
+    opacity: .8;
+  }
+  .input-box {
+    margin-top: 24px;
+    margin-bottom: 34px;
+    position: relative;
+  }
+  .input-box input {
+    width: 220px;
+    height: 44px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    padding-left: 10px;
+    font-size: 13px;
+    line-height: 16px;
+    font-family: D-DINExp;
+  } 
+  .input-box input:focus-visible {
+    outline: unset
+  }
+  .input-box .err-tip {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    font-family: D-DINExp;
+    font-weight: normal;
+    font-size: 12px;
+    color: #FF0000;
+    line-height: 16px;
+    text-align: left;
+    font-style: normal;
+    display: none;
+  }
+  .input-box .success-tip {
+    width: 295px;
+    height: 32px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    font-size: 12px;
+    color: #00B000;
+    line-height: 16px;
+    text-align: left;
+    font-style: normal;
+    position: absolute;
+    bottom: -38px;
+    left: 0;
+    display: none;
+  }
+  .m-2-sumbit-btn {
+    width: 75px;
+    height: 44px;
+    background: #000000;
+    font-family: D-DINExp;
+    font-weight: normal;
+    font-size: 14px;
+    color: #FFFFFF;
+    line-height: 18px;
+    text-align: right;
+    font-style: normal;
+    cursor: pointer;
+    margin-left: -1px;
+  }
+  .m-2-sumbit-btn:hover {
+    opacity: .8;
+  }
+  .discount-code-box {
+    margin-top: 24px;
+    width: 295px;
+    height: 70px;
+    background: #000000;
+    border: 1px solid #000000;
+    font-family: D-DINExp-Bold, D-DINExp;
+    font-weight: bold;
+    font-size: 22px;
+    color: #FFFFFF;
+    line-height: 26px;
+    text-align: center;
+    font-style: normal;
+    position: relative;
+  }
+  .discount-code-box img {
+    position: absolute;
+    top: 14px;
+    right: 17px;
+    cursor: pointer;
+  }
+  .discount-code-box img:hover {
+    opacity: .8;
+  }
+  .discount-code-box .copy-tips {
+    font-family: D-DINExp, D-DINExp;
+    font-weight: normal;
+    font-size: 12px;
+    color: #03FE00;
+    line-height: 16px;
+    text-align: center;
+    font-style: normal;
+    margin-top: 5px;
+    opacity: 1;
+  }
+  .show-btn {
+    width: 295px;
+    height: 44px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    margin-top: 12px;
+    font-family: D-DINExp-Bold, D-DINExp;
+    font-weight: bold;
+    font-size: 15px;
+    color: #000000;
+    line-height: 21px;
+    text-align: right;
+    font-style: normal;
+    margin-bottom: 12px;
+    text-decoration: none;
+  }

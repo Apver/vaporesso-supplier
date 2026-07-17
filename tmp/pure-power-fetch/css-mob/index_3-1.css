@@ -1,0 +1,2797 @@
+@font-face {
+  font-display: swap;
+  font-family: "D-DINExp-Bold";
+  font-style: normal;
+  font-weight: 700;
+  src: url("https://www.vaporesso.com/hubfs/imgs/2024/product/eco-nano-pro/d-din-exp/D-DINExp-Bold.woff2") format("woff2")
+}
+@font-face {
+  font-family: "DINCondensed-Bold";
+  src: url('https://www.vaporesso.com/hubfs/css/font/D-DINCondensed-Bold.otf'); 
+  font-display: swap;
+}
+.page {
+    position: relative;
+    width: 100%;
+    /* height: 9999px; */
+    overflow: hidden;
+  }
+  
+  .text-wrapper_12 {
+    background-color: rgba(0, 0, 0, 1);
+    padding: 18px 40px 18px 41px;
+  }
+  
+  .paragraph_5 {
+    width: 294px;
+    height: 44px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 17px;
+    font-family: D-DIN-Bold;
+    font-weight: normal;
+    text-align: right;
+    line-height: 22px;
+  }
+  
+  .image_18 {
+    width: 375px;
+    height: 48px;
+  }
+  
+  .group_1 {
+    background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/Mob-01@2x.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    /* padding: 40px 31px 432px 31px; */
+    height: 640px;
+    width: 100%;
+    margin: 0 auto;
+    background-size: cover;
+  }
+  
+  .image_2 {
+    width: 174px;
+    height: 23px;
+    margin: 40px auto 0 auto;
+  }
+  
+  .text-group_19 {
+    margin-top: 15px;
+  }
+  
+  .text_1 {
+    height: 46px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 46px;
+    letter-spacing: -1px;
+    font-family: D-DINCondensed-Bold, D-DINCondensed;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .text_1 img {
+    margin-left: -2px;
+    margin-right: -5px;
+    z-index: 1;
+  }
+  
+  .text_2 {
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 15px;
+    font-family: D-DINExp-Bold;
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 17px;
+    align-self: center;
+    margin-top: 8px;
+  }
+  
+  .image_3 {
+    width: 313px;
+    height: 1px;
+    margin: 28px auto 0 auto;
+  }
+  
+  .text_3 {
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 16px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 17px;
+    align-self: center;
+    margin-top: 13px;
+  }
+  
+  .block_11 {
+    padding: 120px 0 85px 0;
+  }
+  
+  .text_4 {
+    width: 305px;
+    height: 120px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 40px;
+    font-family: D-DINCondensed-Bold;
+    font-weight: normal;
+    text-align: center;
+    line-height: 40px;
+    align-self: center;
+  }
+  
+  .block_11-border {
+    width: 100%;
+    height: 2px;
+    border-top: 2px solid #000000;
+    margin: 30px auto 0 auto;
+  }
+  
+  .text-wrapper_13 {
+    width: 355px;
+    align-self: center;
+    margin-top: 29px;
+  }
+  
+  .text_5 {
+    width: 105px;
+    height: 78px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 22px;
+    font-family: D-DINCondensed;
+    font-weight: normal;
+    text-align: center;
+    line-height: 26px;
+  }
+  
+  .text_6 {
+    width: 105px;
+    height: 104px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 22px;
+    font-family: D-DINCondensed;
+    font-weight: normal;
+    text-align: center;
+    line-height: 26px;
+  }
+  
+  .text_7 {
+    width: 105px;
+    height: 104px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 22px;
+    font-family: D-DINCondensed;
+    font-weight: normal;
+    text-align: center;
+    line-height: 26px;
+  }
+  
+  .group_3 {
+    background-color: rgba(0, 0, 0, 1);
+    position: relative;
+    margin-top: -1px;
+    padding: 115px 0 0 0;
+  }
+  
+  .text_8 {
+    width: 305px;
+    /* height: 144px; */
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 48px;
+    font-family: D-DINCondensed-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 52px;
+    align-self: center;
+  }
+  
+  .block_1 {
+    background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/Mob-02@3x-1.webp);
+    /* margin-top: 40px; */
+    padding: 475px 35px 34px 35px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    margin: 40px auto 0 auto;
+    /* position: relative; */
+  }
+  /* .block_1_img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;  
+  } */
+  
+  .text-group_20 {
+    margin-right: 1px;
+  }
+  
+  .text_9 {
+    font-family: 'DINCondensed-Bold';
+    /* font-weight: bold; */
+    font-size: 49px;
+    color: #000;
+    line-height: 44px;
+    /* text-stroke: 1px #000000; */
+    text-align: left;
+    font-style: normal;
+    text-transform: uppercase;
+    /* -webkit-text-stroke: 1px #000000; */
+    letter-spacing: -2px;
+  }
+  
+  .text_10 {
+    -webkit-text-stroke: 0.9px rgba(0, 0, 0, 1);
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 0);
+    font-size: 49px;
+    letter-spacing: -1.2000000476837158px;
+    text-transform: uppercase;
+    font-family: "DINCondensed-Bold";
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 44px;
+    margin: 4px 36px 0 0;
+    letter-spacing: -2px;
+  }
+  
+  .text_11 {
+    font-family: "DINCondensed-Bold";
+    /* font-weight: bold; */
+    font-size: 49px;
+    color: #000;
+    line-height: 44px;
+    text-align: left;
+    font-style: normal;
+    text-transform: uppercase;
+    /* -webkit-text-stroke: 0px #000000; */
+    letter-spacing: -2px;
+  }
+  
+  .group_4 {
+    width: 305px;
+    background: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/Mob-02-1@2x.svg) -6px -6px
+      no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin-top: 40px;
+    padding: 29px 17px 28px 16px;
+  }
+
+  .group_4-text {
+    color: rgba(0, 0, 0, 1);
+    font-size: 14px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    margin-top: 12px;
+  }
+  
+  .section_4 {
+    margin: 9px 0 23px 0;
+  }
+  
+  .box_2 {
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 50%;
+    width: 4px;
+    height: 4px;
+  }
+  
+  .box_3 {
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 50%;
+    width: 4px;
+    height: 4px;
+    margin-top: 28px;
+  }
+  
+  .box_4 {
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 50%;
+    width: 4px;
+    height: 4px;
+    margin-top: 36px;
+  }
+  
+  .text-group_21 {
+  }
+  
+  .text_12 {
+    width: 255px;
+    height: 28px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 14px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 14px;
+  }
+  
+  .text_13 {
+    width: 255px;
+    height: 28px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 14px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 14px;
+    margin-top: 12px;
+  }
+  
+  .text_14 {
+    width: 255px;
+    height: 28px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 14px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 14px;
+    margin-top: 12px;
+  }
+  
+  .text-group_22 {
+    width: 305px;
+    align-self: center;
+    margin-top: 80px;
+  }
+  
+  .text_15 {
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 17px;
+    font-family: D-DINCondensed-Bold, D-DINCondensed;
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 23px;
+    margin-right: 206px;
+  }
+  
+  .text_16 {
+    width: 305px;
+    height: 108px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 36px;
+    font-family: "DINCondensed-Bold";
+    text-align: left;
+    line-height: 36px;
+    margin-top: 14px;
+  }
+  
+  .text_17 {
+    width: 305px;
+    /* height: 126px; */
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, .7);
+    font-size: 15px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    line-height: 21px;
+    margin-top: 24px;
+  }
+  
+  .group_15 {
+    box-shadow: 0px 2px 13px 0px rgba(0, 0, 0, 0.29);
+    align-self: center;
+    margin-top: 153px;
+    width: 305px;
+  }
+  
+  .group_16 {
+    background-color: rgba(255, 255, 255, 1);
+    width: 305px;
+    height: 523px;
+  }
+  
+  .text_18 {
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 15px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 21px;
+    align-self: center;
+    margin-top: 13px;
+    position: absolute;
+    /* left: calc(50% - 22px); */
+    bottom: 140px;
+    width: 100%;
+    
+  }
+  
+  .block_4 {
+    background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/Mob-03-5@2x.png);
+    width: 345px;
+    align-self: center;
+    margin-top: 65px;
+    padding: 41px 25px 218px 25px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .text_19 {
+    width: 295px;
+    height: 84px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 20px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 28px;
+  }
+  
+  .image-text_10 {
+    width: 273px;
+    margin: 33px 22px 0 0;
+  }
+  
+  .image_19 {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .text-group_23 {
+  }
+  
+  .text_76 {
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 26px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 30px;
+    margin-right: 141px;
+  }
+  
+  .text_77 {
+    height: 21px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 15px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 20px;
+    margin-top: 5px;
+  }
+  
+  .image-text_11 {
+    width: 170px;
+    margin: 24px 125px 0 0;
+  }
+  
+  .image_20 {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .text-group_24 {
+  }
+  
+  .text_78 {
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 26px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 30px;
+    margin-right: 11px;
+  }
+  
+  .text_79 {
+    height: 21px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 15px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 20px;
+    margin-top: 5px;
+  }
+  
+  .image-text_12 {
+    width: 245px;
+    margin: 24px 50px 0 0;
+  }
+  
+  .image_21 {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .text-group_25 {
+  }
+  
+  .text_80 {
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 26px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 30px;
+    margin-right: 113px;
+  }
+  
+  .text_81 {
+    height: 21px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 15px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 20px;
+    margin-top: 5px;
+  }
+  
+  .text_26 {
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 15px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 21px;
+    align-self: center;
+    margin-top: 12px;
+  }
+  
+   .img-slide-section {
+    position: relative;
+    width: 100%;
+    height: 1800px;
+    overflow: hidden;
+   }
+   .img-slide-layout {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    max-height: 900px;
+    /* padding: 20px 0; */
+    box-sizing: border-box;
+    margin-top: -50px;
+   }
+   .img-slide-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+   }
+   .img-slide-item img{
+    width: 305px;
+    height: 200px;
+    margin: 24px 0;
+   }
+   .img-slide-item video{
+    width: 305px;
+    height: 200px;
+    margin: 24px 0;
+   }
+   .img-slide-item {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+   }
+   .img-slide-item-box {
+    box-shadow: 0px 2px 16px 0px rgba(0,0,0,0.29);
+    background: #fff;
+    padding: 40px 20px;
+    height: 592px;
+   }
+   .img-slide-item-title {
+    width: 305px;
+    height: 84px;
+    font-family: D-DINExp-Bold, D-DINExp;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000000;
+    line-height: 28px;
+    /* text-shadow: 0px 2px 16px rgba(0,0,0,0.29); */
+    text-align: left;
+    font-style: normal;
+   }
+   .img-slide-item-text {
+    width: 305px;
+    height: 180px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    font-size: 14px;
+    color: #000000;
+    line-height: 16px;
+    text-shadow: 0px 2px 16px rgba(0,0,0,0.29);
+    text-align: left;
+    font-style: normal;
+   }
+   .img-slide-item-box-5 {
+    background: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/Mob-03-5@3x.jpg);
+    background-position: center;
+    background-size: cover;
+    /* height: 592px; */
+   }
+   .img-slide-item-box-5-title {
+    width: 295px;
+    height: 84px;
+    font-family:"D-DINExp-Bold";
+    font-weight: bold;
+    font-size: 20px;
+    color: #FFFFFF;
+    line-height: 28px;
+    text-align: left;
+    font-style: normal;
+    margin-bottom: 33px;
+   }
+
+   .img-slide-item-box-5-text-wrapper {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+   }
+   .img-slide-item-box-5-text-wrapper img {
+    width: 56px;
+    height: auto;
+    margin: 0;
+    margin-right: 20px;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+   }
+   .img-slide-item-box-5-text-wrapper span:first-child {
+    font-family: "D-DINExp-Bold";
+    font-weight: bold;
+    font-size: 26px;
+    color: #FFFFFF;
+    line-height: 30px;
+    text-align: left;
+    font-style: normal;
+    margin-bottom: 5px;
+   }
+   .img-slide-item-box-5-text-wrapper span {
+    font-family: D-DINExp;
+    font-weight: normal;
+    font-size: 15px;
+    color: #FFFFFF;
+    line-height: 21px;
+    text-align: left;
+    font-style: normal;
+   }
+   
+   .video-slides-section {
+    position: relative;
+    width: 100%;
+    /* height: 800px; */
+    height: 213.33vw;
+    overflow: hidden;
+    background: #000;
+   }
+   .video-slides-layout {
+    position: relative;
+    display: grid;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    /* align-items: center; */
+    justify-items: center;
+    /* height: 600px; */
+    height: 160vw;;
+    /* max-height: 100vh; */
+    /* background: #000; */
+   }
+   @media screen and (min-width: 400px) {
+    .video-slides-section{
+      height: 190vw;
+    }
+    .video-slides-layout {
+      height: 150vw; /* 设置高度为视口宽度的 150% */
+    }
+  }
+   .slides-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+   }
+   .bg-wrapper {
+    position: relative;
+    /* height: 213px; */
+    height: 56.8vw;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1.5rem;
+   }
+   .team-background {
+    position: absolute;
+    top: -80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+   }
+   /* .team-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+   } */
+   .team-background video {
+    width: 100%;
+    /* height: 100%; */
+    object-fit: cover;
+   }
+  
+  .text-wrapper_3 {
+    background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/Mob-04@2x.png);
+    /* border: 2.798507462686567px solid rgba(151, 151, 151, 1); */
+    margin-top: 249px;
+    padding: 50.201492537313435px 32.201492537313435px 49.201492537313435px
+      32.201492537313435px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .text_27 {
+    width: 305px;
+    height: 108px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 36px;
+    text-transform: uppercase;
+    font-family: D-DINCondensed-Bold;
+    font-weight: normal;
+    text-align: right;
+    line-height: 36px;
+  }
+  
+  .text_28 {
+    width: 305px;
+    height: 84px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 15px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: center;
+    line-height: 21px;
+    align-self: center;
+    /* margin-top: 40px; */
+    position: absolute;
+    /* top: 200px; */
+    top: 53.33vw;
+  }
+  
+  .group_17 {
+    background-color: rgba(255, 255, 255, 1);
+    position: absolute;
+    left: 30px;
+    top: 1645px;
+    width: 315px;
+    height: 541px;
+  }
+  
+  .group_18 {
+    background-color: rgba(255, 255, 255, 1);
+    position: absolute;
+    left: 25px;
+    top: 1620px;
+    width: 325px;
+    height: 558px;
+  }
+  
+  .group_19 {
+    background-color: rgba(255, 255, 255, 1);
+    position: absolute;
+    left: 20px;
+    top: 1593px;
+    width: 335px;
+    height: 575px;
+  }
+  
+  .group_20 {
+    box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.29);
+    height: 592px;
+    width: 345px;
+    position: absolute;
+    left: 15px;
+    top: 1566px;
+  }
+  
+  .group_21 {
+    background-color: rgba(255, 255, 255, 1);
+    padding: 40px 20px 40px 20px;
+  }
+  
+  .text_82 {
+    width: 305px;
+    height: 84px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 20px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 28px;
+  }
+  
+  .group_22 {
+    background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/dfe3a4d77cf547e3be88707d5f538146_mergeImage.png);
+    width: 305px;
+    height: 200px;
+    margin-top: 24px;
+  }
+  
+  .text_83 {
+    width: 305px;
+    height: 180px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 14px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    line-height: 20px;
+    margin-top: 24px;
+  }
+  
+  .text_31 {
+    /* position: absolute;
+    left: 35px;
+    top: 3133px; */
+    display: inline-block;
+    width: 305px;
+    margin-top: -155px;
+    /* height: 108px; */
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 1);
+    font-size: 36px;
+    text-transform: uppercase;
+    font-family: D-DINCondensed-Bold;
+    font-weight: normal;
+    text-align: center;
+    line-height: 36px;
+    position: relative;
+  }
+  
+  .text-wrapper_14 {
+    margin-top: 112px;
+    margin-bottom: 40px;
+  }
+  
+  .paragraph_2 {
+    width: 305px;
+    /* height: 96px; */
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 48px;
+    font-family: D-DINCondensed-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 52px;
+    text-transform: uppercase;
+  }
+  
+  .group_5 {
+    /* background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/Mob-05@3x.jpg); */
+    width: 100%;
+    /* height: 540px; */
+    margin-top: -1px;
+    /* background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 auto; */
+  }
+  
+  .block_12 {
+    padding: 40px 0;
+  }
+  
+  .box_19 {
+  }
+  
+  .text-group_26 {
+  }
+  
+  .text_32 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 17px;
+    font-family: D-DINCondensed-Bold;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 23px;
+    margin-right: 199px;
+  }
+  
+  .text_33 {
+    width: 305px;
+    /* height: 180px; */
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 36px;
+    font-family: D-DINCondensed-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 36px;
+    margin-top: 14px;
+  }
+  
+  .text_34 {
+    width: 305px;
+    /* height: 126px; */
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 15px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    line-height: 21px;
+    margin-top: 24px;
+  }
+  
+  .group_8 {
+    background-color: #E0F4AE;
+    margin-top: -1px;
+    padding: 40px 0 60px 0;
+  }
+  
+  .text-group_27 {
+    /* margin: 0 20px 0 19px; */
+  }
+  
+  .text_35 {
+    width: 305px;
+    height: 72px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 36px;
+    font-family: D-DINCondensed-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 36px;
+    margin-left: 1px;
+  }
+  
+  .text_36 {
+    width: 305px;
+    /* height: 147px; */
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 15px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    line-height: 21px;
+    margin: 24px 0 0 1px;
+  }
+  
+  .text_37 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 15px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 28px;
+    margin: 13px 60px 0 0;
+    text-decoration-line: underline;
+    cursor: pointer;
+  }
+  .text_37:hover {
+    opacity: .8;
+  }
+  
+  .group_9 {
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    margin-top: 42px;
+    padding: 20px;
+    width: 345px;
+    height: 157px;
+    margin: 42px auto 0 auto;
+  }
+  
+  .text_38 {
+    /* width: 305px; */
+    height: 38px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 15px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 19px;
+    margin: 0 2px 0 1px;
+  }
+  
+  .box_7 {
+    background-color: rgba(182, 255, 152, 1);
+    /* padding-right: 64px; */
+    margin: 18px 1px 0 3px;
+    width: 304px;
+    height: 32px;
+  }
+  
+  .text-wrapper_5 {
+    background-color: rgba(54, 221, 81, 1);
+    /* padding: 7px 11px 6px 186px; */
+    width: 0;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .text_39 {
+    height: 19px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, .5);
+    font-size: 13px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 18px;
+  }
+  
+  .text-wrapper_15 {
+    width: 308px;
+    margin-top: 10px;
+  }
+  
+  .text_40 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, .4);
+    font-size: 12px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+  
+  .text_41 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, .4);
+    font-size: 12px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+  
+  .text_42 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, .4);
+    font-size: 12px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+  
+  .text_43 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, .4);
+    font-size: 12px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+  
+  .section_5 {
+    margin-top: 12px;
+  }
+  
+  .group_23 {
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    padding: 24px 15px 24px 15px;
+    width: 345px;
+    margin: 0 auto;
+  }
+  
+  .section_6 {
+    width: 290px;
+    /* margin-left: 25px; */
+  }
+  
+  .image_22 {
+    width: 150px;
+    height: 150px;
+    margin-top: -7px;
+    margin-left: -5px;
+  }
+  
+  .group_24 {
+  }
+  
+  .text-group_28 {
+  }
+  
+  .text_84 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 12px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 16px;
+    align-self: center;
+  }
+  
+  .text_85 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 40px;
+    letter-spacing: -1.5px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 42px;
+    margin: 4px 18px 0 19px;
+  }
+  
+  .text_86 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 12px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 16px;
+    margin-top: 4px;
+  }
+  
+  .section_7 {
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 20px;
+    margin: 14px 11px 0 12px;
+    /* padding: 10px 10px 10px 12px; */
+    cursor: pointer;
+  }
+  .section_7:hover {
+    opacity: .8;
+  }
+  .section_7 span {
+    /* margin-right: 5px; */
+  }
+  
+  .image-text_13 {
+    width: 134px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .text-group_29 {
+    overflow-wrap: break-word;
+    color: rgba(182, 255, 152, 1);
+    font-size: 12px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 16px;
+    /* margin-top: 2px; */
+  }
+  
+  .thumbnail_2 {
+    width: 20px;
+    height: 20px;
+    margin-left: 2px;
+  }
+  
+  .image_23 {
+    width: 315px;
+    height: 1px;
+    margin: 0 auto;
+    margin-top: 25px;
+  }
+  
+  .image-text_14 {
+    width: 315px;
+    margin-top: 31px;
+  }
+  
+  .box_20 {
+    border-radius: 15px;
+    background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/Mob-06-1@3x.png);
+    width: 140px;
+    height: 240px;
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .text-group_30 {
+    margin-bottom: 71px;
+  }
+  
+  .text_87 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 14px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 18px;
+  }
+  
+  .text_88 {
+    width: 160px;
+    /* height: 46px; */
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 18px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    margin-top: 8px;
+  }
+  
+  .paragraph_6 {
+    width: 160px;
+    height: 85px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 13px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    line-height: 17px;
+    margin-top: 12px;
+  }
+  
+  .group_25 {
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    margin-top: 12px;
+    padding: 24px 15px 24px 15px;
+  }
+  
+  .block_13 {
+    width: 290px;
+    margin-left: 25px;
+  }
+  
+  .image_24 {
+    width: 90px;
+    height: 90px;
+    margin: 23px 0 23px 0;
+  }
+  
+  .box_21 {
+  }
+  
+  .text-group_31 {
+  }
+  
+  .text_89 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 12px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 16px;
+    align-self: center;
+  }
+  
+  .text_90 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 40px;
+    letter-spacing: -1.5px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 42px;
+    align-self: center;
+    margin-top: 4px;
+  }
+  
+  .text_91 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 12px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 16px;
+    margin-top: 4px;
+  }
+  
+  .box_22 {
+    /* background-color: rgba(255, 64, 64, 1); */
+    /* border-radius: 20px;
+    position: relative; */
+    margin: 14px 10px 0 13px;
+    /* padding: 12px 30px 12px 30px; */
+  }
+  .draw-btn {
+    background-color: rgba(255, 64, 64, 1);
+    border-radius: 20px;
+    position: relative;
+    width: 134px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .text_92 {
+    overflow-wrap: break-word;
+    color: rgba(255, 245, 0, 1);
+    font-size: 12px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+  
+  .label_4 {
+    position: absolute;
+    left: 112px;
+    top: 1px;
+    width: 25px;
+    height: 39px;
+  }
+  
+  .label_5 {
+    position: absolute;
+    left: -4px;
+    top: 3px;
+    width: 22px;
+    height: 37px;
+  }
+  
+  .image_25 {
+    width: 315px;
+    height: 1px;
+    margin-top: 32px;
+  }
+  
+  .image-text_15 {
+    width: 315px;
+    margin-top: 31px;
+  }
+  
+  .group_26 {
+    border-radius: 15px;
+    background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/6f4c4ab61adf4b0a96f6fb0e34741f85_mergeImage.png);
+    width: 140px;
+    height: 240px;
+  }
+  
+  .text-group_32 {
+    margin-bottom: 71px;
+  }
+  
+  .text_93 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 14px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 18px;
+  }
+  
+  .text_94 {
+    width: 160px;
+    height: 46px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 18px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 23px;
+    margin-top: 8px;
+  }
+  
+  .paragraph_7 {
+    width: 160px;
+    height: 85px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 13px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    line-height: 17px;
+    margin-top: 12px;
+  }
+  
+  .group_27 {
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    /* margin-top: 12px; */
+    padding: 18px 15px 24px 15px;
+    width: 345px;
+    margin: 12px auto 0 auto;
+  }
+  
+  .text_95 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 12px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 16px;
+    /* margin: 0 17px 0 188px; */
+  }
+  
+  .box_23 {
+    width: 290px;
+    /* margin-left: 25px; */
+  }
+  
+  .image_26 {
+    width: 150px;
+    height: 150px;
+    /* margin: 13px 0 30px 0; */
+  }
+  
+  .block_14 {
+    height: 149px;
+  }
+
+  .text-wrapper_16 {
+    width: 106px;
+    height: 16px;
+    overflow-wrap: break-word;
+    font-size: 0;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 16px;
+    align-self: center;
+  }
+  
+  .text_96 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, .4);
+    font-size: 12px;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+  
+  .text_97 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, .4);
+    font-size: 12px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+  
+  .text_98 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 40px;
+    letter-spacing: -1.5px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 42px;
+    margin: 1px 15px 0 17px;
+  }
+  
+  .text_99 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 12px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 16px;
+    margin-top: 4px;
+  }
+  
+  .text-wrapper_17 {
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 20px;
+    margin: 14px 4px 0 6px;
+    padding: 12px 26px 12px 26px;
+    text-decoration: none;
+  }
+  
+  .text_100 {
+    overflow-wrap: break-word;
+    color: rgba(255, 207, 138, 1);
+    font-size: 12px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+  
+  .image_27 {
+    width: 315px;
+    height: 1px;
+    margin: 0 auto;
+    margin-top: 25px;
+  }
+  
+  .image-text_16 {
+    width: 315px;
+    margin-top: 31px;
+  }
+  
+  .group_28 {
+    border-radius: 15px;
+    background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/Mob-06-2@3x.png);
+    width: 140px;
+    height: 240px;
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .text-group_33 {
+    margin-bottom: 14px;
+  }
+  
+  .text_101 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 14px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 18px;
+  }
+  
+  .text_102 {
+    width: 160px;
+    height: 69px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 18px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 23px;
+    margin-top: 8px;
+  }
+  
+  .text_103 {
+    width: 160px;
+    /* height: 119px; */
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 13px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    line-height: 17px;
+    margin-top: 12px;
+  }
+  
+  .section_8 {
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    /* margin-top: 12px; */
+    padding: 16px 15px 21px 15px;
+    width: 345px;
+    margin: 12px auto 0 auto;
+  }
+  
+  .text_104 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 12px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 16px;
+    /* margin: 0 29px 0 176px; */
+  }
+  
+  .text-wrapper_18 {
+    width: 106px;
+    height: 16px;
+    overflow-wrap: break-word;
+    font-size: 0;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 16px;
+    color: rgba(0, 0, 0, .4);
+    /* margin: 0 31px 0 178px; */
+  }
+  
+  .text_105 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 12px;
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+  
+  .text_106 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 12px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+  
+  .section_9 {
+    width: 290px;
+    /* margin: 1px 0 0 25px; */
+  }
+  
+  .image_28 {
+    width: 150px;
+    height: 150px;
+    margin-top: 11px;
+  }
+  
+  .text-wrapper_19 {
+    margin-bottom: 10px;
+    width: 168px;
+    height: 178px;
+  }
+  
+  .text_107 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 40px;
+    letter-spacing: -1.5px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: right;
+    white-space: nowrap;
+    line-height: 42px;
+    margin: 0 27px 0 29px;
+  }
+  
+  .text_108 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 12px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 14px;
+    align-self: center;
+    margin-top: 5px;
+  }
+  
+  .text_109 {
+    width: 168px;
+    height: 28px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 12px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: center;
+    line-height: 14px;
+    margin-top: 2px;
+  }
+  
+  .text-wrapper_20 {
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 20px;
+    margin-top: 14px;
+    padding: 12px 26px 12px 26px;
+    text-decoration: none;
+  }
+  
+  .text_110 {
+    overflow-wrap: break-word;
+    color: rgba(160, 228, 255, 1);
+    font-size: 12px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+  
+  .image_29 {
+    width: 315px;
+    height: 1px;
+    margin: 0 auto;
+    margin-top: 24px;
+  }
+  
+  .image-text_17 {
+    width: 315px;
+    margin-top: 31px;
+  }
+  
+  .box_24 {
+    border-radius: 15px;
+    background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/Mob-06-3@3x.png);
+    width: 140px;
+    height: 240px;
+    margin-bottom: 3px;
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .text-group_34 {
+  }
+  
+  .text_111 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 14px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 18px;
+  }
+  
+  .text_112 {
+    width: 160px;
+    height: 69px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 18px;
+    font-family: D-DINExp-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 23px;
+    margin-top: 8px;
+  }
+  
+  .text_113 {
+    width: 160px;
+    /* height: 136px; */
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 13px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    line-height: 17px;
+    margin-top: 12px;
+  }
+  
+  .block_15 {
+    padding: 80px 29px 40px 41px;
+  }
+  
+  .text-group_35 {
+  }
+  
+  .text_74 {
+    width: 305px;
+    height: 72px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 36px;
+    font-family: D-DINCondensed-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 36px;
+    margin: 0 auto;
+  }
+  
+  .text_75 {
+    width: 305px;
+    /* height: 210px; */
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 15px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    line-height: 21px;
+    margin: 24px auto 0 auto;
+  }
+  
+  .section_3 {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 28px;
+    border: 1px solid rgba(0, 0, 0, 1);
+    margin: 24px auto 0 auto;
+    padding: 8px 9px 8px 11px;
+    box-sizing: border-box;
+    transform: translateX(-80px);
+  }
+  
+  .image-text_18 {
+    width: 138px;
+  }
+  
+  .text-group_18 {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 15px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 21px;
+  }
+  
+  .label_3 {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .image_16 {
+    width: 100vw;
+    /* height: 307px; */
+  }
+  
+  .block_16 {
+    background-color: rgba(215, 226, 203, 1);
+    position: relative;
+    padding: 80px 38px 0 32px;
+  }
+  
+  .text-group_36 {
+  }
+  
+  .paragraph_8 {
+    height: 96px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 48px;
+    font-family: D-DINCondensed-Bold;
+    font-weight: normal;
+    text-align: left;
+    line-height: 52px;
+    margin-right: 38px;
+  }
+  
+  .text_114 {
+    height: 35px;
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1);
+    font-size: 15px;
+    font-family: D-DINExp;
+    font-weight: normal;
+    text-align: left;
+    line-height: 21px;
+    margin-top: 25px;
+  }
+  
+  .image_17 {
+    position: absolute;
+    left: 35px;
+    top: 480px;
+    width: 150px;
+    height: 20px;
+  }
+  
+/* 第二张 */
+.page-two {
+    .p-box_1 {
+        background-color: rgba(215, 226, 203, 1);
+        padding: 80px 10px 50px 10px;
+      }
+      
+      .p-text-group_1 {
+        margin: 0 28px 0 22px;
+      }
+      
+      .p-paragraph_1 {
+        /* height: 96px; */
+        width: 305px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, 1);
+        font-size: 48px;
+        font-family: D-DINCondensed-Bold;
+        font-weight: normal;
+        text-align: left;
+        line-height: 52px;
+        margin: 0 auto;
+        text-transform: uppercase;
+      }
+      
+      .p-text_1 {
+        width: 305px;
+        height: 210px;
+        /* overflow-wrap: break-word; */
+        color: rgba(0, 0, 0, 1);
+        font-size: 15px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        line-height: 21px;
+        margin: 25px auto 0 auto;
+      }
+
+      .p-card {
+        width: 355px;
+        height: 690px;
+        margin: 29px auto 0 auto;
+        perspective: 1000px; /* 设置3D视图的视角 */
+        transition: transform 0.6s linear; /* 平滑的翻转动画 */
+      }
+      .p-front, .p-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden; /* 隐藏背面 */
+        transition: opacity 0.5s ease-in-out; /* 淡入淡出效果 */
+      }
+      .p-front {
+        /* backface-visibility: visible; 显示正面 */
+      }
+      .p-back {
+        transform: rotateY(180deg); /* 初始状态，背面旋转180度 */
+        opacity: 0; /* 初始透明度 */
+        transform-style: preserve-3d; /* 保持 3D 转换 */
+      }
+      .p-flip {
+        transform: rotateY(180deg); /* 翻转效果，旋转180度 */
+      }
+      .p-flip .p-front {
+        transform: rotateY(-180deg); /* 翻转时，正面旋转-180度 */
+        opacity: 0; /* 翻转时，正面透明度变为0 */
+      }
+      
+      .p-flip .p-back {
+        transform: rotateY(180deg) rotateX(180deg); /* 翻转时，背面先旋转Y轴180度，再旋转X轴180度 */
+        opacity: 1; /* 翻转时，背面透明度变为1 */
+      }
+      .p-flip .p-back .p-back-warpper {
+        transform: rotateX(180deg);
+        width: 100%;
+        height: 100%;
+        position: relative;
+        padding: 44px 25px 26px 25px;
+      }
+      
+      .p-group_1 {
+        border-radius: 23px;
+        background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/Mob-08@3x.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 39px 24px 49px 24px;
+      }
+      
+      .p-image_2 {
+        width: 150px;
+        height: 20px;
+        margin-right: 155px;
+      }
+      
+      .p-group_2 {
+        margin: 476px 3px 0 0;
+      }
+      
+      .p-text_2 {
+        height: 40px;
+        overflow-wrap: break-word;
+        color: rgba(0, 255, 0, 1);
+        font-size: 40px;
+        font-family: D-DINCondensed-Bold;
+        font-weight: normal;
+        text-align: left;
+        white-space: nowrap;
+        line-height: 43px;
+      }
+      
+      .p-label_1 {
+        width: 29px;
+        height: 28px;
+        margin: 5px 0 7px 2px;
+      }
+      
+      .p-text_3 {
+        height: 40px;
+        overflow-wrap: break-word;
+        color: rgba(0, 255, 0, 1);
+        font-size: 40px;
+        font-family: D-DINCondensed-Bold;
+        font-weight: normal;
+        text-align: left;
+        white-space: nowrap;
+        line-height: 43px;
+        margin-left: 1px;
+      }
+      
+      .p-text_4 {
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, 1);
+        font-size: 16px;
+        font-family: D-DINExp-Bold;
+        font-weight: normal;
+        text-align: left;
+        white-space: nowrap;
+        line-height: 22px;
+        margin: 10px 108px 0 0;
+      }
+      
+      .p-image_3 {
+        width: 305px;
+        height: 1px;
+        margin-top: 31px;
+      }
+      
+      .p-group_3 {
+        background-color: #2B4529;
+        border-radius: 23px;
+        /* position: relative; */
+        /* margin-top: 20px; */
+        /* padding: 44px 25px 26px 25px; */
+
+      }
+      
+      .p-text_5 {
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 18px;
+        font-family: D-DINExp-Bold;
+        font-weight: normal;
+        text-align: left;
+        white-space: nowrap;
+        line-height: 22px;
+        margin-right: 97px;
+      }
+      
+      .p-group_4 {
+        background-color: rgba(205, 230, 129, 1);
+        width: 193px;
+        height: 16px;
+        margin: 230px 112px 0 0;
+      }
+      
+      .p-group_5 {
+        background-color: rgba(205, 230, 129, 1);
+        width: 195px;
+        height: 16px;
+        margin: 3px 84px 0 25px;
+      }
+      
+      .p-group_6 {
+        background-color: rgba(205, 230, 129, 1);
+        width: 246px;
+        height: 16px;
+        margin: 21px 59px 0 0;
+      }
+      
+      .p-group_7 {
+        background-color: rgba(205, 230, 129, 1);
+        width: 152px;
+        height: 16px;
+        margin: 4px 153px 0 0;
+      }
+      
+      .p-group_8 {
+        background-color: rgba(205, 230, 129, 1);
+        width: 262px;
+        height: 16px;
+        margin: 22px 43px 0 0;
+      }
+      
+      .p-group_9 {
+        background-color: rgba(205, 230, 129, 1);
+        width: 45px;
+        height: 16px;
+        margin: 4px 260px 0 0;
+      }
+      
+      .p-group_10 {
+        background-color: rgba(205, 230, 129, 1);
+        width: 164px;
+        height: 16px;
+        margin: 21px 0 0 135px;
+      }
+      
+      .p-image_4 {
+        width: 150px;
+        height: 20px;
+        margin: 139px 155px 0 0;
+      }
+      .p-line {
+        margin-top: 18px;
+      }
+      
+      .p-image_5 {
+        width: 305px;
+        height: 1px;
+        margin-top: 18px;
+      }
+      
+      .p-text-wrapper_1 {
+        position: absolute;
+        left: 25px;
+        top: 86px;
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        font-size: 0;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        line-height: 14px;
+      }
+      
+      .p-paragraph_2 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-text_6 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-paragraph_3 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-text_7 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-text_8 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-text_9 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-paragraph_4 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-text_10 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-paragraph_5 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-text_11 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-paragraph_6 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-text_12 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-paragraph_7 {
+        width: 305px;
+        height: 513px;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, .9);
+        font-size: 14px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        /* line-height: 16px; */
+      }
+      
+      .p-box_2 {
+        background-color: rgba(226, 244, 174, 1);
+        padding: 80px 10px 90px 10px;
+      }
+      
+      .p-text_13 {
+        width: 305px;
+        height: 120px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, 1);
+        font-size: 60px;
+        font-family: D-DINCondensed-Bold;
+        font-weight: normal;
+        text-align: left;
+        line-height: 60px;
+        align-self: center;
+      }
+      
+      .p-box_3 {
+        background-color: rgba(255, 255, 255, 0);
+        border-radius: 27px;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        align-self: center;
+        margin-top: 50px;
+        width: 305px;
+        position: relative;
+        padding: 10px 26px 9px 25px;
+      }
+      
+      .p-box_4 {
+        margin-right: 1px;
+      }
+      
+      .p-image-wrapper_1 {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/9-1@4x.png);
+        /* border: 2.3831249999999997px solid rgba(255, 255, 255, 1); */
+        background-size: contain;
+      }
+      
+      .p-label_2 {
+        width: 23px;
+        height: 23px;
+        margin: 37px 17px 0 17px;
+        display: none; /* 默认隐藏 */
+      }
+      
+      .p-box_5 {
+        border-radius: 50%;
+        background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/9-2@4x.png);
+        width: 55px;
+        height: 55px;
+        margin-left: -6px;
+        background-size: contain;
+      }
+      
+      .p-box_6 {
+        border-radius: 50%;
+        background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/9-3@4x.png);
+        width: 55px;
+        height: 55px;
+        margin-left: -6px;
+        background-size: contain;
+      }
+      
+      .p-box_7 {
+        border-radius: 50%;
+        background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/9-4@4x.png);
+        width: 55px;
+        height: 55px;
+        margin-left: -6px;
+        background-size: contain;
+      }
+      
+      .p-box_8 {
+        border-radius: 50%;
+        background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/9-5@4x.png);
+        width: 55px;
+        height: 55px;
+        margin-left: -6px;
+        background-size: contain;
+      }
+      
+      .p-box_9 {
+        margin-top: 4px;
+      }
+      
+      .p-box_10 {
+        border-radius: 50%;
+        background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/9-6@4x.png);
+        width: 55px;
+        height: 55px;
+        background-size: contain;
+      }
+      
+      .p-box_11 {
+        border-radius: 50%;
+        background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/9-7@4x.png);
+        width: 55px;
+        height: 55px;
+        margin-left: -6px;
+        background-size: contain;
+      }
+      
+      .p-box_12 {
+        border-radius: 50%;
+        background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/9-8@4x.png);
+        width: 55px;
+        height: 55px;
+        background-size: contain;
+        margin-left: -6px;
+      }
+      
+      .p-box_13 {
+        border-radius: 50%;
+        background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/9-9@4x.png);
+        width: 55px;
+        height: 55px;
+        margin-left: -6px;
+        background-size: contain;
+      }
+      
+      .p-box_14 {
+        border-radius: 50%;
+        background-image: url(https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/img-mob/9-10@4x.webp);
+        width: 55px;
+        height: 55px;
+        margin-left: -6px;
+        background-size: contain;
+      }
+      
+      .p-text-wrapper_2 {
+        background-color: rgba(226, 244, 174, 1);
+        height: 18px;
+        width: 125px;
+        position: absolute;
+        left: 15px;
+        top: -10px;
+        padding: 0 8px 0 8px;
+      }
+      
+      .p-text_14 {
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, 1);
+        font-size: 12px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        white-space: nowrap;
+        line-height: 18px;
+      }
+      
+      .p-box_15 {
+        background-color: rgba(255, 255, 255, 0);
+        border-radius: 27px;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        align-self: center;
+        margin-top: 21px;
+        width: 305px;
+      }
+      
+      .p-text-wrapper_3 {
+        background-color: rgba(226, 244, 174, 1);
+        height: 18px;
+        margin: -9px 186px 45px 15px;
+        padding: 0 8px 0 8px;
+        position: relative;
+      }
+      .p-text-wrapper_3 input {
+        padding: 0 28px 0 28px;
+        width: 305px;
+        height: 54px;
+        background: rgba(255, 255, 255, 0);
+        border-radius: 27px;
+        /* border: 1px solid #000000; */
+        opacity: 0.8;
+        position: absolute;
+        top: 9px;
+        left: -17px;
+        font-size: 16px;
+        line-height: 20px;
+        font-family: D-DINExp;
+      }
+      .p-text-wrapper_3 input:focus-visible {
+        outline: none;
+      }
+      
+      .p-text_15 {
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, 1);
+        font-size: 12px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        white-space: nowrap;
+        line-height: 18px;
+      }
+      
+      .p-text-wrapper_4 {
+        background-color: rgba(250, 159, 93, 1);
+        border-radius: 28px;
+        align-self: center;
+        margin-top: 21px;
+        width: 305px;
+        padding: 15px 119px 15px 119px;
+      }
+      
+      .p-text_16 {
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, 1);
+        font-size: 18px;
+        font-family: D-DINExp-Bold;
+        font-weight: normal;
+        text-align: right;
+        white-space: nowrap;
+        line-height: 25px;
+      }
+      
+      .p-paragraph_8 {
+        width: 267px;
+        height: 52px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, 1);
+        font-size: 20px;
+        text-transform: uppercase;
+        font-family: D-DINExp-Bold;
+        font-weight: normal;
+        text-align: center;
+        line-height: 26px;
+        margin: 40px auto 0 auto;
+      }
+      
+      .p-box_16 {
+        background-color: rgba(255, 255, 255, 1);
+        border-radius: 60px;
+        position: relative;
+        overflow: hidden;
+        padding: 24px 0 22px 0;
+        height: 600px;
+        width: 355px;
+        margin: 24px auto 0 auto;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        .scroll-animate {
+          display: flex;
+          will-change: transform;
+          animation: mov-scroll 30s linear infinite;
+          gap: 20px
+        }
+        /* .scroll-animaten:nth-child(2) {
+          animation-delay: 1s;
+        }
+        .scroll-animaten:nth-child(3) {
+          animation-delay: 2s;
+        } */
+      }
+      @keyframes scroll-content {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      .mob-scroll-content {
+        .scroll-item {
+          display: flex;
+          gap: 80px;
+          margin-bottom: 20px;
+        }
+        .item-div {
+          display: flex;
+          align-items: center;
+          gap: 13px;
+        }
+        .item-avatar {
+          display: flex;
+          width: 43px;
+          height: 42px;
+        }
+        .item-text {
+          font-family: LaBelleAurore;
+          display: flex;
+        }
+      }
+
+      
+      .p-image-text_1 {
+        /* width: 193px; */
+        /* margin: 0 100px 0 62px; */
+        margin: 20px;
+      }
+      
+      .p-section_1 {
+        border-radius: 50%;
+        background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/22b2e50b6e924963bf88c7b830e7ca79_mergeImage.png);
+        width: 42px;
+        height: 42px;
+        border: 1.9344px solid rgba(255, 255, 255, 1);
+      }
+      
+      .p-text-group_2 {
+        height: 28px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, 1);
+        font-size: 18px;
+        font-family: LaBelleAurore;;
+        font-weight: normal;
+        text-align: right;
+        white-space: nowrap;
+        line-height: 27px;
+        margin-left: 14px;
+      }
+      
+      .p-box_17 {
+        width: 402px;
+        margin: 20px 46px 0 -93px;
+      }
+      
+      .p-text_17 {
+        height: 28px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, 1);
+        font-size: 18px;
+        font-family: GuldScriptPERSONALUSEONLY;
+        font-weight: normal;
+        text-align: right;
+        white-space: nowrap;
+        line-height: 27px;
+        margin-top: 7px;
+      }
+      
+      .p-image-text_2 {
+        width: 194px;
+      }
+      
+      .p-box_18 {
+        border-radius: 50%;
+        background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/530c0bc0c8cf496d82c4509ebdf1d5ff_mergeImage.png);
+        width: 42px;
+        height: 42px;
+        border: 1.9344000000000001px solid rgba(255, 255, 255, 1);
+      }
+      
+      .p-text-group_3 {
+        height: 28px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, 1);
+        font-size: 18px;
+        font-family: GuldScriptPERSONALUSEONLY;
+        font-weight: normal;
+        text-align: right;
+        white-space: nowrap;
+        line-height: 27px;
+        margin-top: 7px;
+      }
+      
+      .p-box_19 {
+        width: 403px;
+        margin: 19px -96px 0 48px;
+      }
+      
+      .p-image-text_3 {
+        width: 157px;
+      }
+      
+      .p-block_1 {
+        border-radius: 50%;
+        background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/a15e5ef005254b629fb73a0e57a314a8_mergeImage.png);
+        width: 42px;
+        height: 42px;
+        border: 1.9344000000000001px solid rgba(255, 255, 255, 1);
+      }
+      
+      .p-text-group_4 {
+        height: 28px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, 1);
+        font-size: 18px;
+        font-family: GuldScriptPERSONALUSEONLY;
+        font-weight: normal;
+        text-align: right;
+        white-space: nowrap;
+        line-height: 27px;
+        margin-top: 8px;
+      }
+      
+      .p-image-text_4 {
+        width: 142px;
+      }
+      
+      .p-block_2 {
+        border-radius: 50%;
+        background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/24a3409c1c4d482f90859eafe4eeb199_mergeImage.png);
+        width: 42px;
+        height: 42px;
+        border: 1.9344000000000001px solid rgba(255, 255, 255, 1);
+      }
+      
+      .p-text-group_5 {
+        height: 28px;
+        overflow-wrap: break-word;
+        color: rgba(0, 0, 0, 1);
+        font-size: 18px;
+        font-family: GuldScriptPERSONALUSEONLY;
+        font-weight: normal;
+        text-align: right;
+        white-space: nowrap;
+        line-height: 27px;
+        margin-top: 8px;
+      }
+      
+      .p-box_27 {
+        border-radius: 50%;
+        background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/75cb3b7652f64dceaa5b0273755d6672_mergeImage.png);
+        position: absolute;
+        left: 321px;
+        top: 455px;
+        width: 42px;
+        height: 42px;
+        border: 1.9344000000000001px solid rgba(255, 255, 255, 1);
+      }
+      
+      .p-text-wrapper_5 {
+        background-color: rgba(39, 39, 39, 1);
+        padding: 60px 25px 100px 25px;
+      }
+      
+      .p-paragraph_9 {
+        width: 325px;
+        /* height: 437px; */
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 13px;
+        font-family: D-DINExp;
+        font-weight: normal;
+        text-align: left;
+        line-height: 23px;
+        margin: 0 auto;
+      }
+      .p-paragraph_9 a {
+        color: #fff;
+      }
+}
+  
+  
+  

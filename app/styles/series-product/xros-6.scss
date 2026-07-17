@@ -1,0 +1,431 @@
+@use 'sass:meta';
+
+@media (min-width: 1024px) {
+  html:has(.product-xros6) {
+    font-size: 0.5208333333vw;
+  }
+}
+
+.product-xros6 {
+  --container-gutter: 40px;
+  --rpx: calc(1vw * 100 / 1920);
+
+  background-color: #fff;
+
+  @include meta.load-css('xros-6-advantage');
+
+  @media (min-width: 1024px) and (max-width: 1450px) {
+    --container-gutter: 32px;
+  }
+
+  @media screen and (max-width: 1023px) {
+    --container-gutter: 0.3rem;
+    --rpx: calc(1vw * 100 / 750);
+  }
+
+  picture {
+    display: block;
+  }
+
+  .custom__container {
+    max-width: 1060px;
+    width: 100%;
+    margin: 0 auto;
+    padding-inline: var(--container-gutter);
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      max-width: 848px;
+    }
+  }
+
+  .cus-h3 {
+    color: #000;
+    text-align: center;
+    font-family: 'DinExp-Bold';
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.08;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      font-size: 38px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      font-size: 0.6rem;
+    }
+  }
+
+  .cus-txt {
+    color: #000;
+    text-align: center;
+    font-family: 'DinExp';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.38;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      font-size: 14px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      font-size: 0.3rem;
+    }
+  }
+
+  .to-top {
+    opacity: 0;
+    transform: translateY(20%);
+    transition:
+      transform 1.2s,
+      opacity 1.2s ease-in-out;
+
+    &.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .mobile-to-top {
+      opacity: 0;
+      transform: translateY(20%);
+      transition:
+        transform 1.2s,
+        opacity 1.2s ease-in-out;
+
+      &.appear {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  /* KV banner */
+  .banner__inner {
+    position: relative;
+  }
+
+  .banner-section {
+    .banner__image-wrapper {
+      width: 100%;
+      height: 720px;
+
+      @media (min-width: 1024px) and (max-width: 1450px) {
+        height: 576px;
+      }
+
+      @media screen and (max-width: 1023px) {
+        height: auto;
+      }
+    }
+
+    .banner__image-wrapper img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      clip-path: inset(0 0 0 100%);
+    }
+
+    .banner_content-inner {
+      position: absolute;
+      top: 291px;
+      left: calc(50% - 558px);
+      height: fit-content;
+      width: 100%;
+      max-width: 580px;
+      text-align: left;
+      clip-path: inset(0%);
+
+      @media (min-width: 1024px) and (max-width: 1450px) {
+        top: 233px;
+        max-width: 464px;
+      }
+
+      @media screen and (max-width: 1023px) {
+        top: 1.2rem;
+        left: 1.02rem;
+        max-width: 5.46rem;
+        text-align: center;
+      }
+    }
+
+    .banner_content-inner .banner-h1 {
+      color: #000;
+      font-family: 'DinExp-Bold';
+      font-size: 94px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 32px;
+
+      @media (min-width: 1024px) and (max-width: 1450px) {
+        font-size: 75px;
+        margin-bottom: 26px;
+      }
+
+      @media screen and (max-width: 1023px) {
+        font-size: 0.92rem;
+        line-height: 1.3;
+        margin-bottom: 0.16rem;
+      }
+    }
+
+    .banner_content-inner .banner-txt {
+      color: #000;
+      font-family: 'DinExp';
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.05;
+
+      @media (min-width: 1024px) and (max-width: 1450px) {
+        font-size: 24px;
+      }
+
+      @media screen and (max-width: 1023px) {
+        font-size: 0.36rem;
+        line-height: 1.3;
+      }
+    }
+  }
+
+  /* Sales feature grid */
+  .feature-grid {
+    padding: 180px 0;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      padding: 144px 0;
+    }
+
+    @media screen and (max-width: 1023px) {
+      padding: 0.4rem 0 1.6rem;
+      background: #fff;
+      text-align: center;
+    }
+  }
+
+  .feature-grid-inner {
+    display: grid;
+    grid-template-columns: 3.3fr 2.8fr 3.5fr;
+    grid-template-rows: 2.5fr 1.55fr 1.55fr;
+    gap: 10px;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      gap: 8px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      gap: 0.14rem 0.12rem;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
+    }
+  }
+
+  .feature-grid-inner .feature-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    color: #fff;
+  }
+
+  .feature-grid-inner .feature-card-1 {
+    grid-area: 1 / 1 / 4 / 2;
+    text-align: center;
+    justify-content: center;
+    h3 {
+      font-size: 26px;
+      color: #6a4c10;
+      line-height: 1.05;
+      text-align: left;
+    }
+    @media screen and (max-width: 1023px) {
+      grid-column: 1 / 3;
+      grid-row: 1 / 2;
+      text-align: left;
+      align-items: center;
+      justify-content: flex-start;
+      .feature-card-cnt h3 {
+        font-size: 0.36rem;
+        width: 3.381rem;
+      }
+    }
+  }
+
+  .feature-grid-inner .feature-card-2 {
+    grid-area: 1 / 2 / 2 / 4;
+    color: #000;
+
+    @media screen and (max-width: 1023px) {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+    }
+  }
+
+  .feature-grid-inner .feature-card-3 {
+    grid-area: 2 / 2 / 3 / 3;
+    align-items: center;
+    h3 {
+      max-width: 148px;
+    }
+    @media screen and (max-width: 1023px) {
+      grid-column: 1 / 2;
+      grid-row: 3 / 4;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: center;
+      h3 {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .feature-grid-inner .feature-card-4 {
+    grid-area: 3 / 2 / 4 / 3;
+    align-items: center;
+    color: #000;
+    .feature-card-txt {
+      max-width: 106px;
+    }
+    @media screen and (max-width: 1023px) {
+      grid-column: 2 / 3;
+      grid-row: 3 / 4;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: center;
+      .feature-card-cnt {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+
+  .feature-grid-inner .feature-card-5 {
+    grid-area: 2 / 3 / 4 / 4;
+    justify-content: center;
+
+    @media screen and (max-width: 1023px) {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+    }
+  }
+
+  .feature-card-cnt {
+    position: absolute;
+    padding: 30px;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      padding: 24px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      padding: 0.36rem 0.24rem;
+    }
+  }
+
+  .feature-card-cnt h3 {
+    font-family: 'DinExp-Bold';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.1;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      font-size: 14px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      font-size: 0.3rem;
+      line-height: 1.2;
+    }
+  }
+
+  .feature-card-cnt .feature-card-txt {
+    font-family: 'DinExp';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-top: 7px;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      font-size: 0.26rem;
+      margin-top: 0.1rem;
+    }
+  }
+
+  .feature-card-bgpic,
+  .feature-card-bgpic img {
+    width: 100%;
+    display: block;
+  }
+
+  &-video {
+    padding: 200px 0 150px;
+    background-color: #fafafa;
+    .ui_v3-video_section {
+      &-title {
+        width: 660px;
+      }
+      &-description {
+        width: 662px;
+        font-size: 14px;
+        line-height: 1.3;
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0.3rem 1.2rem;
+      flex-direction: column;
+      text-align: center;
+      .ui_v3-video_section-title {
+        width: 6.6rem;
+        margin: 0 auto 0.8rem;
+        font-size: 0.5rem;
+        line-height: 0.55rem;
+      }
+      .ui_v3-video_section-description {
+        width: 6.6rem;
+        margin: 0.6rem auto 0;
+        font-size: 0.3rem;
+        line-height: 0.45rem;
+        font-family: 'DinExp';
+        font-weight: 400;
+      }
+      .ui_v3-video_section-button {
+        margin: 0.48rem auto 0;
+      }
+    }
+  }
+  .ui_v3-no_max_width_finish.f {
+    .colors {
+      width: 102%;
+      margin-left: -1%;
+    }
+  }
+  &-pod-compatible {
+    @media screen and (max-width: 1023px) {
+      padding: 0.8rem 0 0.8rem;
+      background: #fff;
+      .ui_v3-pod_compatible-description {
+        padding-right: 0.3rem;
+      }
+    }
+  }
+  &-swiper {
+    padding: 200px 0 120px;
+  }
+  @media screen and (max-width: 1023px) {
+    .ui_v3-no_max_width_finish.f {
+      .colors {
+        width: 114.5%;
+        margin-left: -0.54rem;
+        padding-right: 0;
+      }
+    }
+  }
+}

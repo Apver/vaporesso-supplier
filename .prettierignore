@@ -1,0 +1,13 @@
+node_modules
+.cache
+build
+dist
+public/build
+.mf
+.shopify
+.react-router
+.turbo
+.vscode
+.idea
+*.log
+

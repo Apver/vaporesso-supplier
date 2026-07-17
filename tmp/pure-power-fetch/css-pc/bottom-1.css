@@ -1,0 +1,565 @@
+.page {
+  width: auto;
+  height: auto;
+  /* 添加背景图片样式 */
+}
+.page .box_17 {
+  position: relative;
+  width: 21.1vw;
+}
+.page .box_17 > * {
+  cursor: pointer;
+  border: 0;
+}
+.page .box_17 > div:not(:first-child):not(:last-child) {
+  margin-left: -0.21vw;
+}
+.page .text-wrapper_29,
+.page .box_18 {
+  width: 21.1vw;
+}
+.page .text-wrapper_95 {
+  position: relative;
+  top: -2.8vw;
+}
+.page input.text-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  text-align: left;
+  padding: 0 1vw;
+  margin: 0;
+}
+.page input.text-input::placeholder {
+  color: inherit;
+  opacity: 1;
+}
+.page .text-wrapper_29 {
+  cursor: pointer;
+}
+.page .text_119 {
+  text-align: center;
+  height: auto;
+  margin: 0;
+  border-radius: 4vw;
+  padding: 2vw 0.8vw;
+  width: auto;
+  transform: rotate(21.5deg);
+}
+.page .text-wrapper_30 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4vw;
+  background: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/9-12@2x.png');
+  background-size: 100% 100%;
+  height: 10.94vw;
+  width: 13.13vw;
+  left: 32.49vw;
+  top: 24.73vw;
+}
+.page .text_105 {
+  text-align: center;
+  font-weight: bold;
+}
+.page .text-wrapper_92 {
+  left: 4.06vw;
+}
+.page .text-wrapper_92 .card_content {
+  padding-top: 1vw;
+  width: 46.58vw;
+  font-family: D-DINExp, D-DINExp;;
+  font-weight: normal;
+  font-size: 0.83vw;
+  color: #ffffff;
+  line-height: 1.25vw;
+  text-align: left;
+  font-style: normal;
+  opacity: 0.9;
+}
+.page .text-wrapper_92 .card_content > span {
+  color: #000;
+  background-color: #cde681;
+}
+.page .image_64 {
+  width: 10.42vw;
+  height: 1.41vw;
+  margin: 11.43vw 0 0 5.05vw;
+}
+.page .group_39 {
+  position: relative;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+.page .block_63 {
+  background-image: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/9-2@4x.png');
+  background-size: 100%;
+}
+.page .block_64 {
+  background-image: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/9-3@4x.png');
+  background-size: 100%;
+}
+.page .block_65 {
+  background-image: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/9-4@4x.png');
+  background-size: 100%;
+}
+.page .block_66 {
+  background-image: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/9-5@4x.png');
+  background-size: 100%;
+}
+.page .block_67 {
+  background-image: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/9-6@4x.png');
+  background-size: 100%;
+}
+.page .block_68 {
+  background-image: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/9-7@4x.png');
+  background-size: 100%;
+}
+.page .block_69 {
+  background-image: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/9-8@4x.png');
+  background-size: 100%;
+}
+.page .block_70 {
+  background-image: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/9-9@4x.png');
+  background-size: 100%;
+}
+.page .block_71 {
+  background-image: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/9-10@4x.png');
+  background-size: 100%;
+}
+.page .group_39::-webkit-scrollbar {
+  width: 6px;
+}
+.page .group_39::-webkit-scrollbar-track {
+  background: transparent;
+}
+.page .group_39::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+.page .group_109 {
+  margin: 0;
+}
+.page .signature-item {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.5s ease;
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page .signature-item .text_362 {
+  margin-left: 10px;
+}
+.page .card-container {
+  position: relative;
+  width: 54.69vw;
+  height: 33.33vw;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  margin-top: 3.13vw;
+}
+.page .group_104,
+.page .box_91 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.8s;
+  background-size: cover;
+  /* 确保背景图片覆盖整个元素 */
+}
+.page .group_104 {
+  margin-top: 0;
+  z-index: 20;
+}
+.page .box_91 {
+  margin-top: 0;
+  z-index: 10;
+  width: calc(54.69vw - 1px);
+}
+.page .card-container.flipped .group_104 {
+  transform: rotateY(180deg);
+}
+.page .card-container.flipped .box_91 {
+  transform: rotateY(0deg);
+}
+.page .image-text_38 {
+  margin: 0;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.page .text_52 {
+  height: auto;
+}
+.page .text_53 {
+  width: auto;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.page .text_54 {
+  width: auto;
+}
+.page .block_15::-webkit-scrollbar {
+  display: none;
+  /* 对于 Chrome, Safari 和 Opera */
+}
+.page .block_15 {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  overflow-y: scroll;
+  height: 100vh;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.page .block_15 .group_17 {
+  overflow-y: scroll;
+  height: auto;
+}
+.page .block_15 .block_60 {
+  position: sticky;
+  top: 9.1vw;
+  left: 0;
+  margin: 0;
+}
+.page .block_15 .block_60 .group_16 {
+  background-color: #A7F387;
+}
+.page .block_15 .block_60 .group_16 .text-wrapper_18 {
+  background-color: #36DD51;
+}
+.page .block_15 .block_60 .text-wrapper_86 {
+  color: rgba(0, 0, 0, 0.4);
+  opacity: 0.4;
+}
+.page .block_15 .text_318,
+.page .block_15 .text_319,
+.page .block_15 .text_320 {
+  text-align: center;
+  font-family: D-DINExp, D-DINExp;
+  font-weight: bold;
+}
+.page .block_15 .text_337 {
+  font-size: 1.1vw;
+}
+.page .block_15 .text_347 {
+  font-size: 1.2vw;
+  width: auto;
+  height: auto;
+}
+.page .block_15 .text_336,
+.page .block_15 .text_337,
+.page .block_15 .text_338,
+.page .block_15 .text_346,
+.page .block_15 .text_347,
+.page .block_15 .text_348 {
+  font-family: D-DINExp, D-DINExp;
+  font-weight: bold;
+}
+.page .block_15 .text_320,
+.page .block_15 .text_338,
+.page .block_15 .text_348 {
+  font-weight: normal;
+}
+.page .block_15 .text_321 {
+  width: 20.83vw;
+  height: 1.35vw;
+  font-family: D-DINExp, D-DINExp;
+  font-weight: bold;
+  font-size: 0.78vw;
+  color: #000000;
+  line-height: 1.35vw;
+  font-style: normal;
+}
+.page .block_15 .text_322 {
+  width: 20.83vw;
+  height: 1.46vw;
+  font-family: D-DINExp, D-DINExp;
+  font-weight: bold;
+  font-size: 0.95vw;
+  color: #000000;
+  line-height: 1.46vw;
+  font-style: normal;
+}
+.page .block_15 .paragraph_32 {
+  width: 20.83vw;
+  height: 3.13vw;
+  font-family: D-DINExp, D-DINExp;;
+  font-weight: normal;
+  font-size: 0.78vw;
+  color: #000000;
+  line-height: 1.04vw;
+  font-style: normal;
+}
+.page .block_15 .box_84,
+.page .block_15 .text-wrapper_91,
+.page .block_15 .text-wrapper_89 {
+  cursor: pointer;
+}
+.page .block_15 .drawReward {
+  background: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/06-1-3@2x.svg') center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #FF4040;
+  width: 9.38vw;
+  height: 2.61vw;
+  border-radius: 25px;
+  margin: 1.82vw 0 1.3vw 1.56vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.page .block_15 .drawReward .draw {
+  font-family: D-DINExp-Bold;
+  font-weight: bold;
+  font-size: 0.78vw;
+  color: #FFF500;
+  font-style: normal;
+}
+.page .block_15 .state {
+  display: none;
+}
+.page .fontRepair {
+  text-align: center;
+  font-family: D-DINExp, D-DINExp;
+}
+.page .fontBold {
+  font-weight: bold;
+}
+.page .paragraph_31 {
+  font-family: D-DINCondensed-Bold;
+  font-weight: bold;
+  text-align: center;
+}
+.page .section_22 {
+  width: 1700px;
+  height: 900px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.page .pin-spacer {
+  margin-top: 4vw !important;
+}
+.page .pin-spacer .text_43 {
+  text-align: center;
+}
+.page .pin-spacer .video-box {
+  margin-top: -1.5vw;
+}
+.page .pin-spacer .video-wrapper video {
+  max-width: 88.5vw;
+}
+.page .pin-spacer .img-slide-wrapper {
+  width: 66.67vw;
+  margin-top: -4vw;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item img {
+  width: 305px;
+  height: 200px;
+  margin: 24px 0;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-box {
+  box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.29);
+  background: #fff;
+  padding: 40px 20px;
+  height: 43.02vw;
+  width: 66.6vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding-top: 4vw;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-box video {
+  width: 58vw;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-title {
+  width: 24.48vw;
+  height: 8.75vw;
+  overflow-wrap: break-word;
+  color: #000000;
+  font-size: 1.66vw;
+  font-family: D-DINExp, D-DINExp;
+  font-weight: bold;
+  text-align: left;
+  line-height: 1.83vw;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-text {
+  width: 28.65vw;
+  height: 8.75vw;
+  overflow-wrap: break-word;
+  color: #000000;
+  font-size: 0.78vw;
+  font-family: D-DINExp;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1.2vw;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-box-5 {
+  background: url('https://www.vaporesso.com/hubfs/imgs/2024/activity/pure_power/image/03-5@2x.jpg');
+  background-position: center;
+  background-size: cover;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-box-5 .box-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 43.65vw;
+  justify-content: space-between;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-box-5 .box-content .line {
+  width: 0.05vw;
+  height: 8.07vw;
+  border: 0.07vw solid #FFFFFF;
+  opacity: 0.5;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-box-5-title {
+  width: 100%;
+  font-family: D-DINExp-Bold, D-DINExp;
+  font-weight: bold;
+  font-size: 1.67vw;
+  color: #FFFFFF;
+  line-height: 1.82vw;
+  text-align: center;
+  font-style: normal;
+  margin-bottom: 3.65vw;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-box-5-text-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-box-5-text-wrapper img {
+  width: 2.91vw;
+  height: auto;
+  margin: 0;
+  border: 0.052vw solid #FFFFFF;
+  /* 1px / 19.2 */
+  border-radius: 0.52vw;
+  /* 10px / 19.2 */
+  box-shadow: unset;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-box-5-text-wrapper span:first-child {
+  font-family: D-DINExp-Bold, D-DINExp;
+  font-weight: bold;
+  font-size: 2.08vw;
+  /* 26px / 19.2 */
+  color: #FFFFFF;
+  line-height: 2.4vw;
+  /* 30px / 19.2 */
+  text-align: center;
+  font-style: normal;
+  margin: 1.56vw 0 0.31vw;
+}
+.page .pin-spacer .img-slide-wrapper .img-slide-item-box-5-text-wrapper span {
+  font-family: D-DINExp;
+  font-weight: normal;
+  font-size: 0.94vw;
+  color: #FFFFFF;
+  line-height: 1.15vw;
+  /* 21px / 19.2 */
+  text-align: left;
+  font-style: normal;
+}
+.page .pin-spacer .img-slide-wrapper img {
+  width: 66.67vw;
+}
+.page .block_49 .text_22 {
+  width: 32.29vw;
+  height: 4.43vw;
+  font-family: D-DINCondensed-Bold;
+  font-size: 5.21vw;
+  color: transparent;
+  line-height: 4.43vw;
+  text-align: left;
+  font-style: normal;
+  text-transform: uppercase;
+  -webkit-text-stroke: 0.05vw #000000;
+}
+.page .block_49 .rotate {
+  transform: rotate(7deg);
+  position: relative;
+  top: 1.5vw;
+}
+.page .block_49 .text_299 {
+  width: auto;
+}
+.page .block_49 .text_28 {
+  width: auto;
+  color: #000;
+}
+.page .box_26 .text-wrapper_31 {
+  width: 52vw;
+}
+.page .box_26 .paragraph_14,
+.page .box_26 .paragraph_15 {
+  line-height: 0.78vw;
+}
+.page .box_26 .paragraph_15 a {
+  color: rgba(255, 255, 255, 0.65);
+}
+.page .text-group_81 {
+  width: auto;
+}
+.page .text-group_81 .paragraph_5 {
+  width: auto;
+}
+.page #signature-container {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  z-index: 9;
+}
+.page .group_39-content {
+  display: inline-block;
+  white-space: nowrap;
+  position: absolute;
+  animation: scroll-content 40s linear infinite;
+  -webkit-animation: scroll-content 40s linear infinite;
+  display: flex;
+}
+@keyframes scroll-content {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@-webkit-keyframes scroll-content {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.page .text-group_84 {
+  font-family: LaBelleAurore;
+}
