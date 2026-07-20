@@ -158,10 +158,10 @@ async function loadCriticalData({context, params}) {
         cache: storefront.CacheNone(),
         variables: {
           identifiers: [
-            {namespace: 'custom', key: 'logo'},
-            {namespace: 'custom', key: 'announcement_bar'},
-            {namespace: 'custom', key: 'header'},
-            {namespace: 'custom', key: 'login'},
+            // {namespace: 'custom', key: 'logo'},
+            // {namespace: 'custom', key: 'announcement_bar'},
+            // {namespace: 'custom', key: 'header'},
+            // {namespace: 'custom', key: 'login'},
           ],
           language,
           country,
