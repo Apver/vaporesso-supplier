@@ -1,0 +1,53 @@
+.ui-v4 {
+  &-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &-subtitle {
+    font-size: 20px;
+    line-height: 25px;
+    font-family: 'DinExp-Bold';
+    margin-bottom: 12px;
+  }
+  &-title {
+    font-size: 48px;
+    line-height: 1;
+    font-family: 'DinExp-Bold';
+    white-space: pre-line;
+    @media screen and (max-width: 1023px) {
+      width: 6.1rem;
+      font-size: 0.6rem;
+      text-align: left;
+    }
+  }
+  &-description {
+    max-width: 728px;
+    font-size: 16px;
+    line-height: 21px;
+    font-family: 'DinExp';
+    margin-top: 20px;
+    text-align: center;
+    @media screen and (max-width: 1023px) {
+      width: 6.1rem;
+      font-size: 0.3rem;
+      line-height: 0.42rem;
+      text-align: left;
+      margin-top: 0.24rem;
+    }
+  }
+  &-tips {
+    font-size: 16px;
+    line-height: 23px;
+    font-family: 'DinExp';
+    margin-top: 20px;
+    opacity: 0.6;
+    @media screen and (max-width: 1023px) {
+      width: 6.1rem;
+      font-size: 0.28rem;
+      line-height: 0.36rem;
+      text-align: left;
+      margin-top: 0.4rem;
+    }
+  }
+}

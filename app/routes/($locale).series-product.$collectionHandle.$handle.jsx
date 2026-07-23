@@ -62,11 +62,6 @@ async function loadCriticalData({context, params, request}) {
   const language = getShopifyLanguageCode(locale, storefront.i18n.language);
   const country = storefront.i18n.country;
 
-  // Demo branch: only XROS 6 product page is available
-  if (collectionHandle !== 'xros-series' || handle !== 'xros6') {
-    throw new Response('Not Found', {status: 404});
-  }
-
   if (!handle || !collectionHandle) {
     redirectToHome(locale);
   }

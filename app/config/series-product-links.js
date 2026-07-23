@@ -1,6 +1,8 @@
 import productStyles from '~/styles/series-product/product.css?url';
 import uiV3Styles from '~/styles/series-product/ui-v3.scss?url';
+import uiV4Styles from '~/styles/ui-v4/common.scss?url';
 import xros6Styles from '~/styles/series-product/xros-6.scss?url';
+import xrosMiniRetroStyles from '~/styles/series-product/xros-mini-retro.scss?url';
 
 /** URL / Shopify handle → template（metafield 缺失时的回退） */
 export const SERIES_PRODUCT_HANDLE_TEMPLATE_MAP = {
@@ -69,6 +71,7 @@ const SERIES_PRODUCT_FALLBACK_STYLE_HREFS = [
 /** @type {Record<string, string[]>} */
 const SERIES_PRODUCT_STYLESHEETS_BY_TEMPLATE = {
   xros6: [productStyles, uiV3Styles, xros6Styles],
+  'xros-mini-retro': [productStyles, uiV4Styles, xrosMiniRetroStyles],
 };
 
 function hrefsToStylesheetDescriptors(hrefs) {

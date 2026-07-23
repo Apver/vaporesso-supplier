@@ -1,0 +1,72 @@
+.ui-v4-end-product {
+  padding: 130px 0 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  &-title {
+    margin-bottom: 16px;
+    font-size: 48px;
+    line-height: 52px;
+    font-family: 'DinExp-Bold';
+  }
+  &-subtitle {
+    font-family: 'DinExp';
+  }
+  &-img {
+    width: 340px;
+  }
+  &-sales-list {
+    max-width: 870px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  &-sales-item {
+    padding: 8px 15px;
+    border: 1px solid rgba(68, 68, 68, 0.5);
+    font-size: 15px;
+    line-height: 15px;
+    font-family: 'DinExp';
+    color: #666;
+  }
+  &-btn {
+    width: fit-content;
+    margin: 30px auto 0;
+    padding: 11px 32px;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+  }
+  &-btn:hover {
+    color: #0f0;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+    padding: 01.6rem 0.24rem;
+    &-title {
+      margin-bottom: 0;
+      font-size: 0.5rem;
+      line-height: 0.56rem;
+    }
+    &-img {
+      width: 80%;
+    }
+    &-sales-list {
+      gap: 0.2rem;
+      margin: 0.48rem auto 0;
+    }
+    &-sales-item {
+      padding: 0.14rem 0.2rem;
+      font-size: 0.26rem;
+      line-height: 0.42rem;
+    }
+    &-btn {
+      margin-top: 0.8rem;
+      padding: 0.22rem 0.8rem;
+      width: fit-content;
+      font-size: 0.3rem;
+    }
+  }
+}

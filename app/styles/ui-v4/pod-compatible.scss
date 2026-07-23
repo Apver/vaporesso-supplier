@@ -1,0 +1,171 @@
+.ui-v4-pod-compatible {
+  padding: 120px 0 100px;
+  background: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  &-title {
+    font-size: 48px;
+    line-height: 48px;
+    font-family: 'DinExp-Bold';
+    white-space: pre-line;
+  }
+  &-description {
+    width: 782px;
+    margin-top: 16px;
+    font-size: 18px;
+    line-height: 25px;
+    font-family: 'DinExp';
+    white-space: pre-line;
+  }
+  &-list {
+    width: 966px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 16px;
+    column-gap: 2px;
+  }
+  &-item {
+    width: 240px;
+    height: 350px;
+    padding-top: 15px;
+    background: #eaeaea;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    &-version {
+      padding: 5px 0 14px;
+      font-size: 17px;
+      line-height: 25px;
+      font-family: 'DinExp';
+      &-tag {
+        color: #ff0000;
+      }
+    }
+    &-version-with-tag {
+      padding: 0 0 5px;
+      line-height: 18px;
+    }
+    &-line {
+      width: 140px;
+      height: 1px;
+      background: #cdcdcd;
+      position: absolute;
+      top: 59px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &-img {
+      position: absolute;
+      display: block;
+      width: 160px;
+      height: 200px;
+      top: 45px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &-ohm {
+      margin-top: 185px;
+      font-size: 19px;
+      line-height: 28px;
+      font-family: 'DinExp-Bold';
+    }
+    &-type {
+      font-size: 17px;
+      line-height: 25px;
+      font-family: 'DinExp';
+      color: #757575;
+    }
+    &-tag {
+      font-size: 17px;
+      line-height: 25px;
+      font-family: 'DinExp';
+      color: red;
+    }
+  }
+  &-double_item {
+    width: 480px;
+    white-space: pre-line;
+    .ui_v3-pod_compatible-item-version {
+      width: 380px;
+    }
+    .ui_v3-pod_compatible-item-img,
+    .ui_v3-pod_compatible-item-line {
+      width: 380px;
+    }
+  }
+  @media screen and (max-width: 1023px) {
+    padding: 1.4rem 0 0.8rem;
+    text-align: left;
+    &-title {
+      width: 6.1rem;
+      font-size: 0.5rem;
+      line-height: 0.56rem;
+    }
+    &-description {
+      width: 6.1rem;
+      margin-top: 0.24rem;
+      font-size: 0.3rem;
+      line-height: 0.42rem;
+    }
+    &-list {
+      width: 100vw;
+      margin: 0.6rem auto 0;
+      row-gap: 0.4rem;
+      column-gap: 0.06rem;
+    }
+    &-item {
+      padding: 0.22rem 0.36rem;
+      width: calc(50vw - 0.03rem);
+      height: 6.1rem;
+      &-version {
+        font-size: 0.3rem;
+        line-height: 0.3rem;
+        padding-bottom: 0.24rem;
+        width: 3rem;
+      }
+      &-version-with-tag {
+        padding-bottom: 0;
+      }
+      &-line {
+        width: 2.8rem;
+        height: 0.02rem;
+        top: 0.94rem;
+      }
+      &-img {
+        width: 3rem;
+        height: 3.72rem;
+        top: 0.72rem;
+      }
+      &-ohm {
+        margin: 3.54rem 0 0.04rem;
+        font-size: 0.3rem;
+        line-height: 0.42rem;
+      }
+      &-type {
+        font-size: 0.3rem;
+        line-height: 0.42rem;
+      }
+      &-tag {
+        font-size: 0.3rem;
+        line-height: 0.42rem;
+      }
+    }
+    &-double_item {
+      width: 100%;
+      .ui_v3-pod_compatible-item-version {
+        width: 100%;
+      }
+      .ui_v3-pod_compatible-item-line {
+        width: 6.1rem;
+      }
+      .ui_v3-pod_compatible-item-img {
+        width: auto;
+      }
+    }
+  }
+}

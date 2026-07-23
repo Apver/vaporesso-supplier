@@ -1,0 +1,56 @@
+.ui-v4-kv {
+  position: relative;
+  width: 100vw;
+  height: 720px;
+  color: #000;
+  picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &-content {
+    width: 1120px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    &__title {
+      font-size: 72px;
+      line-height: 79px;
+      margin-bottom: 20px;
+      font-family: 'DinExp-Bold';
+    }
+    &__subtitle {
+      font-family: 'DinExp';
+    }
+    &__slogan {
+      font-size: 30px;
+      line-height: 1.05;
+      font-family: 'DinExp';
+    }
+  }
+  @media screen and (max-width: 1023px) {
+    height: 13.5rem;
+    &-content {
+      width: 100%;
+      top: 1rem;
+      transform: translateX(-50%);
+      text-align: center;
+      &__title {
+        font-size: 0.96rem;
+        line-height: 1.24rem;
+        margin-bottom: 0.12rem;
+      }
+      &__slogan {
+        font-size: 0.36rem;
+        line-height: 0.46rem;
+      }
+    }
+  }
+}
