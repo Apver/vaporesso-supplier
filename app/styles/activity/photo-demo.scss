@@ -1,0 +1,61 @@
+.photo-demo-page {
+  width: 100%;
+  overflow-x: clip;
+  background: #000;
+
+  .ui-v4-photo-wall__right {
+    .photo-demo-page__title {
+      margin-bottom: 48px;
+      font-family: 'DINCond-Black', sans-serif;
+      font-size: 72px;
+      line-height: 0.9;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      text-align: left;
+    }
+
+    .photo-demo-page__title-accent {
+      display: block;
+      color: #36d600;
+    }
+
+    .photo-demo-page__desc {
+      width: 656px;
+      margin-bottom: 16px;
+      font-family: 'DIN-Medium', sans-serif;
+      font-size: 18px;
+      line-height: 25px;
+      color: #000;
+
+      &--accent {
+        color: #39843a;
+      }
+
+      &:last-child {
+        color: #935dd8;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .photo-demo-page {
+    .ui-v4-photo-wall__right {
+      .photo-demo-page__title {
+        width: 100%;
+        margin-bottom: 0.6rem;
+        font-size: 1.2rem;
+        line-height: 1.1;
+        letter-spacing: -0.02rem;
+      }
+
+      .photo-demo-page__desc {
+        width: 100%;
+        margin-bottom: 0.32rem;
+        font-size: 0.32rem;
+        line-height: 0.44rem;
+      }
+    }
+  }
+}

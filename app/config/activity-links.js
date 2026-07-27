@@ -1,7 +1,10 @@
+import photoDemoStyles from '~/styles/activity/photo-demo.scss?url';
+import photoWallStyles from '~/styles/activity/photo-wall.scss?url';
 import xros6WorldcupStyles from '~/styles/activity/xros6-worldcup.scss?url';
 
 /** @type {Record<string, string[]>} */
 export const ACTIVITY_STYLESHEETS_BY_HANDLE = {
+  'photo-demo': [photoWallStyles, photoDemoStyles],
   'xros6-worldcup': [xros6WorldcupStyles],
 };
 
