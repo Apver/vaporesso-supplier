@@ -10,7 +10,7 @@ export const XrosMiniRetroProductSpecData = {
       id: 'finish',
       itemTitle: 'Finish',
       itemType: 'color',
-      primaryColorImages: [`${SPEC_IMG}/xros_5_mini-pc-colors-1.webp`],
+      primaryColorImages: [`${SPEC_IMG}/xros-mini-retro-PC-color.webp`],
       primaryColorTitle: [
         [
           'Baby Blue',
@@ -24,8 +24,8 @@ export const XrosMiniRetroProductSpecData = {
         ],
       ],
       primaryColorImagesMobile: [
-        `${SPEC_IMG}/xros_5_mini-mob-colors-1.webp`,
-        `${SPEC_IMG}/xros_5_mini-mob-colors-2.webp`,
+        `${SPEC_IMG}/xros-mini-retro-Mob-color-1.webp`,
+        `${SPEC_IMG}/xros-mini-retro-Mob-color-2.webp`,
       ],
       primaryColorTitleMobile: [
         ['Baby Blue', 'Baby Pink', 'Baby Purple', 'Matte Sliver'],
@@ -43,7 +43,7 @@ export const XrosMiniRetroProductSpecData = {
       itemTitle: 'Size and weight',
       itemType: 'textWithImage',
       primaryTextWithImage: [
-        specImg(`${SPEC_IMG}/xros-5-mini-size.webp`),
+        specImg(`${SPEC_IMG}/xros-mini-retro-size-2ml.webp`),
         'Dimension: 98.9*23.7*13.7mm ',
         'Weight: 38.3g',
       ],
@@ -78,8 +78,8 @@ export const XrosMiniRetroProductSpecData = {
         '1 x User Manual & Warranty Card',
         '1 x Reminder Card',
         specImg(
-          `${SPEC_IMG}/xros-5-mini-package-us.webp`,
-          `${SPEC_IMG}/xros-5-mini-package-us.webp`,
+          `${SPEC_IMG}/xros-mini-retro-package-pc.webp`,
+          `${SPEC_IMG}/xros-mini-retro-package-mob.webp`,
         ),
       ],
     },
