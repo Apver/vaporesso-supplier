@@ -6,6 +6,14 @@ import {
   XrosMiniRetroLayout,
   XrosMiniRetroProductSpecData,
 } from '~/components/SeriesProduct/XrosSeries/XrosMiniRetro';
+import {
+  XrosMiniFreshLayout,
+  XrosMiniFreshProductSpecData,
+} from '~/components/SeriesProduct/XrosSeries/XrosMiniFresh';
+import {
+  XrosSeLayout,
+  XrosSeProductSpecData,
+} from '~/components/SeriesProduct/XrosSeries/XrosSe';
 import {resolveSeriesProductTemplate} from '~/config/series-product-links';
 
 /** 不展示 ProductNav / SpecSection / Product3DViewer 的 template 值 */
@@ -58,12 +66,19 @@ export function getSeriesListMobileTextClass(product) {
   return `${getSeriesListMobileBlackTextClass(product)}${getSeriesListMobileWhiteTextClass(product)}`;
 }
 
-export const SERIES_PRODUCT_SPEC_DATA_IN_JS = ['xros6', 'xros-mini-retro'];
+export const SERIES_PRODUCT_SPEC_DATA_IN_JS = [
+  'xros6',
+  'xros-mini-retro',
+  'xros-mini-fresh',
+  'xros-se',
+];
 
 /** template → 硬编码 Spec 数据（见各产品目录 languageText.js） */
 export const SERIES_PRODUCT_SPEC_DATA_BY_TEMPLATE = {
   xros6: Xros6ProductSpecData,
   'xros-mini-retro': XrosMiniRetroProductSpecData,
+  'xros-mini-fresh': XrosMiniFreshProductSpecData,
+  'xros-se': XrosSeProductSpecData,
 };
 
 /**
@@ -82,5 +97,13 @@ export const SERIES_PRODUCT_LAYOUT_ENTRIES = {
   'xros-mini-retro': {
     Layout: XrosMiniRetroLayout,
     specElementId: 'check-specs-xros-mini-retro',
+  },
+  'xros-mini-fresh': {
+    Layout: XrosMiniFreshLayout,
+    specElementId: 'check-specs-xros-mini-fresh',
+  },
+  'xros-se': {
+    Layout: XrosSeLayout,
+    specElementId: 'check-specs-xros-se',
   },
 };

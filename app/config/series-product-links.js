@@ -72,6 +72,8 @@ const SERIES_PRODUCT_FALLBACK_STYLE_HREFS = [
 const SERIES_PRODUCT_STYLESHEETS_BY_TEMPLATE = {
   xros6: [productStyles, uiV3Styles, xros6Styles],
   'xros-mini-retro': [productStyles, uiV4Styles, xrosMiniRetroStyles],
+  'xros-mini-fresh': [productStyles, uiV4Styles, xrosMiniRetroStyles],
+  'xros-se': [productStyles, uiV4Styles, xrosMiniRetroStyles],
 };
 
 function hrefsToStylesheetDescriptors(hrefs) {
