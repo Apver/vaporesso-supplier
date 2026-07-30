@@ -51,9 +51,9 @@ export function TrendySection({title, description, colorsList}) {
 
   return (
     <div className="xros-mini-retro-trendy ui-v4-flex">
-      <h3 className="ui-v4-title">{title}</h3>
-      <p className="xros-mini-retro-trendy-description">{description}</p>
-      <div className="xros-mini-retro-trendy-content ui-v4-flex">
+      <h3 className="ui-v4-title to-top">{title}</h3>
+      <p className="xros-mini-retro-trendy-description to-top">{description}</p>
+      <div className="xros-mini-retro-trendy-content ui-v4-flex to-top">
         <div className="xros-mini-retro-trendy-content-show">
           {!outgoingColor ? (
             <div className="xros-mini-retro-trendy-content-show-layer">
@@ -95,7 +95,7 @@ export function TrendySection({title, description, colorsList}) {
           {colorsList.map((color) => (
             <div
               key={color.id}
-              className={`xros-mini-retro-trendy-content-item ${color.id === selectedId ? `color-bg-${color.id}` : ''}`}
+              className={`xros-mini-retro-trendy-content-item ${color.id === selectedId ? `color-bg-${color.id} active` : ''}`}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {

@@ -51,3 +51,48 @@
     }
   }
 }
+
+/* XrosMiniRetro / ui-v4 滚动动画（配合 initScrollAppearAnimate） */
+.appear {
+  will-change: transform, opacity;
+}
+
+.to-top {
+  opacity: 0;
+  transform: translateY(20%);
+  transition:
+    transform 0.7s,
+    opacity 0.7s ease-in-out;
+}
+
+.to-top.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.to-right {
+  opacity: 0;
+  /* 用固定像素，避免宽元素 translateX(±20%) 在刷新时整块移出视口判定 */
+  transform: translateX(-40px);
+  transition:
+    transform 0.7s,
+    opacity 0.7s ease-in-out;
+}
+
+.to-right.appear {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.to-left {
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    transform 0.7s,
+    opacity 0.7s ease-in-out;
+}
+
+.to-left.appear {
+  opacity: 1;
+  transform: translateX(0);
+}

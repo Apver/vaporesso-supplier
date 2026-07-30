@@ -1,9 +1,9 @@
 import '~/styles/ui-v4/kv.scss';
 export function SalesSection({salesList}) {
   return (
-    <div className={'xros-mini-retro-sales ui-v4-flex to-top'}>
+    <div className={'xros-mini-retro-sales ui-v4-flex'}>
       <div className="xros-mini-retro-sales-content ui-v4-flex">
-        <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-3 x-hide">
+        <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-3 x-hide to-top">
           <h3 className="xros-mini-retro-sales__title">{salesList[2].title}</h3>
           <img
             src={salesList[2].mobImageUrl}
@@ -11,17 +11,16 @@ export function SalesSection({salesList}) {
             className="xros-mini-retro-sales__image"
           />
         </div>
-        <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-1 s-hide">
+        <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-1 s-hide to-top">
           <h3 className="xros-mini-retro-sales__title">{salesList[0].title}</h3>
           <img
             src={salesList[0].pcImageUrl}
             alt={salesList[0].title}
             className="xros-mini-retro-sales__image"
           />
-          】
         </div>
         <div className="xros-mini-retro-sales-content xros-mini-retro-sales-box ui-v4-flex">
-          <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-1 x-hide">
+          <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-1 x-hide to-top">
             <h3 className="xros-mini-retro-sales__title">
               {salesList[0].title}
             </h3>
@@ -31,7 +30,7 @@ export function SalesSection({salesList}) {
               className="xros-mini-retro-sales__image"
             />
           </div>
-          <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-2">
+          <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-2 to-top">
             <h3 className="xros-mini-retro-sales__title">
               {salesList[1].title}
             </h3>
@@ -47,7 +46,7 @@ export function SalesSection({salesList}) {
               />
             </picture>
           </div>
-          <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-3 s-hide">
+          <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-3 s-hide to-top">
             <h3 className="xros-mini-retro-sales__title">
               {salesList[2].title}
             </h3>
@@ -57,7 +56,7 @@ export function SalesSection({salesList}) {
               className="xros-mini-retro-sales__image"
             />
           </div>
-          <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-4">
+          <div className="xros-mini-retro-sales-item xros-mini-retro-sales-item-4 to-top">
             <h3 className="xros-mini-retro-sales__title">
               {salesList[3].title}
             </h3>

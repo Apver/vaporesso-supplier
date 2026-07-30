@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 // TODO: 调好初始位置后改回 false，恢复滚动播放
 const PREVIEW_INITIAL_ONLY = false;
 
-// 每个 container 相对最终布局的初始 translate（px）
+// 每个 container 相对最终布局的初始 translate
 // GATHER_SHIFT_X: 整体水平偏移（负值向左），不改变彼此相对位置
 const GATHER_SHIFT_X = -124;
 const GATHER_TRANSFORMS = [
@@ -16,6 +16,125 @@ const GATHER_TRANSFORMS = [
   {x: 153, y: -62.72}, // container-3
   {x: 185.61, y: -137.68}, // container-4
 ].map(({x, y}) => ({x: x + GATHER_SHIFT_X, y}));
+
+// 移动端单独配置（rem），按当前 html font-size 换算为 px
+const MOB_GATHER_SHIFT_X = -1.1;
+const MOB_GATHER_TRANSFORMS = [
+  {x: 0.69, y: 0.88}, // container-1
+  {x: 1, y: 0.11}, // container-2
+  {x: 1.24, y: -0.56}, // container-3
+  {x: 1.46, y: -1.24}, // container-4
+].map(({x, y}) => ({x: x + MOB_GATHER_SHIFT_X, y}));
+
+function remToPx(value) {
+  const rootFontSize =
+    parseFloat(getComputedStyle(document.documentElement).fontSize) || 50;
+  return value * rootFontSize;
+}
+
+function buildAntiLeakingAnimation(
+  section,
+  containers,
+  scrollStart,
+  {transforms, unit = 'px'} = {},
+) {
+  const setGatheredPositions = () => {
+    containers.forEach((el, i) => {
+      const pos = transforms[i] || transforms.at(-1);
+      gsap.set(el, {
+        x: unit === 'rem' ? remToPx(pos.x) : pos.x,
+        y: unit === 'rem' ? remToPx(pos.y) : pos.y,
+      });
+    });
+  };
+
+  const circles = section.querySelectorAll('.xros-mini-retro-anti__circle');
+  const lines = section.querySelectorAll('.xros-mini-retro-anti__line');
+  const texts = section.querySelectorAll(
+    '.xros-mini-retro-anti__annotation-text',
+  );
+
+  setGatheredPositions();
+
+  gsap.set(circles, {opacity: 0});
+  gsap.set(texts, {opacity: 0, y: 16});
+  lines.forEach((line) => {
+    const annotation = line.closest('.xros-mini-retro-anti-container-2');
+    gsap.set(line, {
+      scaleX: 0,
+      transformOrigin: annotation ? 'right center' : 'left center',
+    });
+  });
+
+  if (PREVIEW_INITIAL_ONLY) {
+    window.addEventListener('resize', setGatheredPositions);
+    return () => {
+      window.removeEventListener('resize', setGatheredPositions);
+    };
+  }
+
+  let tl;
+  tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+      start: scrollStart,
+      toggleActions: 'play none none none',
+      invalidateOnRefresh: true,
+      onRefreshInit: () => {
+        if (!tl || tl.progress() === 0) {
+          setGatheredPositions();
+        }
+      },
+    },
+  });
+
+  tl.to(containers, {
+    x: 0,
+    y: 0,
+    duration: 0.6,
+    ease: 'power2.out',
+    stagger: 0.04,
+  });
+
+  tl.to(
+    circles,
+    {
+      opacity: 1,
+      duration: 0.2,
+      ease: 'power1.out',
+      stagger: 0.05,
+    },
+    '-=0.12',
+  );
+
+  tl.to(
+    lines,
+    {
+      scaleX: 1,
+      duration: 0.35,
+      ease: 'power2.out',
+      stagger: 0.05,
+    },
+    '-=0.06',
+  );
+
+  tl.to(
+    texts,
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.3,
+      ease: 'power2.out',
+      stagger: 0.05,
+    },
+    '-=0.15',
+  );
+
+  return () => {
+    tl.scrollTrigger?.kill();
+    tl.kill();
+  };
+}
 
 export function AntiLeaking({title, description}) {
   const sectionRef = useRef(null);
@@ -30,111 +149,22 @@ export function AntiLeaking({title, description}) {
     );
     if (!content || containers.length === 0) return;
 
-    const setGatheredPositions = () => {
-      containers.forEach((el, i) => {
-        const pos = GATHER_TRANSFORMS[i] || GATHER_TRANSFORMS.at(-1);
-        gsap.set(el, {x: pos.x, y: pos.y});
-      });
-    };
-
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      mm.add('(min-width: 1024px)', () => {
-        const circles = section.querySelectorAll(
-          '.xros-mini-retro-anti__circle',
-        );
-        const lines = section.querySelectorAll('.xros-mini-retro-anti__line');
-        const texts = section.querySelectorAll(
-          '.xros-mini-retro-anti__annotation-text',
-        );
+      mm.add('(min-width: 1024px)', () =>
+        buildAntiLeakingAnimation(section, containers, 'top 50%', {
+          transforms: GATHER_TRANSFORMS,
+          unit: 'px',
+        }),
+      );
 
-        setGatheredPositions();
-
-        gsap.set(circles, {opacity: 0});
-        gsap.set(texts, {opacity: 0, y: 16});
-        lines.forEach((line) => {
-          const annotation = line.closest('.xros-mini-retro-anti-container-2');
-          gsap.set(line, {
-            scaleX: 0,
-            transformOrigin: annotation ? 'right center' : 'left center',
-          });
-        });
-
-        // 仅预览初始位置，不播动画
-        if (PREVIEW_INITIAL_ONLY) {
-          window.addEventListener('resize', setGatheredPositions);
-          return () => {
-            window.removeEventListener('resize', setGatheredPositions);
-          };
-        }
-
-        let tl;
-        tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 50%',
-            toggleActions: 'play none none none',
-            invalidateOnRefresh: true,
-            onRefreshInit: () => {
-              if (!tl || tl.progress() === 0) {
-                setGatheredPositions();
-              }
-            },
-          },
-        });
-
-        // 1. 容器沿对角线展开到最终位置
-        tl.to(containers, {
-          x: 0,
-          y: 0,
-          duration: 0.6,
-          ease: 'power2.out',
-          stagger: 0.04,
-        });
-
-        // 2. circle 显现
-        tl.to(
-          circles,
-          {
-            opacity: 1,
-            duration: 0.2,
-            ease: 'power1.out',
-            stagger: 0.05,
-          },
-          '-=0.12',
-        );
-
-        // 3. line 从 circle 延伸到指定宽度
-        tl.to(
-          lines,
-          {
-            scaleX: 1,
-            duration: 0.35,
-            ease: 'power2.out',
-            stagger: 0.05,
-          },
-          '-=0.06',
-        );
-
-        // 4. 文案向上浮动展示
-        tl.to(
-          texts,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.3,
-            ease: 'power2.out',
-            stagger: 0.05,
-          },
-          '-=0.15',
-        );
-
-        return () => {
-          tl.scrollTrigger?.kill();
-          tl.kill();
-        };
-      });
+      mm.add('(max-width: 1023px)', () =>
+        buildAntiLeakingAnimation(section, containers, 'bottom bottom', {
+          transforms: MOB_GATHER_TRANSFORMS,
+          unit: 'rem',
+        }),
+      );
     }, section);
 
     const refresh = () => ScrollTrigger.refresh(true);
@@ -152,7 +182,7 @@ export function AntiLeaking({title, description}) {
 
   return (
     <div className="xros-mini-retro-anti ui-v4-flex" ref={sectionRef}>
-      <div className="xros-mini-retro-anti-text">
+      <div className="xros-mini-retro-anti-text to-top">
         <img
           src="https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros-mini-retro-icon-SSS.svg"
           alt=""

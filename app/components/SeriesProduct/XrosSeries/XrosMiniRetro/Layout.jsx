@@ -2,8 +2,8 @@
  * Xros5Mini Layout Component
  * Layout component for XROS 5 Mini product pages
  */
-import {useEffect} from 'react';
-import {initToTopAnimate} from '~/utils/to_top_animate';
+import {useEffect, useRef} from 'react';
+import {initScrollAppearAnimate} from '~/utils/scroll_appear_animate';
 import {
   SalesSection,
   CorexSection,
@@ -19,8 +19,10 @@ import {
   EndProduct,
 } from '~/components/ui-v4';
 export function XrosMiniRetroLayout({children, onCheckSpecs}) {
+  const rootRef = useRef(null);
   useEffect(() => {
-    const cleanup = initToTopAnimate();
+    if (!rootRef.current) return;
+    const cleanup = initScrollAppearAnimate({root: rootRef.current});
     return cleanup;
   }, []);
   const KvSectionData = {
@@ -251,7 +253,7 @@ export function XrosMiniRetroLayout({children, onCheckSpecs}) {
     ],
   };
   return (
-    <div className="xros-mini-retro">
+    <div className="xros-mini-retro" ref={rootRef}>
       <KvSectionV4 className="xros-mini-retro-kv" data={KvSectionData} />
       <BriefSectionV4
         className="xros-mini-retro-brief"

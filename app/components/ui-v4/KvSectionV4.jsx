@@ -1,11 +1,5 @@
 import '~/styles/ui-v4/kv.scss';
-export function KvSectionV4({
-  data,
-  withoutAnimation,
-  className,
-  textChildren,
-  children,
-}) {
+export function KvSectionV4({data, className, textChildren, children}) {
   const {name, subname, slogan, mobBanner, pcBanner} = data;
   return (
     <div className={`ui-v4-kv ${className || ''}`}>
@@ -15,7 +9,7 @@ export function KvSectionV4({
         ) : null}
         <img src={mobBanner} alt={name} className="ui-v4-kv__image" />
       </picture>
-      <div className={`ui-v4-kv-content ${withoutAnimation ? 'to-top' : ''}`}>
+      <div className="ui-v4-kv-content">
         <h1 className="ui-v4-kv-content__title to-top">
           {name}
           {subname && (

@@ -25,7 +25,7 @@
         margin-bottom: 0.16rem;
       }
     }
-    .ui-v4-title {
+    .ui-v4-kv-content__title {
       line-height: 1;
     }
   }
@@ -48,6 +48,7 @@
         padding: 1.6rem 0.5rem 1.2rem;
       }
       .ui-v4-brief__description {
+        width: 6.1rem;
         margin: 0.6rem auto 0;
         font-size: 0.3rem;
         line-height: 0.45rem;
@@ -155,15 +156,110 @@
   &-corex {
     padding: 160px 0;
     flex-direction: column;
+    overflow: visible;
     &__logo {
       width: 122px;
       height: auto;
+      display: block;
+      will-change: width;
     }
-    &__image {
+    &-content {
       width: 1050px;
       height: auto;
-      display: block;
       margin: 40px auto 20px;
+      position: relative;
+    }
+    &-line {
+      width: 493px;
+      height: 204px;
+      position: absolute;
+      top: 251px;
+      left: 292px;
+      z-index: 4;
+      pointer-events: none;
+      display: block;
+      overflow: visible;
+
+      &__path {
+        vector-effect: non-scaling-stroke;
+      }
+    }
+    &-item {
+      will-change: transform, opacity;
+    }
+    &-item-text {
+      font-size: 10px;
+      line-height: 1.2;
+      font-family: 'DinExp';
+      color: #fff;
+      &-value {
+        margin-bottom: 2px;
+        font-size: 25px;
+        line-height: 1.2;
+        font-family: 'DinExp-Bold';
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        &-img {
+          width: 10px;
+          height: auto;
+        }
+      }
+    }
+    &-item {
+      position: absolute;
+      z-index: 6;
+    }
+    &-item-1 {
+      top: 132px;
+      left: 273px;
+      &-image {
+        display: block;
+        width: 127px;
+        height: auto;
+        margin-top: 14px;
+      }
+    }
+    &-item-1 &-item-text {
+      margin: 0 auto;
+    }
+    &-item-2 {
+      top: 126px;
+      right: 260px;
+      &-image {
+        display: block;
+        width: 112px;
+        height: auto;
+        margin-top: 15px;
+      }
+    }
+    &-item-2 &-item-text {
+      margin: 0 auto;
+    }
+    &-item-3 {
+      top: 406px;
+      left: 237px;
+      display: flex;
+      &-image {
+        display: block;
+        width: 96px;
+        height: auto;
+      }
+    }
+    &-item-3 &-item-text {
+      margin: 61px 0 0 15px;
+    }
+    &-item-4 {
+      top: 387px;
+      right: 229px;
+      &-image {
+        display: block;
+        width: 91px;
+        height: auto;
+      }
+    }
+    &-item-4 &-item-text {
+      margin: 10px 0 0 11px;
     }
     .ui-v4-description {
       max-width: 735px;
@@ -178,9 +274,86 @@
       &__logo {
         width: 1.62rem;
       }
-      &__image {
+      &-content {
         width: 6.9rem;
         margin: 0.44rem auto 0.8rem;
+      }
+      &-line {
+        width: 5.53rem;
+        height: 2.27rem;
+        top: 2.82rem;
+        left: 0.84rem;
+      }
+      &-item-text {
+        font-size: 0.1rem;
+        line-height: 1.25;
+        &-value {
+          margin-bottom: 0.02rēn;
+          font-size: 0.28rem;
+          line-height: 1.05;
+          gap: 0.03rem;
+          &-img {
+            width: 0.11rem;
+            height: auto;
+          }
+        }
+      }
+      &-item-1 {
+        position: absolute;
+        top: 1.5rem;
+        left: 0.62rem;
+        &-image {
+          display: block;
+          width: 1.42rem;
+          height: auto;
+          margin-top: 0.16rem;
+        }
+      }
+      &-item-1 &-item-text {
+        width: fit-content;
+        margin: 0 auto;
+      }
+      &-item-2 {
+        position: absolute;
+        top: 1.48rem;
+        right: 0.54rem;
+        &-image {
+          display: block;
+          width: 1.26rem;
+          height: auto;
+          margin-top: 0.16rem;
+        }
+      }
+      &-item-2 &-item-text {
+        width: fit-content;
+        margin: 0 auto;
+      }
+      &-item-3 {
+        position: absolute;
+        top: 4.56rem;
+        left: 0.21rem;
+        display: flex;
+        &-image {
+          display: block;
+          width: 1.08rem;
+          height: auto;
+        }
+      }
+      &-item-3 &-item-text {
+        margin: 0.68rem 0 0 0.16rem;
+      }
+      &-item-4 {
+        position: absolute;
+        top: 4.35rem;
+        right: 0.13rem;
+        &-image {
+          display: block;
+          width: 1.05rem;
+          height: auto;
+        }
+      }
+      &-item-4 &-item-text {
+        margin: 0.1rem 0 0 0.13rem;
       }
       .ui-v4-tips {
         margin-top: 0.4rem;
@@ -310,7 +483,7 @@
       right: -4px;
     }
     @media screen and (max-width: 1023px) {
-      padding: 1.2rem 0 0.8;
+      padding: 1.2rem 0 0.8rem;
       flex-direction: column;
       row-gap: 0.72rem;
       &-text {
@@ -454,7 +627,8 @@
           inset: 0;
           width: 100%;
           height: 100%;
-          z-index: 10;
+          /* 高于颜色层(1/2)，低于 header(10) / product-nav(9)，避免滚动时盖住顶部导航 */
+          z-index: 3;
           pointer-events: none;
           picture,
           img {
@@ -481,20 +655,21 @@
         font-family: 'DinExp-Bold';
         font-size: 20px;
         line-height: 100%;
+        cursor: pointer;
         &__circle {
           width: 26px;
           height: 26px;
           border-radius: 50%;
           border: 1px solid rgba(255, 255, 255, 0.5);
         }
-      }
-      .active {
-        color: #fff;
-        background: rgba(255, 255, 255, 0.1);
-        &__circle {
+        &.active {
+          color: #fff;
+        }
+        &.active &__circle {
           border: 1px solid #fff;
         }
       }
+
       .color-bg-color1 {
         background: linear-gradient(180deg, #9776b2 0%, #ddc6f0 100%);
       }
@@ -600,6 +775,9 @@
     }
     @media screen and (max-width: 1023px) {
       padding: 1.6rem 0 1.2rem;
+      .ui-v4-title {
+        padding-right: 2rem;
+      }
       &-content {
         margin-top: 0.8rem;
         flex-direction: column;
@@ -687,6 +865,7 @@
       position: static;
       .ui-v4-title {
         line-height: 1;
+        padding-right: 2rem;
       }
       .ui-v4-description {
         margin-top: 0.24rem;
@@ -737,7 +916,8 @@
     @media (max-width: 1023px) {
       padding: 1.2rem 0;
       flex-direction: column;
-      background-color: #f6f6f6;
+      background-color: #f6f6f6 !important;
+      margin-top: -0.1rem;
       .ui-v4-pod-compatible-title {
         line-height: 1.2;
         padding-right: 1.6rem;
