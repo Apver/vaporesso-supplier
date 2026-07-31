@@ -36,7 +36,7 @@ export const XrosMiniRetroProductSpecData = {
       id: 'msrp',
       itemTitle: 'MSRP',
       itemType: 'textWithImage',
-      primaryTextWithImage: '$24.9',
+      primaryTextWithImage: '$10.24',
     },
     {
       id: 'size',
@@ -72,8 +72,8 @@ export const XrosMiniRetroProductSpecData = {
       itemTitle: 'Packing list',
       itemType: 'textWithImage',
       primaryTextWithImage: [
-        '<US Ver.   KIT INCLUDES>',
-        '1 x XROS MINI Battery',
+        '<KIT INCLUDES>',
+        '1 x XROS MINI Retro Battery',
         '1 x XROS Series 0.6ΩMESH Pod',
         '1 x User Manual & Warranty Card',
         '1 x Reminder Card',

@@ -1,9 +1,8 @@
-.product-xros-mini-retro {
-  .spec-content .f img {
-    max-width: none;
-  }
-  .spec-content .f .colors {
-    max-width: none;
+.product-xros-mini-retro,
+.product-xros-mini-fresh,
+.product-xros-se {
+  .spec-content .size img:not(:first-child) {
+    margin-top: 0;
   }
   @media screen and (max-width: 1023px) {
     .spec-content .f .colors {

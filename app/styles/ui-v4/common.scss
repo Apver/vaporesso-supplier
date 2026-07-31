@@ -51,7 +51,29 @@
     }
   }
 }
-
+.ui_v3 {
+  &-no_max_width_finish.f {
+    img {
+      max-width: none;
+    }
+    .colors {
+      max-width: none;
+    }
+  }
+  &-spec-content {
+    .colors .item {
+      white-space: pre-line;
+    }
+    ul:last-child {
+      border-bottom: none !important;
+    }
+    .package-list {
+      img {
+        margin-bottom: 80px;
+      }
+    }
+  }
+}
 /* XrosMiniRetro / ui-v4 滚动动画（配合 initScrollAppearAnimate） */
 .appear {
   will-change: transform, opacity;
