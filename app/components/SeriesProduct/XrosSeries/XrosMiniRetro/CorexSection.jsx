@@ -23,12 +23,6 @@ function prepStrokeDraw(path) {
   });
 }
 
-function remToPx(value) {
-  const rootFontSize =
-    parseFloat(getComputedStyle(document.documentElement).fontSize) || 50;
-  return value * rootFontSize;
-}
-
 /**
  * logo：随滚动 scrub，可反复；线段 + item：到达触发点后只播一次
  * @param {Element} section
@@ -63,11 +57,16 @@ function buildCorexAnimations(section, lineSvg, options = {}) {
 
   // 清掉内联 width，避免读到 PC 动画残留或覆盖 SCSS 目标尺寸
   gsap.set(logo, {clearProps: 'width'});
+
+  // 移动端直接用 rem，避免换算成 px 后与 CSS 1.62rem 不一致
   const finalWidth =
     logoFinalRem != null
-      ? remToPx(logoFinalRem)
+      ? `${logoFinalRem}rem`
       : Number.parseFloat(getComputedStyle(logo).width) || 122;
-  const fromWidth = finalWidth * LOGO_SCALE_FROM;
+  const fromWidth =
+    logoFinalRem != null
+      ? `${logoFinalRem * LOGO_SCALE_FROM}rem`
+      : finalWidth * LOGO_SCALE_FROM;
 
   gsap.set(logo, {
     width: fromWidth,

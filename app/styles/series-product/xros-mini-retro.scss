@@ -261,6 +261,9 @@
     &-item-4 &-item-text {
       margin: 10px 0 0 11px;
     }
+    .ui-v4-title {
+      line-height: 1;
+    }
     .ui-v4-description {
       max-width: 735px;
     }
@@ -777,6 +780,7 @@
       padding: 1.6rem 0 1.2rem;
       .ui-v4-title {
         padding-right: 2rem;
+        line-height: 1;
       }
       &-content {
         margin-top: 0.8rem;
