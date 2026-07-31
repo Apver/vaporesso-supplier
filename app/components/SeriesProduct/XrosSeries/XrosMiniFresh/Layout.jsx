@@ -34,7 +34,7 @@ export function XrosMiniFreshLayout({children, onCheckSpecs}) {
       'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros-mini-retro-1_1.webp',
   };
   const BriefSectionData = {
-    title: 'XROS SE is an 18W MTL device for beginners, featuring COREX 3.0',
+    title: 'XROS MINI is an 18W MTL device for beginners, featuring COREX 3.0',
     desc: 'XROS MINI is an 18W MTL device for beginners, featuring COREX 3.0 technology for consistent performance and richer flavor, with upgraded SSS 2.0 tech enhancing sealing for a cleaner and more reliable experience; with top filling, auto-draw activation, and a 1000mAh battery, it ensures effortless daily use and is compatible with most XROS pods (excluding 0.4Ω).',
     pcImageUrl:
       'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros-mini-retro-2_1.webp',
@@ -121,7 +121,7 @@ export function XrosMiniFreshLayout({children, onCheckSpecs}) {
       },
       {
         id: 'color5',
-        name: 'SKY BLUE',
+        name: 'DARK INDIGO',
         pcImageUrl:
           'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros-mini-retro-6_6.webp',
         mobImageUrl:
