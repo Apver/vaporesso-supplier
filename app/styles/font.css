@@ -424,3 +424,14 @@
   font-style: normal;
   font-display: swap;
 }
+
+
+@font-face {
+  font-family: "PlaywriteCU";
+  src: url('https://cdn.shopify.com/s/files/1/0999/4249/8609/files/PlaywriteCU-Regular.woff2?v=1785237812') format('woff2'),
+       url('https://cdn.shopify.com/s/files/1/0999/4249/8609/files/PlaywriteCU-Regular.woff?v=1785237812') format('woff'),
+       url('https://cdn.shopify.com/s/files/1/0999/4249/8609/files/PlaywriteCU-Regular.otf?v=1785237812') format('opentype');
+       font-weight: 400;
+       font-style: normal;
+       font-display: swap;
+}

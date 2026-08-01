@@ -1,15 +1,33 @@
-import {Await, Link} from 'react-router';
-import {Suspense, useId} from 'react';
+import {
+  Await,
+  Link,
+  useMatches,
+} from 'react-router';
+
+import {
+  Suspense,
+  useId,
+  useState,
+  useEffect,
+} from 'react';
+
 import {useLocaleAutoTranslate} from '~/lib/useLocaleAutoTranslate';
+
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
+
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
-import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
+
+import {
+  SearchResultsPredictive,
+} from '~/components/SearchResultsPredictive';
+
+import BrandIntro from '~/components/Activity/Anniversary11th/components/BrandIntro';
 
 /**
  * @param {PageLayoutProps}
@@ -25,6 +43,32 @@ export function PageLayout({
   isLoggedIn,
   publicStoreDomain,
 }) {
+  const matches = useMatches();
+
+  /**
+   * 从当前所有匹配路由中寻找活动路由。
+   *
+   * ($locale).activity.$handle.jsx 的 loader
+   * 返回了 activityHandle，因此这里可以读取。
+   */
+
+const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const activityMatch = matches.find(
+    (match) =>
+      match.data?.activityHandle,
+  );
+
+  const currentActivityHandle =
+    activityMatch?.data?.activityHandle;
+
+  const showAnniversaryIntro =
+    currentActivityHandle ===
+    'anniversary-11th';
+
   useLocaleAutoTranslate({
     rootElementId: 'page-content',
     skipWhenManagedRootsExist: true,
@@ -32,39 +76,85 @@ export function PageLayout({
 
   return (
     <Aside.Provider>
+      {isMounted && showAnniversaryIntro && (
+        <BrandIntro
+          autoplay
+          durationScale={2}
+          colors={{
+            page: '#ffffff',
+            first: '#B6F3FD',
+            second: '#6200A3',
+            third: '#00ff00',
+            final: '#046A38',
+            logo: '#ffffff',
+          }}
+          onComplete={() => {
+            console.log(
+              '周年开场动画结束',
+            );
+          }}
+        />
+      )}
+
       <CartAside cart={cart} />
+
       <SearchAside />
+
       {header && (
         <Header
           header={header}
-          headerMenuCollectionProducts={headerMenuCollectionProducts}
+          headerMenuCollectionProducts={
+            headerMenuCollectionProducts
+          }
           cart={cart}
           isLoggedIn={isLoggedIn}
-          publicStoreDomain={publicStoreDomain}
+          publicStoreDomain={
+            publicStoreDomain
+          }
           shopMetafield={shopMetafield}
         />
       )}
-      <main id="page-content">{children}</main>
+
+      <main id="page-content">
+        {children}
+      </main>
+
       <Footer
         footer={footer}
         footerMetafield={footerMetafield}
         header={header}
-        publicStoreDomain={publicStoreDomain}
+        publicStoreDomain={
+          publicStoreDomain
+        }
       />
     </Aside.Provider>
   );
 }
 
 /**
- * @param {{cart: PageLayoutProps['cart']}}
+ * @param {{
+ *   cart: PageLayoutProps['cart']
+ * }}
  */
 function CartAside({cart}) {
   return (
-    <Aside type="cart" heading="CART">
-      <Suspense fallback={<p>Loading cart ...</p>}>
+    <Aside
+      type="cart"
+      heading="CART"
+    >
+      <Suspense
+        fallback={
+          <p>Loading cart ...</p>
+        }
+      >
         <Await resolve={cart}>
           {(cart) => {
-            return <CartMain cart={cart} layout="aside" />;
+            return (
+              <CartMain
+                cart={cart}
+                layout="aside"
+              />
+            );
           }}
         </Await>
       </Suspense>
@@ -74,12 +164,21 @@ function CartAside({cart}) {
 
 function SearchAside() {
   const queriesDatalistId = useId();
+
   return (
-    <Aside type="search" heading="SEARCH">
+    <Aside
+      type="search"
+      heading="SEARCH"
+    >
       <div className="predictive-search">
         <br />
+
         <SearchFormPredictive>
-          {({fetchResults, goToSearch, inputRef}) => (
+          {({
+            fetchResults,
+            goToSearch,
+            inputRef,
+          }) => (
             <>
               <input
                 name="q"
@@ -90,57 +189,91 @@ function SearchAside() {
                 type="search"
                 list={queriesDatalistId}
               />
+
               &nbsp;
-              <button onClick={goToSearch}>Search</button>
+
+              <button
+                type="button"
+                onClick={goToSearch}
+              >
+                Search
+              </button>
             </>
           )}
         </SearchFormPredictive>
 
         <SearchResultsPredictive>
-          {({items, total, term, state, closeSearch}) => {
-            const {articles, collections, pages, products, queries} = items;
+          {({
+            items,
+            total,
+            term,
+            state,
+            closeSearch,
+          }) => {
+            const {
+              articles,
+              collections,
+              pages,
+              products,
+              queries,
+            } = items;
 
-            if (state === 'loading' && term.current) {
+            if (
+              state === 'loading' &&
+              term.current
+            ) {
               return <div>Loading...</div>;
             }
 
             if (!total) {
-              return <SearchResultsPredictive.Empty term={term} />;
+              return (
+                <SearchResultsPredictive.Empty
+                  term={term}
+                />
+              );
             }
 
             return (
               <>
                 <SearchResultsPredictive.Queries
                   queries={queries}
-                  queriesDatalistId={queriesDatalistId}
+                  queriesDatalistId={
+                    queriesDatalistId
+                  }
                 />
+
                 <SearchResultsPredictive.Products
                   products={products}
                   closeSearch={closeSearch}
                   term={term}
                 />
+
                 <SearchResultsPredictive.Collections
                   collections={collections}
                   closeSearch={closeSearch}
                   term={term}
                 />
+
                 <SearchResultsPredictive.Pages
                   pages={pages}
                   closeSearch={closeSearch}
                   term={term}
                 />
+
                 <SearchResultsPredictive.Articles
                   articles={articles}
                   closeSearch={closeSearch}
                   term={term}
                 />
+
                 {term.current && total ? (
                   <Link
                     onClick={closeSearch}
                     to={`${SEARCH_ENDPOINT}?q=${term.current}`}
                   >
                     <p>
-                      View all results for <q>{term.current}</q>
+                      View all results for{' '}
+                      <q>{term.current}</q>
                       &nbsp; →
                     </p>
                   </Link>
@@ -165,8 +298,26 @@ function SearchAside() {
  * @property {React.ReactNode} [children]
  */
 
-/** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
-/** @typedef {import('storefrontapi.generated').FooterQuery} FooterQuery */
-/** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */
-/** @typedef {import('storefrontapi.generated').ShopQuery} FooterMetafieldQuery */
-/** @typedef {{key: string, handle: string, menu: FooterQuery['menu'] | null}} FooterMenuResult */
+/**
+ * @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment
+ */
+
+/**
+ * @typedef {import('storefrontapi.generated').FooterQuery} FooterQuery
+ */
+
+/**
+ * @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery
+ */
+
+/**
+ * @typedef {import('storefrontapi.generated').ShopQuery} FooterMetafieldQuery
+ */
+
+/**
+ * @typedef {{
+ *   key: string,
+ *   handle: string,
+ *   menu: FooterQuery['menu'] | null
+ * }} FooterMenuResult
+ */

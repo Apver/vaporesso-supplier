@@ -1,5 +1,6 @@
 import {PhotoDemoLayout} from '~/components/Activity/PhotoDemo';
 import {Xros6WorldcupLayout} from '~/components/Activity/Xros6Worldcup';
+import {Anniversary11thLayout} from '~/components/Activity/Anniversary11th';
 
 /** @type {Record<string, { title: string; description: string; Layout: React.ComponentType }>} */
 export const ACTIVITY_LAYOUT_ENTRIES = {
@@ -10,9 +11,13 @@ export const ACTIVITY_LAYOUT_ENTRIES = {
   },
   'xros6-worldcup': {
     title: 'XROS 6 World Cup',
-    description:
-      'Join the XROS 6 World Cup campaign — quiz, spin to win, and celebrate the beautiful game.',
+    description:'Join the XROS 6 World Cup campaign — quiz, spin to win, and celebrate the beautiful game.',
     Layout: Xros6WorldcupLayout,
+  },
+   'anniversary-11th': {
+    title: 'XROS 6 World Cup',
+    description:'Join the XROS 6 World Cup campaign — quiz, spin to win, and celebrate the beautiful game.',
+    Layout: Anniversary11thLayout,
   },
 };
 

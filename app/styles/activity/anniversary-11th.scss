@@ -1,0 +1,1283 @@
+// Anniversary11th activity styles
+html.anniversary-11th-page {
+  --container-gutter: 40px;
+  --deb: 'DinExp-Bold';
+  --dde: 'DinExp';
+  --pwc: "PlaywriteCU";
+  --rpx: calc(1vw * 100 / 1920);
+}
+
+@media (min-width: 1024px) {
+  html.anniversary-11th-page {
+    font-size: 0.5208333333vw;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1450px) {
+  html.anniversary-11th-page {
+    --container-gutter: 32px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  html.anniversary-11th-page {
+    --container-gutter: 0.3rem;
+    --rpx: calc(1vw * 100 / 750);
+  }
+}
+
+html.anniversary-11th-page,
+html.anniversary-11th-page body {
+  background-color: #ffffff;
+  overflow-x: clip;
+  scroll-behavior: auto !important;
+}
+
+html.anniversary-11th-page body.anniversary-intro-playing {
+  overflow: hidden;
+}
+
+@mixin pos($left, $top, $z: null) {
+  left: $left;
+  top: $top;
+
+  @if $z {
+    transform: translateZ($z);
+  }
+}
+
+.anniversary-11th {
+  overflow-x: clip;
+  width: 100%;
+
+  .custom__container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding-inline: var(--container-gutter);
+  }
+
+  [data-xwc='lazy-video'],
+  picture {
+    display: block;
+  }
+
+  .appear {
+    will-change: transform, opacity;
+  }
+
+  .to-top {
+    opacity: 0;
+    transform: translateY(20%);
+    transition: transform 1.2s, opacity 1.2s ease-in-out;
+  }
+
+  .to-top.appear {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media screen and (max-width: 1023px) {
+    .mobile-to-top {
+      opacity: 0;
+      transform: translateY(20%);
+      transition: transform 1.2s, opacity 1.2s ease-in-out;
+    }
+
+    .mobile-to-top.appear {
+      opacity: 1;
+      transform: translateY(0);
+      will-change: transform, opacity;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1450px) {
+    .custom__container {
+      max-width: 960px;
+    }
+  }
+
+  // ==========================================
+  // 模块: 11周年庆 - 视频 Banner 
+  // 路径: Anniversary11th/section/VideoBanner.jsx
+  // ==========================================
+
+
+
+  // ==========================================
+  // 模块: 11周年庆 - 周年纪念故事
+  // 路径: Anniversary11th/section/AnniversaryStory.jsx
+  // ==========================================
+  .ui-v4-photo-wall__right {
+    color: #fff;
+
+    .photo-demo-page__title {
+      margin-bottom: 60px;
+      font-family: var(--deb);
+      font-size: 86px;
+      line-height: 1.1;
+      letter-spacing: -3.44px;
+      text-align: left;
+
+      @media (min-width: 1024px) and (max-width: 1450px) {
+        margin-bottom: 48px;
+        font-size: 69px;
+        letter-spacing: -2.75px;
+      }
+
+      @media screen and (max-width: 1023px) {
+        width: 100%;
+        margin-bottom: 0.6rem;
+        font-size: 0.8rem;
+        letter-spacing: -0.032rem;
+      }
+
+      .photo-demo-page__title1 {
+        display: flex;
+        align-items: center;
+        margin-top: -4%;
+      }
+
+      .photo-demo-page__title2 {}
+
+      &-accent {
+        color: #36d600;
+        font-family: var(--pwc);
+        font-size: 68px;
+        letter-spacing: -0.68px;
+        background: linear-gradient(89deg, #D2FF64 0.67%, #0F0 49.08%, #00E526 98.43%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 2.3;
+        flex: 1;
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          font-size: 54px;
+          letter-spacing: -0.544px;
+        }
+
+        @media screen and (max-width: 1023px) {
+          font-size: 0.6rem;
+          letter-spacing: -0.006rem;
+
+        }
+      }
+
+      &-bt {
+        flex: 1;
+        margin-left: -19%;
+
+        @media screen and (max-width: 1023px) {
+          margin-left: -17%;
+        }
+      }
+    }
+
+    .photo-demo-page__desc {
+      width: 620px;
+      margin-bottom: 16px;
+      font-family: var(--dde);
+      font-size: 18px;
+      line-height: 1.5;
+      color: #fff;
+
+      @media (min-width: 1024px) and (max-width: 1450px) {
+        width: 496px;
+        margin-bottom: 13px;
+        font-size: 14px;
+      }
+
+      @media screen and (max-width: 1023px) {
+        width: 100%;
+        margin-bottom: 0.32rem;
+        font-size: 0.3rem;
+        line-height: 1.5;
+      }
+
+      &--accent {
+        font-family: var(--deb);
+      }
+
+      &--opacity {
+        opacity: 0.65;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.ui-v4-photo-wall {
+  width: 100%;
+  height: 1080px;
+  background: #000;
+
+  @media (min-width: 1024px) and (max-width: 1450px) {
+    height: 864px;
+  }
+
+  @media screen and (max-width: 1023px) {
+    height: 25.7rem;
+  }
+
+  &__split {
+    width: 100%;
+    height: 1080px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row-reverse;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      height: 864px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      height: 25.7rem;
+      flex-direction: column;
+    }
+  }
+
+  &__left {
+    width: calc(50% + 50px);
+    height: 1080px;
+    position: relative;
+    perspective: 2200px;
+    overflow: hidden;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      height: 864px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      width: 100%;
+      height: 11rem !important;
+      padding: 0;
+      perspective: 20rem;
+    }
+  }
+
+  &__right {
+    width: 822px;
+    height: 1080px;
+    padding: 233px 0 0 50px;
+    color: #000;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      width: 658px;
+      height: 864px;
+      padding: 186px 0 0 40px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      width: 100%;
+      height: auto;
+      padding: 0.88rem 0.7rem 1.19rem;
+    }
+  }
+
+  &__stage {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: calc(50% - 80px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-style: preserve-3d;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      top: calc(50% - 64px);
+    }
+
+    @media screen and (max-width: 1023px) {
+      top: 50%;
+      left: calc(50% - 0.8rem);
+      height: 11rem;
+    }
+  }
+
+  &__group {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform-style: preserve-3d;
+  }
+
+  &__item {
+    position: absolute;
+    width: 160px;
+    height: 200px;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      width: 128px;
+      height: 160px;
+      border-radius: 10px;
+
+    }
+
+    @media screen and (max-width: 1023px) {
+      width: 1.6rem;
+      height: 2rem;
+      border-radius: 0.16rem;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+  }
+
+  &__group {
+    &[data-group='0'] .ui-v4-photo-wall__item {
+      &:nth-child(1) {
+        @include pos(30px, 0, 160px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(24px, 0, 128px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(0.2rem, 0, 2rem);
+        }
+      }
+
+      &:nth-child(2) {
+        @include pos(200px, -140px, 160px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(160px, -112px, 128px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(2.4rem, 0.1rem, 2rem);
+        }
+      }
+
+      &:nth-child(3) {
+        @include pos(-100px, 280px, 160px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-80px, 224px, 128px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-0.5rem, 2.9rem, 2rem);
+        }
+      }
+
+      &:nth-child(4) {
+        @include pos(-130px, -154px, 160px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-104px, -123.2px, 128px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-1.4rem, -1.6rem, 2rem);
+        }
+      }
+
+      &:nth-child(5) {
+        @include pos(-160px, 70px, 160px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-128px, 56px, 128px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-1.6rem, 0.8rem, 2rem);
+        }
+      }
+
+      &:nth-child(6) {
+        @include pos(200px, 180px, 160px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(160px, 144px, 128px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(2rem, 2.6rem, 2rem);
+        }
+      }
+    }
+
+    &[data-group='1'] .ui-v4-photo-wall__item {
+      &:nth-child(1) {
+        @include pos(240px, 200px, 130px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(192px, 160px, 104px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(2.4rem, 2.5rem, 1.25rem);
+        }
+      }
+
+      &:nth-child(2) {
+        @include pos(5px, -180px, 130px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(4px, -144px, 104px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-0.5rem, -2.5rem, 1.25rem);
+        }
+      }
+
+      &:nth-child(3) {
+        @include pos(50px, 180px, 130px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(40px, 144px, 104px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(1.9rem, -2.7rem, 1.25rem);
+        }
+      }
+
+      &:nth-child(4) {
+        @include pos(-190px, -150px, 130px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-152px, -120px, 104px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-2rem, -0.5rem, 1.25rem);
+        }
+      }
+
+      &:nth-child(5) {
+        @include pos(-190px, 160px, 130px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-152px, 128px, 104px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-2.2rem, 2.6rem, 1.25rem);
+        }
+      }
+
+      &:nth-child(6) {
+        @include pos(220px, -70px, 130px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(176px, -56px, 104px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(2.6rem, -0.4rem, 1.25rem);
+        }
+      }
+    }
+
+    &[data-group='2'] .ui-v4-photo-wall__item {
+      &:nth-child(1) {
+        @include pos(-230px, -190px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-184px, -152px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-1.6rem, -2.8rem);
+        }
+      }
+
+      &:nth-child(2) {
+        @include pos(240px, -160px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(192px, -128px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(2.8rem, -3.2rem);
+        }
+      }
+
+      &:nth-child(3) {
+        @include pos(220px, 50px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(176px, 40px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(1rem, 1.8rem);
+        }
+      }
+
+      &:nth-child(4) {
+        @include pos(-10px, 220px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-8px, 176px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-0.8rem, 3rem);
+        }
+      }
+
+      &:nth-child(5) {
+        @include pos(-220px, 20px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-176px, 16px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-2rem, 0.8rem);
+        }
+      }
+
+      &:nth-child(6) {
+        @include pos(-250px, 240px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-200px, 192px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(0.5rem, -3rem);
+        }
+      }
+    }
+
+    // Group 3
+    &[data-group='3'] .ui-v4-photo-wall__item {
+      &:nth-child(1) {
+        @include pos(-220px, -168px, -150px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-176px, -134.4px, -120px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-2rem, -1.5rem, -1.25rem);
+        }
+      }
+
+      &:nth-child(2) {
+        @include pos(-210px, 50px, -200px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-168px, 40px, -160px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-2.2rem, 2.6rem, -1.25rem);
+        }
+      }
+
+      &:nth-child(3) {
+        @include pos(-10px, -10px, 100px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-8px, -8px, 80px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(0.2rem, -0.2rem, -1.25rem);
+        }
+      }
+
+      &:nth-child(4) {
+        @include pos(220px, 240px, -200px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(176px, 192px, -160px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(2.4rem, -0.8rem, -1.25rem);
+        }
+      }
+
+      &:nth-child(5) {
+        @include pos(-220px, 250px, -150px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-176px, 200px, -120px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(2.2rem, 2.6rem, -1.25rem);
+        }
+      }
+    }
+
+    // Group 4
+    &[data-group='4'] .ui-v4-photo-wall__item {
+      &:nth-child(1) {
+        @include pos(-250px, -200px, -400px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-200px, -160px, -320px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-1.8rem, 0, -2rem);
+        }
+      }
+
+      &:nth-child(2) {
+        @include pos(-200px, 50px, -400px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-160px, 40px, -320px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(-2rem, -4rem, -2rem);
+        }
+      }
+
+      &:nth-child(3) {
+        @include pos(150px, -185px, -200px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(120px, -148px, -160px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(3rem, -3.7rem, -2rem);
+        }
+      }
+
+      &:nth-child(4) {
+        @include pos(80px, 40px, -400px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(64px, 32px, -320px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(0.6rem, -3.8rem, -2rem);
+        }
+      }
+
+      &:nth-child(5) {
+        @include pos(140px, 290px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(112px, 232px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(2.8rem, 0.8rem, -2rem);
+        }
+      }
+
+      &:nth-child(6) {
+        @include pos(-260px, 290px, -300px);
+
+        @media (min-width: 1024px) and (max-width: 1450px) {
+          @include pos(-208px, 232px, -240px);
+        }
+
+        @media (max-width: 1023px) {
+          @include pos(0.8rem, 1rem, -2rem);
+        }
+      }
+    }
+  }
+
+}
+
+.anniversary-11th {
+
+  // ==========================================
+  // 模块: 11周年庆 - 周年纪念故事
+  // 路径: Anniversary11th/section/YearHighlights.jsx
+  // ==========================================
+  .year-highlight {
+    padding-top: 20rem;
+
+  }
+
+  .year-highlight__wrapper {
+    height: 400vh;
+    position: relative;
+  }
+
+  .year-highlight__header {
+    text-align: center;
+    max-width: 70.4rem;
+    margin: 0 auto 8rem;
+
+    &__title {
+      color: #000;
+      font-family: var(--deb);
+      font-size: 8.6rem;
+      font-style: normal;
+      line-height: 90%;
+      letter-spacing: -0.344rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &_span {
+        display: block;
+      }
+
+      &_span1 {
+        color: #36d600;
+        font-family: var(--pwc);
+        font-size: 6.8rem;
+        letter-spacing: -0.068rem;
+        background: linear-gradient(89deg, #0F0 0.67%, #00E526 26.99%, #00944B 98.43%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 2.3;
+      }
+    }
+
+    &__text {
+      color: rgba(0, 0, 0, 0.65);
+      font-family: var(--dde);
+      font-size: 1.8rem;
+      line-height: 1.5;
+    }
+  }
+
+  .year-highlight__content {
+    // position: relative;
+    // width: 100%;
+    // height: 100vh;
+    // display: flex;
+    // align-items: center;
+    // overflow: hidden;
+
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+
+    &__wrp {
+      position: absolute;
+      inset: 0;
+      perspective: 1200px;
+      perspective-origin: 50% 50%;
+      transform-style: preserve-3d;
+    }
+  }
+
+  .year-highlight__card {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 48rem;
+    aspect-ratio: 480/620;
+    overflow: hidden;
+    transform-origin: 50% 50%;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+
+    &__pic {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &__content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      display: flex;
+      padding: 4.6rem 3.6rem;
+      color: #FFF;
+
+      &__title {
+        font-family: var(--deb);
+        font-size: 3.2rem;
+        line-height: 1.2;
+        letter-spacing: -0.064rem;
+        margin-bottom: 2.4rem;
+      }
+
+      &__text {
+        opacity: 0.75;
+        font-family: var(--dde);
+        font-size: 1.5rem;
+        line-height: 1.5;
+      }
+    }
+
+    &__content--2 {
+      color: #000;
+    }
+
+  }
+
+
+
+
+  // ==========================================
+  // 模块: 11周年庆 - 周年纪念故事
+  // 路径: Anniversary11th/section/RewardList.jsx
+  // ==========================================
+  .reward-list {
+    position: relative;
+    height: 300vh;
+
+    &__stick {
+      position: sticky;
+      height: 100vh;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  .reward-list__bg,
+  .reward-list__bg img {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    object-fit: cover;
+  }
+
+  .reward-list__header {
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 14rem;
+
+    &__title {
+      color: #fff;
+      font-family: var(--deb);
+      font-size: 8.6rem;
+      font-style: normal;
+      line-height: 90%;
+      letter-spacing: -0.344rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &_span {
+        display: block;
+      }
+
+      &_span1 {
+        color: #36d600;
+        font-family: var(--pwc);
+        font-size: 6.8rem;
+        letter-spacing: -0.068rem;
+        background: linear-gradient(89deg, #D2FF64 0.67%, #0F0 49.08%, #00E526 98.43%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 2.3;
+      }
+    }
+
+    &__text {
+      color: #FFF;
+      opacity: 0.65;
+      font-family: var(--dde);
+      font-size: 1.8rem;
+      line-height: 1.5;
+      max-width: 90rem;
+      margin: 0 auto;
+    }
+  }
+
+  .reward-list__content {
+    margin-top: 6rem;
+  }
+
+  .reward-list__card{
+    --reward-color: #91FF00;
+
+    &:nth-of-type(2) {
+      --reward-color: #FF008E;
+    }
+
+    &:nth-of-type(3) {
+      --reward-color: #E850EC;
+    }
+
+    position: relative;
+    isolation: isolate;
+
+    width: 90rem;
+    height: 48rem;
+    overflow: hidden;
+
+    padding: 1rem;
+
+    border-radius: 1.2rem;
+    background: var(--reward-color);
+    margin-inline: auto;
+  }
+
+  /*
+ * 黑色异形背景
+ */
+  .reward-card__shape {
+    display: block;
+    position: absolute;
+    inset: 1rem;
+    z-index: -1;
+
+    width: calc(100% - 2rem);
+    height: calc(100% - 2rem);
+
+    color: #000;
+    pointer-events: none;
+  }
+
+  /*
+ * 顶部区域
+ */
+  .reward-card__header {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 58.6rem 29.4rem;
+    min-height: 7.7rem;
+  }
+
+  .reward-card__title {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    color: #000;
+    font-family: var(--deb);
+    font-weight: 400;
+    font-size: 4.4rem;
+    line-height: 90%;
+    letter-spacing: -0.088rem;
+    padding-left: 2.6rem;
+  }
+
+  .reward-card--third {
+    .reward-card__title {
+      color: #fff;
+    }
+  }
+
+  .reward-card__date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 2rem;
+
+    color: var(--reward-color);
+    font-family: var(--deb);
+    font-size: 2.4rem;
+    line-height: 90%;
+    letter-spacing: -0.048rem;
+  }
+
+  /*
+ * 内容区域
+ */
+  .reward-card__body {
+    position: relative;
+    z-index: 1;
+
+    display: grid;
+    grid-template-columns: auto 40rem;
+    align-items: center;
+    // gap: 2.5rem;
+  }
+
+  .reward-card__content {
+    min-width: 0;
+    padding: 3.6rem 2.5rem 3.7rem 2.6rem;
+  }
+
+  .reward-card__description {
+    margin: 0;
+    color: #FFF;
+    font-family: var(--dde);
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+
+  .reward-card__divider {
+    width: 100%;
+    width: 39.1rem;
+    height: 0.1rem;
+    margin: 2.4rem 0;
+    background: var(--reward-color);
+  }
+
+  .reward-card__join-title {
+    color: var(--reward-color);
+    font-family: var(--deb);
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+  }
+
+  .reward-card__steps {
+    color: rgba(255, 255, 255, 0.65);
+    font-family: var(--dde);
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    margin: 0;
+    padding: 0;
+
+    strong {
+      color: #fff;
+      font-style: normal;
+      font-weight: 400;
+      font-family: var(--deb);
+    }
+  }
+
+  .reward-card__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18rem;
+    height: 4.4rem;
+    padding: 1rem;
+    gap: 1rem;
+    color: #000;
+    font-size: 1.6rem;
+    font-family: var(--deb);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.032rem;
+    background: var(--reward-color);
+    margin-top: 1.6rem;
+    transition:
+      transform 0.3s ease,
+      background-color 0.3s ease;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+      fill: none;
+      stroke: currentColor;
+      // stroke-width: 2;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+      background: #fff;
+    }
+  }
+
+  .reward-card__instagram-dot {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  .reward-card__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+
+    img {
+      display: block;
+
+      width: 100%;
+      max-width: 500px;
+      max-height: 370px;
+
+      object-fit: contain;
+    }
+  }
+
+  // ==========================================
+  // 模块: 11周年庆 - 周年纪念故事
+  // 路径: Anniversary11th/section/ AppreciationRewards.jsx.jsx
+  // ==========================================
+
+
+  .appreciation-reward {
+    position: relative;
+    height: 300vh;
+    width: 100%;
+
+    &__wrapper {
+      position: relative;
+      width: 100%;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__stick {
+      position: sticky;
+      height: 100vh;
+      top: 0;
+      width: 100%;
+    }
+
+    &__bg,
+    &__bg img {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      object-fit: cover;
+    }
+
+    &__note {
+      width: 83.6rem;
+      margin: 0 auto;
+      color: rgba(0, 0, 0, 0.65);
+      text-align: center;
+      font-family: var(--dde);
+      font-size: 1.8rem;
+      font-style: normal;
+      line-height: 150%;
+    }
+
+    &__content {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      margin-top: 6rem;
+      &__wrp {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        transform: translate(-50%, -50%);
+        transform-style: preserve-3d;
+      }
+    }
+
+    &__card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 31.4rem;
+      height: 44.2rem;
+      visibility: hidden;
+      opacity: 0;
+      transform-origin: 50% 115%;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change: transform, opacity;
+    }
+  }
+
+  .appreciation-reward__header {
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 14rem;
+
+    &__title {
+      color: #000;
+      font-family: var(--deb);
+      font-size: 8.6rem;
+      font-style: normal;
+      line-height: 90%;
+      letter-spacing: -0.344rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      &_span {
+        display: block;
+      }
+
+      &_span1 {
+        font-family: var(--pwc);
+        font-size: 6.8rem;
+        letter-spacing: -0.068rem;
+        background: linear-gradient(91deg, #F189FF 6.02%, #9C07FF 99.44%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 2.3;
+        z-index: 2;
+      }
+
+      .title-break {
+        flex-basis: 100%;
+        height: 0;
+      }
+
+      &_span2 {
+        margin-top: -3rem;
+      }
+
+    }
+  }
+
+  .travel-card__image {}
+
+  ;
+
+  .travel-card__content {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    color: #FFF;
+    padding: 4rem 2.3rem;
+    text-align: center;
+
+    .travel-card__h3 {
+      font-family: var(--deb);
+      font-size: 2.8rem;
+      font-weight: 400;
+      line-height: 100%;
+      letter-spacing: -0.112rem;
+    }
+
+    .travel-card__text {
+      color: #0F0;
+      font-family: var(--deb);
+      font-size: 1.8rem;
+      font-weight: 400;
+      line-height: 120%;
+      margin-top: 1.2rem;
+    }
+  }
+}
