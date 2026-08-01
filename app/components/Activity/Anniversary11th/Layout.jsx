@@ -8,7 +8,7 @@ import AnniversaryStory from './sections/AnniversaryStory';
 import YearHighlight from './sections/YearHighlights';
 import RewardList from './sections/RewardList';
 import AppreciationRewards from './sections/AppreciationRewards';
-
+// import StoriesBeyondOrdinary from './sections/StoriesBeyondOrdinary';
 
 
 export function Anniversary11thLayout() {
@@ -29,6 +29,7 @@ export function Anniversary11thLayout() {
         <YearHighlight />
         <RewardList />
         <AppreciationRewards />
+        {/* <StoriesBeyondOrdinary /> */}
         </div>
       </div>
     </div>

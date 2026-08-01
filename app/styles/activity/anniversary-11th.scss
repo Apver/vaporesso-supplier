@@ -1249,10 +1249,6 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     }
   }
 
-  .travel-card__image {}
-
-  ;
-
   .travel-card__content {
     position: absolute;
     inset: 0;
@@ -1280,4 +1276,533 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       margin-top: 1.2rem;
     }
   }
+
+
+
+
+.stories-beyond {
+  position: relative;
+  padding: 100px 0 80px;
+  background: #ffffff;
+  color: #000000;
+
+  &__header {
+    width: min(calc(100% - 40px), 1100px);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__title {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 12px;
+
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+    font-size: clamp(48px, 4.6vw, 76px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+
+  &__title-script {
+    color: #00cc37;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 1.15em;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+  }
+
+  &__title-normal {
+    display: block;
+  }
+
+  &__description {
+    margin-top: 30px;
+    color: rgba(0, 0, 0, 0.55);
+
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__viewport {
+    position: relative;
+
+    margin-top: 56px;
+    padding: 10px 0 30px;
+
+    /*
+     * 只裁剪左右内容。
+     * 上下使用负值，避免Hover展开的卡片被裁掉。
+     */
+    clip-path: inset(-1000px 0 -1000px 0);
+  }
+
+  &__row {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+
+    width: max-content;
+    min-width: 100%;
+
+    &:not(:first-child) {
+      margin-top: 24px;
+    }
+
+    &--1 {
+      transform: translateX(-120px);
+    }
+
+    &--2 {
+      transform: translateX(-240px);
+    }
+  }
+
+  &__footer {
+    width: min(calc(100% - 40px), 780px);
+    margin: 28px auto 0;
+    text-align: center;
+
+    h3 {
+      margin: 0;
+
+      font-family: Arial, sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    p {
+      margin: 4px 0 0;
+      color: rgba(0, 0, 0, 0.55);
+
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 240px;
+    min-height: 52px;
+    margin-top: 32px;
+    padding: 12px 30px;
+
+    border: 0;
+    background: #00f51e;
+    color: #000000;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+
+    transition:
+      background-color 0.25s ease,
+      transform 0.25s ease;
+
+    &:hover {
+      background: #00d91b;
+      transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+    }
+  }
+}
+
+.story-card {
+  --story-card-background: #b8ff00;
+  --story-card-color: #000000;
+  --story-card-width: 420px;
+
+  position: relative;
+  z-index: 1;
+
+  flex: 0 0 min(
+    var(--story-card-width),
+    calc(100vw - 40px)
+  );
+
+  width: min(
+    var(--story-card-width),
+    calc(100vw - 40px)
+  );
+
+  height: 150px;
+
+  color: var(--story-card-color);
+
+  /*
+   * 固定article高度。
+   * 展开时surface绝对定位，不会把其他卡片顶开。
+   */
+  &__surface {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+
+    padding: 20px;
+
+    border-radius: 10px;
+    background: var(--story-card-background);
+
+    transition:
+      box-shadow 0.28s ease,
+      transform 0.28s ease;
+  }
+
+  &__avatar {
+    flex: 0 0 64px;
+
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.28);
+
+    img {
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      height: 100%;
+
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 100%;
+  }
+
+  &__text-wrapper {
+    position: relative;
+
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  &__text,
+  &__measure-text {
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  /*
+   * 页面上真实显示的评论。
+   */
+  &__text {
+    display: -webkit-box;
+    overflow: hidden;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+  }
+
+  /*
+   * 用来测量完整文案高度。
+   * 不参与视觉显示和页面布局。
+   */
+  &__measure-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: -1;
+
+    display: block;
+
+    width: 100%;
+    height: auto;
+    overflow: visible;
+
+    visibility: hidden;
+    pointer-events: none;
+
+    -webkit-line-clamp: unset;
+  }
+
+  &__name {
+    display: block;
+    margin-top: 10px;
+
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  /*
+   * 真正可交互的button。
+   * article本身不绑定事件，因此不会触发a11y错误。
+   */
+  &__toggle {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+
+    width: 100%;
+    height: 100%;
+    padding: 0;
+
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+
+    cursor: pointer;
+    appearance: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+    }
+  }
+
+  /*
+   * 只有JS确认文案超过6行时才显示底部渐变。
+   */
+  &--overflowing:not(&--expanded)
+    &__text-wrapper::after {
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    z-index: 2;
+
+    height: 36px;
+
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--story-card-background) 90%
+    );
+
+    content: '';
+    pointer-events: none;
+
+    transition: opacity 0.2s ease;
+  }
+
+  /*
+   * Hover、键盘focus以及移动端点击展开时，
+   * 将当前卡片提高到最上层。
+   */
+  &--overflowing:hover,
+  &--overflowing:focus-within,
+  &--expanded {
+    z-index: 50;
+  }
+
+  &--overflowing:hover &__surface,
+  &--overflowing:focus-within &__surface,
+  &--expanded &__surface {
+    bottom: auto;
+
+    min-height: 100%;
+
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.16),
+      0 4px 10px rgba(0, 0, 0, 0.08);
+
+    transform: translateY(-5px);
+  }
+
+  /*
+   * 解除6行限制，展示完整文案。
+   */
+  &--overflowing:hover &__text,
+  &--overflowing:focus-within &__text,
+  &--expanded &__text {
+    display: block;
+    overflow: visible;
+
+    -webkit-line-clamp: unset;
+  }
+
+  /*
+   * 展开后隐藏底部渐变。
+   */
+  &--overflowing:hover &__text-wrapper::after,
+  &--overflowing:focus-within
+    &__text-wrapper::after,
+  &--expanded &__text-wrapper::after {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .stories-beyond {
+    padding: 60px 0;
+
+    &__header {
+      width: min(calc(100% - 32px), 600px);
+    }
+
+    &__title {
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+
+      font-size: 46px;
+    }
+
+    &__title-script {
+      font-size: 56px;
+    }
+
+    &__description {
+      margin-top: 20px;
+      font-size: 13px;
+    }
+
+    &__viewport {
+      overflow-x: auto;
+      overflow-y: visible;
+
+      padding: 10px 16px 30px;
+
+      clip-path: none;
+      scrollbar-width: none;
+      scroll-snap-type: x proximity;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &__row {
+      gap: 14px;
+
+      transform: none;
+
+      &:not(:first-child) {
+        margin-top: 16px;
+      }
+    }
+
+    &__footer {
+      width: min(calc(100% - 32px), 600px);
+      margin-top: 10px;
+    }
+
+    &__button {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+
+  .story-card {
+    --story-card-width: 320px;
+
+    flex-basis: min(
+      var(--story-card-width),
+      calc(100vw - 48px)
+    );
+
+    width: min(
+      var(--story-card-width),
+      calc(100vw - 48px)
+    );
+
+    height: 160px;
+
+    scroll-snap-align: center;
+
+    &__surface {
+      gap: 14px;
+      padding: 16px;
+    }
+
+    &__avatar {
+      flex-basis: 54px;
+
+      width: 54px;
+      height: 54px;
+    }
+
+    /*
+     * 移动端没有稳定Hover，
+     * 通过点击透明button切换展开状态。
+     */
+    &--overflowing:hover:not(&--expanded)
+      &__text {
+      display: -webkit-box;
+      overflow: hidden;
+
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 6;
+    }
+
+    &--overflowing:hover:not(&--expanded)
+      &__surface {
+      bottom: 0;
+
+      min-height: 0;
+
+      box-shadow: none;
+      transform: none;
+    }
+
+    &--overflowing:hover:not(&--expanded)
+      &__text-wrapper::after {
+      opacity: 1;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-card__surface,
+  .stories-beyond__button {
+    transition: none;
+  }
+}
+
 }

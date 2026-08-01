@@ -1037,6 +1037,320 @@ function initAppreciationRewardsAnimation(root) {
   };
 }
 
+// function initStoriesBeyondOrdinary(root) {
+//   if (!root) {
+//     return () => {};
+//   }
+
+//   const section = root.matches?.('.stories-beyond')
+//     ? root
+//     : root.querySelector('.stories-beyond');
+
+//   if (!section) {
+//     return () => {};
+//   }
+
+//   const cards = Array.from(
+//     section.querySelectorAll('.story-card')
+//   );
+
+//   if (cards.length === 0) {
+//     return () => {};
+//   }
+
+//   let resizeFrame = null;
+//   let isDestroyed = false;
+
+//   const getCardElements = (card) => ({
+//     text: card.querySelector('.story-card__text'),
+//     toggle: card.querySelector('.story-card__toggle')
+//   });
+
+//   const setExpanded = (card, expanded) => {
+//     const { toggle } = getCardElements(card);
+
+//     if (!toggle) {
+//       return;
+//     }
+
+//     const canExpand = card.classList.contains(
+//       'story-card--overflowing'
+//     );
+
+//     const nextExpanded = canExpand && expanded;
+
+//     card.classList.toggle(
+//       'story-card--expanded',
+//       nextExpanded
+//     );
+
+//     toggle.setAttribute(
+//       'aria-expanded',
+//       String(nextExpanded)
+//     );
+
+//     const storyName = card
+//       .querySelector('.story-card__name')
+//       ?.textContent?.trim();
+
+//     if (storyName) {
+//       toggle.setAttribute(
+//         'aria-label',
+//         nextExpanded
+//           ? `Collapse ${storyName}'s story`
+//           : `Read ${storyName}'s full story`
+//       );
+//     }
+//   };
+
+//   const collapseOtherCards = (currentCard) => {
+//     cards.forEach((card) => {
+//       if (card !== currentCard) {
+//         setExpanded(card, false);
+//       }
+//     });
+//   };
+
+//   const createMeasurementElement = (
+//     textElement,
+//     width
+//   ) => {
+//     const clone = textElement.cloneNode(true);
+
+//     clone.removeAttribute('id');
+//     clone.removeAttribute('aria-describedby');
+
+//     clone.classList.remove('story-card__text');
+//     clone.classList.add('story-card__measurement');
+
+//     Object.assign(clone.style, {
+//       position: 'fixed',
+//       top: '-10000px',
+//       left: '-10000px',
+//       zIndex: '-1',
+//       display: 'block',
+//       width: `${width}px`,
+//       height: 'auto',
+//       minHeight: '0',
+//       maxHeight: 'none',
+//       margin: '0',
+//       overflow: 'visible',
+//       visibility: 'hidden',
+//       pointerEvents: 'none',
+//       whiteSpace: 'normal'
+//     });
+
+//     clone.style.setProperty(
+//       '-webkit-line-clamp',
+//       'unset'
+//     );
+
+//     clone.style.setProperty(
+//       '-webkit-box-orient',
+//       'initial'
+//     );
+
+//     return clone;
+//   };
+
+//   const measureCard = (card) => {
+//     const { text, toggle } = getCardElements(card);
+
+//     if (!text || !toggle) {
+//       return;
+//     }
+
+//     const textWidth = text.getBoundingClientRect().width;
+
+//     if (textWidth <= 0) {
+//       return;
+//     }
+
+//     const computedStyle = window.getComputedStyle(text);
+
+//     let lineHeight = Number.parseFloat(
+//       computedStyle.lineHeight
+//     );
+
+//     if (!Number.isFinite(lineHeight)) {
+//       const fontSize = Number.parseFloat(
+//         computedStyle.fontSize
+//       );
+
+//       lineHeight = Number.isFinite(fontSize)
+//         ? fontSize * 1.35
+//         : 16;
+//     }
+
+//     const measurementElement =
+//       createMeasurementElement(text, textWidth);
+
+//     document.body.appendChild(measurementElement);
+
+//     const fullTextHeight =
+//       measurementElement.getBoundingClientRect().height;
+
+//     measurementElement.remove();
+
+//     const maximumHeight = lineHeight * 6;
+
+//     const isOverflowing =
+//       fullTextHeight > maximumHeight + 1;
+
+//     card.classList.toggle(
+//       'story-card--overflowing',
+//       isOverflowing
+//     );
+
+//     toggle.hidden = !isOverflowing;
+
+//     if (!isOverflowing) {
+//       setExpanded(card, false);
+//     }
+//   };
+
+//   const measureAllCards = () => {
+//     if (isDestroyed) {
+//       return;
+//     }
+
+//     cards.forEach(measureCard);
+//   };
+
+//   const scheduleMeasure = () => {
+//     if (resizeFrame !== null) {
+//       cancelAnimationFrame(resizeFrame);
+//     }
+
+//     resizeFrame = requestAnimationFrame(() => {
+//       resizeFrame = null;
+//       measureAllCards();
+//     });
+//   };
+
+//   const toggleHandlers = cards
+//     .map((card) => {
+//       const { toggle } = getCardElements(card);
+
+//       if (!toggle) {
+//         return null;
+//       }
+
+//       const handleClick = () => {
+//         const isExpanded = card.classList.contains(
+//           'story-card--expanded'
+//         );
+
+//         collapseOtherCards(card);
+//         setExpanded(card, !isExpanded);
+//       };
+
+//       const handleKeyDown = (event) => {
+//         if (event.key !== 'Escape') {
+//           return;
+//         }
+
+//         setExpanded(card, false);
+//         toggle.blur();
+//       };
+
+//       toggle.addEventListener('click', handleClick);
+//       toggle.addEventListener(
+//         'keydown',
+//         handleKeyDown
+//       );
+
+//       return () => {
+//         toggle.removeEventListener(
+//           'click',
+//           handleClick
+//         );
+
+//         toggle.removeEventListener(
+//           'keydown',
+//           handleKeyDown
+//         );
+//       };
+//     })
+//     .filter(Boolean);
+
+//   const handleDocumentPointerDown = (event) => {
+//     if (section.contains(event.target)) {
+//       return;
+//     }
+
+//     cards.forEach((card) => {
+//       setExpanded(card, false);
+//     });
+//   };
+
+//   document.addEventListener(
+//     'pointerdown',
+//     handleDocumentPointerDown
+//   );
+
+//   const resizeObserver =
+//     typeof ResizeObserver !== 'undefined'
+//       ? new ResizeObserver(scheduleMeasure)
+//       : null;
+
+//   cards.forEach((card) => {
+//     resizeObserver?.observe(card);
+//   });
+
+//   window.addEventListener('resize', scheduleMeasure);
+
+//   scheduleMeasure();
+
+//   document.fonts?.ready
+//     .then(() => {
+//       if (!isDestroyed) {
+//         scheduleMeasure();
+//       }
+//     })
+//     .catch(() => undefined);
+
+//   return () => {
+//     isDestroyed = true;
+
+//     if (resizeFrame !== null) {
+//       cancelAnimationFrame(resizeFrame);
+//     }
+
+//     resizeObserver?.disconnect();
+
+//     window.removeEventListener(
+//       'resize',
+//       scheduleMeasure
+//     );
+
+//     document.removeEventListener(
+//       'pointerdown',
+//       handleDocumentPointerDown
+//     );
+
+//     toggleHandlers.forEach((cleanup) => {
+//       cleanup();
+//     });
+
+//     cards.forEach((card) => {
+//       card.classList.remove(
+//         'story-card--overflowing',
+//         'story-card--expanded'
+//       );
+
+//       const { toggle } = getCardElements(card);
+
+//       if (toggle) {
+//         toggle.hidden = true;
+//         toggle.setAttribute(
+//           'aria-expanded',
+//           'false'
+//         );
+//       }
+//     });
+//   };
+// }
 export function useAnniversary11thPage(rootRef) {
   useEffect(() => {
     const root = rootRef.current;
@@ -1050,6 +1364,8 @@ export function useAnniversary11thPage(rootRef) {
     
       cleanups.push(initializeAnimation(root));
        cleanups.push(initAppreciationRewardsAnimation(root));
+  // cleanups.push(initStoriesBeyondOrdinary(root));
+       
 
       
     const refreshScroll = () => window.ScrollTrigger?.refresh();
