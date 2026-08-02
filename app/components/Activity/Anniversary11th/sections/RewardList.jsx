@@ -8,17 +8,33 @@ function InstagramIcon() {
 }
 function RewardCardShape() {
   return (
-    <svg
-      className="reward-card__shape"
-      viewBox="0 0 880 460"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M872 0C876.418 0 880 3.58172 880 8V452C880 456.418 876.418 460 872 460H8C3.58172 460 0 456.418 0 452V85C0 80.5817 3.58172 77 8 77H578C582.418 77 586 73.4183 586 69V8C586 3.58172 589.582 0 594 0H872Z"
-        fill="currentColor"
-      />
-    </svg>
+<div className="reward-card__shape-wrapper">
+  {/* 桌面端 */}
+  <svg
+    className="reward-card__shape reward-card__shape--desktop"
+    viewBox="0 0 880 460"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M872 0C876.418 0 880 3.58172 880 8V452C880 456.418 876.418 460 872 460H8C3.58172 460 0 456.418 0 452V85C0 80.5817 3.58172 77 8 77H578C582.418 77 586 73.4183 586 69V8C586 3.58172 589.582 0 594 0H872Z"
+      fill="currentColor"
+    />
+  </svg>
+
+  {/* 移动端 */}
+  <svg
+    className="reward-card__shape reward-card__shape--mobile"
+    viewBox="0 0 329 543"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M321 0C325.418 1.15966e-06 329 3.58172 329 8V63.6992C329 64.2476 329 64.811 329 65.3594V535C329 539.418 325.418 543 321 543H8C3.58173 543 0 539.418 0 535V65.3594C0 60.9411 3.58172 57.3594 8 57.3594H157C161.418 57.3594 165 53.7777 165 49.3594V8C165 3.58172 168.582 0 173 0H321Z"
+      fill="currentColor"
+    />
+  </svg>
+</div>
   );
 }
 
@@ -252,6 +268,25 @@ const RewardList = () => {
         </div>
       </div>
       </div>
+       <picture className="reward-list-btm__bg">
+                <source
+                  media="(min-width: 2440px)"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-03-6.svg"
+                />
+                <source
+                  media="(min-width: 1024px)"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-03-6.svg"
+                />
+                <source
+                  media="(max-width: 1023px)"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-03-6.svg"
+                />
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-03-6.svg"
+                  className=""
+                  alt=""
+                />
+              </picture>
     </section>
   );
 }

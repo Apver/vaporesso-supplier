@@ -6,6 +6,25 @@ const AppreciationRewards = () => {
     <section
       className="appreciation-reward"
     >
+             <picture className="appreciation-reward-tp__bg">
+                <source
+                  media="(min-width: 2440px)"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-05-2.svg"
+                />
+                <source
+                  media="(min-width: 1024px)"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-05-2.svg"
+                />
+                <source
+                  media="(max-width: 1023px)"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-05-2.svg"
+                />
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-05-2.svg"
+                  className=""
+                  alt=""
+                />
+              </picture>
       <div className="appreciation-reward__stick">
         <picture className="appreciation-reward__bg">
           <source
@@ -168,6 +187,25 @@ const AppreciationRewards = () => {
           <div className="appreciation-reward__note">For 11 years, every step of this journey has been extraordinary because of you.We will randomly select 32 lucky participants to win one of our 4 exclusive merchandise sets.A few selected fans will receive an exclusive invitation to visit VAPORESSO Headquarters and join the China Visit experience.</div>
         </div>
       </div>
+       <picture className="appreciation-reward-bt__bg">
+                <source
+                  media="(min-width: 2440px)"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-05-3.svg"
+                />
+                <source
+                  media="(min-width: 1024px)"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-05-3.svg"
+                />
+                <source
+                  media="(max-width: 1023px)"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-05-3.svg"
+                />
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-05-3.svg"
+                  className=""
+                  alt=""
+                />
+              </picture>
     </section>
   );
 }

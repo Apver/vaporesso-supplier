@@ -8,7 +8,10 @@ import AnniversaryStory from './sections/AnniversaryStory';
 import YearHighlight from './sections/YearHighlights';
 import RewardList from './sections/RewardList';
 import AppreciationRewards from './sections/AppreciationRewards';
-// import StoriesBeyondOrdinary from './sections/StoriesBeyondOrdinary';
+import StoriesBeyondOrdinary from './sections/StoriesBeyondOrdinary';
+import TermsAndConditions from './sections/TermsAndConditions';
+import ExtraordinaryHero from './sections/ExtraordinaryHero';
+import StoryShareModal from './components/StoryShareModal';
 
 
 export function Anniversary11thLayout() {
@@ -29,9 +32,13 @@ export function Anniversary11thLayout() {
         <YearHighlight />
         <RewardList />
         <AppreciationRewards />
-        {/* <StoriesBeyondOrdinary /> */}
+        <StoriesBeyondOrdinary />
+        <ExtraordinaryHero />
+        <TermsAndConditions />
+       
         </div>
       </div>
+      <StoryShareModal />
     </div>
   );
 }

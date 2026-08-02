@@ -102,7 +102,25 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   // 路径: Anniversary11th/section/VideoBanner.jsx
   // ==========================================
 
+  .anniversary-video-banner {
+    width: 100%;
+    height: 850px;
+    object-fit: cover;
 
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      height: 680px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      height: auto;
+    }
+  }
+
+  .anniversary-video-banner video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
   // ==========================================
   // 模块: 11周年庆 - 周年纪念故事
@@ -213,7 +231,12 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 .ui-v4-photo-wall {
   width: 100%;
   height: 1080px;
-  background: #000;
+  // background: #000;
+
+  background-image: url('https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-02-1.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   @media (min-width: 1024px) and (max-width: 1450px) {
     height: 864px;
@@ -221,6 +244,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
   @media screen and (max-width: 1023px) {
     height: 25.7rem;
+    background-image: url('https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-02-1.svg');
   }
 
   &__split {
@@ -711,6 +735,9 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   .year-highlight {
     padding-top: 20rem;
 
+    @media (max-width: 1023px) {
+      padding-top: 1.6rem;
+    }
   }
 
   .year-highlight__wrapper {
@@ -723,6 +750,12 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     max-width: 70.4rem;
     margin: 0 auto 8rem;
 
+    @media (max-width: 1023px) {
+      max-width: 100%;
+      width: 6.1rem;
+      margin: 0 auto 0.72rem;
+    }
+
     &__title {
       color: #000;
       font-family: var(--deb);
@@ -733,6 +766,11 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       display: flex;
       align-items: center;
       justify-content: center;
+
+      @media (max-width: 1023px) {
+        font-size: 0.8rem;
+        letter-spacing: -0.032rem;
+      }
 
       &_span {
         display: block;
@@ -748,6 +786,11 @@ html.anniversary-11th-page body.anniversary-intro-playing {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         line-height: 2.3;
+
+        @media (max-width: 1023px) {
+          font-size: 0.6rem;
+          letter-spacing: -0.006rem;
+        }
       }
     }
 
@@ -756,6 +799,11 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       font-family: var(--dde);
       font-size: 1.8rem;
       line-height: 1.5;
+
+      @media (max-width: 1023px) {
+        font-size: 0.3rem;
+        line-height: 1.4;
+      }
     }
   }
 
@@ -794,6 +842,11 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     backface-visibility: hidden;
     will-change: transform, opacity;
 
+    @media (max-width: 1023px) {
+      width: 6.7rem;
+      aspect-ratio: 335/500;
+    }
+
     &__pic {
       width: 100%;
       height: 100%;
@@ -817,12 +870,22 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       padding: 4.6rem 3.6rem;
       color: #FFF;
 
+      @media (max-width: 1023px) {
+        padding: 0.6rem 0.52rem 0.6rem 0.48rem;
+      }
+
       &__title {
         font-family: var(--deb);
         font-size: 3.2rem;
         line-height: 1.2;
         letter-spacing: -0.064rem;
         margin-bottom: 2.4rem;
+
+        @media (max-width: 1023px) {
+          font-size: 0.48rem;
+          letter-spacing: -0.0096rem;
+          margin-bottom: 0.32rem;
+        }
       }
 
       &__text {
@@ -830,6 +893,10 @@ html.anniversary-11th-page body.anniversary-intro-playing {
         font-family: var(--dde);
         font-size: 1.5rem;
         line-height: 1.5;
+
+        @media (max-width: 1023px) {
+          font-size: 0.28rem;
+        }
       }
     }
 
@@ -839,6 +906,26 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
   }
 
+  @media (max-width: 1023px) {
+    .year-highlight__content {
+      isolation: isolate;
+    }
+
+    .year-highlight__content__wrp {
+      perspective: 900px;
+      perspective-origin: 50% 48%;
+      transform-style: preserve-3d;
+    }
+
+    .year-highlight__card {
+      transform-origin: 50% 0%;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change:
+        transform,
+        opacity;
+    }
+  }
 
 
 
@@ -855,6 +942,19 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       height: 100vh;
       top: 0;
       width: 100%;
+    }
+
+    .reward-list-btm__bg {
+      position: absolute;
+      top: -99px;
+      left: 0;
+      width: 100%;
+
+      img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+      }
     }
   }
 
@@ -918,7 +1018,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     margin-top: 6rem;
   }
 
-  .reward-list__card{
+  .reward-list__card {
     --reward-color: #91FF00;
 
     &:nth-of-type(2) {
@@ -943,9 +1043,6 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     margin-inline: auto;
   }
 
-  /*
- * 黑色异形背景
- */
   .reward-card__shape {
     display: block;
     position: absolute;
@@ -957,11 +1054,12 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     color: #000;
     pointer-events: none;
+
+    &--mobile {
+      display: none;
+    }
   }
 
-  /*
- * 顶部区域
- */
   .reward-card__header {
     position: relative;
     z-index: 1;
@@ -1003,13 +1101,9 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     letter-spacing: -0.048rem;
   }
 
-  /*
- * 内容区域
- */
   .reward-card__body {
     position: relative;
     z-index: 1;
-
     display: grid;
     grid-template-columns: auto 40rem;
     align-items: center;
@@ -1121,16 +1215,183 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     }
   }
 
+  @media (max-width: 1023px) {
+
+
+    .reward-list__header {
+      padding-top: 1.6rem;
+
+      &__title {
+        font-size: 0.8rem;
+        letter-spacing: -0.032rem;
+        width: 6.1rem;
+        margin: 0 auto;
+        flex-direction: column;
+
+        &_span1 {
+          font-size: 0.6rem;
+          letter-spacing: -0.006rem;
+          margin-top: -0.3rem;
+        }
+      }
+
+      &__text {
+        font-size: 0.3rem;
+
+        line-height: 1.4;
+        max-width: 100%;
+        width: 6.1rem;
+        margin: 0 auto;
+      }
+    }
+
+    .reward-list__content {
+      margin-top: 0.73rem;
+    }
+
+    .reward-list__card {
+
+
+      width: 6.9rem;
+      height: 11.18rem;
+
+      padding: 0.16rem;
+      border-radius: 0.16rem;
+    }
+
+    .reward-card__shape {
+      inset: 0.16rem;
+      width: calc(100% - 0.32rem);
+      height: calc(100% - 0.32rem);
+
+      &--desktop {
+        display: none;
+      }
+
+      &--mobile {
+        display: block;
+      }
+    }
+
+    .reward-card__header {
+      grid-template-columns: 3.3rem 3.28rem;
+      min-height: 1.2rem;
+    }
+
+    .reward-card__title {
+
+      font-size: 0.5rem;
+
+      line-height: 1;
+      letter-spacing: -0.01rem;
+      padding-left: 0.24rem;
+    }
+
+
+    .reward-card__date {
+      padding: 0.2rem;
+      font-size: 0.32rem;
+      line-height: 1.2;
+      letter-spacing: -0.0128rem;
+
+    }
+
+    .reward-card__body {
+      grid-template-columns: 1fr;
+      gap: 0.32rem;
+      padding: 0.3rem 0.22rem 0.6rem;
+
+      > :first-child {
+        order: 2;
+      }
+
+      > :last-child {
+        order: 1;
+      }
+    }
+
+    .reward-card__content {
+      padding: 0;
+    }
+
+    .reward-card__description {
+      font-size: 0.28rem;
+    }
+
+    .reward-card__divider {
+      width: 100%;
+      height: 0.02rem;
+
+      margin: 0.32rem 0;
+    }
+
+    .reward-card__join-title {
+      font-size: 0.32rem;
+
+      margin-bottom: 0.16rem;
+    }
+
+    .reward-card__steps {
+      font-size: 0.28rem;
+    }
+
+    .reward-card__button {
+      width: 2.8rem;
+      height: 0.8rem;
+      padding: 0.2rem;
+      gap: 0.2rem;
+      font-size: 0.28rem;
+      letter-spacing: -0.0056rem;
+
+      margin-top: 0.32rem;
+
+      svg {
+        width: 0.36rem;
+        height: 0.36rem;
+      }
+
+    }
+
+    .reward-card__media {
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        width: 3.2rem;
+        height: 2.8rem;
+      }
+    }
+
+
+  }
+
   // ==========================================
   // 模块: 11周年庆 - 周年纪念故事
-  // 路径: Anniversary11th/section/ AppreciationRewards.jsx.jsx
+  // 路径: Anniversary11th/section/ AppreciationRewards.jsx
   // ==========================================
-
-
   .appreciation-reward {
     position: relative;
     height: 300vh;
     width: 100%;
+
+    .appreciation-reward-tp__bg {
+      position: absolute;
+      top: -45px;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+
+      img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .appreciation-reward-bt__bg {
+      position: absolute;
+      bottom: -45px;
+      left: 0;
+    }
 
     &__wrapper {
       position: relative;
@@ -1177,6 +1438,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       align-items: center;
       flex: 1;
       margin-top: 6rem;
+
       &__wrp {
         position: absolute;
         top: 50%;
@@ -1277,17 +1539,143 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     }
   }
 
+  @media (max-width: 1023px) {
+    .appreciation-reward {
+      .appreciation-reward-tp__bg {
+        top: -45px;
+      }
+
+      .appreciation-reward-bt__bg {
+        bottom: -45px;
+      }
+
+      &__note {
+        width: 6.1rem;
+        font-size: 0.3rem;
+        line-height: 1.4;
+        margin-bottom: 1.2rem;
+      }
+
+      &__content {
+        margin-top: 0.72rem;
+      }
+
+      &__card {
+        width: 5.4008rem;
+        height: 7.6024rem;
+      }
+    }
+
+    .appreciation-reward__header {
+      padding-top: 1.6rem;
+
+      &__title {
+        font-size: 0.8rem;
+        letter-spacing: -0.032rem;
 
 
+        &_span1 {
+          font-size: 0.6rem;
+          letter-spacing: -0.006rem;
+          margin-top: -0.3rem;
+        }
 
+        &_span2 {
+          margin-top: -0.1rem;
+        }
+
+      }
+    }
+
+    .travel-card__content {
+
+      padding: 0.73rem 0.55rem;
+
+      .travel-card__h3 {
+        font-size: 0.48rem;
+        letter-spacing: -0.0192rem;
+
+      }
+
+      .travel-card__text {
+        font-size: 0.32rem;
+        margin-top: 0.24rem;
+      }
+    }
+
+
+  }
+
+
+  @media (max-width: 1023px) {
+    .appreciation-reward {
+      // overflow: hidden;
+
+      &__content {
+        overflow: visible;
+      }
+
+      &__content__wrp {
+        top: 50%;
+        left: 50%;
+      }
+
+      &__card {
+        width: 5.4008rem;
+        height: 7.6024rem;
+      }
+    }
+
+    .travel-card__image {
+      display: block;
+      width: 100%;
+      height: 100%;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+
+
+}
+
+
+// ==========================================
+// 模块: 11周年庆 - 周年纪念故事
+// 路径: Anniversary11th/section/ StoriesBeyondOrdinary.jsx
+// ==========================================
 .stories-beyond {
   position: relative;
-  padding: 100px 0 80px;
+  padding: 140px 0;
   background: #ffffff;
   color: #000000;
 
+  @keyframes stories-scroll-right {
+    from {
+      transform: translate3d(-50%, 0, 0);
+    }
+
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes stories-scroll-left {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
   &__header {
-    width: min(calc(100% - 40px), 1100px);
+    width: min(calc(100% - 40px), 920px);
     margin: 0 auto;
     text-align: center;
   }
@@ -1296,23 +1684,25 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     display: flex;
     align-items: baseline;
     justify-content: center;
-    gap: 12px;
-
-    margin: 0;
-
-    font-family: Arial, sans-serif;
-    font-size: clamp(48px, 4.6vw, 76px);
-    font-weight: 700;
-    line-height: 0.95;
-    letter-spacing: -0.045em;
+    color: #000;
+    font-family: var(--deb);
+    font-size: 8.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 90%;
+    letter-spacing: -0.344rem;
   }
 
   &__title-script {
-    color: #00cc37;
-    font-family: 'Brush Script MT', cursive;
-    font-size: 1.15em;
-    font-weight: 400;
-    letter-spacing: -0.04em;
+    color: #36d600;
+    font-family: var(--pwc);
+    font-size: 6.8rem;
+    letter-spacing: -0.068rem;
+    background: linear-gradient(89deg, #D2FF64 0.67%, #0F0 49.08%, #00E526 98.43%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 2.3;
   }
 
   &__title-normal {
@@ -1320,12 +1710,13 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   }
 
   &__description {
-    margin-top: 30px;
-    color: rgba(0, 0, 0, 0.55);
-
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.60);
+    text-align: center;
+    font-family: var(--dde);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
 
     p {
       margin: 0;
@@ -1334,60 +1725,65 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
   &__viewport {
     position: relative;
-
-    margin-top: 56px;
-    padding: 10px 0 30px;
-
-    /*
-     * 只裁剪左右内容。
-     * 上下使用负值，避免Hover展开的卡片被裁掉。
-     */
+    z-index: 1;
+    margin-top: 6rem;
     clip-path: inset(-1000px 0 -1000px 0);
+    isolation: isolate;
+
   }
 
   &__row {
     position: relative;
+    z-index: 1;
 
     display: flex;
     align-items: flex-start;
-    gap: 22px;
+    gap: 2.4rem;
 
     width: max-content;
     min-width: 100%;
+    z-index: 1;
+
 
     &:not(:first-child) {
-      margin-top: 24px;
+      margin-top: 2.4rem;
     }
 
     &--1 {
-      transform: translateX(-120px);
+      animation: stories-scroll-right 35s linear infinite;
     }
 
     &--2 {
-      transform: translateX(-240px);
+      animation: stories-scroll-left 40s linear infinite;
+    }
+
+    &:has(.story-card:hover),
+    &:has(.story-card:focus-within),
+    &:has(.story-card--expanded) {
+      z-index: 20;
+      animation-play-state: paused;
     }
   }
 
   &__footer {
-    width: min(calc(100% - 40px), 780px);
-    margin: 28px auto 0;
+    width: min(calc(100% - 40px), 746px);
+    margin: 6rem auto 0;
     text-align: center;
 
     h3 {
       margin: 0;
-
-      font-family: Arial, sans-serif;
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.4;
+      color: #000;
+      font-family: var(--deb);
+      font-size: 1.8rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
     }
 
     p {
-      margin: 4px 0 0;
+      font-size: 1.8rem;
       color: rgba(0, 0, 0, 0.55);
-
-      font-family: Arial, sans-serif;
-      font-size: 14px;
+      font-family: var(--dde);
       line-height: 1.5;
     }
   }
@@ -1396,20 +1792,22 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
-    min-width: 240px;
-    min-height: 52px;
-    margin-top: 32px;
-    padding: 12px 30px;
+    cursor: pointer;
+    width: 24rem;
+    padding: 1.6rem 5rem;
+    height: 5.4rem;
+    margin-top: 3.6rem;
 
     border: 0;
-    background: #00f51e;
-    color: #000000;
+    background: #0F0;
 
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1;
+    color: #000;
+    font-family: var(--deb);
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: -0.036rem;
     text-decoration: none;
 
     transition:
@@ -1417,7 +1815,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       transform 0.25s ease;
 
     &:hover {
-      background: #00d91b;
+      background: #0F0;
       transform: translateY(-2px);
     }
 
@@ -1429,42 +1827,33 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 }
 
 .story-card {
-  --story-card-background: #b8ff00;
+  background: var(--story-card-background);
   --story-card-color: #000000;
-  --story-card-width: 420px;
+  --story-card-width: 46rem;
 
   position: relative;
   z-index: 1;
+  border-radius: 1rem;
 
-  flex: 0 0 min(
-    var(--story-card-width),
-    calc(100vw - 40px)
-  );
 
-  width: min(
-    var(--story-card-width),
-    calc(100vw - 40px)
-  );
-
-  height: 150px;
-
+  flex: 0 0 min(var(--story-card-width),
+      calc(100vw - 40px));
+  width: min(var(--story-card-width),
+      calc(100vw - 40px));
+  height: 16.9rem;
   color: var(--story-card-color);
 
-  /*
-   * 固定article高度。
-   * 展开时surface绝对定位，不会把其他卡片顶开。
-   */
   &__surface {
     position: absolute;
     inset: 0;
 
     display: flex;
     align-items: flex-start;
-    gap: 18px;
+    gap: 2rem;
 
-    padding: 20px;
+    padding: 2.4rem 1.6rem;
 
-    border-radius: 10px;
+    border-radius: 1rem;
     background: var(--story-card-background);
 
     transition:
@@ -1473,21 +1862,14 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   }
 
   &__avatar {
-    flex: 0 0 64px;
-
-    width: 64px;
-    height: 64px;
+    flex: 0 0 8rem;
     overflow: hidden;
-
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.28);
 
     img {
       display: block;
-
-      width: 100%;
-      height: 100%;
-
+      width: 8rem;
+      height: 8rem;
+      border-radius: 1rem;
       object-fit: cover;
     }
 
@@ -1495,13 +1877,13 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       display: flex;
       align-items: center;
       justify-content: center;
-
       width: 100%;
       height: 100%;
-
-      font-family: Arial, sans-serif;
-      font-size: 24px;
-      font-weight: 700;
+      font-family: var(--deb);
+      font-size: 1.8rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
     }
   }
 
@@ -1525,28 +1907,22 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   &__text,
   &__measure-text {
     margin: 0;
-
-    font-family: Arial, sans-serif;
-    font-size: 12px;
+    color: var(--story-card-color);
+    font-family: var(--dde);
+    font-size: 1.6rem;
+    font-style: normal;
     font-weight: 400;
-    line-height: 1.35;
+    line-height: 135%;
   }
 
-  /*
-   * 页面上真实显示的评论。
-   */
+
   &__text {
     display: -webkit-box;
     overflow: hidden;
-
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 6;
   }
 
-  /*
-   * 用来测量完整文案高度。
-   * 不参与视觉显示和页面布局。
-   */
   &__measure-text {
     position: absolute;
     top: 0;
@@ -1568,18 +1944,16 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
   &__name {
     display: block;
-    margin-top: 10px;
-
-    font-family: Arial, sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1.2;
+    color: var(--story-card-color);
+    text-align: center;
+    margin-top: 1.6rem;
+    font-family: var(--deb);
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
   }
 
-  /*
-   * 真正可交互的button。
-   * article本身不绑定事件，因此不会触发a11y错误。
-   */
   &__toggle {
     position: absolute;
     inset: 0;
@@ -1590,7 +1964,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     padding: 0;
 
     border: 0;
-    border-radius: 10px;
+    border-radius: 1rem;
     background: transparent;
 
     cursor: pointer;
@@ -1606,11 +1980,9 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     }
   }
 
-  /*
-   * 只有JS确认文案超过6行时才显示底部渐变。
-   */
-  &--overflowing:not(&--expanded)
-    &__text-wrapper::after {
+  &--overflowing:not(&--expanded) &__text-wrapper:after {
+    content: '';
+    display: block;
     position: absolute;
     right: 0;
     bottom: -1px;
@@ -1619,22 +1991,16 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     height: 36px;
 
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      var(--story-card-background) 90%
-    );
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        var(--story-card-background) 90%);
 
-    content: '';
+
     pointer-events: none;
 
     transition: opacity 0.2s ease;
   }
 
-  /*
-   * Hover、键盘focus以及移动端点击展开时，
-   * 将当前卡片提高到最上层。
-   */
   &--overflowing:hover,
   &--overflowing:focus-within,
   &--expanded {
@@ -1655,63 +2021,65 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     transform: translateY(-5px);
   }
 
-  /*
-   * 解除6行限制，展示完整文案。
-   */
   &--overflowing:hover &__text,
   &--overflowing:focus-within &__text,
   &--expanded &__text {
     display: block;
     overflow: visible;
-
     -webkit-line-clamp: unset;
   }
 
-  /*
-   * 展开后隐藏底部渐变。
-   */
   &--overflowing:hover &__text-wrapper::after,
-  &--overflowing:focus-within
-    &__text-wrapper::after,
+  &--overflowing:focus-within &__text-wrapper::after,
   &--expanded &__text-wrapper::after {
     opacity: 0;
   }
 }
 
+
 @media (max-width: 767px) {
   .stories-beyond {
-    padding: 60px 0;
+    padding: 1.6rem 0;
 
     &__header {
-      width: min(calc(100% - 32px), 600px);
+      width: 6.1rem;
     }
 
     &__title {
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      font-size: 0.8rem;
+      letter-spacing: -0.032rem;
 
-      font-size: 46px;
+    }
+
+    &__title-normal {
+      margin-top: -0.3rem;
+
     }
 
     &__title-script {
-      font-size: 56px;
+      font-size: 0.6rem;
+      letter-spacing: -0.006rem;
+
     }
 
     &__description {
-      margin-top: 20px;
-      font-size: 13px;
+      margin-top: 0.32rem;
+      font-size: 0.3rem;
+      line-height: 1.4;
     }
 
     &__viewport {
       overflow-x: auto;
       overflow-y: visible;
 
-      padding: 10px 16px 30px;
+      padding: 0;
 
       clip-path: none;
       scrollbar-width: none;
       scroll-snap-type: x proximity;
+      margin-top: 0.72rem;
 
       &::-webkit-scrollbar {
         display: none;
@@ -1719,61 +2087,92 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     }
 
     &__row {
-      gap: 14px;
+      gap: 0.32rem;
 
       transform: none;
 
       &:not(:first-child) {
-        margin-top: 16px;
+        margin-top: 0.32rem;
       }
     }
 
+
     &__footer {
-      width: min(calc(100% - 32px), 600px);
-      margin-top: 10px;
+      width: 5.9rem;
+      margin-top: 0.72rem;
+
+      h3 {
+        font-size: 0.3rem;
+        line-height: 1.4;
+      }
+
+      p {
+        font-size: 0.3rem;
+        line-height: 1.4;
+      }
     }
 
     &__button {
-      width: 100%;
-      min-width: 0;
+      width: 4rem;
+      padding: 0.28rem 0.5rem;
+      height: 0.94rem;
+      margin-top: 0.32rem;
+      font-size: 0.32rem;
+      letter-spacing: -0.0064rem;
+      line-height: 1;
     }
   }
 
   .story-card {
-    --story-card-width: 320px;
+    --story-card-width: 5.6rem;
 
-    flex-basis: min(
-      var(--story-card-width),
-      calc(100vw - 48px)
-    );
+    flex-basis: 5.6rem;
 
-    width: min(
-      var(--story-card-width),
-      calc(100vw - 48px)
-    );
+    width: 5.6rem;
 
-    height: 160px;
+    height: 2.76rem;
 
     scroll-snap-align: center;
+    border-radius: 0.12rem;
 
     &__surface {
-      gap: 14px;
-      padding: 16px;
+      gap: 0.32rem;
+      padding: 0.36rem 0.32rem;
+      border-radius: 0.12rem;
     }
 
     &__avatar {
-      flex-basis: 54px;
+      flex: 0 0 0.96rem;
 
-      width: 54px;
-      height: 54px;
+      img {
+        width: 0.96rem;
+        height: 0.96rem;
+        border-radius: 0.12rem;
+      }
+
+      span {
+        font-size: 0.24rem;
+        line-height: 1.4;
+        margin-top: 0.24rem;
+      }
     }
 
-    /*
-     * 移动端没有稳定Hover，
-     * 通过点击透明button切换展开状态。
-     */
-    &--overflowing:hover:not(&--expanded)
-      &__text {
+    &__name {
+      font-size: 0.24rem;
+      margin-top: 0.24rem;
+    }
+
+    &__text,
+    &__measure-text {
+      font-size: 0.26rem;
+    }
+
+    &__toggle {
+      border-radius: 0.12rem;
+
+    }
+
+    &--overflowing:hover:not(&--expanded) &__text {
       display: -webkit-box;
       overflow: hidden;
 
@@ -1781,8 +2180,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       -webkit-line-clamp: 6;
     }
 
-    &--overflowing:hover:not(&--expanded)
-      &__surface {
+    &--overflowing:hover:not(&--expanded) &__surface {
       bottom: 0;
 
       min-height: 0;
@@ -1791,17 +2189,403 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       transform: none;
     }
 
-    &--overflowing:hover:not(&--expanded)
-      &__text-wrapper::after {
+    &--overflowing:hover:not(&--expanded) &__text-wrapper::after {
       opacity: 1;
+    }
+  }
+
+
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .story-card__surface,
+  .stories-beyond__button {
+    transition: none;
+  }
+}
+
+
+// ExtraordinaryHero.jsx start
+.anniversary-11th {
+  .extraordinary-hero {
+    position: relative;
+    height: 280vh;
+    background: #fff;
+
+    &__sticky {
+      position: sticky;
+      top: 0;
+
+      width: 100%;
+      height: 100vh;
+      height: 100svh;
+
+      overflow: hidden;
+      background: #fff;
+      isolation: isolate;
+    }
+
+    &__media {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 1;
+
+      width: 47.3rem;
+      aspect-ratio: 16 / 9;
+
+      overflow: hidden;
+      background: #000;
+
+      transform: translate(-50%, -50%);
+      transform-origin: center;
+      will-change: width, height;
+    }
+
+    &__video {
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: center;
+    }
+
+    &__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+
+      background:
+        linear-gradient(180deg,
+          rgba(0, 8, 16, 0.18) 0%,
+          rgba(0, 8, 16, 0.04) 45%,
+          rgba(0, 0, 0, 0.38) 100%),
+        linear-gradient(90deg,
+          rgba(0, 0, 0, 0.16) 0%,
+          transparent 30%,
+          transparent 70%,
+          rgba(0, 0, 0, 0.16) 100%);
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    &__content {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+
+      width: 100%;
+      height: 100%;
+
+      text-align: center;
+      pointer-events: none;
+    }
+
+    &__title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: baseline;
+      column-gap: 0.6rem;
+
+      width: 92rem;
+      margin: 0;
+
+      color: #fff;
+      font-family: var(--deb);
+      font-size: 8.6rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.344rem;
+      white-space: nowrap;
+
+      transform: translate(-50%, -50%);
+      transform-origin: center;
+    }
+
+    &__title-side {
+      display: block;
+      will-change: transform, opacity;
+
+      &--left {
+        justify-self: end;
+      }
+
+      &--right {
+        justify-self: start;
+      }
+    }
+
+    &__title-script {
+      display: block;
+      // color: #24ff00;
+      font-family: var(--pwc);
+      font-size: 6.8rem;
+      font-weight: 400;
+      line-height: 2.3;
+      letter-spacing: -0.068rem;
+      background: linear-gradient(89deg, #D2FF64 0.67%, #0F0 49.08%, #00E526 98.43%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform-origin: center;
+      will-change: transform;
+    }
+
+    &__meta {
+      position: absolute;
+      top: calc(50% + clamp(6rem, 7vw, 8rem));
+      left: 50%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      width: 50.4rem;
+
+      transform: translateX(-50%);
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    &__description {
+      margin: 0;
+
+      color: #fff;
+      font-family: var(--deb);
+      font-size: 2.4rem;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    &__buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-top: 6.8rem;
+      pointer-events: auto;
+      gap: 2.4rem;
+
+    }
+
+    &__button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24rem;
+      min-height: 5.4rem;
+      padding: 1.6rem 5rem;
+      border: 0;
+      border-radius: 0;
+      outline: none;
+      font-family: var(--deb);
+      font-size: 1.8rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+
+      cursor: pointer;
+
+      transition:
+        color 0.3s ease,
+        background-color 0.3s ease,
+        transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-0.2rem);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      &--white {
+        color: #000;
+        background: #fff;
+
+        &:hover {
+          background: #ededed;
+        }
+      }
+
+      &--green {
+        color: #000;
+        background: #0F0;
+
+        &:hover {
+          background: #0F0;
+        }
+      }
+    }
+
+  }
+
+  @media (max-width: 767px) {
+    .extraordinary-hero {
+      height: 240vh;
+
+      &__media {
+        width: min(62vw, 3.26rem);
+        aspect-ratio: 9 / 16;
+      }
+
+
+      &__content {
+        width: 4.62rem;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      &__title {
+        flex-wrap: wrap;
+        gap: 0;
+        font-size: 0.8rem;
+        white-space: normal;
+        letter-spacing: -0.032rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        top: auto;
+        bottom: 5rem;
+      }
+
+      &__title-script {
+        width: 100%;
+        font-size: 0.6rem;
+        letter-spacing: -0.006rem;
+        margin-top: -0.3rem;
+
+      }
+
+      &__title-side--right {
+        margin-top: -0.3rem;
+      }
+
+      &__description {
+        margin-top: 0.4rem;
+        font-size: 0.36rem;
+
+      }
+
+      &__buttons {
+        flex-direction: column;
+        gap: 0.32rem;
+        margin-top: 0.8rem;
+      }
+
+      &__button {
+        width: 4rem;
+        height: 0.94rem;
+        min-height: 0.94rem;
+        padding: 0.2rem 0.5rem;
+        font-size: 0.32rem;
+        line-height: 1;
+        letter-spacing: -0.0064rem;
+
+      }
+
+
+
+      &__meta {
+
+        top: auto;
+
+        bottom: 1.38rem;
+
+        width: 4rem;
+
+      }
+
+
     }
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .story-card__surface,
-  .stories-beyond__button {
-    transition: none;
+
+
+
+// TermsAndConditions start
+.terms-and-conditions {
+  position: relative;
+  padding: 20rem 0;
+  background: #fff;
+
+  &__inner {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 95rem);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__title {
+    margin: 0 0 2.4rem;
+    color: #050505;
+    font-family: var(--deb);
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  &__list {
+    margin: 0 auto;
+    padding: 0;
+    color: #000;
+    font-family: var(--dde);
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    list-style-position: inside;
+  }
+
+  &__bg {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    object-fit: cover;
+    left: 0;
+    img{
+      display: block;
+       width: 100%;
+       object-fit: cover;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+.terms-and-conditions {
+
+  padding: 1.6rem 0 2.6rem;
+
+  &__inner {
+    width: 6.7rem;
+  }
+
+  &__title {
+    margin: 0 0 0.32rem;
+    font-size: 0.48rem;
+
+  }
+
+  &__list {
+   font-size: 0.24rem;
   }
 }
 

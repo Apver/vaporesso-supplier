@@ -1,9 +1,9 @@
 
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import Lenis from 'lenis';
-import {gsap} from 'gsap';
+import { gsap } from 'gsap';
 // import { Observer } from 'gsap/Observer';
-import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   ANNIVERSARYSTORY_IMAGES,
   ANNIVERSARYSTORY_GROUP_COUNTS
@@ -47,19 +47,17 @@ function initVideoBanner(root) {
     mediaQuery.removeEventListener('change', handleMediaChange);
     if (video) {
       video.pause();
-      video.src = ''; 
+      video.src = '';
       video.load();
     }
   };
 }
 
-
-
- function initPhotoWall(rootContainer) {
-  if (!rootContainer) return () => {};
+function initPhotoWall(rootContainer) {
+  if (!rootContainer) return () => { };
 
   const stage = rootContainer.querySelector('.ui-v4-photo-wall__stage');
-  if (!stage) return () => {};
+  if (!stage) return () => { };
 
   stage.innerHTML = '';
 
@@ -74,7 +72,7 @@ function initVideoBanner(root) {
     for (let i = 0; i < count; i++) {
       const imageItem = document.createElement('div');
       imageItem.className = 'ui-v4-photo-wall__item';
-      
+
       const src = ANNIVERSARYSTORY_IMAGES[imageIndex % ANNIVERSARYSTORY_IMAGES.length];
       imageItem.innerHTML = `<img src="${src}" alt="Photo ${imageIndex + 1}">`;
       group.appendChild(imageItem);
@@ -120,16 +118,16 @@ function initVideoBanner(root) {
 
     let minZ = 0, maxZ = 0;
     if (!isMobileView) {
-      if (groupIndex === 0) { minZ = 100; maxZ = 300; } 
-      else if (groupIndex === 1) { minZ = 30; maxZ = 130; } 
-      else if (groupIndex === 2) { minZ = 0; maxZ = 0; } 
-      else if (groupIndex === 3) { minZ = -100; maxZ = -200; } 
+      if (groupIndex === 0) { minZ = 100; maxZ = 300; }
+      else if (groupIndex === 1) { minZ = 30; maxZ = 130; }
+      else if (groupIndex === 2) { minZ = 0; maxZ = 0; }
+      else if (groupIndex === 3) { minZ = -100; maxZ = -200; }
       else if (groupIndex === 4) { minZ = -200; maxZ = -500; }
     } else {
-      if (groupIndex === 0) { minZ = 80; maxZ = 150; } 
-      else if (groupIndex === 1) { minZ = 15; maxZ = 60; } 
-      else if (groupIndex === 2) { minZ = 0; maxZ = 0; } 
-      else if (groupIndex === 3) { minZ = -10; maxZ = -50; } 
+      if (groupIndex === 0) { minZ = 80; maxZ = 150; }
+      else if (groupIndex === 1) { minZ = 15; maxZ = 60; }
+      else if (groupIndex === 2) { minZ = 0; maxZ = 0; }
+      else if (groupIndex === 3) { minZ = -10; maxZ = -50; }
       else if (groupIndex === 4) { minZ = -60; maxZ = -100; }
     }
 
@@ -144,9 +142,9 @@ function initVideoBanner(root) {
       groupTimeline.to(group, { z: maxZ, duration: 1.5, ease: 'power2.inOut' }, 1.5);
     }
     let maxY = 0, centerY = 0;
-    if (groupIndex === 0) { maxY = -60; centerY = -45; } 
-    else if (groupIndex === 1) { maxY = -20; centerY = -15; } 
-    else if (groupIndex === 3) { maxY = 20; centerY = 15; } 
+    if (groupIndex === 0) { maxY = -60; centerY = -45; }
+    else if (groupIndex === 1) { maxY = -20; centerY = -15; }
+    else if (groupIndex === 3) { maxY = 20; centerY = 15; }
     else if (groupIndex === 4) { maxY = 60; centerY = 45; }
 
     if (groupIndex !== 2) {
@@ -169,133 +167,257 @@ function initVideoBanner(root) {
   };
 }
 
- function  initYearHighlightAnimation(root) {
-  if (!root) return () => {};
 
-  const cards = gsap.utils.toArray('.year-highlight__card', root);
-  if (cards.length === 0) return () => {};
+function initYearHighlightAnimation(root) {
+  if (!root) return () => { };
 
-  const config = {
-    maxRotateX: 88,
+  const section = root.matches?.('.year-highlight')
+    ? root
+    : root.querySelector('.year-highlight');
+
+  if (!section) return () => { };
+
+  const wrapper = section.querySelector('.year-highlight__wrapper');
+  const content = section.querySelector('.year-highlight__content');
+  const cards = gsap.utils.toArray('.year-highlight__card', section);
+
+  if (!wrapper || !content || !cards.length) return () => { };
+
+  const clamp = gsap.utils.clamp;
+  const lerp = (start, end, progress) => start + (end - start) * progress;
+  const smoothstep = (start, end, value) => {
+    const progress = clamp(0, 1, (value - start) / (end - start));
+    return progress * progress * (3 - 2 * progress);
   };
 
-  let width, height, spacing, cardWidth, cardHeight;
-  let leftBound, rightBound, visibleWidth, startOffset, endOffset;
+  const media = gsap.matchMedia();
 
-  const state = { offset: 0 }; 
+  // =========================
+  // PC 端横向 3D 动画
+  // =========================
+  media.add('(min-width: 1024px)', () => {
+    const state = { offset: 0 };
+    const maxRotateX = 88;
 
-  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-  const lerp = (a, b, t) => a + (b - a) * t;
-  const smoothstep = (edge0, edge1, value) => {
-    const x = clamp((value - edge0) / (edge1 - edge0), 0, 1);
-    return x * x * (3 - 2 * x);
-  };
+    let width = 0;
+    let height = 0;
+    let spacing = 0;
+    let cardWidth = 0;
+    let cardHeight = 0;
+    let leftBound = 0;
+    let visibleWidth = 0;
+    let startOffset = 0;
+    let endOffset = 0;
 
-  const resize = () => {
-    width = window.innerWidth;
-    height = window.innerHeight;
+    const resize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      cardWidth = cards[0].offsetWidth || 480;
+      cardHeight = cards[0].offsetHeight || 620;
 
-    cardWidth = cards[0].offsetWidth || 480; 
-    cardHeight = cards[0].offsetHeight || 620;
-    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    const gapPx = 10 * rootFontSize; 
-    spacing = cardWidth + gapPx; 
+      const rootFontSize = parseFloat(
+        getComputedStyle(document.documentElement).fontSize
+      );
 
-    leftBound = -cardWidth * 1.5;
-    rightBound = width + cardWidth * 1.5;
-    visibleWidth = rightBound - leftBound;
+      spacing = cardWidth + 10 * rootFontSize;
+      leftBound = -cardWidth * 1.5;
 
-    startOffset = leftBound;
+      const rightBound = width + cardWidth * 1.5;
 
-    endOffset = rightBound + (cards.length - 1) * spacing;
+      visibleWidth = rightBound - leftBound;
+      startOffset = leftBound;
+      endOffset = rightBound + (cards.length - 1) * spacing;
+    };
 
-//     const lastIndex = cards.length - 1;
-//     const targetCenterX = width * 0.5;
-//     endOffset = targetCenterX + lastIndex * spacing;
+    const render = () => {
+      cards.forEach((card, index) => {
+        const x = state.offset - index * spacing;
+        const progress = clamp(0, 1, (x - leftBound) / visibleWidth);
+        const upright = Math.sin(progress * Math.PI);
+        const opacity =
+          smoothstep(0.005, 0.045, progress) *
+          (1 - smoothstep(0.955, 0.995, progress));
 
-// // 获取标题和 header 的高度（如果存在的话）
-//     const headerEl = root.querySelector('.year-highlight__header');
-//     const headerHeight = headerEl ? headerEl.offsetHeight : 0;
-
-//     // 获取 .year-highlight 的 padding-top（通过计算样式获取，或者直接写固定的数字如 200）
-//     const highlightEl = root.querySelector('.year-highlight');
-//     const computedStyle = highlightEl ? getComputedStyle(highlightEl) : null;
-//     const paddingTop = computedStyle ? parseFloat(computedStyle.paddingTop) || 0 : 200;
-
-//     // 【关键修改】总滚动距离 = 卡片动画需要的滚动量 + header高度 + padding-top + 视口高度
-//     const cardScrollDistance = endOffset - startOffset;
-//     const totalScrollDistance = cardScrollDistance + headerHeight + paddingTop + height;
-
-//     const wrapper = root.querySelector('.year-highlight__wrapper');
-//     if (wrapper) {
-//       wrapper.style.height = `${totalScrollDistance}px`;
-//     }
-  };
-
-  const renderCards = () => {
-    cards.forEach((card, index) => {
-      const x = state.offset - index * spacing;
-
-      const progress = clamp((x - leftBound) / visibleWidth, 0, 1);
-
-      const rotationX = -Math.cos(progress * Math.PI) * config.maxRotateX;
-      const centerY = lerp(height * 0.84, height * 0.18, progress);
-      const upright = Math.sin(progress * Math.PI);
-      const z = upright * 72;
-      
-      const opacity = smoothstep(0.005, 0.045, progress) * (1 - smoothstep(0.955, 0.995, progress));
-
-      const translateX = x - cardWidth * 0.5;
-      const translateY = centerY - cardHeight * 0.5;
-
-      gsap.set(card, {
-        x: translateX,
-        y: translateY,
-        z,
-        rotationX,
-        opacity,
-        zIndex: Math.round(progress * 1000 + upright * 100)
+        gsap.set(card, {
+          x: x - cardWidth * 0.5,
+          y: lerp(height * 0.84, height * 0.18, progress) - cardHeight * 0.5,
+          z: upright * 72,
+          rotationX: -Math.cos(progress * Math.PI) * maxRotateX,
+          rotationZ: 0,
+          scale: 1,
+          opacity,
+          visibility: opacity > 0.001 ? 'visible' : 'hidden',
+          transformOrigin: '50% 50%',
+          zIndex: Math.round(progress * 1000 + upright * 100),
+          force3D: true
+        });
       });
+    };
+
+    resize();
+    state.offset = startOffset;
+    render();
+
+    const tween = gsap.to(state, {
+      offset: endOffset,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+        invalidateOnRefresh: true,
+        onRefreshInit: resize,
+        onUpdate: render
+      }
     });
-  };
 
-  resize();
-  state.offset = startOffset;
-  renderCards();
+    const handleResize = () => {
+      resize();
+      render();
+    };
 
-  const tl = gsap.to(state, {
-    offset: endOffset, 
-    ease: "none",
-    scrollTrigger: {
-      trigger: root.querySelector('.year-highlight'),
-      start: "top bottom", 
-      end: "bottom top", 
-      scrub: 1,
-      onUpdate: renderCards,
-      invalidateOnRefresh: true
-    }
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      tween.scrollTrigger?.kill();
+      tween.kill();
+
+      gsap.set(cards, {
+        clearProps: 'transform,opacity,visibility,zIndex,transformOrigin'
+      });
+    };
   });
 
-  const handleResize = () => {
+  // =========================
+  // 移动端纵向翻牌动画
+  // =========================
+  media.add('(max-width: 1023px)', () => {
+    const state = { step: 0 };
+    const lastIndex = cards.length - 1;
+
+    let stageWidth = 0;
+    let stageHeight = 0;
+    let cardWidth = 0;
+    let cardHeight = 0;
+    let centerX = 0;
+    let centerY = 0;
+
+    const resize = () => {
+      stageWidth = content.clientWidth || window.innerWidth;
+      stageHeight = content.clientHeight || window.innerHeight;
+      cardWidth = cards[0].offsetWidth || 335;
+      cardHeight = cards[0].offsetHeight || 500;
+      centerX = stageWidth * 0.5;
+      centerY = stageHeight * 0.5;
+    };
+
+    const render = () => {
+      const currentIndex = Math.floor(state.step);
+      const progress = state.step - currentIndex;
+
+      const baseX = centerX - cardWidth * 0.5;
+      const baseY = centerY - cardHeight * 0.5;
+
+      cards.forEach((card, index) => {
+        let rotationX = 0;
+        let opacity = 1;
+        let visibility = 'visible';
+        let zIndex = cards.length - index;
+        if (index < currentIndex) {
+          opacity = 0;
+          visibility = 'hidden';
+          zIndex = 0;
+        }
+        // 当前卡片向外翻
+        if (index === currentIndex) {
+          rotationX = lerp(0, -88, progress * progress);
+          opacity = 1 - smoothstep(0.85, 1, progress);
+          visibility = opacity > 0.001 ? 'visible' : 'hidden';
+          zIndex = 1000;
+        }
+
+        // 后面的卡片全部保持原位叠放
+        if (index > currentIndex) {
+          rotationX = 0;
+          opacity = 1;
+          visibility = 'visible';
+          zIndex = cards.length - index;
+        }
+
+        gsap.set(card, {
+          x: baseX,
+          y: baseY,
+          z: 0,
+          scale: 1,
+          rotationX,
+          rotationY: 0,
+          rotationZ: 0,
+          opacity,
+          visibility,
+          zIndex,
+          transformOrigin: '50% 100%',
+          force3D: true
+        });
+      });
+    };
+
     resize();
-    renderCards();
-  };
-  window.addEventListener('resize', handleResize);
+    render();
+
+    const tween = gsap.to(state, {
+      step: lastIndex,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: content,
+        start: 'top top',
+        endTrigger: wrapper,
+        end: 'bottom bottom',
+        scrub: 0.65,
+        invalidateOnRefresh: true,
+        onRefreshInit: resize,
+        onRefresh: () => {
+          resize();
+          render();
+        },
+        onUpdate: render
+      }
+    });
+
+    const handleResize = () => {
+      resize();
+      render();
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      tween.scrollTrigger?.kill();
+      tween.kill();
+
+      gsap.set(cards, {
+        clearProps: 'transform,opacity,visibility,zIndex,transformOrigin'
+      });
+    };
+  });
 
   return () => {
-    window.removeEventListener('resize', handleResize);
-    if (tl.scrollTrigger) {
-      tl.scrollTrigger.kill();
-    }
-    tl.kill();
+    media.revert();
     gsap.killTweensOf(cards);
+
+    gsap.set(cards, {
+      clearProps: 'transform,opacity,visibility,zIndex,transformOrigin'
+    });
   };
 }
+
 function initializeAnimation(root) {
   const section = root.querySelector('.reward-list');
   const cardWrapper = section?.querySelector('.reward-list__content__wrp');
   const mainHeader = section?.querySelector('.reward-list__header');
-  
+
   const cards = section
     ? Array.from(section.querySelectorAll('.reward-list__card'))
     : [];
@@ -303,15 +425,15 @@ function initializeAnimation(root) {
 
 
   if (!section || !cardWrapper || cards.length < 2) {
-    return () => {};
+    return () => { };
   }
 
   const media = gsap.matchMedia();
   const imageCleanups = [];
-    let rewardScrollTrigger = null;
+  let rewardScrollTrigger = null;
 
 
-  media.add('(min-width: 768px)', () => {
+  media.add('all', () => {
     // gsap.set(cardWrapper, { position: 'relative' });
 
     const headers = cards.map((card) =>
@@ -322,7 +444,9 @@ function initializeAnimation(root) {
     let mainHeaderHeight = 0;
     let moveUpDistance = 0;
 
+
     const setLayout = () => {
+      const isMobile = window.matchMedia('(max-width: 1023px)').matches;
 
       const rootFontSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 10;
       const extraOffset = 5 * rootFontSize;
@@ -332,11 +456,13 @@ function initializeAnimation(root) {
 
       if (mainHeader) {
         const style = window.getComputedStyle(mainHeader);
+        const sectionRect = section.getBoundingClientRect();
+        const wrapperRect = cardWrapper.getBoundingClientRect();
         mainHeaderHeight = mainHeader.offsetHeight + parseFloat(style.marginBottom || 0);
-        moveUpDistance = Math.max(0, mainHeaderHeight - safePadding - extraOffset);
-        gsap.set(mainHeader, { 
-          y: 0, 
-          willChange: 'transform' 
+        moveUpDistance = isMobile ? Math.max(0, wrapperRect.top - sectionRect.top - safePadding) : Math.max(0, mainHeaderHeight - safePadding - extraOffset);
+        gsap.set(mainHeader, {
+          y: 0,
+          willChange: 'transform'
         });
       } else {
         mainHeaderHeight = 0;
@@ -351,10 +477,10 @@ function initializeAnimation(root) {
       const paddingTop = firstCard ? parseFloat(window.getComputedStyle(firstCard).paddingTop) || 0 : 0;
       const stackOffset = headerHeight + paddingTop;
 
-      gsap.set(cardWrapper, { 
+      gsap.set(cardWrapper, {
         position: 'relative',
         paddingBottom: stackOffset * (cards.length - 1),
-        y: 0, 
+        y: 0,
         willChange: 'transform'
       });
 
@@ -382,11 +508,11 @@ function initializeAnimation(root) {
             right: 0,
             margin: '0 auto',
             zIndex: index + 1,
-            xPercent: direction * 20, 
+            xPercent: direction * 20,
             yPercent: index * 75 + extraY,
-            rotation: direction * -5, 
+            rotation: direction * -5,
             x: 0,
-              y: 0,
+            y: 0,
             transformOrigin: '50% 50%',
             force3D: true,
             willChange: 'transform',
@@ -402,9 +528,9 @@ function initializeAnimation(root) {
         ease: 'none',
       },
       scrollTrigger: {
-        trigger: section, 
+        trigger: section,
         start: 'top top',
-        end: 'bottom bottom', 
+        end: 'bottom bottom',
         scrub: 1.2,
         invalidateOnRefresh: true,
         onRefreshInit: setLayout,
@@ -413,7 +539,7 @@ function initializeAnimation(root) {
     rewardScrollTrigger = timeline.scrollTrigger;
 
     const wrapperMoveDuration = 0.5;
-    
+
     if (mainHeaderHeight > 0) {
       timeline.to(
         mainHeader,
@@ -422,7 +548,7 @@ function initializeAnimation(root) {
           duration: wrapperMoveDuration,
           ease: 'none',
         },
-        0 
+        0
       );
       timeline.to(
         cardWrapper,
@@ -431,7 +557,7 @@ function initializeAnimation(root) {
           duration: wrapperMoveDuration,
           ease: 'none',
         },
-        0 
+        0
       );
     }
 
@@ -443,12 +569,12 @@ function initializeAnimation(root) {
         card,
         {
           xPercent: 0,
-          yPercent: 0, 
+          yPercent: 0,
           rotation: 0,
-          duration: 1, 
+          duration: 1,
           ease: 'none',
         },
-       startTime
+        startTime
       );
     });
 
@@ -458,7 +584,7 @@ function initializeAnimation(root) {
       timeline?.scrollTrigger?.kill();
       timeline?.kill();
       timeline = null;
-       rewardScrollTrigger = null;
+      rewardScrollTrigger = null;
 
       gsap.set(cards, {
         clearProps:
@@ -509,7 +635,7 @@ function initAppreciationRewardsAnimation(root) {
       '[AppreciationRewards] 未找到 .appreciation-reward'
     );
 
-    return () => {};
+    return () => { };
   }
 
   const stick = section.querySelector(
@@ -538,7 +664,7 @@ function initAppreciationRewardsAnimation(root) {
       '[AppreciationRewards] 未找到 stick 或 card'
     );
 
-    return () => {};
+    return () => { };
   }
 
   if (!header) {
@@ -596,7 +722,7 @@ function initAppreciationRewardsAnimation(root) {
 
     const isMobile = () =>
       window.matchMedia(
-        '(max-width: 767px)'
+        '(max-width: 1023px)'
       ).matches;
 
     const getCardWidth = () =>
@@ -620,7 +746,6 @@ function initAppreciationRewardsAnimation(root) {
      */
     const getHeaderHeight = () =>
       header?.getBoundingClientRect().height || 0;
-
     const getSpacing = count => {
       const cardWidth = getCardWidth();
 
@@ -637,23 +762,98 @@ function initAppreciationRewardsAnimation(root) {
       const availableSpacing =
         count > 1
           ? (maxGroupWidth - cardWidth) /
-            (count - 1)
+          (count - 1)
           : desiredSpacing;
 
       return gsap.utils.clamp(
         cardWidth *
-          (isMobile() ? 0.4 : 0.58),
+        (isMobile() ? 0.4 : 0.58),
         desiredSpacing,
         availableSpacing
       );
     };
-
     const getCardState = (
       index,
       visibleCount
     ) => {
+      const cardRect =
+        cards[0].getBoundingClientRect();
+
+      const cardWidth =
+        cardRect.width || 260;
+
+      const cardHeight =
+        cardRect.height || 360;
+
       /**
-       * 当前已显示卡片的中心位置。
+       * 移动端：
+       * 最新出现的卡片在最上面，
+       * 其他卡片只露出边缘。
+       */
+      if (isMobile()) {
+        /**
+         * depth:
+         * 0 = 当前最上面的卡片
+         * 1 = 上面卡片的下一层
+         * 以此类推
+         */
+        const depth =
+          visibleCount - 1 - index;
+
+        const stackStates = [
+          {
+            x: 0,
+            y: 0,
+            rotation: 5,
+            scale: 1
+          },
+          {
+            x: cardWidth * 0.035,
+            y: -cardHeight * 0.006,
+            rotation: 3,
+            scale: 1
+          },
+          {
+            x: cardWidth * 0.06,
+            y: -cardHeight * 0.012,
+            rotation: 1,
+            scale: 1
+          },
+          {
+            x: -cardWidth * 0.04,
+            y: cardHeight * 0.008,
+            rotation: -3,
+            scale: 1
+          },
+          {
+            x: -cardWidth * 0.065,
+            y: cardHeight * 0.016,
+            rotation: -6,
+            scale: 1
+          }
+        ];
+
+        const state =
+          stackStates[
+          Math.min(
+            depth,
+            stackStates.length - 1
+          )
+          ];
+
+        return {
+          ...state,
+
+          /**
+           * DOM 越靠后的卡片层级越高，
+           * 确保 Creative Desk Set 在最上面。
+           */
+          zIndex: index + 1
+        };
+      }
+
+      /**
+       * PC 端继续使用原来的扇形排列。
        */
       const visibleCenterIndex =
         (visibleCount - 1) / 2;
@@ -661,12 +861,6 @@ function initAppreciationRewardsAnimation(root) {
       const distance =
         index - visibleCenterIndex;
 
-      /**
-       * 使用最终全部卡片的半径计算扇形强度。
-       *
-       * 避免只有两张卡片时，
-       * 两张卡片直接使用最大旋转角度。
-       */
       const finalRadius = Math.max(
         (totalCards - 1) / 2,
         1
@@ -678,44 +872,23 @@ function initAppreciationRewardsAnimation(root) {
       const absoluteRatio =
         Math.abs(ratio);
 
-      /**
-       * 最外侧卡片最大下降距离。
-       */
-      const maxDrop =
-        isMobile() ? 50 : 82;
+      const maxDrop = 82;
+      const maxRotation = 14;
 
-      /**
-       * 最外侧卡片最大旋转角度。
-       */
-      const maxRotation =
-        isMobile() ? 10 : 14;
-
-      /**
-       * 卡片较少时，整体间距稍微收紧。
-       * 卡片全部出现后恢复完整间距。
-       */
       const spacingProgress =
         totalCards <= 1
           ? 1
           : gsap.utils.mapRange(
-              1,
-              totalCards,
-              0.72,
-              1,
-              visibleCount
-            );
+            1,
+            totalCards,
+            0.72,
+            1,
+            visibleCount
+          );
 
-      /**
-       * 最外侧卡片稍微缩小。
-       *
-       * 5 张卡片最终为：
-       * [0.94, 1, 1, 1, 0.94]
-       */
       const scale =
         absoluteRatio >= 0.9
-          ? isMobile()
-            ? 0.96
-            : 0.94
+          ? 0.94
           : 1;
 
       return {
@@ -724,10 +897,6 @@ function initAppreciationRewardsAnimation(root) {
           getSpacing(visibleCount) *
           spacingProgress,
 
-        /**
-         * 中间卡片最高。
-         * 第二、第四张比第一、第五张高。
-         */
         y:
           Math.pow(
             absoluteRatio,
@@ -739,12 +908,9 @@ function initAppreciationRewardsAnimation(root) {
 
         scale,
 
-        /**
-         * 中间卡片层级最高。
-         */
         zIndex: Math.round(
           100 -
-            Math.abs(distance) * 10
+          Math.abs(distance) * 10
         )
       };
     };
@@ -772,7 +938,7 @@ function initAppreciationRewardsAnimation(root) {
 
         zIndex: index + 1,
 
-        transformOrigin: '50% 110%',
+        transformOrigin: isMobile() ? '50% 50%' : '50% 110%',
 
         force3D: true,
         willChange:
@@ -1001,7 +1167,7 @@ function initAppreciationRewardsAnimation(root) {
           const nextStep =
             Math.round(
               self.progress *
-                totalSteps
+              totalSteps
             );
 
           if (
@@ -1017,7 +1183,7 @@ function initAppreciationRewardsAnimation(root) {
      */
     const initialStep = Math.round(
       scrollTrigger.progress *
-        totalSteps
+      totalSteps
     );
 
     goToStep(initialStep, true);
@@ -1037,337 +1203,607 @@ function initAppreciationRewardsAnimation(root) {
   };
 }
 
-// function initStoriesBeyondOrdinary(root) {
-//   if (!root) {
-//     return () => {};
-//   }
-
-//   const section = root.matches?.('.stories-beyond')
-//     ? root
-//     : root.querySelector('.stories-beyond');
-
-//   if (!section) {
-//     return () => {};
-//   }
-
-//   const cards = Array.from(
-//     section.querySelectorAll('.story-card')
-//   );
-
-//   if (cards.length === 0) {
-//     return () => {};
-//   }
-
-//   let resizeFrame = null;
-//   let isDestroyed = false;
-
-//   const getCardElements = (card) => ({
-//     text: card.querySelector('.story-card__text'),
-//     toggle: card.querySelector('.story-card__toggle')
-//   });
-
-//   const setExpanded = (card, expanded) => {
-//     const { toggle } = getCardElements(card);
-
-//     if (!toggle) {
-//       return;
-//     }
-
-//     const canExpand = card.classList.contains(
-//       'story-card--overflowing'
-//     );
-
-//     const nextExpanded = canExpand && expanded;
-
-//     card.classList.toggle(
-//       'story-card--expanded',
-//       nextExpanded
-//     );
-
-//     toggle.setAttribute(
-//       'aria-expanded',
-//       String(nextExpanded)
-//     );
-
-//     const storyName = card
-//       .querySelector('.story-card__name')
-//       ?.textContent?.trim();
-
-//     if (storyName) {
-//       toggle.setAttribute(
-//         'aria-label',
-//         nextExpanded
-//           ? `Collapse ${storyName}'s story`
-//           : `Read ${storyName}'s full story`
-//       );
-//     }
-//   };
-
-//   const collapseOtherCards = (currentCard) => {
-//     cards.forEach((card) => {
-//       if (card !== currentCard) {
-//         setExpanded(card, false);
-//       }
-//     });
-//   };
-
-//   const createMeasurementElement = (
-//     textElement,
-//     width
-//   ) => {
-//     const clone = textElement.cloneNode(true);
-
-//     clone.removeAttribute('id');
-//     clone.removeAttribute('aria-describedby');
-
-//     clone.classList.remove('story-card__text');
-//     clone.classList.add('story-card__measurement');
-
-//     Object.assign(clone.style, {
-//       position: 'fixed',
-//       top: '-10000px',
-//       left: '-10000px',
-//       zIndex: '-1',
-//       display: 'block',
-//       width: `${width}px`,
-//       height: 'auto',
-//       minHeight: '0',
-//       maxHeight: 'none',
-//       margin: '0',
-//       overflow: 'visible',
-//       visibility: 'hidden',
-//       pointerEvents: 'none',
-//       whiteSpace: 'normal'
-//     });
-
-//     clone.style.setProperty(
-//       '-webkit-line-clamp',
-//       'unset'
-//     );
-
-//     clone.style.setProperty(
-//       '-webkit-box-orient',
-//       'initial'
-//     );
-
-//     return clone;
-//   };
-
-//   const measureCard = (card) => {
-//     const { text, toggle } = getCardElements(card);
-
-//     if (!text || !toggle) {
-//       return;
-//     }
-
-//     const textWidth = text.getBoundingClientRect().width;
-
-//     if (textWidth <= 0) {
-//       return;
-//     }
-
-//     const computedStyle = window.getComputedStyle(text);
-
-//     let lineHeight = Number.parseFloat(
-//       computedStyle.lineHeight
-//     );
-
-//     if (!Number.isFinite(lineHeight)) {
-//       const fontSize = Number.parseFloat(
-//         computedStyle.fontSize
-//       );
-
-//       lineHeight = Number.isFinite(fontSize)
-//         ? fontSize * 1.35
-//         : 16;
-//     }
-
-//     const measurementElement =
-//       createMeasurementElement(text, textWidth);
-
-//     document.body.appendChild(measurementElement);
-
-//     const fullTextHeight =
-//       measurementElement.getBoundingClientRect().height;
-
-//     measurementElement.remove();
-
-//     const maximumHeight = lineHeight * 6;
-
-//     const isOverflowing =
-//       fullTextHeight > maximumHeight + 1;
-
-//     card.classList.toggle(
-//       'story-card--overflowing',
-//       isOverflowing
-//     );
-
-//     toggle.hidden = !isOverflowing;
-
-//     if (!isOverflowing) {
-//       setExpanded(card, false);
-//     }
-//   };
-
-//   const measureAllCards = () => {
-//     if (isDestroyed) {
-//       return;
-//     }
-
-//     cards.forEach(measureCard);
-//   };
-
-//   const scheduleMeasure = () => {
-//     if (resizeFrame !== null) {
-//       cancelAnimationFrame(resizeFrame);
-//     }
-
-//     resizeFrame = requestAnimationFrame(() => {
-//       resizeFrame = null;
-//       measureAllCards();
-//     });
-//   };
-
-//   const toggleHandlers = cards
-//     .map((card) => {
-//       const { toggle } = getCardElements(card);
-
-//       if (!toggle) {
-//         return null;
-//       }
-
-//       const handleClick = () => {
-//         const isExpanded = card.classList.contains(
-//           'story-card--expanded'
-//         );
-
-//         collapseOtherCards(card);
-//         setExpanded(card, !isExpanded);
-//       };
-
-//       const handleKeyDown = (event) => {
-//         if (event.key !== 'Escape') {
-//           return;
-//         }
-
-//         setExpanded(card, false);
-//         toggle.blur();
-//       };
-
-//       toggle.addEventListener('click', handleClick);
-//       toggle.addEventListener(
-//         'keydown',
-//         handleKeyDown
-//       );
-
-//       return () => {
-//         toggle.removeEventListener(
-//           'click',
-//           handleClick
-//         );
-
-//         toggle.removeEventListener(
-//           'keydown',
-//           handleKeyDown
-//         );
-//       };
-//     })
-//     .filter(Boolean);
-
-//   const handleDocumentPointerDown = (event) => {
-//     if (section.contains(event.target)) {
-//       return;
-//     }
-
-//     cards.forEach((card) => {
-//       setExpanded(card, false);
-//     });
-//   };
-
-//   document.addEventListener(
-//     'pointerdown',
-//     handleDocumentPointerDown
-//   );
-
-//   const resizeObserver =
-//     typeof ResizeObserver !== 'undefined'
-//       ? new ResizeObserver(scheduleMeasure)
-//       : null;
-
-//   cards.forEach((card) => {
-//     resizeObserver?.observe(card);
-//   });
-
-//   window.addEventListener('resize', scheduleMeasure);
-
-//   scheduleMeasure();
-
-//   document.fonts?.ready
-//     .then(() => {
-//       if (!isDestroyed) {
-//         scheduleMeasure();
-//       }
-//     })
-//     .catch(() => undefined);
-
-//   return () => {
-//     isDestroyed = true;
-
-//     if (resizeFrame !== null) {
-//       cancelAnimationFrame(resizeFrame);
-//     }
-
-//     resizeObserver?.disconnect();
-
-//     window.removeEventListener(
-//       'resize',
-//       scheduleMeasure
-//     );
-
-//     document.removeEventListener(
-//       'pointerdown',
-//       handleDocumentPointerDown
-//     );
-
-//     toggleHandlers.forEach((cleanup) => {
-//       cleanup();
-//     });
-
-//     cards.forEach((card) => {
-//       card.classList.remove(
-//         'story-card--overflowing',
-//         'story-card--expanded'
-//       );
-
-//       const { toggle } = getCardElements(card);
-
-//       if (toggle) {
-//         toggle.hidden = true;
-//         toggle.setAttribute(
-//           'aria-expanded',
-//           'false'
-//         );
-//       }
-//     });
-//   };
-// }
+function initStoriesBeyondOrdinary(root) {
+
+  const section = root.matches('.stories-beyond')
+    ? root
+    : root.querySelector('.stories-beyond');
+
+  if (!section) return () => { };
+
+  const cards = Array.from(section.querySelectorAll('.story-card'));
+  if (cards.length === 0) return () => { };
+
+  let isDestroyed = false;
+  const toggleHandlers = [];
+
+  const getCardElements = (card) => ({
+    text: card.querySelector('.story-card__text'),
+    toggle: card.querySelector('.story-card__toggle')
+  });
+
+  const setExpanded = (card, expanded) => {
+    const { toggle } = getCardElements(card);
+    if (!toggle) return;
+
+    // 只有在内容确实溢出的情况下才允许展开
+    const canExpand = card.classList.contains('story-card--overflowing');
+    const nextExpanded = canExpand && expanded;
+
+    card.classList.toggle('story-card--expanded', nextExpanded);
+    toggle.setAttribute('aria-expanded', String(nextExpanded));
+
+    const storyName = card.querySelector('.story-card__name')?.textContent?.trim();
+    if (storyName) {
+      toggle.setAttribute(
+        'aria-label',
+        nextExpanded ? `Collapse ${storyName}'s story` : `Read ${storyName}'s full story`
+      );
+    }
+  };
+
+  const collapseOtherCards = (currentCard) => {
+    cards.forEach((card) => {
+      if (card !== currentCard) setExpanded(card, false);
+    });
+  };
+
+  // 核心优化点：通过原生 scrollHeight 和 clientHeight 判断是否溢出
+  const measureCard = (card) => {
+    if (isDestroyed) return;
+
+    const { text, toggle } = getCardElements(card);
+    if (!text || !toggle) return;
+
+    // 如果当前是展开状态，为了准确测量，先临时移除展开状态的影响
+    const wasExpanded = card.classList.contains('story-card--expanded');
+    if (wasExpanded) {
+      card.classList.remove('story-card--expanded');
+    }
+
+    // scrollHeight 是文本实际总高度，clientHeight 是被 CSS line-clamp 限制后的可视高度
+    // 增加 2px 的容差，防止浏览器渲染子像素精度导致的误判
+    const isOverflowing = text.scrollHeight > text.clientHeight + 2;
+
+    card.classList.toggle('story-card--overflowing', isOverflowing);
+    toggle.hidden = !isOverflowing;
+
+    // 恢复之前的展开状态，或者如果不再溢出了则强制收起
+    if (isOverflowing && wasExpanded) {
+      card.classList.add('story-card--expanded');
+    } else if (!isOverflowing) {
+      setExpanded(card, false);
+    }
+  };
+
+  // 初始化所有卡片的事件
+  cards.forEach((card) => {
+    const { toggle } = getCardElements(card);
+    if (!toggle) return;
+
+    const handleClick = () => {
+      const isExpanded = card.classList.contains('story-card--expanded');
+      collapseOtherCards(card);
+      setExpanded(card, !isExpanded);
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setExpanded(card, false);
+        toggle.blur();
+      }
+    };
+
+    toggle.addEventListener('click', handleClick);
+    toggle.addEventListener('keydown', handleKeyDown);
+
+    toggleHandlers.push({ toggle, handleClick, handleKeyDown });
+  });
+
+  // 点击外部收起
+  const handleDocumentPointerDown = (event) => {
+    if (!section.contains(event.target)) {
+      cards.forEach((card) => setExpanded(card, false));
+    }
+  };
+  document.addEventListener('pointerdown', handleDocumentPointerDown);
+
+  // 优化 ResizeObserver：只重新计算尺寸发生变化的卡片
+  let resizeFrame = null;
+  const resizeObserver = typeof ResizeObserver !== 'undefined'
+    ? new ResizeObserver((entries) => {
+      if (resizeFrame !== null) cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(() => {
+        entries.forEach((entry) => measureCard(entry.target));
+        resizeFrame = null;
+      });
+    })
+    : null;
+
+  cards.forEach((card) => {
+    resizeObserver?.observe(card);
+    measureCard(card); // 初始测量
+  });
+
+  // 字体加载完成后重新测量
+  document.fonts?.ready
+    .then(() => {
+      if (!isDestroyed) cards.forEach(measureCard);
+    })
+    .catch(() => undefined);
+
+  // 返回清理函数
+  return () => {
+    isDestroyed = true;
+    if (resizeFrame !== null) cancelAnimationFrame(resizeFrame);
+
+    resizeObserver?.disconnect();
+    document.removeEventListener('pointerdown', handleDocumentPointerDown);
+
+    toggleHandlers.forEach(({ toggle, handleClick, handleKeyDown }) => {
+      toggle.removeEventListener('click', handleClick);
+      toggle.removeEventListener('keydown', handleKeyDown);
+    });
+
+    cards.forEach((card) => {
+      card.classList.remove('story-card--overflowing', 'story-card--expanded');
+      const { toggle } = getCardElements(card);
+      if (toggle) {
+        toggle.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  };
+}
+
+function initExtraordinaryHeroVideo(section) {
+  const video = section.querySelector(
+    '.extraordinary-hero__video',
+  );
+
+  if (!video) {
+    return () => { };
+  }
+
+  const mobileMedia = window.matchMedia(
+    '(max-width: 767px)',
+  );
+
+  let currentSrc = '';
+  let destroyed = false;
+
+  const playVideo = () => {
+    if (destroyed) return;
+
+    video.play().catch(() => {
+      // 自动播放被浏览器拦截时，不影响页面动画
+    });
+  };
+
+  const updateVideo = () => {
+    if (destroyed) return;
+
+    const isMobile = mobileMedia.matches;
+
+    const nextSrc = isMobile
+      ? video.dataset.mobileSrc
+      : video.dataset.pcSrc;
+
+    const nextPoster = isMobile
+      ? video.dataset.mobilePoster
+      : video.dataset.pcPoster;
+
+    if (!nextSrc) {
+      console.warn(
+        '[ExtraordinaryHero] 当前设备没有配置视频地址',
+      );
+
+      return;
+    }
+
+    if (nextPoster) {
+      video.poster = nextPoster;
+    } else {
+      video.removeAttribute('poster');
+    }
+
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+
+    if (currentSrc === nextSrc) {
+      playVideo();
+      return;
+    }
+
+    currentSrc = nextSrc;
+
+    video.pause();
+    video.src = nextSrc;
+    video.load();
+
+    if (video.readyState >= 2) {
+      playVideo();
+    } else {
+      video.addEventListener('loadeddata', playVideo, {
+        once: true,
+      });
+    }
+  };
+
+  updateVideo();
+
+  if (mobileMedia.addEventListener) {
+    mobileMedia.addEventListener(
+      'change',
+      updateVideo,
+    );
+  } else {
+    mobileMedia.addListener(updateVideo);
+  }
+
+  return () => {
+    destroyed = true;
+
+    if (mobileMedia.removeEventListener) {
+      mobileMedia.removeEventListener(
+        'change',
+        updateVideo,
+      );
+    } else {
+      mobileMedia.removeListener(updateVideo);
+    }
+
+    video.removeEventListener(
+      'loadeddata',
+      playVideo,
+    );
+
+    video.pause();
+  };
+}
+
+function initExtraordinaryHeroAnimation(root) {
+  const section = root.matches?.('.extraordinary-hero')
+    ? root
+    : root.querySelector('.extraordinary-hero');
+
+  if (!section) {
+    return () => {};
+  }
+
+  const sticky = section.querySelector(
+    '.extraordinary-hero__sticky',
+  );
+
+  const media = section.querySelector(
+    '.extraordinary-hero__media',
+  );
+
+  const video = section.querySelector(
+    '.extraordinary-hero__video',
+  );
+
+  const overlay = section.querySelector(
+    '.extraordinary-hero__overlay',
+  );
+
+  const content = section.querySelector(
+    '.extraordinary-hero__content',
+  );
+
+  const title = section.querySelector(
+    '.extraordinary-hero__title',
+  );
+
+  const titleScript = section.querySelector(
+    '.extraordinary-hero__title-script',
+  );
+
+  const titleSides = gsap.utils.toArray(
+    '.extraordinary-hero__title-side',
+    section,
+  );
+
+  const meta = section.querySelector(
+    '.extraordinary-hero__meta',
+  );
+
+  if (
+    !sticky ||
+    !media ||
+    !video ||
+    !overlay ||
+    !content ||
+    !title ||
+    !titleScript ||
+    titleSides.length === 0 ||
+    !meta
+  ) {
+    console.warn(
+      '[ExtraordinaryHero] 模块内部元素不完整',
+    );
+
+    return () => {};
+  }
+
+  const gsapInstance = gsap;
+  const ScrollTriggerInstance = ScrollTrigger;
+
+  gsapInstance.registerPlugin(
+    ScrollTriggerInstance,
+  );
+
+  const cleanupVideo =
+    initExtraordinaryHeroVideo(section);
+
+  let gsapMatchMedia = null;
+
+  const context = gsapInstance.context(() => {
+    gsapMatchMedia = gsapInstance.matchMedia();
+
+    gsapMatchMedia.add(
+      {
+        desktop: '(min-width: 768px)',
+        mobile: '(max-width: 767px)',
+        reduceMotion:
+          '(prefers-reduced-motion: reduce)',
+      },
+      (matchMediaContext) => {
+        const {
+          mobile,
+          reduceMotion,
+        } = matchMediaContext.conditions;
+
+        /*
+         * 清除上一次响应式切换时，
+         * GSAP 给 media 添加的行内宽高。
+         *
+         * 初始宽高继续读取原来的 CSS。
+         */
+        gsapInstance.set(media, {
+          clearProps: 'width,height',
+        });
+
+        /*
+         * 移动端增加滚动距离。
+         * 桌面端继续使用原来的 CSS 高度。
+         */
+        if (mobile) {
+          gsapInstance.set(section, {
+            height: '240svh',
+          });
+        }
+
+        gsapInstance.set(sticky, {
+          backgroundColor: '#ffffff',
+        });
+
+        gsapInstance.set(overlay, {
+          autoAlpha: 0,
+        });
+
+        gsapInstance.set(content, {
+          autoAlpha: 1,
+        });
+
+        gsapInstance.set(title, {
+          autoAlpha: 1,
+        });
+
+        gsapInstance.set(titleSides, {
+          autoAlpha: 0,
+          y: 16,
+        });
+
+        gsapInstance.set(titleScript, {
+          scale: 1.18,
+          transformOrigin: 'center center',
+        });
+
+        gsapInstance.set(meta, {
+          autoAlpha: 0,
+          y: 24,
+        });
+
+        /*
+         * 开启减少动态效果时，
+         * 直接显示最终状态。
+         */
+        if (reduceMotion) {
+          gsapInstance.set(section, {
+            height: '100svh',
+          });
+
+          gsapInstance.set(media, {
+            width: '100%',
+            height: '100%',
+          });
+
+          gsapInstance.set(sticky, {
+            backgroundColor: '#071019',
+          });
+
+          gsapInstance.set(overlay, {
+            autoAlpha: 1,
+          });
+
+          gsapInstance.set(titleSides, {
+            autoAlpha: 1,
+            y: 0,
+          });
+
+          gsapInstance.set(titleScript, {
+            scale: 1,
+          });
+
+          gsapInstance.set(meta, {
+            autoAlpha: 1,
+            y: 0,
+          });
+
+          return undefined;
+        }
+
+        const timeline = gsapInstance.timeline({
+          defaults: {
+            ease: 'none',
+          },
+
+          scrollTrigger: {
+            id: 'extraordinary-hero-animation',
+            trigger: section,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1,
+            invalidateOnRefresh: true,
+            fastScrollEnd: true,
+          },
+        });
+
+        /*
+         * 视频从 CSS 设置的初始尺寸，
+         * 扩展到全屏。
+         */
+        timeline.to(
+          media,
+          {
+            width: '100%',
+            height: '100%',
+            duration: 1.4,
+            ease: 'power2.inOut',
+          },
+          0,
+        );
+
+        /*
+         * 背景由白色切换为深色。
+         */
+        timeline.to(
+          sticky,
+          {
+            backgroundColor: '#071019',
+            duration: 0.35,
+            ease: 'none',
+          },
+          0,
+        );
+
+        /*
+         * 视频遮罩出现。
+         */
+        timeline.to(
+          overlay,
+          {
+            autoAlpha: 1,
+            duration: 0.45,
+            ease: 'none',
+          },
+          0.42,
+        );
+
+        /*
+         * Extraordinary 缩放到最终尺寸。
+         */
+        timeline.to(
+          titleScript,
+          {
+            scale: 1,
+            duration: 0.45,
+            ease: 'power2.out',
+          },
+          0.58,
+        );
+
+        /*
+         * 显示左右两侧标题。
+         */
+        timeline.to(
+          titleSides,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.4,
+            ease: 'power2.out',
+            stagger: 0.04,
+          },
+          0.64,
+        );
+
+        /*
+         * 显示描述和按钮。
+         */
+        timeline.to(
+          meta,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.4,
+            ease: 'power2.out',
+          },
+          0.72,
+        );
+
+        /*
+         * 保留最终全屏状态。
+         */
+        timeline.to(
+          {},
+          {
+            duration: 0.35,
+          },
+        );
+
+        return () => {
+          timeline.scrollTrigger?.kill();
+          timeline.kill();
+        };
+      },
+    );
+  }, section);
+
+  const refreshScrollTrigger = () => {
+    ScrollTriggerInstance.refresh();
+  };
+
+  video.addEventListener(
+    'loadedmetadata',
+    refreshScrollTrigger,
+  );
+
+  const refreshFrame = requestAnimationFrame(
+    refreshScrollTrigger,
+  );
+
+  return () => {
+    cancelAnimationFrame(refreshFrame);
+
+    video.removeEventListener(
+      'loadedmetadata',
+      refreshScrollTrigger,
+    );
+
+    cleanupVideo?.();
+    gsapMatchMedia?.revert();
+    context.revert();
+  };
+}
 export function useAnniversary11thPage(rootRef) {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return undefined;
-
     const cleanups = [];
     cleanups.push(initVideoBanner(root));
     cleanups.push(initPhotoWall(root));
     cleanups.push(initYearHighlightAnimation(root));
+    cleanups.push(initializeAnimation(root));
+    cleanups.push(initAppreciationRewardsAnimation(root));
+    cleanups.push(initStoriesBeyondOrdinary(root));
+    cleanups.push(initExtraordinaryHeroAnimation(root));
 
-    
-      cleanups.push(initializeAnimation(root));
-       cleanups.push(initAppreciationRewardsAnimation(root));
-  // cleanups.push(initStoriesBeyondOrdinary(root));
-       
-
-      
     const refreshScroll = () => window.ScrollTrigger?.refresh();
     const refreshFrame = requestAnimationFrame(refreshScroll);
     const refreshTimer = window.setTimeout(refreshScroll, 300);
@@ -1392,7 +1828,7 @@ export function useAnniversary11thLenis() {
     ScrollTrigger.scrollerProxy(root, {
       scrollTop(value) {
         if (arguments.length) {
-          lenis.scrollTo(value, {immediate: true});
+          lenis.scrollTo(value, { immediate: true });
         }
         return lenis.scroll;
       },
