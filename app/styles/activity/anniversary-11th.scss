@@ -169,6 +169,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
         -webkit-text-fill-color: transparent;
         line-height: 2.3;
         flex: 1;
+        z-index: 1;
 
         @media (min-width: 1024px) and (max-width: 1450px) {
           font-size: 54px;
@@ -184,7 +185,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
       &-bt {
         flex: 1;
-        margin-left: -19%;
+        margin-left: -12%;
 
         @media screen and (max-width: 1023px) {
           margin-left: -17%;
@@ -272,7 +273,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     height: 1080px;
     position: relative;
     perspective: 2200px;
-    overflow: hidden;
+    // overflow: hidden;
 
     @media (min-width: 1024px) and (max-width: 1450px) {
       height: 864px;
@@ -975,15 +976,19 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       width: 100%;
 
       @media (max-width: 1023px) {
-        height: max(100vh, 800px);
+        height: max(100vh, 820px);
       }
     }
 
     .reward-list-btm__bg {
       position: absolute;
-      top: -99px;
+      top: -19.8rem;
       left: 0;
       width: 100%;
+
+      @media (max-width: 1023px) {
+        top: -1.2rem;
+      }
 
       img {
         display: block;
@@ -1530,12 +1535,13 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       &_span {
         display: block;
       }
+
       &_span1 {
         color: #d44cff;
-  font-family: var(--pwc);
-  font-size: 6.8rem;
-  line-height: 2.3;
-  letter-spacing: -0.068rem;
+        font-family: var(--pwc);
+        font-size: 6.8rem;
+        line-height: 2.3;
+        letter-spacing: -0.068rem;
       }
 
       .title-break {
@@ -1546,33 +1552,34 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       &_span2 {
         margin-top: -3rem;
       }
-       overflow: visible;
 
-  .char {
-    position: relative;
-    display: inline-block;
-    overflow: visible;
-    vertical-align: baseline;
-    white-space: pre;
-  }
+      overflow: visible;
 
-  .char-inner {
-    position: relative;
-    display: inline-block;
-    overflow: visible;
+      .char {
+        position: relative;
+        display: inline-block;
+        overflow: visible;
+        vertical-align: baseline;
+        white-space: pre;
+      }
 
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
+      .char-inner {
+        position: relative;
+        display: inline-block;
+        overflow: visible;
 
-    transform-origin: 50% 50%;
-    backface-visibility: visible;
-  }
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
 
-  .char--space {
-    min-width: 0.25em;
-  }
+        transform-origin: 50% 50%;
+        backface-visibility: visible;
+      }
+
+      .char--space {
+        min-width: 0.25em;
+      }
 
     }
   }
@@ -2035,7 +2042,9 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     cursor: pointer;
     appearance: none;
-
+     &-icon {
+      display: none;
+      }
     &:focus {
       outline: none;
     }
@@ -2137,8 +2146,8 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     }
 
     &__viewport {
-      overflow-x: auto;
-      overflow-y: visible;
+      // overflow-x: auto;
+      // overflow-y: visible;
 
       padding: 0;
 
@@ -2235,8 +2244,27 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     &__toggle {
       border-radius: 0.12rem;
+      color: #fff;
+      &-icon {
+        position: absolute;
+        right: 2.5rem;
+        bottom: 0.3rem;
+
+        display: block;
+        width: 0.24rem;
+        height: auto;
+
+        pointer-events: none;
+
+        transition: transform 0.25s ease;
+        transform-origin: center;
+      }
+
 
     }
+          &--expanded .story-card__toggle-icon {
+        transform: rotate(180deg);
+      }
 
     &--overflowing:hover:not(&--expanded) &__text {
       display: -webkit-box;

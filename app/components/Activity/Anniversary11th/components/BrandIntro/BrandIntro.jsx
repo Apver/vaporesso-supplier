@@ -355,7 +355,7 @@ const BrandIntro = forwardRef(
               t(0.24),
             )
 
-            .add('exit', t(1.8))
+            .add('exit', t(1.3))
 
             /*
              * Logo 放大并变透明穿透
@@ -368,7 +368,7 @@ const BrandIntro = forwardRef(
                 rotation: 0,
                 autoAlpha: 0, 
                 filter: 'blur(0px)', 
-                duration: t(0.6),
+                duration: t(0.25),
                 ease: 'power2.in',
               },
               'exit',
@@ -382,7 +382,7 @@ const BrandIntro = forwardRef(
               wrapper,
               {
                 autoAlpha: 0, // 直接淡出背景色块
-                duration: t(0.6),
+                duration: t(0.25),
                 ease: 'power2.in', 
               },
               'exit', 
@@ -395,7 +395,7 @@ const BrandIntro = forwardRef(
                 duration: t(0.18),
                 ease: 'none',
               },
-              `exit+=${t(0.6)}`, 
+              `exit+=${t(0.25)}`, 
             );
         };
 

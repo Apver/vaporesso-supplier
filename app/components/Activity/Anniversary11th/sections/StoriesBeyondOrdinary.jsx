@@ -78,7 +78,25 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Ethan's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+        
           </article>
 
           <article
@@ -128,7 +146,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Wilson's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -178,7 +213,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Tracie's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -228,7 +280,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Matthew's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -274,7 +343,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Olivia's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
            <article
             className="story-card"
@@ -320,7 +406,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Ethan's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -370,7 +473,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Wilson's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -420,7 +540,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Tracie's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -470,7 +607,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Matthew's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -516,7 +670,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Olivia's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
         </div>
 
@@ -567,7 +738,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Sophia's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -617,7 +805,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Tracy's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -667,7 +872,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Nick's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -717,7 +939,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Wally's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -764,7 +1003,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Tom's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
             <article
             className="story-card"
@@ -812,7 +1068,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Sophia's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -862,7 +1135,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Tracy's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -912,7 +1202,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Nick's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -962,7 +1269,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Wally's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
 
           <article
@@ -1009,7 +1333,24 @@ const StoriesBeyondOrdinary = () =>{
               aria-expanded="false"
               aria-label="Read Tom's full story"
               hidden
-            />
+            >
+               <svg
+                className="story-card__toggle-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="7"
+                viewBox="0 0 12 7"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0.53125 0.530273L5.53125 5.53027L10.5312 0.530273"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </article>
         </div>
       </div>

@@ -412,257 +412,257 @@ function initYearHighlightAnimation(root) {
   // });
 
   media.add('(max-width: 1023px)', () => {
-  const header = section.querySelector(
-    '.year-highlight__header'
-  );
-
-  if (!header) {
-    return () => {};
-  }
-
-  const state = {
-    headerProgress: 0,
-    step: 0
-  };
-
-  const lastIndex = cards.length - 1;
-
-  let stageWidth = 0;
-  let stageHeight = 0;
-  let cardWidth = 0;
-  let cardHeight = 0;
-
-  let centerX = 0;
-  let startCardY = 0;
-  let endCardY = 0;
-  let headerMoveY = 0;
-
-  const resize = () => {
-    stageWidth =
-      wrapper.clientWidth ||
-      window.innerWidth;
-
-    stageHeight =
-      wrapper.clientHeight ||
-      window.innerHeight;
-
-    cardWidth =
-      cards[0].offsetWidth || 335;
-
-    cardHeight =
-      cards[0].offsetHeight || 500;
-
-    const rootFontSize =
-      parseFloat(
-        getComputedStyle(
-          document.documentElement
-        ).fontSize
-      ) || 10;
-
-    const cardGap =
-      0.72 * rootFontSize;
-
-    centerX =
-      stageWidth * 0.5;
-
-    // 卡片初始位置：
-    // header 底部再加 0.72rem
-    startCardY =
-      header.offsetTop +
-      header.offsetHeight +
-      cardGap;
-
-    // header 离开后，卡片移动到屏幕中间
-    endCardY =
-      Math.max(
-        0,
-        (stageHeight - cardHeight) * 0.5
-      );
-
-    // header 向上完全移出屏幕
-    headerMoveY =
-      -(
-        header.offsetTop +
-        header.offsetHeight +
-        cardGap
-      );
-  };
-
-  const render = () => {
-    const headerProgress =
-      state.headerProgress;
-
-    const currentIndex =
-      Math.min(
-        lastIndex,
-        Math.floor(state.step)
-      );
-
-    const cardProgress =
-      state.step - currentIndex;
-
-    const baseX =
-      centerX - cardWidth * 0.5;
-
-    // header 上移时，卡片同步移动到屏幕中间
-    const baseY = lerp(
-      startCardY,
-      endCardY,
-      headerProgress
+    const header = section.querySelector(
+      '.year-highlight__header'
     );
 
-    const headerOpacity =
-      1 -
-      smoothstep(
-        0.7,
-        1,
+    if (!header) {
+      return () => { };
+    }
+
+    const state = {
+      headerProgress: 0,
+      step: 0
+    };
+
+    const lastIndex = cards.length - 1;
+
+    let stageWidth = 0;
+    let stageHeight = 0;
+    let cardWidth = 0;
+    let cardHeight = 0;
+
+    let centerX = 0;
+    let startCardY = 0;
+    let endCardY = 0;
+    let headerMoveY = 0;
+
+    const resize = () => {
+      stageWidth =
+        wrapper.clientWidth ||
+        window.innerWidth;
+
+      stageHeight =
+        wrapper.clientHeight ||
+        window.innerHeight;
+
+      cardWidth =
+        cards[0].offsetWidth || 335;
+
+      cardHeight =
+        cards[0].offsetHeight || 500;
+
+      const rootFontSize =
+        parseFloat(
+          getComputedStyle(
+            document.documentElement
+          ).fontSize
+        ) || 10;
+
+      const cardGap =
+        0.72 * rootFontSize;
+
+      centerX =
+        stageWidth * 0.5;
+
+      // 卡片初始位置：
+      // header 底部再加 0.72rem
+      startCardY =
+        header.offsetTop +
+        header.offsetHeight +
+        cardGap;
+
+      // header 离开后，卡片移动到屏幕中间
+      endCardY =
+        Math.max(
+          0,
+          (stageHeight - cardHeight) * 0.5
+        );
+
+      // header 向上完全移出屏幕
+      headerMoveY =
+        -(
+          header.offsetTop +
+          header.offsetHeight +
+          cardGap
+        );
+    };
+
+    const render = () => {
+      const headerProgress =
+        state.headerProgress;
+
+      const currentIndex =
+        Math.min(
+          lastIndex,
+          Math.floor(state.step)
+        );
+
+      const cardProgress =
+        state.step - currentIndex;
+
+      const baseX =
+        centerX - cardWidth * 0.5;
+
+      // header 上移时，卡片同步移动到屏幕中间
+      const baseY = lerp(
+        startCardY,
+        endCardY,
         headerProgress
       );
 
-    gsap.set(header, {
-      y: headerMoveY * headerProgress,
-      opacity: headerOpacity,
-      visibility:
-        headerOpacity > 0.001
-          ? 'visible'
-          : 'hidden',
-      force3D: true
-    });
-
-    cards.forEach((card, index) => {
-      let rotationX = 0;
-      let opacity = 1;
-      let visibility = 'visible';
-      let zIndex = cards.length - index;
-
-      // 已经翻走的卡片
-      if (index < currentIndex) {
-        opacity = 0;
-        visibility = 'hidden';
-        zIndex = 0;
-      }
-
-      // 当前卡片从底部向外翻
-      if (index === currentIndex) {
-        rotationX = lerp(
-          0,
-          -88,
-          cardProgress * cardProgress
+      const headerOpacity =
+        1 -
+        smoothstep(
+          0.7,
+          1,
+          headerProgress
         );
 
-        opacity =
-          1 -
-          smoothstep(
-            0.85,
-            1,
-            cardProgress
-          );
-
-        visibility =
-          opacity > 0.001
+      gsap.set(header, {
+        y: headerMoveY * headerProgress,
+        opacity: headerOpacity,
+        visibility:
+          headerOpacity > 0.001
             ? 'visible'
-            : 'hidden';
-
-        zIndex = 1000;
-      }
-
-      // 后面的卡片保持叠放
-      if (index > currentIndex) {
-        rotationX = 0;
-        opacity = 1;
-        visibility = 'visible';
-        zIndex = cards.length - index;
-      }
-
-      gsap.set(card, {
-        x: baseX,
-        y: baseY,
-        z: 0,
-
-        scale: 1,
-
-        rotationX,
-        rotationY: 0,
-        rotationZ: 0,
-
-        opacity,
-        visibility,
-        zIndex,
-
-        transformOrigin: '50% 100%',
+            : 'hidden',
         force3D: true
       });
-    });
-  };
 
-  resize();
-  render();
+      cards.forEach((card, index) => {
+        let rotationX = 0;
+        let opacity = 1;
+        let visibility = 'visible';
+        let zIndex = cards.length - index;
 
-  const timeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: true,
-      invalidateOnRefresh: true,
+        // 已经翻走的卡片
+        if (index < currentIndex) {
+          opacity = 0;
+          visibility = 'hidden';
+          zIndex = 0;
+        }
 
-      onRefreshInit: resize,
+        // 当前卡片从底部向外翻
+        if (index === currentIndex) {
+          rotationX = lerp(
+            0,
+            -88,
+            cardProgress * cardProgress
+          );
 
-      onRefresh: () => {
-        resize();
-        render();
-      },
+          opacity =
+            1 -
+            smoothstep(
+              0.85,
+              1,
+              cardProgress
+            );
 
-      onUpdate: render
-    }
-  });
+          visibility =
+            opacity > 0.001
+              ? 'visible'
+              : 'hidden';
 
-  // 第一段：header 向上移出，card 移到中间
-  timeline.to(state, {
-    headerProgress: 1,
-    duration: 1,
-    ease: 'none',
-    onUpdate: render
-  });
+          zIndex = 1000;
+        }
 
-  // 第二段：开始逐张翻牌
-  timeline.to(state, {
-    step: lastIndex,
-    duration: lastIndex,
-    ease: 'none',
-    onUpdate: render
-  });
+        // 后面的卡片保持叠放
+        if (index > currentIndex) {
+          rotationX = 0;
+          opacity = 1;
+          visibility = 'visible';
+          zIndex = cards.length - index;
+        }
 
-  const handleResize = () => {
+        gsap.set(card, {
+          x: baseX,
+          y: baseY,
+          z: 0,
+
+          scale: 1,
+
+          rotationX,
+          rotationY: 0,
+          rotationZ: 0,
+
+          opacity,
+          visibility,
+          zIndex,
+
+          transformOrigin: '50% 100%',
+          force3D: true
+        });
+      });
+    };
+
     resize();
     render();
-  };
 
-  window.addEventListener(
-    'resize',
-    handleResize
-  );
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: true,
+        invalidateOnRefresh: true,
 
-  return () => {
-    window.removeEventListener(
+        onRefreshInit: resize,
+
+        onRefresh: () => {
+          resize();
+          render();
+        },
+
+        onUpdate: render
+      }
+    });
+
+    // 第一段：header 向上移出，card 移到中间
+    timeline.to(state, {
+      headerProgress: 1,
+      duration: 1,
+      ease: 'none',
+      onUpdate: render
+    });
+
+    // 第二段：开始逐张翻牌
+    timeline.to(state, {
+      step: lastIndex,
+      duration: lastIndex,
+      ease: 'none',
+      onUpdate: render
+    });
+
+    const handleResize = () => {
+      resize();
+      render();
+    };
+
+    window.addEventListener(
       'resize',
       handleResize
     );
 
-    timeline.scrollTrigger?.kill();
-    timeline.kill();
+    return () => {
+      window.removeEventListener(
+        'resize',
+        handleResize
+      );
 
-    gsap.set(header, {
-      clearProps:
-        'transform,opacity,visibility'
-    });
+      timeline.scrollTrigger?.kill();
+      timeline.kill();
 
-    gsap.set(cards, {
-      clearProps:
-        'transform,opacity,visibility,zIndex,transformOrigin'
-    });
-  };
-});
+      gsap.set(header, {
+        clearProps:
+          'transform,opacity,visibility'
+      });
+
+      gsap.set(cards, {
+        clearProps:
+          'transform,opacity,visibility,zIndex,transformOrigin'
+      });
+    };
+  });
 
   return () => {
     media.revert();
@@ -721,6 +721,8 @@ function initializeAnimation(root) {
         const wrapperRect = cardWrapper.getBoundingClientRect();
         mainHeaderHeight = mainHeader.offsetHeight + parseFloat(style.marginBottom || 0);
         moveUpDistance = isMobile ? Math.max(0, wrapperRect.top - sectionRect.top - safePadding) : Math.max(0, mainHeaderHeight - safePadding - extraOffset);
+
+
         gsap.set(mainHeader, {
           y: 0,
           willChange: 'transform'
@@ -762,9 +764,10 @@ function initializeAnimation(root) {
           });
         } else {
           const extraY = index === 2 ? 25 : 0;
+          const mobileCardUpOffset = isMobile ? 0.1 * index * rootFontSize : 0;
           gsap.set(card, {
             position: 'absolute',
-            top: index * stackOffset,
+            top: index * stackOffset - mobileCardUpOffset,
             left: 0,
             right: 0,
             margin: '0 auto',
@@ -882,604 +885,20 @@ function initializeAnimation(root) {
   };
 }
 
-
-// function initAppreciationRewardsAnimation(root) {
-//   const section =
-//     typeof root === 'string'
-//       ? document.querySelector(root)
-//       : root?.matches?.('.appreciation-reward')
-//         ? root
-//         : root?.querySelector?.('.appreciation-reward');
-
-//   if (!section) {
-//     console.warn(
-//       '[AppreciationRewards] 未找到 .appreciation-reward'
-//     );
-
-//     return () => { };
-//   }
-
-//   const stick = section.querySelector(
-//     '.appreciation-reward__stick'
-//   );
-
-//   const header = section.querySelector(
-//     '.appreciation-reward__header'
-//   );
-
-//   const content = section.querySelector(
-//     '.appreciation-reward__content'
-//   );
-
-//   // const note = section.querySelector(
-//   //   '.appreciation-reward__note'
-//   // );
-
-//   const cards = gsap.utils.toArray(
-//     '.appreciation-reward__card',
-//     section
-//   );
-
-//   if (!stick || !cards.length) {
-//     console.warn(
-//       '[AppreciationRewards] 未找到 stick 或 card'
-//     );
-
-//     return () => { };
-//   }
-
-//   if (!header) {
-//     console.warn(
-//       '[AppreciationRewards] 未找到 .appreciation-reward__header'
-//     );
-//   }
-
-//   let timeline = null;
-//   let scrollTrigger = null;
-//   let stepTween = null;
-
-//   const ctx = gsap.context(() => {
-//     const totalCards = cards.length;
-
-//     /**
-//      * 找出需要单独移动的元素。
-//      *
-//      * 如果 note 在 content 里面，
-//      * 只移动 content，note 会跟着移动，
-//      * 避免 note 被重复偏移。
-//      */
-//     const moveCandidates = [
-//       header,
-//       content,
-//       // note
-//     ].filter(Boolean);
-
-//     const movingElements =
-//       moveCandidates.filter((element, index, elements) => {
-//         return !elements.some(
-//           (parent, parentIndex) =>
-//             parentIndex !== index &&
-//             parent.contains(element)
-//         );
-//       });
-
-//     /**
-//      * 必须存在 header，
-//      * 才能获取最后向上移动的距离。
-//      */
-//     const hasFinalMove =
-//       Boolean(header) &&
-//       movingElements.length > 0;
-
-//     /**
-//      * 卡片步骤 + 最后的整体上移步骤。
-//      *
-//      * 5 张卡片：
-//      * step-0 到 step-5 是卡片动画
-//      * step-6 是整体向上移动
-//      */
-//     const totalSteps =
-//       totalCards + (hasFinalMove ? 1 : 0);
-
-//     const isMobile = () =>
-//       window.matchMedia(
-//         '(max-width: 1023px)'
-//       ).matches;
-
-//     const getCardWidth = () =>
-//       cards[0].getBoundingClientRect().width ||
-//       260;
-
-//     const getHiddenY = () => {
-//       const cardHeight =
-//         cards[0].getBoundingClientRect().height ||
-//         300;
-
-//       return Math.max(
-//         stick.clientHeight * 0.75,
-//         cardHeight * 1.5
-//       );
-//     };
-
-//     /**
-//      * 获取 header 高度。
-//      * header、content、note 都会向上移动这个距离。
-//      */
-//     const getHeaderHeight = () =>
-//       header?.getBoundingClientRect().height || 0;
-//     const getSpacing = count => {
-//       const cardWidth = getCardWidth();
-
-//       // 卡片中心之间的间距
-//       const desiredSpacing =
-//         cardWidth *
-//         (isMobile() ? 0.56 : 0.7);
-
-//       // 整组卡片允许占据的最大宽度
-//       const maxGroupWidth =
-//         stick.clientWidth *
-//         (isMobile() ? 0.94 : 0.78);
-
-//       const availableSpacing =
-//         count > 1
-//           ? (maxGroupWidth - cardWidth) /
-//           (count - 1)
-//           : desiredSpacing;
-
-//       return gsap.utils.clamp(
-//         cardWidth *
-//         (isMobile() ? 0.4 : 0.58),
-//         desiredSpacing,
-//         availableSpacing
-//       );
-//     };
-//     const getCardState = (
-//       index,
-//       visibleCount
-//     ) => {
-//       const cardRect =
-//         cards[0].getBoundingClientRect();
-
-//       const cardWidth =
-//         cardRect.width || 260;
-
-//       const cardHeight =
-//         cardRect.height || 360;
-
-//       /**
-//        * 移动端：
-//        * 最新出现的卡片在最上面，
-//        * 其他卡片只露出边缘。
-//        */
-//       if (isMobile()) {
-//         /**
-//          * depth:
-//          * 0 = 当前最上面的卡片
-//          * 1 = 上面卡片的下一层
-//          * 以此类推
-//          */
-//         const depth =
-//           visibleCount - 1 - index;
-
-//         const stackStates = [
-//           {
-//             x: 0,
-//             y: 0,
-//             rotation: 5,
-//             scale: 1
-//           },
-//           {
-//             x: cardWidth * 0.035,
-//             y: -cardHeight * 0.006,
-//             rotation: 3,
-//             scale: 1
-//           },
-//           {
-//             x: cardWidth * 0.06,
-//             y: -cardHeight * 0.012,
-//             rotation: 1,
-//             scale: 1
-//           },
-//           {
-//             x: -cardWidth * 0.04,
-//             y: cardHeight * 0.008,
-//             rotation: -3,
-//             scale: 1
-//           },
-//           {
-//             x: -cardWidth * 0.065,
-//             y: cardHeight * 0.016,
-//             rotation: -6,
-//             scale: 1
-//           }
-//         ];
-
-//         const state =
-//           stackStates[
-//           Math.min(
-//             depth,
-//             stackStates.length - 1
-//           )
-//           ];
-
-//         return {
-//           ...state,
-
-//           /**
-//            * DOM 越靠后的卡片层级越高，
-//            * 确保 Creative Desk Set 在最上面。
-//            */
-//           zIndex: index + 1
-//         };
-//       }
-
-//       /**
-//        * PC 端继续使用原来的扇形排列。
-//        */
-//       const visibleCenterIndex =
-//         (visibleCount - 1) / 2;
-
-//       const distance =
-//         index - visibleCenterIndex;
-
-//       const finalRadius = Math.max(
-//         (totalCards - 1) / 2,
-//         1
-//       );
-
-//       const ratio =
-//         distance / finalRadius;
-
-//       const absoluteRatio =
-//         Math.abs(ratio);
-
-//       const maxDrop = 82;
-//       const maxRotation = 14;
-
-//       const spacingProgress =
-//         totalCards <= 1
-//           ? 1
-//           : gsap.utils.mapRange(
-//             1,
-//             totalCards,
-//             0.72,
-//             1,
-//             visibleCount
-//           );
-
-//       const scale =
-//         absoluteRatio >= 0.9
-//           ? 0.94
-//           : 1;
-
-//       return {
-//         x:
-//           distance *
-//           getSpacing(visibleCount) *
-//           spacingProgress,
-
-//         y:
-//           Math.pow(
-//             absoluteRatio,
-//             1.8
-//           ) * maxDrop,
-
-//         rotation:
-//           ratio * maxRotation,
-
-//         scale,
-
-//         zIndex: Math.round(
-//           100 -
-//           Math.abs(distance) * 10
-//         )
-//       };
-//     };
-
-//     /**
-//      * 初始化所有卡片。
-//      */
-//     cards.forEach((card, index) => {
-//       gsap.set(card, {
-//         position: 'absolute',
-//         top: '50%',
-//         left: '50%',
-
-//         xPercent: -50,
-//         yPercent: -50,
-
-//         x: 0,
-//         y: getHiddenY(),
-
-//         rotation:
-//           isMobile() ? 6 : 10,
-
-//         scale: 0.92,
-//         autoAlpha: 0,
-
-//         zIndex: index + 1,
-
-//         transformOrigin: isMobile() ? '50% 50%' : '50% 110%',
-
-//         force3D: true,
-//         willChange:
-//           'transform, opacity'
-//       });
-//     });
-
-//     /**
-//      * 初始化最后需要整体移动的元素。
-//      */
-//     if (hasFinalMove) {
-//       gsap.set(movingElements, {
-//         y: 0,
-//         force3D: true,
-//         willChange: 'transform'
-//       });
-//     }
-
-//     timeline = gsap.timeline({
-//       paused: true,
-
-//       defaults: {
-//         overwrite: 'auto'
-//       }
-//     });
-
-//     timeline.addLabel('step-0', 0);
-
-//     /**
-//      * 卡片依次从底部进入。
-//      */
-//     for (
-//       let visibleCount = 1;
-//       visibleCount <= totalCards;
-//       visibleCount += 1
-//     ) {
-//       const enteringIndex =
-//         visibleCount - 1;
-
-//       const enteringCard =
-//         cards[enteringIndex];
-
-//       const segmentStart =
-//         visibleCount - 1;
-
-//       /**
-//        * 已经出现的卡片重新组成扇形。
-//        */
-//       cards
-//         .slice(0, enteringIndex)
-//         .forEach((card, index) => {
-//           const targetState =
-//             getCardState(
-//               index,
-//               visibleCount
-//             );
-
-//           timeline.to(
-//             card,
-//             {
-//               x: targetState.x,
-//               y: targetState.y,
-
-//               rotation:
-//                 targetState.rotation,
-
-//               scale:
-//                 targetState.scale,
-
-//               zIndex:
-//                 targetState.zIndex,
-
-//               autoAlpha: 1,
-
-//               duration: 0.65,
-//               ease: 'back.out(1.8)'
-//             },
-//             segmentStart
-//           );
-//         });
-
-//       /**
-//        * 当前卡片从底部进入。
-//        */
-//       const enteringState =
-//         getCardState(
-//           enteringIndex,
-//           visibleCount
-//         );
-
-//       timeline.fromTo(
-//         enteringCard,
-//         {
-//           x: enteringState.x,
-
-//           y: getHiddenY(),
-
-//           rotation:
-//             enteringState.rotation +
-//             (isMobile() ? 6 : 10),
-
-//           scale: 0.92,
-//           autoAlpha: 0
-//         },
-//         {
-//           x: enteringState.x,
-//           y: enteringState.y,
-
-//           rotation:
-//             enteringState.rotation,
-
-//           scale:
-//             enteringState.scale,
-
-//           zIndex:
-//             enteringState.zIndex,
-
-//           autoAlpha: 1,
-
-//           duration: 0.8,
-//           ease: 'back.out(2.2)',
-
-//           immediateRender: false
-//         },
-//         segmentStart
-//       );
-
-//       timeline.addLabel(
-//         `step-${visibleCount}`,
-//         visibleCount
-//       );
-//     }
-
-//     /**
-//      * 卡片全部完成后：
-//      *
-//      * header、content、note
-//      * 一起向上移动一个 header 的高度。
-//      */
-//     if (hasFinalMove) {
-//       const finalStep =
-//         totalCards + 1;
-
-//       timeline.to(
-//         movingElements,
-//         {
-//           y: () =>
-//             -getHeaderHeight() * 0.3,
-
-//           duration: 0.8,
-//           ease: 'power2.inOut'
-//         },
-//         totalCards
-//       );
-
-//       timeline.addLabel(
-//         `step-${finalStep}`,
-//         finalStep
-//       );
-//     }
-
-//     let currentStep = -1;
-
-//     const goToStep = (
-//       step,
-//       immediate = false
-//     ) => {
-//       const targetStep =
-//         gsap.utils.clamp(
-//           0,
-//           totalSteps,
-//           step
-//         );
-
-//       if (
-//         targetStep === currentStep &&
-//         !immediate
-//       ) {
-//         return;
-//       }
-
-//       currentStep = targetStep;
-
-//       stepTween?.kill();
-//       stepTween = null;
-
-//       if (immediate) {
-//         timeline.time(
-//           targetStep,
-//           false
-//         );
-
-//         return;
-//       }
-
-//       stepTween = timeline.tweenTo(
-//         `step-${targetStep}`,
-//         {
-//           duration: 0.55,
-//           ease: 'power2.out',
-//           overwrite: true,
-
-//           onComplete() {
-//             stepTween = null;
-//           }
-//         }
-//       );
-//     };
-
-//     scrollTrigger =
-//       ScrollTrigger.create({
-//         id: 'appreciation-reward-animation',
-
-//         trigger: section,
-
-//         /**
-//          * 使用你已有的 CSS sticky。
-//          * 这里不要增加 pin。
-//          */
-//         start: 'top top',
-//         end: 'bottom bottom',
-
-//         invalidateOnRefresh: false,
-
-//         onUpdate(self) {
-//           const nextStep =
-//             Math.round(
-//               self.progress *
-//               totalSteps
-//             );
-
-//           if (
-//             nextStep !== currentStep
-//           ) {
-//             goToStep(nextStep);
-//           }
-//         }
-//       });
-
-//     /**
-//      * 根据当前滚动位置初始化状态。
-//      */
-//     const initialStep = Math.round(
-//       scrollTrigger.progress *
-//       totalSteps
-//     );
-
-//     goToStep(initialStep, true);
-//   }, section);
-
-//   return () => {
-//     stepTween?.kill();
-//     stepTween = null;
-
-//     scrollTrigger?.kill();
-//     scrollTrigger = null;
-
-//     timeline?.kill();
-//     timeline = null;
-
-//     ctx.revert();
-//   };
-// }
-
 function initAppreciationRewardsAnimation(root) {
   const section =
     typeof root === 'string'
       ? document.querySelector(root)
       : root?.matches?.('.appreciation-reward')
         ? root
-        : root?.querySelector?.(
-            '.appreciation-reward'
-          );
+        : root?.querySelector?.('.appreciation-reward');
 
   if (!section) {
     console.warn(
       '[AppreciationRewards] 未找到 .appreciation-reward'
     );
 
-    return () => {};
+    return () => { };
   }
 
   const stick = section.querySelector(
@@ -1509,11 +928,10 @@ function initAppreciationRewardsAnimation(root) {
       '[AppreciationRewards] 缺少动画所需元素'
     );
 
-    return () => {};
+    return () => { };
   }
 
-  const originalTitleHTML =
-    title.innerHTML;
+  const originalTitleHTML = title.innerHTML;
 
   const originalAriaLabel =
     title.getAttribute('aria-label');
@@ -1530,14 +948,11 @@ function initAppreciationRewardsAnimation(root) {
   let impactDelayCall = null;
 
   let currentStep = -1;
-  let impactTarget = false;
   let scatterStates = [];
   let destroyed = false;
 
   /**
-   * 将标题中的所有 span 拆成单个字符。
-   *
-   * 黑色文字和强调色文字都会拆分。
+   * 将标题拆成单个字符。
    */
   const splitTitleIntoChars = () => {
     const titleSpans = Array.from(
@@ -1571,8 +986,8 @@ function initAppreciationRewardsAnimation(root) {
       span.textContent = '';
       span.style.overflow = 'visible';
 
-      /*
-       * 取消旧的文字渐变，改为纯色。
+      /**
+       * 取消文字渐变，使用纯色。
        */
       span.style.background = 'none';
       span.style.backgroundImage = 'none';
@@ -1583,10 +998,6 @@ function initAppreciationRewardsAnimation(root) {
       span.style.webkitTextFillColor =
         'currentColor';
 
-      /*
-       * Appreciation 的纯色。
-       * 需要更换颜色只改这里。
-       */
       if (
         span.classList.contains(
           'appreciation-reward__header__title_span1'
@@ -1680,7 +1091,7 @@ function initAppreciationRewardsAnimation(root) {
       ).matches;
 
     /**
-     * 卡片整体向下偏移。
+     * 卡片整体上下位置。
      *
      * 数字越大，卡片越靠下。
      */
@@ -1689,12 +1100,9 @@ function initAppreciationRewardsAnimation(root) {
 
     /**
      * 第一张卡片开始进入后，
-     * 经过多少秒触发文字散开。
-     *
-     * 这不是滚动进度。
+     * 延迟触发文字撞散。
      */
-    const getImpactDelay = () =>
-      isMobile() ? 0.05 : 0.05;
+    const getImpactDelay = () => 0.05;
 
     const randomValue = (
       index,
@@ -1703,7 +1111,7 @@ function initAppreciationRewardsAnimation(root) {
       const value =
         Math.sin(
           (index + 1) * 12.9898 +
-            salt * 78.233
+          salt * 78.233
         ) * 43758.5453;
 
       return value - Math.floor(value);
@@ -1714,18 +1122,13 @@ function initAppreciationRewardsAnimation(root) {
       salt,
       min,
       max
-    ) => {
-      return gsap.utils.interpolate(
+    ) =>
+      gsap.utils.interpolate(
         min,
         max,
         randomValue(index, salt)
       );
-    };
 
-    /**
-     * 使用 offsetWidth / offsetHeight，
-     * 避免卡片 transform 后尺寸变化。
-     */
     const getCardSize = () => {
       const card = cards[0];
 
@@ -1743,7 +1146,7 @@ function initAppreciationRewardsAnimation(root) {
     };
 
     const getHiddenY = () => {
-      const {height} = getCardSize();
+      const { height } = getCardSize();
 
       return Math.max(
         stick.clientHeight * 0.82,
@@ -1752,7 +1155,7 @@ function initAppreciationRewardsAnimation(root) {
     };
 
     /**
-     * 计算卡片组移动到标题附近的基础位置。
+     * 卡片组基础位置。
      */
     const getStackBasePosition = () => {
       const wrapperRect =
@@ -1790,7 +1193,7 @@ function initAppreciationRewardsAnimation(root) {
     };
 
     const getSpacing = count => {
-      const {width: cardWidth} =
+      const { width: cardWidth } =
         getCardSize();
 
       const desiredSpacing =
@@ -1804,15 +1207,15 @@ function initAppreciationRewardsAnimation(root) {
       const availableSpacing =
         count > 1
           ? (
-              maxGroupWidth -
-              cardWidth
-            ) /
-            (count - 1)
+            maxGroupWidth -
+            cardWidth
+          ) /
+          (count - 1)
           : desiredSpacing;
 
       return gsap.utils.clamp(
         cardWidth *
-          (isMobile() ? 0.4 : 0.58),
+        (isMobile() ? 0.4 : 0.58),
 
         desiredSpacing,
         availableSpacing
@@ -1820,7 +1223,21 @@ function initAppreciationRewardsAnimation(root) {
     };
 
     /**
-     * 计算每张卡片在当前步骤的位置。
+     * 修改点 1：
+     *
+     * 固定卡片层级，不再在动画过程中改变 zIndex。
+     * 第三张卡片出现后始终保持最顶部。
+     */
+    const getCardZIndex = index => {
+      if (index === 2) {
+        return totalCards + 100;
+      }
+
+      return index + 1;
+    };
+
+    /**
+     * 计算卡片位置。
      */
     const getCardState = (
       index,
@@ -1835,7 +1252,7 @@ function initAppreciationRewardsAnimation(root) {
       } = getCardSize();
 
       /**
-       * 移动端堆叠效果。
+       * 移动端堆叠布局。
        */
       if (isMobile()) {
         const depth =
@@ -1876,10 +1293,10 @@ function initAppreciationRewardsAnimation(root) {
 
         const state =
           stackStates[
-            Math.min(
-              Math.max(depth, 0),
-              stackStates.length - 1
-            )
+          Math.min(
+            Math.max(depth, 0),
+            stackStates.length - 1
+          )
           ];
 
         return {
@@ -1895,15 +1312,12 @@ function initAppreciationRewardsAnimation(root) {
             state.rotation,
 
           scale:
-            state.scale,
-
-          zIndex:
-            index + 1
+            state.scale
         };
       }
 
       /**
-       * PC 扇形效果。
+       * PC 扇形布局。
        */
       const visibleCenterIndex =
         (visibleCount - 1) / 2;
@@ -1929,19 +1343,19 @@ function initAppreciationRewardsAnimation(root) {
         totalCards <= 1
           ? 1
           : gsap.utils.mapRange(
-              1,
-              totalCards,
-              0.72,
-              1,
-              visibleCount
-            );
+            1,
+            totalCards,
+            0.72,
+            1,
+            visibleCount
+          );
 
       return {
         x:
           basePosition.x +
           distance *
-            getSpacing(visibleCount) *
-            spacingProgress,
+          getSpacing(visibleCount) *
+          spacingProgress,
 
         y:
           basePosition.y +
@@ -1949,7 +1363,7 @@ function initAppreciationRewardsAnimation(root) {
             absoluteRatio,
             1.8
           ) *
-            maxDrop,
+          maxDrop,
 
         rotation:
           ratio * maxRotation,
@@ -1957,19 +1371,12 @@ function initAppreciationRewardsAnimation(root) {
         scale:
           absoluteRatio >= 0.9
             ? 0.94
-            : 1,
-
-        zIndex: Math.round(
-          100 -
-            Math.abs(distance) * 10
-        )
+            : 1
       };
     };
 
     /**
-     * 计算每个字符的飞散方向。
-     *
-     * 撞击点位于标题下方中心。
+     * 计算文字飞散方向。
      */
     const createScatterStates = () => {
       const titleRect =
@@ -2043,12 +1450,12 @@ function initAppreciationRewardsAnimation(root) {
           return {
             x:
               directionX *
-                distance +
+              distance +
               extraX,
 
             y:
               directionY *
-                distance -
+              distance -
               upwardForce,
 
             rotation:
@@ -2074,9 +1481,6 @@ function initAppreciationRewardsAnimation(root) {
     scatterStates =
       createScatterStates();
 
-    /**
-     * 初始化文字。
-     */
     gsap.set(characterInners, {
       x: 0,
       y: 0,
@@ -2093,10 +1497,10 @@ function initAppreciationRewardsAnimation(root) {
     });
 
     /**
-     * 独立的文字撞散动画。
+     * 修改点 2：
      *
-     * 它没有 ScrollTrigger，
-     * 不会跟随滚动进度。
+     * 文字撞散动画放慢。
+     * 先完整散开，再慢慢降低透明度。
      */
     impactTimeline = gsap.timeline({
       paused: true,
@@ -2107,7 +1511,7 @@ function initAppreciationRewardsAnimation(root) {
     });
 
     /**
-     * 第一段：碰撞瞬间先向外顶开一点。
+     * 第一段：撞击瞬间稍微顶开。
      */
     impactTimeline.to(
       characterInners,
@@ -2134,10 +1538,11 @@ function initAppreciationRewardsAnimation(root) {
         scaleY: 0.96,
 
         autoAlpha: 1,
-        duration: 0.1,
+
+        duration: 0.18,
 
         stagger: {
-          amount: 0.06,
+          amount: 0.08,
           from: 'center'
         },
 
@@ -2147,7 +1552,10 @@ function initAppreciationRewardsAnimation(root) {
     );
 
     /**
-     * 第二段：完整飞散并淡出。
+     * 第二段：文字完整散开。
+     *
+     * 这里保持不透明，
+     * 让用户能看清飞散的过程。
      */
     impactTimeline.to(
       characterInners,
@@ -2172,24 +1580,60 @@ function initAppreciationRewardsAnimation(root) {
           scatterStates[index]
             ?.scale || 0.82,
 
-        autoAlpha: 0,
-        duration: 0.52,
+        autoAlpha: 1,
+
+        duration: 0.78,
 
         stagger: {
-          amount: 0.18,
+          amount: 0.24,
           from: 'center'
         },
 
-        ease: 'power3.out'
+        ease: 'power2.out'
       },
-      0.08
+      0.12
     );
 
     /**
-     * 控制文字完整散开或完整恢复。
-     *
-     * 通过 tween timeline.progress，
-     * 快速上下滚动时不会卡在中间。
+     * 第三段：散开完成后再慢慢淡出。
+     */
+    /**
+     * 第三段：文字继续向外扩散，同时慢慢淡出。
+     */
+    impactTimeline.to(
+      characterInners,
+      {
+        x: index =>
+          (scatterStates[index]?.x || 0) * 1.15,
+
+        y: index =>
+          (scatterStates[index]?.y || 0) * 1.15,
+
+        rotation: index =>
+          (scatterStates[index]?.rotation || 0) * 1.12,
+
+        scaleX: index =>
+          (scatterStates[index]?.scale || 0.82) * 0.92,
+
+        scaleY: index =>
+          (scatterStates[index]?.scale || 0.82) * 0.92,
+
+        autoAlpha: 0,
+
+        duration: 0.55,
+
+        stagger: {
+          amount: 0.14,
+          from: 'center'
+        },
+
+        ease: 'power1.out'
+      },
+      1.08
+    );
+
+    /**
+     * 控制文字散开或恢复。
      */
     const setImpactTarget = (
       opened,
@@ -2200,8 +1644,6 @@ function initAppreciationRewardsAnimation(root) {
 
       impactProgressTween?.kill();
       impactProgressTween = null;
-
-      impactTarget = opened;
 
       const targetProgress =
         opened ? 1 : 0;
@@ -2233,26 +1675,26 @@ function initAppreciationRewardsAnimation(root) {
 
       impactTimeline.pause();
 
+      /**
+       * 散开速度比原来慢。
+       * 恢复速度不用太慢。
+       */
       const baseDuration =
-        opened ? 0.72 : 0.5;
+        opened ? 1.5 : 0.62;
 
       impactProgressTween = gsap.to(
         impactTimeline,
         {
           progress: targetProgress,
 
-          /*
-           * 根据剩余距离计算时间。
-           * 中途反向时不会拖很久。
-           */
           duration: Math.max(
             0.12,
             baseDuration *
-              progressDistance
+            progressDistance
           ),
 
           ease: opened
-            ? 'power3.out'
+            ? 'power2.out'
             : 'power2.inOut',
 
           overwrite: true,
@@ -2273,8 +1715,7 @@ function initAppreciationRewardsAnimation(root) {
     };
 
     /**
-     * 第一张卡片开始上升后，
-     * 延迟触发文字散开。
+     * 延迟执行文字散开。
      */
     const scheduleImpactOpen = () => {
       impactDelayCall?.kill();
@@ -2285,10 +1726,6 @@ function initAppreciationRewardsAnimation(root) {
           () => {
             impactDelayCall = null;
 
-            /*
-             * 延迟期间已经回滚，
-             * 就不再执行散开。
-             */
             if (currentStep <= 0) {
               return;
             }
@@ -2300,6 +1737,9 @@ function initAppreciationRewardsAnimation(root) {
 
     /**
      * 初始化所有卡片。
+     *
+     * zIndex 只在这里设置一次，
+     * 后面的动画不再修改层级。
      */
     cards.forEach((card, index) => {
       gsap.set(card, {
@@ -2323,7 +1763,7 @@ function initAppreciationRewardsAnimation(root) {
         autoAlpha: 0,
 
         zIndex:
-          index + 1,
+          getCardZIndex(index),
 
         transformOrigin:
           isMobile()
@@ -2339,8 +1779,6 @@ function initAppreciationRewardsAnimation(root) {
 
     /**
      * 卡片主时间轴。
-     *
-     * 文字动画不放在这里面。
      */
     cardTimeline = gsap.timeline({
       paused: true,
@@ -2370,7 +1808,10 @@ function initAppreciationRewardsAnimation(root) {
         visibleCount - 1;
 
       /**
-       * 已出现卡片重新排列。
+       * 已经出现的卡片重新排列。
+       *
+       * 注意：
+       * 这里不再修改 zIndex。
        */
       cards
         .slice(0, enteringIndex)
@@ -2402,12 +1843,6 @@ function initAppreciationRewardsAnimation(root) {
                   visibleCount
                 ).scale,
 
-              zIndex: () =>
-                getCardState(
-                  index,
-                  visibleCount
-                ).zIndex,
-
               autoAlpha: 1,
 
               duration: 0.65,
@@ -2419,6 +1854,8 @@ function initAppreciationRewardsAnimation(root) {
 
       /**
        * 当前卡片从底部进入。
+       *
+       * 这里同样不修改 zIndex。
        */
       cardTimeline.fromTo(
         enteringCard,
@@ -2466,12 +1903,6 @@ function initAppreciationRewardsAnimation(root) {
               enteringIndex,
               visibleCount
             ).scale,
-
-          zIndex: () =>
-            getCardState(
-              enteringIndex,
-              visibleCount
-            ).zIndex,
 
           autoAlpha: 1,
 
@@ -2521,7 +1952,8 @@ function initAppreciationRewardsAnimation(root) {
       stepTween = null;
 
       /**
-       * 初始化、刷新时直接设置最终状态。
+       * 初始化或刷新时，
+       * 直接设置到最终状态。
        */
       if (immediate) {
         cardTimeline.time(
@@ -2538,7 +1970,8 @@ function initAppreciationRewardsAnimation(root) {
       }
 
       /**
-       * 第一张卡片从下面进入。
+       * 第一张卡片进入时，
+       * 撞散标题文字。
        */
       if (
         previousStep === 0 &&
@@ -2548,10 +1981,8 @@ function initAppreciationRewardsAnimation(root) {
       }
 
       /**
-       * 回滚到第一张卡片之前。
-       *
-       * 取消散开等待，
-       * 并从当前进度完整恢复文字。
+       * 回滚到第一张卡片之前，
+       * 恢复标题文字。
        */
       if (
         previousStep > 0 &&
@@ -2611,6 +2042,18 @@ function initAppreciationRewardsAnimation(root) {
 
           cardTimeline.invalidate();
           impactTimeline.invalidate();
+
+          /**
+           * 刷新后重新固定卡片层级。
+           */
+          cards.forEach(
+            (card, index) => {
+              gsap.set(card, {
+                zIndex:
+                  getCardZIndex(index)
+              });
+            }
+          );
 
           const refreshStep =
             Math.round(
@@ -2692,7 +2135,6 @@ function initAppreciationRewardsAnimation(root) {
     }
   };
 }
-
 
 
 function initStoriesBeyondOrdinary(root) {
@@ -2964,7 +2406,7 @@ function initExtraordinaryHeroAnimation(root) {
     : root.querySelector('.extraordinary-hero');
 
   if (!section) {
-    return () => {};
+    return () => { };
   }
 
   const sticky = section.querySelector(
@@ -3019,7 +2461,7 @@ function initExtraordinaryHeroAnimation(root) {
       '[ExtraordinaryHero] 模块内部元素不完整',
     );
 
-    return () => {};
+    return () => { };
   }
 
   const gsapInstance = gsap;
@@ -3116,7 +2558,7 @@ function initExtraordinaryHeroAnimation(root) {
           });
 
           gsapInstance.set(sticky, {
-            backgroundColor: '#071019',
+            backgroundColor: '#fff',
           });
 
           gsapInstance.set(overlay, {
@@ -3177,7 +2619,7 @@ function initExtraordinaryHeroAnimation(root) {
         timeline.to(
           sticky,
           {
-            backgroundColor: '#071019',
+            backgroundColor: '#fff',
             duration: 0.35,
             ease: 'none',
           },
@@ -3190,7 +2632,7 @@ function initExtraordinaryHeroAnimation(root) {
         timeline.to(
           overlay,
           {
-            autoAlpha: 1,
+            autoAlpha: 0.25,
             duration: 0.45,
             ease: 'none',
           },
