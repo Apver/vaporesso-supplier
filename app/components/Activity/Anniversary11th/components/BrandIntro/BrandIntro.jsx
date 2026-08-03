@@ -22,9 +22,6 @@ const DEFAULT_COLORS = {
 
 /**
  * 锁定页面滚动。
- *
- * 除了 overflow: hidden，还使用 position: fixed，
- * 可以更稳定地阻止移动端 Safari 和触摸设备滚动。
  */
 function lockPageScroll(scrollStateRef) {
   if (
@@ -82,9 +79,6 @@ function lockPageScroll(scrollStateRef) {
   body.style.width = '100%';
   body.style.overflow = 'hidden';
 
-  /*
-   * 防止滚动条消失后页面产生横向抖动。
-   */
   if (scrollbarWidth > 0) {
     body.style.paddingRight =
       `${scrollbarWidth}px`;
@@ -121,40 +115,18 @@ function unlockPageScroll(scrollStateRef) {
     'anniversary-intro-playing',
   );
 
-  body.style.position =
-    bodyStyles.position || '';
+  body.style.position = bodyStyles.position || '';
+  body.style.top = bodyStyles.top || '';
+  body.style.left = bodyStyles.left || '';
+  body.style.right = bodyStyles.right || '';
+  body.style.width = bodyStyles.width || '';
+  body.style.overflow = bodyStyles.overflow || '';
+  body.style.paddingRight = bodyStyles.paddingRight || '';
+  html.style.overflow = htmlStyles.overflow || '';
 
-  body.style.top =
-    bodyStyles.top || '';
-
-  body.style.left =
-    bodyStyles.left || '';
-
-  body.style.right =
-    bodyStyles.right || '';
-
-  body.style.width =
-    bodyStyles.width || '';
-
-  body.style.overflow =
-    bodyStyles.overflow || '';
-
-  body.style.paddingRight =
-    bodyStyles.paddingRight || '';
-
-  html.style.overflow =
-    htmlStyles.overflow || '';
-
-  /*
-   * 防止项目中设置了 scroll-behavior: smooth，
-   * 导致恢复滚动位置时出现滚动动画。
-   */
   html.style.scrollBehavior = 'auto';
-
   window.scrollTo(scrollX, scrollY);
-
-  html.style.scrollBehavior =
-    htmlStyles.scrollBehavior || '';
+  html.style.scrollBehavior = htmlStyles.scrollBehavior || '';
 
   scrollStateRef.current = {
     locked: false,
@@ -201,10 +173,6 @@ const BrandIntro = forwardRef(
       locked: false,
     });
 
-    /*
-     * 始终使用最新的 onComplete，
-     * 避免重新创建整套动画。
-     */
     useEffect(() => {
       onCompleteRef.current = onComplete;
     }, [onComplete]);
@@ -247,12 +215,6 @@ const BrandIntro = forwardRef(
       let cancelled = false;
       let frameId = 0;
 
-      /*
-       * autoplay 时立即锁定。
-       *
-       * 不需要等待 GSAP 下载完成，
-       * 避免 GSAP 动态加载期间用户还能滚动页面。
-       */
       if (autoplay) {
         lockPageScroll(
           scrollStateRef,
@@ -260,12 +222,7 @@ const BrandIntro = forwardRef(
       }
 
       async function initializeAnimation() {
-        /*
-         * GSAP 只在客户端动态加载，
-         * 避免 SSR 阶段访问 window 或 document。
-         */
-        const gsapModule =
-          await import('gsap');
+        const gsapModule = await import('gsap');
 
         if (cancelled) {
           return;
@@ -277,162 +234,70 @@ const BrandIntro = forwardRef(
           gsapModule.default;
 
         if (!gsap) {
-          console.error(
-            '[BrandIntro] 无法加载 GSAP',
-          );
-
-          unlockPageScroll(
-            scrollStateRef,
-          );
-
+          console.error('[BrandIntro] 无法加载 GSAP');
+          unlockPageScroll(scrollStateRef);
           return;
         }
 
         gsapRef.current = gsap;
 
         const root = rootRef.current;
-        const overlay =
-          overlayRef.current;
+        const overlay = overlayRef.current;
 
         if (!root || !overlay) {
-          unlockPageScroll(
-            scrollStateRef,
-          );
-
+          unlockPageScroll(scrollStateRef);
           return;
         }
 
-        const wrapper =
-          root.querySelector(
-            '[data-intro-wrapper]',
-          );
+        const wrapper = root.querySelector('[data-intro-wrapper]');
+        const shapes = gsap.utils.toArray('[data-intro-shape]', root);
+        const logo = root.querySelector('[data-intro-logo]');
+        const logoParts = gsap.utils.toArray('[data-logo-part]', root);
 
-        const shapes =
-          gsap.utils.toArray(
-            '[data-intro-shape]',
-            root,
-          );
-
-        const logo =
-          root.querySelector(
-            '[data-intro-logo]',
-          );
-
-        const logoParts =
-          gsap.utils.toArray(
-            '[data-logo-part]',
-            root,
-          );
-
-        if (
-          !wrapper ||
-          !logo ||
-          shapes.length !== 4
-        ) {
-          console.warn(
-            '[BrandIntro] 动画元素不完整',
-            {
-              wrapper,
-              logo,
-              shapeCount:
-                shapes.length,
-              logoPartCount:
-                logoParts.length,
-            },
-          );
-
-          gsap.set(overlay, {
-            autoAlpha: 0,
-            display: 'none',
-          });
-
-          unlockPageScroll(
-            scrollStateRef,
-          );
-
+        if (!wrapper || !logo || shapes.length !== 4) {
+          console.warn('[BrandIntro] 动画元素不完整');
+          gsap.set(overlay, { autoAlpha: 0, display: 'none' });
+          unlockPageScroll(scrollStateRef);
           return;
         }
 
-        /*
-         * BrandLogo 内部有 data-logo-part 时，
-         * 每个部分依次播放。
-         *
-         * 没有 data-logo-part 时，
-         * 整个 SVG 作为一个整体播放。
-         */
         const logoEntryTargets =
           logoParts.length > 0
             ? logoParts
-            : [
-              logo.querySelector(
-                'svg',
-              ) || logo,
-            ];
+            : [logo.querySelector('svg') || logo];
 
         const finish = () => {
           timelineRef.current = null;
-
           gsap.set(overlay, {
             autoAlpha: 0,
             display: 'none',
           });
-
-          overlay.setAttribute(
-            'aria-hidden',
-            'true',
-          );
-
-          unlockPageScroll(
-            scrollStateRef,
-          );
-
+          overlay.setAttribute('aria-hidden', 'true');
+          unlockPageScroll(scrollStateRef);
           onCompleteRef.current?.();
         };
 
         const play = () => {
-          /*
-           * 如果动画正在运行，
-           * 先销毁原时间线，再重新播放。
-           */
           timelineRef.current?.kill();
           timelineRef.current = null;
 
-          lockPageScroll(
-            scrollStateRef,
-          );
+          lockPageScroll(scrollStateRef);
 
-          const speed = Math.max(
-            0.5,
-            Number(durationScale) ||
-            2,
-          );
+          const speed = Math.max(0.5, Number(durationScale) || 2);
+          const t = (value) => value * speed;
 
-          const t = (value) =>
-            value * speed;
+          overlay.setAttribute('aria-hidden', 'false');
 
-          overlay.setAttribute(
-            'aria-hidden',
-            'false',
-          );
-
-          /*
-           * 显示整个开场覆盖层。
-           */
           gsap.set(overlay, {
             display: 'block',
             autoAlpha: 1,
           });
 
-          /*
-           * 重置页面揭示遮罩。
-           */
+          // 【修改点1】：删除了之前的 --mask-hole 重置，改为确保 wrapper 完全可见
           gsap.set(wrapper, {
-            '--mask-hole': '-1%',
+            autoAlpha: 1, 
           });
 
-          /*
-           * 重置四层 SVG。
-           */
           gsap.set(shapes, {
             scale: 0,
             xPercent: -50,
@@ -440,13 +305,9 @@ const BrandIntro = forwardRef(
             x: 0,
             y: 0,
             force3D: true,
-            transformOrigin:
-              '50% 50%',
+            transformOrigin: '50% 50%',
           });
 
-          /*
-           * 重置 Logo 外层。
-           */
           gsap.set(logo, {
             x: 0,
             y: 0,
@@ -455,94 +316,31 @@ const BrandIntro = forwardRef(
             autoAlpha: 1,
             filter: 'blur(0px)',
             force3D: true,
-            transformOrigin:
-              '50% 50%',
+            transformOrigin: '50% 50%',
           });
 
-          /*
-           * 重置 Logo 内部元素。
-           */
-          gsap.set(
-            logoEntryTargets,
-            {
-              y: 26,
-              scale: 0.6,
-              rotation: -9,
-              autoAlpha: 0,
-              force3D: true,
-              transformOrigin:
-                '50% 50%',
-            },
-          );
+          gsap.set(logoEntryTargets, {
+            y: 0,
+            scale: 0.3,
+            rotation: 0,
+            autoAlpha: 0,
+            force3D: true,
+            transformOrigin: '50% 50%',
+          });
 
-          const timeline =
-            gsap.timeline({
-              defaults: {
-                overwrite: 'auto',
-              },
+          const timeline = gsap.timeline({
+            defaults: { overwrite: 'auto' },
+            onComplete: finish,
+          });
 
-              onComplete: finish,
-            });
-
-          timelineRef.current =
-            timeline;
+          timelineRef.current = timeline;
 
           timeline
-            /*
-             * 第一层 SVG。
-             */
-            .to(
-              shapes[0],
-              {
-                scale: 1,
-                duration: t(0.92),
-                ease: 'power4.inOut',
-              },
-              0,
-            )
+            .to(shapes[0], { scale: 1, duration: t(0.92), ease: 'power4.inOut' }, 0)
+            .to(shapes[1], { scale: 1, duration: t(0.92), ease: 'power4.inOut' }, t(0.08))
+            .to(shapes[2], { scale: 1, duration: t(0.92), ease: 'power4.inOut' }, t(0.16))
+            .to(shapes[3], { scale: 1, duration: t(1), ease: 'power4.inOut' }, t(0.24))
 
-            /*
-             * 第二层 SVG。
-             */
-            .to(
-              shapes[1],
-              {
-                scale: 1,
-                duration: t(0.92),
-                ease: 'power4.inOut',
-              },
-              t(0.08),
-            )
-
-            /*
-             * 第三层 SVG。
-             */
-            .to(
-              shapes[2],
-              {
-                scale: 1,
-                duration: t(0.92),
-                ease: 'power4.inOut',
-              },
-              t(0.16),
-            )
-
-            /*
-             * 最后一层 SVG。
-             */
-            .to(
-              shapes[3],
-              {
-                scale: 1,
-                duration: t(1),
-                ease: 'power4.inOut',
-              },
-              t(0.24),
-            )
-
-            /*
-             * Logo 出现。
-             */
             .to(
               logoEntryTargets,
               {
@@ -550,71 +348,46 @@ const BrandIntro = forwardRef(
                 scale: 1,
                 rotation: 0,
                 autoAlpha: 1,
-                duration: t(0.72),
-
-                stagger:
-                  logoParts.length >
-                    0
-                    ? t(0.055)
-                    : 0,
-
-                ease: 'back.out(1.7)',
+                duration: t(1),
+                stagger: logoParts.length > 0 ? t(0.055) : 0,
+                ease: 'power4.inOut',
               },
-              t(0.82),
+              t(0.24),
             )
 
-            /*
-             * 设置退出动画标签。
-             */
-            .add(
-              'exit',
-              t(1.8),
-            )
+            .add('exit', t(1.8))
 
             /*
-             * Logo 向上退出。
+             * Logo 放大并变透明穿透
              */
             .to(
               logo,
               {
-                y: () =>
-                  -Math.max(
-                    460,
-                    window.innerHeight *
-                    0.72,
-                  ),
-
-                scale: 1.1,
+                y: 0, 
+                scale: 30, 
                 rotation: 0,
-                autoAlpha: 0,
-                filter:
-                  'blur(8px)',
-
-                duration: t(0.5),
+                autoAlpha: 0, 
+                filter: 'blur(0px)', 
+                duration: t(0.6),
                 ease: 'power2.in',
               },
               'exit',
             )
 
             /*
-             * Logo 开始退出后，
-             * 扩大遮罩孔洞，显示真实页面。
+             * 【修改点2】：移除了原来的圆孔放大效果（--mask-hole: 150%）
+             * 改为让背景容器 (wrapper) 与 Logo 同步淡出，直接露出视频。
              */
             .to(
               wrapper,
               {
-                '--mask-hole':
-                  '150%',
-
+                autoAlpha: 0, // 直接淡出背景色块
                 duration: t(0.6),
-                ease: 'power3.inOut',
+                ease: 'power2.in', 
               },
-              `exit+=${t(0.28)}`,
+              'exit', 
             )
 
-            /*
-             * 最后淡出整个覆盖层。
-             */
             .to(
               overlay,
               {
@@ -622,83 +395,41 @@ const BrandIntro = forwardRef(
                 duration: t(0.18),
                 ease: 'none',
               },
-              `exit+=${t(1)}`,
+              `exit+=${t(0.6)}`, 
             );
         };
 
         playRef.current = play;
 
-        /*
-         * 不自动播放时，初始化完成后隐藏。
-         */
         if (!autoplay) {
-          gsap.set(overlay, {
-            autoAlpha: 0,
-            display: 'none',
-          });
-
-          overlay.setAttribute(
-            'aria-hidden',
-            'true',
-          );
-
+          gsap.set(overlay, { autoAlpha: 0, display: 'none' });
+          overlay.setAttribute('aria-hidden', 'true');
           return;
         }
 
-        /*
-         * 等浏览器先渲染一帧，
-         * 避免首帧状态闪烁。
-         */
-        frameId =
-          window.requestAnimationFrame(
-            play,
-          );
+        frameId = window.requestAnimationFrame(play);
       }
 
-      initializeAnimation().catch(
-        (error) => {
-          console.error(
-            '[BrandIntro] 动画初始化失败：',
-            error,
-          );
-
-          const gsap =
-            gsapRef.current;
-
-          const overlay =
-            overlayRef.current;
-
-          if (gsap && overlay) {
-            gsap.set(overlay, {
-              autoAlpha: 0,
-              display: 'none',
-            });
-          }
-
-          unlockPageScroll(
-            scrollStateRef,
-          );
-        },
-      );
+      initializeAnimation().catch((error) => {
+        console.error('[BrandIntro] 动画初始化失败：', error);
+        const gsap = gsapRef.current;
+        const overlay = overlayRef.current;
+        if (gsap && overlay) {
+          gsap.set(overlay, { autoAlpha: 0, display: 'none' });
+        }
+        unlockPageScroll(scrollStateRef);
+      });
 
       return () => {
         cancelled = true;
-
         if (frameId) {
-          window.cancelAnimationFrame(
-            frameId,
-          );
+          window.cancelAnimationFrame(frameId);
         }
-
         timelineRef.current?.kill();
         timelineRef.current = null;
-
         playRef.current = () => { };
         gsapRef.current = null;
-
-        unlockPageScroll(
-          scrollStateRef,
-        );
+        unlockPageScroll(scrollStateRef);
       };
     }, [autoplay, durationScale]);
 
@@ -708,31 +439,16 @@ const BrandIntro = forwardRef(
     };
 
     const cssVariables = {
-      '--intro-page':
-        mergedColors.page,
-
-      '--intro-first':
-        mergedColors.first,
-
-      '--intro-second':
-        mergedColors.second,
-
-      '--intro-third':
-        mergedColors.third,
-
-      '--intro-final':
-        mergedColors.final,
-
-      '--intro-logo':
-        mergedColors.logo,
+      '--intro-page': mergedColors.page,
+      '--intro-first': mergedColors.first,
+      '--intro-second': mergedColors.second,
+      '--intro-third': mergedColors.third,
+      '--intro-final': mergedColors.final,
+      '--intro-logo': mergedColors.logo,
     };
 
     return (
-      <div
-        ref={rootRef}
-        className={styles.root}
-        style={cssVariables}
-      >
+      <div ref={rootRef} className={styles.root} style={cssVariables}>
         <div
           ref={overlayRef}
           className={styles.overlay}
@@ -743,53 +459,22 @@ const BrandIntro = forwardRef(
               : {
                 display: 'none',
                 opacity: 0,
-                visibility:
-                  'hidden',
+                visibility: 'hidden',
               }
           }
         >
-          <div
-            className={
-              styles.wrapper
-            }
-            data-intro-wrapper
-          >
-            <IntroShape
-              className={
-                styles.first
-              }
-            />
-
-            <IntroShape
-              className={
-                styles.second
-              }
-            />
-
-            <IntroShape
-              className={
-                styles.third
-              }
-            />
-
-            <IntroShape
-              className={
-                styles.final
-              }
-            />
+          <div className={styles.wrapper} data-intro-wrapper>
+            <IntroShape className={styles.first} />
+            <IntroShape className={styles.second} />
+            <IntroShape className={styles.third} />
+            <IntroShape className={styles.final} />
           </div>
 
-          <div
-            className={styles.logo}
-            data-intro-logo
-          >
+          <div className={styles.logo} data-intro-logo>
             <BrandLogo />
           </div>
 
-          <div
-            className={styles.grain}
-            aria-hidden="true"
-          />
+          <div className={styles.grain} aria-hidden="true" />
         </div>
       </div>
     );

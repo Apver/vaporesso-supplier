@@ -220,9 +220,9 @@ function initYearHighlightAnimation(root) {
       );
 
       spacing = cardWidth + 10 * rootFontSize;
-      leftBound = -cardWidth * 1.5;
+      leftBound = -cardWidth * 0.5;
 
-      const rightBound = width + cardWidth * 1.5;
+      const rightBound = width + cardWidth * 0.5;
 
       visibleWidth = rightBound - leftBound;
       startOffset = leftBound;
@@ -235,8 +235,8 @@ function initYearHighlightAnimation(root) {
         const progress = clamp(0, 1, (x - leftBound) / visibleWidth);
         const upright = Math.sin(progress * Math.PI);
         const opacity =
-          smoothstep(0.005, 0.045, progress) *
-          (1 - smoothstep(0.955, 0.995, progress));
+          smoothstep(0.005, 0.02, progress) *
+          (1 - smoothstep(0.98, 0.995, progress));
 
         gsap.set(card, {
           x: x - cardWidth * 0.5,
@@ -265,7 +265,7 @@ function initYearHighlightAnimation(root) {
         trigger: section,
         start: 'top bottom',
         end: 'bottom top',
-        scrub: 1,
+        scrub: true,
         invalidateOnRefresh: true,
         onRefreshInit: resize,
         onUpdate: render
@@ -374,7 +374,7 @@ function initYearHighlightAnimation(root) {
         start: 'top top',
         endTrigger: wrapper,
         end: 'bottom bottom',
-        scrub: 0.65,
+        scrub: true,
         invalidateOnRefresh: true,
         onRefreshInit: resize,
         onRefresh: () => {
@@ -531,7 +531,7 @@ function initializeAnimation(root) {
         trigger: section,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 1.2,
+        scrub: true,
         invalidateOnRefresh: true,
         onRefreshInit: setLayout,
       },
@@ -1658,7 +1658,7 @@ function initExtraordinaryHeroAnimation(root) {
             trigger: section,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: 1,
+            scrub: true,
             invalidateOnRefresh: true,
             fastScrollEnd: true,
           },

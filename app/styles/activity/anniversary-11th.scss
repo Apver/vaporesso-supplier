@@ -253,7 +253,8 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     margin: 0 auto;
     display: flex;
     flex-direction: row-reverse;
-
+    justify-content: center;
+    align-items: center;
     @media (min-width: 1024px) and (max-width: 1450px) {
       height: 864px;
     }
@@ -261,6 +262,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     @media screen and (max-width: 1023px) {
       height: 25.7rem;
       flex-direction: column;
+      // justify-content: flex-end;
     }
   }
 
@@ -284,7 +286,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   }
 
   &__right {
-    width: 822px;
+    width: 700px;
     height: 1080px;
     padding: 233px 0 0 50px;
     color: #000;
@@ -743,6 +745,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   .year-highlight__wrapper {
     height: 400vh;
     position: relative;
+    transform-style: preserve-3d;
   }
 
   .year-highlight__header {
@@ -936,12 +939,17 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   .reward-list {
     position: relative;
     height: 300vh;
-
+     @media (max-width: 1023px) {
+        // height: 320vh;
+      }
     &__stick {
       position: sticky;
       height: 100vh;
       top: 0;
       width: 100%;
+      @media (max-width: 1023px) {
+           height: max(100vh, 800px);
+      }
     }
 
     .reward-list-btm__bg {
@@ -1307,6 +1315,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
       > :last-child {
         order: 1;
+        justify-content: flex-start;
       }
     }
 
@@ -1375,7 +1384,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     .appreciation-reward-tp__bg {
       position: absolute;
-      top: -45px;
+      top: 0;
       left: 0;
       z-index: 1;
       width: 100%;
@@ -1429,6 +1438,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       font-size: 1.8rem;
       font-style: normal;
       line-height: 150%;
+      margin-bottom: 3rem;
     }
 
     &__content {
@@ -1469,7 +1479,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     position: relative;
     text-align: center;
     margin: 0 auto;
-    padding-top: 14rem;
+    padding-top:6rem;
 
     &__title {
       color: #000;
@@ -1542,7 +1552,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   @media (max-width: 1023px) {
     .appreciation-reward {
       .appreciation-reward-tp__bg {
-        top: -45px;
+        top: -20px;
       }
 
       .appreciation-reward-bt__bg {
@@ -1553,7 +1563,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
         width: 6.1rem;
         font-size: 0.3rem;
         line-height: 1.4;
-        margin-bottom: 1.2rem;
+        margin-bottom: 0.7rem;
       }
 
       &__content {
