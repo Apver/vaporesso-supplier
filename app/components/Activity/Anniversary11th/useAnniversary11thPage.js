@@ -674,217 +674,1836 @@ function initYearHighlightAnimation(root) {
   };
 }
 
+// function initializeAnimation(root) {
+//   const section = root.querySelector('.reward-list');
+//   const cardWrapper = section?.querySelector('.reward-list__content__wrp');
+//   const mainHeader = section?.querySelector('.reward-list__header');
+
+//   const cards = section
+//     ? Array.from(section.querySelectorAll('.reward-list__card'))
+//     : [];
+
+
+
+//   if (!section || !cardWrapper || cards.length < 2) {
+//     return () => { };
+//   }
+
+//   const media = gsap.matchMedia();
+//   const imageCleanups = [];
+//   let rewardScrollTrigger = null;
+
+
+//   media.add('all', () => {
+//     // gsap.set(cardWrapper, { position: 'relative' });
+
+//     const headers = cards.map((card) =>
+//       card.querySelector('.reward-card__header')
+//     );
+
+//     let timeline = null;
+//     let mainHeaderHeight = 0;
+//     let moveUpDistance = 0;
+
+
+//     const setLayout = () => {
+//       const isMobile = window.matchMedia('(max-width: 1023px)').matches;
+
+//       const rootFontSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 10;
+//       const extraOffset = 5 * rootFontSize;
+
+//       const sectionStyle = window.getComputedStyle(section);
+//       const safePadding = parseFloat(sectionStyle.paddingTop || 0) || 40;
+
+//       if (mainHeader) {
+//         const style = window.getComputedStyle(mainHeader);
+//         const sectionRect = section.getBoundingClientRect();
+//         const wrapperRect = cardWrapper.getBoundingClientRect();
+//         mainHeaderHeight = mainHeader.offsetHeight + parseFloat(style.marginBottom || 0);
+//         moveUpDistance = isMobile ? Math.max(0, wrapperRect.top - sectionRect.top - safePadding) : Math.max(0, mainHeaderHeight - safePadding - extraOffset);
+
+
+//         gsap.set(mainHeader, {
+//           y: 0,
+//           willChange: 'transform'
+//         });
+//       } else {
+//         mainHeaderHeight = 0;
+//         moveUpDistance = 0;
+//       }
+//       const headerHeight = Math.max(
+//         0,
+//         ...headers.map((header) => header?.offsetHeight || 0)
+//       );
+
+//       const firstCard = cards[0];
+//       const paddingTop = firstCard ? parseFloat(window.getComputedStyle(firstCard).paddingTop) || 0 : 0;
+//       const stackOffset = headerHeight + paddingTop;
+
+//       gsap.set(cardWrapper, {
+//         position: 'relative',
+//         paddingBottom: stackOffset * (cards.length - 1),
+//         y: 0,
+//         willChange: 'transform'
+//       });
+
+//       cards.forEach((card, index) => {
+//         const isFirst = index === 0;
+//         const direction = index % 2 === 1 ? 1 : -1;
+
+//         if (isFirst) {
+//           gsap.set(card, {
+//             position: 'relative',
+//             zIndex: 1,
+//             xPercent: 0,
+//             yPercent: 0,
+//             rotation: 0,
+//             transformOrigin: '50% 50%',
+//             force3D: true,
+//             willChange: 'transform',
+//           });
+//         } else {
+//           const extraY = index === 2 ? 25 : 0;
+//           const mobileCardUpOffset = isMobile ? 0.1 * index * rootFontSize : 0;
+//           gsap.set(card, {
+//             position: 'absolute',
+//             top: index * stackOffset - mobileCardUpOffset,
+//             left: 0,
+//             right: 0,
+//             margin: '0 auto',
+//             zIndex: index + 1,
+//             xPercent: direction * 20,
+//             yPercent: index * 75 + extraY,
+//             rotation: direction * -5,
+//             x: 0,
+//             y: 0,
+//             transformOrigin: '50% 50%',
+//             force3D: true,
+//             willChange: 'transform',
+//           });
+//         }
+//       });
+//     };
+
+//     setLayout();
+
+//     timeline = gsap.timeline({
+//       defaults: {
+//         ease: 'none',
+//       },
+//       scrollTrigger: {
+//         trigger: section,
+//         start: 'top top',
+//         end: 'bottom bottom',
+//         scrub: true,
+//         invalidateOnRefresh: true,
+//         onRefreshInit: setLayout,
+//       },
+//     });
+//     rewardScrollTrigger = timeline.scrollTrigger;
+
+//     const wrapperMoveDuration = 0.5;
+
+//     if (mainHeaderHeight > 0) {
+//       timeline.to(
+//         mainHeader,
+//         {
+//           y: -mainHeaderHeight,
+//           duration: wrapperMoveDuration,
+//           ease: 'none',
+//         },
+//         0
+//       );
+//       timeline.to(
+//         cardWrapper,
+//         {
+//           y: -moveUpDistance,
+//           duration: wrapperMoveDuration,
+//           ease: 'none',
+//         },
+//         0
+//       );
+//     }
+
+
+//     cards.slice(1).forEach((card, i) => {
+//       const cardOffset = i === 1 ? 0.7 : i * 0.7;
+//       const startTime = wrapperMoveDuration + cardOffset;
+//       timeline.to(
+//         card,
+//         {
+//           xPercent: 0,
+//           yPercent: 0,
+//           rotation: 0,
+//           duration: 1,
+//           ease: 'none',
+//         },
+//         startTime
+//       );
+//     });
+
+//     timeline.to({}, { duration: 0.15 });
+
+//     return () => {
+//       timeline?.scrollTrigger?.kill();
+//       timeline?.kill();
+//       timeline = null;
+//       rewardScrollTrigger = null;
+
+//       gsap.set(cards, {
+//         clearProps:
+//           'position,top,left,right,margin,zIndex,transform,willChange',
+//       });
+
+//       gsap.set(cardWrapper, {
+//         clearProps: 'position,paddingBottom,y,transform,willChange',
+//       });
+//       if (mainHeader) {
+//         gsap.set(mainHeader, {
+//           clearProps: 'y,transform,willChange'
+//         });
+//       }
+//     };
+//   });
+
+//   const refreshScroll = () => {
+//     rewardScrollTrigger?.refresh();
+//   };
+
+//   section.querySelectorAll('img').forEach((image) => {
+//     if (image.complete) return;
+
+//     image.addEventListener('load', refreshScroll);
+//     imageCleanups.push(() => {
+//       image.removeEventListener('load', refreshScroll);
+//     });
+//   });
+
+//   return () => {
+//     imageCleanups.forEach((cleanup) => cleanup());
+//     media.revert();
+//   };
+// }
+
+// function initAppreciationRewardsAnimation(root) {
+//   const section =
+//     typeof root === 'string'
+//       ? document.querySelector(root)
+//       : root?.matches?.('.appreciation-reward')
+//         ? root
+//         : root?.querySelector?.('.appreciation-reward');
+
+//   if (!section) {
+//     console.warn(
+//       '[AppreciationRewards] 未找到 .appreciation-reward'
+//     );
+
+//     return () => { };
+//   }
+
+//   const stick = section.querySelector(
+//     '.appreciation-reward__stick'
+//   );
+
+//   const title = section.querySelector(
+//     '.appreciation-reward__header__title'
+//   );
+
+//   const cardWrapper = section.querySelector(
+//     '.appreciation-reward__content__wrp'
+//   );
+
+//   const cards = gsap.utils.toArray(
+//     '.appreciation-reward__card',
+//     section
+//   );
+
+//   if (
+//     !stick ||
+//     !title ||
+//     !cardWrapper ||
+//     !cards.length
+//   ) {
+//     console.warn(
+//       '[AppreciationRewards] 缺少动画所需元素'
+//     );
+
+//     return () => { };
+//   }
+
+//   const originalTitleHTML = title.innerHTML;
+
+//   const originalAriaLabel =
+//     title.getAttribute('aria-label');
+
+//   const originalTitleStyle =
+//     title.getAttribute('style');
+
+//   let cardTimeline = null;
+//   let impactTimeline = null;
+//   let scrollTrigger = null;
+//   let stepTween = null;
+
+//   let impactProgressTween = null;
+//   let impactDelayCall = null;
+
+//   let currentStep = -1;
+//   let scatterStates = [];
+//   let destroyed = false;
+
+//   /**
+//    * 将标题拆成单个字符。
+//    */
+//   const splitTitleIntoChars = () => {
+//     const titleSpans = Array.from(
+//       title.querySelectorAll(
+//         '.appreciation-reward__header__title_span'
+//       )
+//     );
+
+//     const fullText = titleSpans
+//       .map(span => span.textContent)
+//       .join(' ')
+//       .replace(/\s+/g, ' ')
+//       .trim();
+
+//     title.setAttribute(
+//       'aria-label',
+//       fullText
+//     );
+
+//     title.style.overflow = 'visible';
+
+//     const characterElements = [];
+//     const characterInners = [];
+
+//     titleSpans.forEach(span => {
+//       const text = span.textContent;
+
+//       const fragment =
+//         document.createDocumentFragment();
+
+//       span.textContent = '';
+//       span.style.overflow = 'visible';
+
+//       /**
+//        * 取消文字渐变，使用纯色。
+//        */
+//       span.style.background = 'none';
+//       span.style.backgroundImage = 'none';
+//       span.style.backgroundClip = 'border-box';
+//       span.style.webkitBackgroundClip =
+//         'border-box';
+
+//       span.style.webkitTextFillColor =
+//         'currentColor';
+
+//       if (
+//         span.classList.contains(
+//           'appreciation-reward__header__title_span1'
+//         )
+//       ) {
+//         span.style.color = '#d44cff';
+//       }
+
+//       Array.from(text).forEach(character => {
+//         const char =
+//           document.createElement('span');
+
+//         const charInner =
+//           document.createElement('span');
+
+//         char.className = 'char';
+//         charInner.className = 'char-inner';
+
+//         char.setAttribute(
+//           'aria-hidden',
+//           'true'
+//         );
+
+//         Object.assign(char.style, {
+//           position: 'relative',
+//           display: 'inline-block',
+//           overflow: 'visible',
+//           verticalAlign: 'baseline',
+//           whiteSpace: 'pre'
+//         });
+
+//         Object.assign(
+//           charInner.style,
+//           {
+//             position: 'relative',
+//             display: 'inline-block',
+//             overflow: 'visible',
+
+//             color: 'inherit',
+//             fontFamily: 'inherit',
+//             fontSize: 'inherit',
+//             lineHeight: 'inherit',
+
+//             webkitTextFillColor:
+//               'currentColor',
+
+//             transformOrigin: '50% 50%',
+//             backfaceVisibility: 'visible'
+//           }
+//         );
+
+//         if (character === ' ') {
+//           char.classList.add(
+//             'char--space'
+//           );
+
+//           charInner.textContent =
+//             '\u00a0';
+//         } else {
+//           charInner.textContent =
+//             character;
+//         }
+
+//         char.appendChild(charInner);
+//         fragment.appendChild(char);
+
+//         characterElements.push(char);
+//         characterInners.push(charInner);
+//       });
+
+//       span.appendChild(fragment);
+//     });
+
+//     return {
+//       characterElements,
+//       characterInners
+//     };
+//   };
+
+//   const {
+//     characterElements,
+//     characterInners
+//   } = splitTitleIntoChars();
+
+//   const ctx = gsap.context(() => {
+//     const totalCards = cards.length;
+
+//     const isMobile = () =>
+//       window.matchMedia(
+//         '(max-width: 1023px)'
+//       ).matches;
+
+//     /**
+//      * 卡片整体上下位置。
+//      *
+//      * 数字越大，卡片越靠下。
+//      */
+//     const getCardDownOffset = () =>
+//       isMobile() ? 180 : 10;
+
+//     /**
+//      * 第一张卡片开始进入后，
+//      * 延迟触发文字撞散。
+//      */
+//     const getImpactDelay = () => 0.05;
+
+//     const randomValue = (
+//       index,
+//       salt = 1
+//     ) => {
+//       const value =
+//         Math.sin(
+//           (index + 1) * 12.9898 +
+//           salt * 78.233
+//         ) * 43758.5453;
+
+//       return value - Math.floor(value);
+//     };
+
+//     const randomRange = (
+//       index,
+//       salt,
+//       min,
+//       max
+//     ) =>
+//       gsap.utils.interpolate(
+//         min,
+//         max,
+//         randomValue(index, salt)
+//       );
+
+//     const getCardSize = () => {
+//       const card = cards[0];
+
+//       return {
+//         width:
+//           card.offsetWidth ||
+//           card.getBoundingClientRect().width ||
+//           260,
+
+//         height:
+//           card.offsetHeight ||
+//           card.getBoundingClientRect().height ||
+//           360
+//       };
+//     };
+
+//     const getHiddenY = () => {
+//       const { height } = getCardSize();
+
+//       return Math.max(
+//         stick.clientHeight * 0.82,
+//         height * 1.65
+//       );
+//     };
+
+//     /**
+//      * 卡片组基础位置。
+//      */
+//     const getStackBasePosition = () => {
+//       const wrapperRect =
+//         cardWrapper.getBoundingClientRect();
+
+//       const titleRect =
+//         title.getBoundingClientRect();
+
+//       const wrapperCenterX =
+//         wrapperRect.left +
+//         wrapperRect.width / 2;
+
+//       const wrapperCenterY =
+//         wrapperRect.top +
+//         wrapperRect.height / 2;
+
+//       const titleCenterX =
+//         titleRect.left +
+//         titleRect.width / 2;
+
+//       const titleCenterY =
+//         titleRect.top +
+//         titleRect.height / 2;
+
+//       return {
+//         x:
+//           titleCenterX -
+//           wrapperCenterX,
+
+//         y:
+//           titleCenterY -
+//           wrapperCenterY +
+//           getCardDownOffset()
+//       };
+//     };
+
+//     const getSpacing = count => {
+//       const { width: cardWidth } =
+//         getCardSize();
+
+//       const desiredSpacing =
+//         cardWidth *
+//         (isMobile() ? 0.56 : 0.7);
+
+//       const maxGroupWidth =
+//         stick.clientWidth *
+//         (isMobile() ? 0.94 : 0.78);
+
+//       const availableSpacing =
+//         count > 1
+//           ? (
+//             maxGroupWidth -
+//             cardWidth
+//           ) /
+//           (count - 1)
+//           : desiredSpacing;
+
+//       return gsap.utils.clamp(
+//         cardWidth *
+//         (isMobile() ? 0.4 : 0.58),
+
+//         desiredSpacing,
+//         availableSpacing
+//       );
+//     };
+
+//     /**
+//      * 修改点 1：
+//      *
+//      * 固定卡片层级，不再在动画过程中改变 zIndex。
+//      * 第三张卡片出现后始终保持最顶部。
+//      */
+//     const getCardZIndex = index => {
+//       if (index === 2) {
+//         return totalCards + 100;
+//       }
+
+//       return index + 1;
+//     };
+
+//     /**
+//      * 计算卡片位置。
+//      */
+//     const getCardState = (
+//       index,
+//       visibleCount
+//     ) => {
+//       const basePosition =
+//         getStackBasePosition();
+
+//       const {
+//         width: cardWidth,
+//         height: cardHeight
+//       } = getCardSize();
+
+//       /**
+//        * 移动端堆叠布局。
+//        */
+//       if (isMobile()) {
+//         const depth =
+//           visibleCount - 1 - index;
+
+//         const stackStates = [
+//           {
+//             x: 0,
+//             y: 0,
+//             rotation: 5,
+//             scale: 1
+//           },
+//           {
+//             x: cardWidth * 0.035,
+//             y: -cardHeight * 0.006,
+//             rotation: 3,
+//             scale: 1
+//           },
+//           {
+//             x: cardWidth * 0.06,
+//             y: -cardHeight * 0.012,
+//             rotation: 1,
+//             scale: 1
+//           },
+//           {
+//             x: -cardWidth * 0.04,
+//             y: cardHeight * 0.008,
+//             rotation: -3,
+//             scale: 1
+//           },
+//           {
+//             x: -cardWidth * 0.065,
+//             y: cardHeight * 0.016,
+//             rotation: -6,
+//             scale: 1
+//           }
+//         ];
+
+//         const state =
+//           stackStates[
+//           Math.min(
+//             Math.max(depth, 0),
+//             stackStates.length - 1
+//           )
+//           ];
+
+//         return {
+//           x:
+//             basePosition.x +
+//             state.x,
+
+//           y:
+//             basePosition.y +
+//             state.y,
+
+//           rotation:
+//             state.rotation,
+
+//           scale:
+//             state.scale
+//         };
+//       }
+
+//       /**
+//        * PC 扇形布局。
+//        */
+//       const visibleCenterIndex =
+//         (visibleCount - 1) / 2;
+
+//       const distance =
+//         index - visibleCenterIndex;
+
+//       const finalRadius = Math.max(
+//         (totalCards - 1) / 2,
+//         1
+//       );
+
+//       const ratio =
+//         distance / finalRadius;
+
+//       const absoluteRatio =
+//         Math.abs(ratio);
+
+//       const maxDrop = 82;
+//       const maxRotation = 14;
+
+//       const spacingProgress =
+//         totalCards <= 1
+//           ? 1
+//           : gsap.utils.mapRange(
+//             1,
+//             totalCards,
+//             0.72,
+//             1,
+//             visibleCount
+//           );
+
+//       return {
+//         x:
+//           basePosition.x +
+//           distance *
+//           getSpacing(visibleCount) *
+//           spacingProgress,
+
+//         y:
+//           basePosition.y +
+//           Math.pow(
+//             absoluteRatio,
+//             1.8
+//           ) *
+//           maxDrop,
+
+//         rotation:
+//           ratio * maxRotation,
+
+//         scale:
+//           absoluteRatio >= 0.9
+//             ? 0.94
+//             : 1
+//       };
+//     };
+
+//     /**
+//      * 计算文字飞散方向。
+//      */
+//     const createScatterStates = () => {
+//       const titleRect =
+//         title.getBoundingClientRect();
+
+//       const impactX =
+//         titleRect.left +
+//         titleRect.width / 2;
+
+//       const impactY =
+//         titleRect.bottom;
+
+//       return characterElements.map(
+//         (
+//           characterElement,
+//           index
+//         ) => {
+//           const rect =
+//             characterElement
+//               .getBoundingClientRect();
+
+//           const characterX =
+//             rect.left +
+//             rect.width / 2;
+
+//           const characterY =
+//             rect.top +
+//             rect.height / 2;
+
+//           let directionX =
+//             characterX - impactX;
+
+//           let directionY =
+//             characterY - impactY;
+
+//           const length = Math.max(
+//             Math.hypot(
+//               directionX,
+//               directionY
+//             ),
+//             1
+//           );
+
+//           directionX /= length;
+//           directionY /= length;
+
+//           const distance =
+//             randomRange(
+//               index,
+//               2,
+//               isMobile() ? 35 : 120,
+//               isMobile() ? 90 : 300
+//             );
+
+//           const extraX =
+//             randomRange(
+//               index,
+//               3,
+//               isMobile() ? -12 : -38,
+//               isMobile() ? 12 : 38
+//             );
+
+//           const upwardForce =
+//             randomRange(
+//               index,
+//               4,
+//               isMobile() ? 18 : 45,
+//               isMobile() ? 48 : 115
+//             );
+
+//           return {
+//             x:
+//               directionX *
+//               distance +
+//               extraX,
+
+//             y:
+//               directionY *
+//               distance -
+//               upwardForce,
+
+//             rotation:
+//               randomRange(
+//                 index,
+//                 5,
+//                 -120,
+//                 120
+//               ),
+
+//             scale:
+//               randomRange(
+//                 index,
+//                 6,
+//                 0.74,
+//                 0.92
+//               )
+//           };
+//         }
+//       );
+//     };
+
+//     scatterStates =
+//       createScatterStates();
+
+//     gsap.set(characterInners, {
+//       x: 0,
+//       y: 0,
+
+//       rotation: 0,
+
+//       scaleX: 1,
+//       scaleY: 1,
+
+//       autoAlpha: 1,
+
+//       transformOrigin: '50% 50%',
+//       force3D: false
+//     });
+
+//     /**
+//      * 修改点 2：
+//      *
+//      * 文字撞散动画放慢。
+//      * 先完整散开，再慢慢降低透明度。
+//      */
+//     impactTimeline = gsap.timeline({
+//       paused: true,
+
+//       defaults: {
+//         overwrite: 'auto'
+//       }
+//     });
+
+//     /**
+//      * 第一段：撞击瞬间稍微顶开。
+//      */
+//     impactTimeline.to(
+//       characterInners,
+//       {
+//         x: index =>
+//           (
+//             scatterStates[index]?.x ||
+//             0
+//           ) * 0.1,
+
+//         y: index =>
+//           (
+//             scatterStates[index]?.y ||
+//             0
+//           ) * 0.1,
+
+//         rotation: index =>
+//           (
+//             scatterStates[index]
+//               ?.rotation || 0
+//           ) * 0.08,
+
+//         scaleX: 1.03,
+//         scaleY: 0.96,
+
+//         autoAlpha: 1,
+
+//         duration: 0.18,
+
+//         stagger: {
+//           amount: 0.08,
+//           from: 'center'
+//         },
+
+//         ease: 'power2.out'
+//       },
+//       0
+//     );
+
+//     /**
+//      * 第二段：文字完整散开。
+//      *
+//      * 这里保持不透明，
+//      * 让用户能看清飞散的过程。
+//      */
+//     impactTimeline.to(
+//       characterInners,
+//       {
+//         x: index =>
+//           scatterStates[index]?.x ||
+//           0,
+
+//         y: index =>
+//           scatterStates[index]?.y ||
+//           0,
+
+//         rotation: index =>
+//           scatterStates[index]
+//             ?.rotation || 0,
+
+//         scaleX: index =>
+//           scatterStates[index]
+//             ?.scale || 0.82,
+
+//         scaleY: index =>
+//           scatterStates[index]
+//             ?.scale || 0.82,
+
+//         autoAlpha: 1,
+
+//         duration: 0.78,
+
+//         stagger: {
+//           amount: 0.24,
+//           from: 'center'
+//         },
+
+//         ease: 'power2.out'
+//       },
+//       0.12
+//     );
+
+//     /**
+//      * 第三段：散开完成后再慢慢淡出。
+//      */
+//     /**
+//      * 第三段：文字继续向外扩散，同时慢慢淡出。
+//      */
+//     impactTimeline.to(
+//       characterInners,
+//       {
+//         x: index =>
+//           (scatterStates[index]?.x || 0) * 1.15,
+
+//         y: index =>
+//           (scatterStates[index]?.y || 0) * 1.15,
+
+//         rotation: index =>
+//           (scatterStates[index]?.rotation || 0) * 1.12,
+
+//         scaleX: index =>
+//           (scatterStates[index]?.scale || 0.82) * 0.92,
+
+//         scaleY: index =>
+//           (scatterStates[index]?.scale || 0.82) * 0.92,
+
+//         autoAlpha: 0,
+
+//         duration: 0.55,
+
+//         stagger: {
+//           amount: 0.14,
+//           from: 'center'
+//         },
+
+//         ease: 'power1.out'
+//       },
+//       1.08
+//     );
+
+//     /**
+//      * 控制文字散开或恢复。
+//      */
+//     const setImpactTarget = (
+//       opened,
+//       immediate = false
+//     ) => {
+//       impactDelayCall?.kill();
+//       impactDelayCall = null;
+
+//       impactProgressTween?.kill();
+//       impactProgressTween = null;
+
+//       const targetProgress =
+//         opened ? 1 : 0;
+
+//       if (immediate) {
+//         impactTimeline
+//           .progress(targetProgress)
+//           .pause();
+
+//         return;
+//       }
+
+//       const currentProgress =
+//         impactTimeline.progress();
+
+//       const progressDistance =
+//         Math.abs(
+//           targetProgress -
+//           currentProgress
+//         );
+
+//       if (progressDistance < 0.001) {
+//         impactTimeline
+//           .progress(targetProgress)
+//           .pause();
+
+//         return;
+//       }
+
+//       impactTimeline.pause();
+
+//       /**
+//        * 散开速度比原来慢。
+//        * 恢复速度不用太慢。
+//        */
+//       const baseDuration =
+//         opened ? 1.5 : 0.62;
+
+//       impactProgressTween = gsap.to(
+//         impactTimeline,
+//         {
+//           progress: targetProgress,
+
+//           duration: Math.max(
+//             0.12,
+//             baseDuration *
+//             progressDistance
+//           ),
+
+//           ease: opened
+//             ? 'power2.out'
+//             : 'power2.inOut',
+
+//           overwrite: true,
+
+//           onComplete() {
+//             impactTimeline
+//               .progress(targetProgress)
+//               .pause();
+
+//             impactProgressTween = null;
+//           },
+
+//           onInterrupt() {
+//             impactProgressTween = null;
+//           }
+//         }
+//       );
+//     };
+
+//     /**
+//      * 延迟执行文字散开。
+//      */
+//     const scheduleImpactOpen = () => {
+//       impactDelayCall?.kill();
+
+//       impactDelayCall =
+//         gsap.delayedCall(
+//           getImpactDelay(),
+//           () => {
+//             impactDelayCall = null;
+
+//             if (currentStep <= 0) {
+//               return;
+//             }
+
+//             setImpactTarget(true);
+//           }
+//         );
+//     };
+
+//     /**
+//      * 初始化所有卡片。
+//      *
+//      * zIndex 只在这里设置一次，
+//      * 后面的动画不再修改层级。
+//      */
+//     cards.forEach((card, index) => {
+//       gsap.set(card, {
+//         position: 'absolute',
+//         top: '50%',
+//         left: '50%',
+
+//         xPercent: -50,
+//         yPercent: -50,
+
+//         x: () =>
+//           getStackBasePosition().x,
+
+//         y: () =>
+//           getHiddenY(),
+
+//         rotation:
+//           isMobile() ? 6 : 10,
+
+//         scale: 0.92,
+//         autoAlpha: 0,
+
+//         zIndex:
+//           getCardZIndex(index),
+
+//         transformOrigin:
+//           isMobile()
+//             ? '50% 50%'
+//             : '50% 110%',
+
+//         force3D: true,
+
+//         willChange:
+//           'transform, opacity'
+//       });
+//     });
+
+//     /**
+//      * 卡片主时间轴。
+//      */
+//     cardTimeline = gsap.timeline({
+//       paused: true,
+
+//       defaults: {
+//         overwrite: 'auto'
+//       }
+//     });
+
+//     cardTimeline.addLabel(
+//       'step-0',
+//       0
+//     );
+
+//     for (
+//       let visibleCount = 1;
+//       visibleCount <= totalCards;
+//       visibleCount += 1
+//     ) {
+//       const enteringIndex =
+//         visibleCount - 1;
+
+//       const enteringCard =
+//         cards[enteringIndex];
+
+//       const segmentStart =
+//         visibleCount - 1;
+
+//       /**
+//        * 已经出现的卡片重新排列。
+//        *
+//        * 注意：
+//        * 这里不再修改 zIndex。
+//        */
+//       cards
+//         .slice(0, enteringIndex)
+//         .forEach((card, index) => {
+//           cardTimeline.to(
+//             card,
+//             {
+//               x: () =>
+//                 getCardState(
+//                   index,
+//                   visibleCount
+//                 ).x,
+
+//               y: () =>
+//                 getCardState(
+//                   index,
+//                   visibleCount
+//                 ).y,
+
+//               rotation: () =>
+//                 getCardState(
+//                   index,
+//                   visibleCount
+//                 ).rotation,
+
+//               scale: () =>
+//                 getCardState(
+//                   index,
+//                   visibleCount
+//                 ).scale,
+
+//               autoAlpha: 1,
+
+//               duration: 0.65,
+//               ease: 'back.out(1.8)'
+//             },
+//             segmentStart
+//           );
+//         });
+
+//       /**
+//        * 当前卡片从底部进入。
+//        *
+//        * 这里同样不修改 zIndex。
+//        */
+//       cardTimeline.fromTo(
+//         enteringCard,
+//         {
+//           x: () =>
+//             getCardState(
+//               enteringIndex,
+//               visibleCount
+//             ).x,
+
+//           y: () =>
+//             getHiddenY(),
+
+//           rotation: () =>
+//             getCardState(
+//               enteringIndex,
+//               visibleCount
+//             ).rotation +
+//             (isMobile() ? 6 : 10),
+
+//           scale: 0.92,
+//           autoAlpha: 0
+//         },
+//         {
+//           x: () =>
+//             getCardState(
+//               enteringIndex,
+//               visibleCount
+//             ).x,
+
+//           y: () =>
+//             getCardState(
+//               enteringIndex,
+//               visibleCount
+//             ).y,
+
+//           rotation: () =>
+//             getCardState(
+//               enteringIndex,
+//               visibleCount
+//             ).rotation,
+
+//           scale: () =>
+//             getCardState(
+//               enteringIndex,
+//               visibleCount
+//             ).scale,
+
+//           autoAlpha: 1,
+
+//           duration: 0.8,
+//           ease: 'back.out(2.2)',
+
+//           immediateRender: false
+//         },
+//         segmentStart
+//       );
+
+//       cardTimeline.addLabel(
+//         `step-${visibleCount}`,
+//         visibleCount
+//       );
+//     }
+
+//     /**
+//      * 切换卡片步骤。
+//      */
+//     const goToStep = (
+//       step,
+//       immediate = false
+//     ) => {
+//       const targetStep =
+//         gsap.utils.clamp(
+//           0,
+//           totalCards,
+//           step
+//         );
+
+//       if (
+//         targetStep === currentStep &&
+//         !immediate
+//       ) {
+//         return;
+//       }
+
+//       const previousStep =
+//         currentStep < 0
+//           ? targetStep
+//           : currentStep;
+
+//       currentStep = targetStep;
+
+//       stepTween?.kill();
+//       stepTween = null;
+
+//       /**
+//        * 初始化或刷新时，
+//        * 直接设置到最终状态。
+//        */
+//       if (immediate) {
+//         cardTimeline.time(
+//           targetStep,
+//           false
+//         );
+
+//         setImpactTarget(
+//           targetStep > 0,
+//           true
+//         );
+
+//         return;
+//       }
+
+//       /**
+//        * 第一张卡片进入时，
+//        * 撞散标题文字。
+//        */
+//       if (
+//         previousStep === 0 &&
+//         targetStep > 0
+//       ) {
+//         scheduleImpactOpen();
+//       }
+
+//       /**
+//        * 回滚到第一张卡片之前，
+//        * 恢复标题文字。
+//        */
+//       if (
+//         previousStep > 0 &&
+//         targetStep === 0
+//       ) {
+//         setImpactTarget(false);
+//       }
+
+//       stepTween =
+//         cardTimeline.tweenTo(
+//           `step-${targetStep}`,
+//           {
+//             duration: 0.58,
+//             ease: 'power2.out',
+//             overwrite: true,
+
+//             onComplete() {
+//               stepTween = null;
+//             },
+
+//             onInterrupt() {
+//               stepTween = null;
+//             }
+//           }
+//         );
+//     };
+
+//     scrollTrigger =
+//       ScrollTrigger.create({
+//         id:
+//           'appreciation-reward-animation',
+
+//         trigger: section,
+
+//         start: 'top top',
+//         end: 'bottom bottom',
+
+//         invalidateOnRefresh: true,
+
+//         onUpdate(self) {
+//           const nextStep =
+//             Math.round(
+//               self.progress *
+//               totalCards
+//             );
+
+//           if (
+//             nextStep !== currentStep
+//           ) {
+//             goToStep(nextStep);
+//           }
+//         },
+
+//         onRefresh(self) {
+//           scatterStates =
+//             createScatterStates();
+
+//           cardTimeline.invalidate();
+//           impactTimeline.invalidate();
+
+//           /**
+//            * 刷新后重新固定卡片层级。
+//            */
+//           cards.forEach(
+//             (card, index) => {
+//               gsap.set(card, {
+//                 zIndex:
+//                   getCardZIndex(index)
+//               });
+//             }
+//           );
+
+//           const refreshStep =
+//             Math.round(
+//               self.progress *
+//               totalCards
+//             );
+
+//           goToStep(
+//             refreshStep,
+//             true
+//           );
+//         }
+//       });
+
+//     const initialStep =
+//       Math.round(
+//         scrollTrigger.progress *
+//         totalCards
+//       );
+
+//     goToStep(
+//       initialStep,
+//       true
+//     );
+
+//     document.fonts?.ready.then(() => {
+//       if (destroyed) {
+//         return;
+//       }
+
+//       ScrollTrigger.refresh();
+//     });
+//   }, section);
+
+//   return () => {
+//     destroyed = true;
+
+//     impactDelayCall?.kill();
+//     impactDelayCall = null;
+
+//     impactProgressTween?.kill();
+//     impactProgressTween = null;
+
+//     stepTween?.kill();
+//     stepTween = null;
+
+//     impactTimeline?.kill();
+//     impactTimeline = null;
+
+//     scrollTrigger?.kill();
+//     scrollTrigger = null;
+
+//     cardTimeline?.kill();
+//     cardTimeline = null;
+
+//     ctx.revert();
+
+//     title.innerHTML =
+//       originalTitleHTML;
+
+//     if (originalAriaLabel === null) {
+//       title.removeAttribute(
+//         'aria-label'
+//       );
+//     } else {
+//       title.setAttribute(
+//         'aria-label',
+//         originalAriaLabel
+//       );
+//     }
+
+//     if (originalTitleStyle === null) {
+//       title.removeAttribute('style');
+//     } else {
+//       title.setAttribute(
+//         'style',
+//         originalTitleStyle
+//       );
+//     }
+//   };
+// }
 function initializeAnimation(root) {
   const section = root.querySelector('.reward-list');
-  const cardWrapper = section?.querySelector('.reward-list__content__wrp');
-  const mainHeader = section?.querySelector('.reward-list__header');
+  const cardWrapper = section?.querySelector(
+    '.reward-list__content__wrp'
+  );
+  const mainHeader = section?.querySelector(
+    '.reward-list__header'
+  );
 
   const cards = section
-    ? Array.from(section.querySelectorAll('.reward-list__card'))
+    ? Array.from(
+        section.querySelectorAll('.reward-list__card')
+      )
     : [];
 
-
-
   if (!section || !cardWrapper || cards.length < 2) {
-    return () => { };
+    return () => {};
   }
 
   const media = gsap.matchMedia();
   const imageCleanups = [];
+
   let rewardScrollTrigger = null;
+  let refreshFrame = null;
 
+  media.add(
+    {
+      isMobile: '(max-width: 1023px)',
+      isDesktop: '(min-width: 1024px)',
+    },
+    (context) => {
+      const {isMobile} = context.conditions;
 
-  media.add('all', () => {
-    // gsap.set(cardWrapper, { position: 'relative' });
-
-    const headers = cards.map((card) =>
-      card.querySelector('.reward-card__header')
-    );
-
-    let timeline = null;
-    let mainHeaderHeight = 0;
-    let moveUpDistance = 0;
-
-
-    const setLayout = () => {
-      const isMobile = window.matchMedia('(max-width: 1023px)').matches;
-
-      const rootFontSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 10;
-      const extraOffset = 5 * rootFontSize;
-
-      const sectionStyle = window.getComputedStyle(section);
-      const safePadding = parseFloat(sectionStyle.paddingTop || 0) || 40;
-
-      if (mainHeader) {
-        const style = window.getComputedStyle(mainHeader);
-        const sectionRect = section.getBoundingClientRect();
-        const wrapperRect = cardWrapper.getBoundingClientRect();
-        mainHeaderHeight = mainHeader.offsetHeight + parseFloat(style.marginBottom || 0);
-        moveUpDistance = isMobile ? Math.max(0, wrapperRect.top - sectionRect.top - safePadding) : Math.max(0, mainHeaderHeight - safePadding - extraOffset);
-
-
-        gsap.set(mainHeader, {
-          y: 0,
-          willChange: 'transform'
-        });
-      } else {
-        mainHeaderHeight = 0;
-        moveUpDistance = 0;
-      }
-      const headerHeight = Math.max(
-        0,
-        ...headers.map((header) => header?.offsetHeight || 0)
+      const headers = cards.map((card) =>
+        card.querySelector('.reward-card__header')
       );
 
-      const firstCard = cards[0];
-      const paddingTop = firstCard ? parseFloat(window.getComputedStyle(firstCard).paddingTop) || 0 : 0;
-      const stackOffset = headerHeight + paddingTop;
+      let timeline = null;
+      let mainHeaderHeight = 0;
+      let moveUpDistance = 0;
 
-      gsap.set(cardWrapper, {
-        position: 'relative',
-        paddingBottom: stackOffset * (cards.length - 1),
-        y: 0,
-        willChange: 'transform'
-      });
+      const setLayout = () => {
+        const rootFontSize =
+          parseFloat(
+            window.getComputedStyle(
+              document.documentElement
+            ).fontSize
+          ) || 10;
 
-      cards.forEach((card, index) => {
-        const isFirst = index === 0;
-        const direction = index % 2 === 1 ? 1 : -1;
+        const extraOffset = 5 * rootFontSize;
 
-        if (isFirst) {
-          gsap.set(card, {
-            position: 'relative',
-            zIndex: 1,
-            xPercent: 0,
-            yPercent: 0,
-            rotation: 0,
-            transformOrigin: '50% 50%',
-            force3D: true,
-            willChange: 'transform',
+        /*
+         * 重要：
+         * 测量位置之前，先清除时间轴当前产生的位移。
+         * 否则 getBoundingClientRect() 会包含 transform，
+         * 导致移动端每次 refresh 算出的距离不一样。
+         */
+        gsap.set(cardWrapper, {
+          y: 0,
+          x: 0,
+        });
+
+        if (mainHeader) {
+          gsap.set(mainHeader, {
+            y: 0,
+            x: 0,
+          });
+        }
+
+        const sectionStyle =
+          window.getComputedStyle(section);
+
+        const safePadding =
+          parseFloat(sectionStyle.paddingTop) || 40;
+
+        if (mainHeader) {
+          const headerStyle =
+            window.getComputedStyle(mainHeader);
+
+          const sectionRect =
+            section.getBoundingClientRect();
+
+          const wrapperRect =
+            cardWrapper.getBoundingClientRect();
+
+          const marginBottom =
+            parseFloat(headerStyle.marginBottom) || 0;
+
+          mainHeaderHeight =
+            mainHeader.offsetHeight + marginBottom;
+
+          if (isMobile) {
+            moveUpDistance = Math.max(
+              0,
+              wrapperRect.top -
+                sectionRect.top -
+                safePadding
+            );
+          } else {
+            moveUpDistance = Math.max(
+              0,
+              mainHeaderHeight -
+                safePadding -
+                extraOffset
+            );
+          }
+
+          gsap.set(mainHeader, {
+            y: 0,
+            force3D: isMobile ? false : 'auto',
           });
         } else {
+          mainHeaderHeight = 0;
+          moveUpDistance = 0;
+        }
+
+        const headerHeight = Math.max(
+          0,
+          ...headers.map(
+            (header) => header?.offsetHeight || 0
+          )
+        );
+
+        const firstCard = cards[0];
+
+        const paddingTop = firstCard
+          ? parseFloat(
+              window.getComputedStyle(firstCard).paddingTop
+            ) || 0
+          : 0;
+
+        const stackOffset =
+          headerHeight + paddingTop;
+
+        gsap.set(cardWrapper, {
+          position: 'relative',
+          paddingBottom:
+            stackOffset * (cards.length - 1),
+          y: 0,
+
+          // 移动端不要强制创建大量 GPU 图层
+          force3D: isMobile ? false : 'auto',
+        });
+
+        cards.forEach((card, index) => {
+          const isFirst = index === 0;
+          const direction =
+            index % 2 === 1 ? 1 : -1;
+
+          if (isFirst) {
+            gsap.set(card, {
+              position: 'relative',
+              zIndex: 1,
+
+              x: 0,
+              y: 0,
+              xPercent: 0,
+              yPercent: 0,
+              rotation: 0,
+
+              transformOrigin: '50% 50%',
+              force3D: isMobile ? false : 'auto',
+            });
+
+            return;
+          }
+
           const extraY = index === 2 ? 25 : 0;
-          const mobileCardUpOffset = isMobile ? 0.1 * index * rootFontSize : 0;
+
+          const mobileCardUpOffset = isMobile
+            ? 0.1 * index * rootFontSize
+            : 0;
+
           gsap.set(card, {
             position: 'absolute',
-            top: index * stackOffset - mobileCardUpOffset,
+            top:
+              index * stackOffset -
+              mobileCardUpOffset,
             left: 0,
             right: 0,
             margin: '0 auto',
             zIndex: index + 1,
+
+            x: 0,
+            y: 0,
             xPercent: direction * 20,
             yPercent: index * 75 + extraY,
             rotation: direction * -5,
-            x: 0,
-            y: 0,
+
             transformOrigin: '50% 50%',
-            force3D: true,
-            willChange: 'transform',
+            force3D: isMobile ? false : 'auto',
+          });
+        });
+      };
+
+      setLayout();
+
+      timeline = gsap.timeline({
+        defaults: {
+          ease: 'none',
+        },
+
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom bottom',
+
+          /*
+           * 移动端增加一点追赶时间，
+           * 过滤触摸滚动产生的不连续帧。
+           */
+          scrub: isMobile ? 0.35 : true,
+
+          invalidateOnRefresh: true,
+          onRefreshInit: setLayout,
+        },
+      });
+
+      rewardScrollTrigger =
+        timeline.scrollTrigger;
+
+      const wrapperMoveDuration = 0.5;
+
+      if (mainHeader && mainHeaderHeight > 0) {
+        timeline.to(
+          mainHeader,
+          {
+            /*
+             * 使用函数值。
+             * refresh 后会读取最新的高度。
+             */
+            y: () => -mainHeaderHeight,
+            duration: wrapperMoveDuration,
+            ease: 'none',
+          },
+          0
+        );
+
+        timeline.to(
+          cardWrapper,
+          {
+            /*
+             * 不要直接写 y: -moveUpDistance，
+             * 否则 refresh 后仍可能使用旧数值。
+             */
+            y: () => -moveUpDistance,
+            duration: wrapperMoveDuration,
+            ease: 'none',
+          },
+          0
+        );
+      }
+
+      cards.slice(1).forEach((card, index) => {
+        const cardOffset =
+          index === 1 ? 0.7 : index * 0.7;
+
+        const startTime =
+          wrapperMoveDuration + cardOffset;
+
+        timeline.to(
+          card,
+          {
+            xPercent: 0,
+            yPercent: 0,
+            rotation: 0,
+            duration: 1,
+            ease: 'none',
+          },
+          startTime
+        );
+      });
+
+      timeline.to({}, {duration: 0.15});
+
+      return () => {
+        timeline?.scrollTrigger?.kill();
+        timeline?.kill();
+
+        timeline = null;
+
+        if (
+          rewardScrollTrigger ===
+          timeline?.scrollTrigger
+        ) {
+          rewardScrollTrigger = null;
+        }
+
+        gsap.set(cards, {
+          clearProps: [
+            'position',
+            'top',
+            'left',
+            'right',
+            'margin',
+            'zIndex',
+            'transform',
+            'willChange',
+          ].join(','),
+        });
+
+        gsap.set(cardWrapper, {
+          clearProps: [
+            'position',
+            'paddingBottom',
+            'transform',
+            'willChange',
+          ].join(','),
+        });
+
+        if (mainHeader) {
+          gsap.set(mainHeader, {
+            clearProps: 'transform,willChange',
           });
         }
-      });
-    };
+      };
+    }
+  );
 
-    setLayout();
-
-    timeline = gsap.timeline({
-      defaults: {
-        ease: 'none',
-      },
-      scrollTrigger: {
-        trigger: section,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: true,
-        invalidateOnRefresh: true,
-        onRefreshInit: setLayout,
-      },
-    });
-    rewardScrollTrigger = timeline.scrollTrigger;
-
-    const wrapperMoveDuration = 0.5;
-
-    if (mainHeaderHeight > 0) {
-      timeline.to(
-        mainHeader,
-        {
-          y: -mainHeaderHeight,
-          duration: wrapperMoveDuration,
-          ease: 'none',
-        },
-        0
-      );
-      timeline.to(
-        cardWrapper,
-        {
-          y: -moveUpDistance,
-          duration: wrapperMoveDuration,
-          ease: 'none',
-        },
-        0
-      );
+  /*
+   * 多张图片同时加载时，只在下一帧刷新一次，
+   * 避免连续 refresh 导致页面重排。
+   */
+  const refreshScroll = () => {
+    if (refreshFrame) {
+      cancelAnimationFrame(refreshFrame);
     }
 
-
-    cards.slice(1).forEach((card, i) => {
-      const cardOffset = i === 1 ? 0.7 : i * 0.7;
-      const startTime = wrapperMoveDuration + cardOffset;
-      timeline.to(
-        card,
-        {
-          xPercent: 0,
-          yPercent: 0,
-          rotation: 0,
-          duration: 1,
-          ease: 'none',
-        },
-        startTime
-      );
+    refreshFrame = requestAnimationFrame(() => {
+      refreshFrame = null;
+      rewardScrollTrigger?.refresh();
     });
-
-    timeline.to({}, { duration: 0.15 });
-
-    return () => {
-      timeline?.scrollTrigger?.kill();
-      timeline?.kill();
-      timeline = null;
-      rewardScrollTrigger = null;
-
-      gsap.set(cards, {
-        clearProps:
-          'position,top,left,right,margin,zIndex,transform,willChange',
-      });
-
-      gsap.set(cardWrapper, {
-        clearProps: 'position,paddingBottom,y,transform,willChange',
-      });
-      if (mainHeader) {
-        gsap.set(mainHeader, {
-          clearProps: 'y,transform,willChange'
-        });
-      }
-    };
-  });
-
-  const refreshScroll = () => {
-    rewardScrollTrigger?.refresh();
   };
 
-  section.querySelectorAll('img').forEach((image) => {
-    if (image.complete) return;
+  section
+    .querySelectorAll('img')
+    .forEach((image) => {
+      if (image.complete) return;
 
-    image.addEventListener('load', refreshScroll);
-    imageCleanups.push(() => {
-      image.removeEventListener('load', refreshScroll);
+      image.addEventListener('load', refreshScroll);
+      image.addEventListener('error', refreshScroll);
+
+      imageCleanups.push(() => {
+        image.removeEventListener(
+          'load',
+          refreshScroll
+        );
+
+        image.removeEventListener(
+          'error',
+          refreshScroll
+        );
+      });
     });
-  });
 
   return () => {
-    imageCleanups.forEach((cleanup) => cleanup());
+    if (refreshFrame) {
+      cancelAnimationFrame(refreshFrame);
+      refreshFrame = null;
+    }
+
+    imageCleanups.forEach((cleanup) =>
+      cleanup()
+    );
+
     media.revert();
+    rewardScrollTrigger = null;
   };
 }
-
 function initAppreciationRewardsAnimation(root) {
   const section =
     typeof root === 'string'
@@ -898,7 +2517,7 @@ function initAppreciationRewardsAnimation(root) {
       '[AppreciationRewards] 未找到 .appreciation-reward'
     );
 
-    return () => { };
+    return () => {};
   }
 
   const stick = section.querySelector(
@@ -928,14 +2547,12 @@ function initAppreciationRewardsAnimation(root) {
       '[AppreciationRewards] 缺少动画所需元素'
     );
 
-    return () => { };
+    return () => {};
   }
 
   const originalTitleHTML = title.innerHTML;
-
   const originalAriaLabel =
     title.getAttribute('aria-label');
-
   const originalTitleStyle =
     title.getAttribute('style');
 
@@ -952,7 +2569,7 @@ function initAppreciationRewardsAnimation(root) {
   let destroyed = false;
 
   /**
-   * 将标题拆成单个字符。
+   * 将标题拆分成单个字符。
    */
   const splitTitleIntoChars = () => {
     const titleSpans = Array.from(
@@ -991,10 +2608,10 @@ function initAppreciationRewardsAnimation(root) {
        */
       span.style.background = 'none';
       span.style.backgroundImage = 'none';
-      span.style.backgroundClip = 'border-box';
+      span.style.backgroundClip =
+        'border-box';
       span.style.webkitBackgroundClip =
         'border-box';
-
       span.style.webkitTextFillColor =
         'currentColor';
 
@@ -1045,7 +2662,7 @@ function initAppreciationRewardsAnimation(root) {
               'currentColor',
 
             transformOrigin: '50% 50%',
-            backfaceVisibility: 'visible'
+            backfaceVisibility: 'hidden'
           }
         );
 
@@ -1085,10 +2702,26 @@ function initAppreciationRewardsAnimation(root) {
   const ctx = gsap.context(() => {
     const totalCards = cards.length;
 
-    const isMobile = () =>
+    const mobileMedia =
       window.matchMedia(
         '(max-width: 1023px)'
-      ).matches;
+      );
+
+    const isMobile = () =>
+      mobileMedia.matches;
+
+    /**
+     * 布局缓存。
+     *
+     * 避免卡片动画过程中反复执行：
+     * getBoundingClientRect、
+     * offsetWidth、
+     * offsetHeight。
+     */
+    let layoutCache = null;
+
+    const cardStateCache =
+      new Map();
 
     /**
      * 卡片整体上下位置。
@@ -1099,10 +2732,11 @@ function initAppreciationRewardsAnimation(root) {
       isMobile() ? 180 : 10;
 
     /**
-     * 第一张卡片开始进入后，
-     * 延迟触发文字撞散。
+     * 第一张卡片进入后，
+     * 延迟触发文字散开。
      */
-    const getImpactDelay = () => 0.05;
+    const getImpactDelay = () =>
+      0.05;
 
     const randomValue = (
       index,
@@ -1114,7 +2748,8 @@ function initAppreciationRewardsAnimation(root) {
           salt * 78.233
         ) * 43758.5453;
 
-      return value - Math.floor(value);
+      return value -
+        Math.floor(value);
     };
 
     const randomRange = (
@@ -1129,40 +2764,38 @@ function initAppreciationRewardsAnimation(root) {
         randomValue(index, salt)
       );
 
-    const getCardSize = () => {
-      const card = cards[0];
-
-      return {
-        width:
-          card.offsetWidth ||
-          card.getBoundingClientRect().width ||
-          260,
-
-        height:
-          card.offsetHeight ||
-          card.getBoundingClientRect().height ||
-          360
-      };
-    };
-
-    const getHiddenY = () => {
-      const { height } = getCardSize();
-
-      return Math.max(
-        stick.clientHeight * 0.82,
-        height * 1.65
-      );
+    /**
+     * 清除所有布局缓存。
+     */
+    const clearLayoutCache = () => {
+      layoutCache = null;
+      cardStateCache.clear();
     };
 
     /**
-     * 卡片组基础位置。
+     * 统一读取一次布局。
      */
-    const getStackBasePosition = () => {
+    const measureLayout = () => {
+      const firstCard = cards[0];
+
+      const cardRect =
+        firstCard.getBoundingClientRect();
+
       const wrapperRect =
         cardWrapper.getBoundingClientRect();
 
       const titleRect =
         title.getBoundingClientRect();
+
+      const cardWidth =
+        firstCard.offsetWidth ||
+        cardRect.width ||
+        260;
+
+      const cardHeight =
+        firstCard.offsetHeight ||
+        cardRect.height ||
+        360;
 
       const wrapperCenterX =
         wrapperRect.left +
@@ -1180,28 +2813,81 @@ function initAppreciationRewardsAnimation(root) {
         titleRect.top +
         titleRect.height / 2;
 
-      return {
-        x:
+      layoutCache = {
+        cardWidth,
+        cardHeight,
+
+        stickWidth:
+          stick.clientWidth,
+
+        stickHeight:
+          stick.clientHeight,
+
+        baseX:
           titleCenterX -
           wrapperCenterX,
 
-        y:
+        baseY:
           titleCenterY -
           wrapperCenterY +
-          getCardDownOffset()
+          getCardDownOffset(),
+
+        hiddenY: Math.max(
+          stick.clientHeight * 0.82,
+          cardHeight * 1.65
+        )
+      };
+
+      cardStateCache.clear();
+    };
+
+    const getLayout = () => {
+      if (!layoutCache) {
+        measureLayout();
+      }
+
+      return layoutCache;
+    };
+
+    const getCardSize = () => {
+      const {
+        cardWidth,
+        cardHeight
+      } = getLayout();
+
+      return {
+        width: cardWidth,
+        height: cardHeight
+      };
+    };
+
+    const getHiddenY = () =>
+      getLayout().hiddenY;
+
+    const getStackBasePosition = () => {
+      const {
+        baseX,
+        baseY
+      } = getLayout();
+
+      return {
+        x: baseX,
+        y: baseY
       };
     };
 
     const getSpacing = count => {
-      const { width: cardWidth } =
-        getCardSize();
+      const {
+        cardWidth,
+        stickWidth
+      } = getLayout();
 
       const desiredSpacing =
         cardWidth *
         (isMobile() ? 0.56 : 0.7);
 
       const maxGroupWidth =
-        stick.clientWidth *
+        stickWidth *
         (isMobile() ? 0.94 : 0.78);
 
       const availableSpacing =
@@ -1218,15 +2904,16 @@ function initAppreciationRewardsAnimation(root) {
         (isMobile() ? 0.4 : 0.58),
 
         desiredSpacing,
+
         availableSpacing
       );
     };
 
     /**
-     * 修改点 1：
+     * 固定卡片层级。
      *
-     * 固定卡片层级，不再在动画过程中改变 zIndex。
-     * 第三张卡片出现后始终保持最顶部。
+     * 第三张卡片出现后，
+     * 始终保持最上层。
      */
     const getCardZIndex = index => {
       if (index === 2) {
@@ -1237,9 +2924,9 @@ function initAppreciationRewardsAnimation(root) {
     };
 
     /**
-     * 计算卡片位置。
+     * 实际计算卡片位置。
      */
-    const getCardState = (
+    const calculateCardState = (
       index,
       visibleCount
     ) => {
@@ -1256,7 +2943,9 @@ function initAppreciationRewardsAnimation(root) {
        */
       if (isMobile()) {
         const depth =
-          visibleCount - 1 - index;
+          visibleCount -
+          1 -
+          index;
 
         const stackStates = [
           {
@@ -1293,10 +2982,10 @@ function initAppreciationRewardsAnimation(root) {
 
         const state =
           stackStates[
-          Math.min(
-            Math.max(depth, 0),
-            stackStates.length - 1
-          )
+            Math.min(
+              Math.max(depth, 0),
+              stackStates.length - 1
+            )
           ];
 
         return {
@@ -1323,7 +3012,8 @@ function initAppreciationRewardsAnimation(root) {
         (visibleCount - 1) / 2;
 
       const distance =
-        index - visibleCenterIndex;
+        index -
+        visibleCenterIndex;
 
       const finalRadius = Math.max(
         (totalCards - 1) / 2,
@@ -1331,7 +3021,8 @@ function initAppreciationRewardsAnimation(root) {
       );
 
       const ratio =
-        distance / finalRadius;
+        distance /
+        finalRadius;
 
       const absoluteRatio =
         Math.abs(ratio);
@@ -1366,13 +3057,46 @@ function initAppreciationRewardsAnimation(root) {
           maxDrop,
 
         rotation:
-          ratio * maxRotation,
+          ratio *
+          maxRotation,
 
         scale:
           absoluteRatio >= 0.9
             ? 0.94
             : 1
       };
+    };
+
+    /**
+     * 获取卡片位置。
+     *
+     * 同一个步骤中的同一张卡片
+     * 只计算一次。
+     */
+    const getCardState = (
+      index,
+      visibleCount
+    ) => {
+      const cacheKey =
+        `${index}-${visibleCount}`;
+
+      if (
+        !cardStateCache.has(
+          cacheKey
+        )
+      ) {
+        cardStateCache.set(
+          cacheKey,
+          calculateCardState(
+            index,
+            visibleCount
+          )
+        );
+      }
+
+      return cardStateCache.get(
+        cacheKey
+      );
     };
 
     /**
@@ -1407,10 +3131,12 @@ function initAppreciationRewardsAnimation(root) {
             rect.height / 2;
 
           let directionX =
-            characterX - impactX;
+            characterX -
+            impactX;
 
           let directionY =
-            characterY - impactY;
+            characterY -
+            impactY;
 
           const length = Math.max(
             Math.hypot(
@@ -1478,9 +3204,17 @@ function initAppreciationRewardsAnimation(root) {
       );
     };
 
+    /**
+     * 初始化测量。
+     */
+    measureLayout();
+
     scatterStates =
       createScatterStates();
 
+    /**
+     * 初始化文字。
+     */
     gsap.set(characterInners, {
       x: 0,
       y: 0,
@@ -1493,25 +3227,28 @@ function initAppreciationRewardsAnimation(root) {
       autoAlpha: 1,
 
       transformOrigin: '50% 50%',
-      force3D: false
+
+      force3D: true,
+
+      willChange:
+        'transform, opacity'
     });
 
     /**
-     * 修改点 2：
-     *
-     * 文字撞散动画放慢。
-     * 先完整散开，再慢慢降低透明度。
+     * 文字撞散动画。
      */
-    impactTimeline = gsap.timeline({
-      paused: true,
+    impactTimeline =
+      gsap.timeline({
+        paused: true,
 
-      defaults: {
-        overwrite: 'auto'
-      }
-    });
+        defaults: {
+          overwrite: 'auto'
+        }
+      });
 
     /**
-     * 第一段：撞击瞬间稍微顶开。
+     * 第一段：
+     * 撞击瞬间稍微顶开。
      */
     impactTimeline.to(
       characterInners,
@@ -1531,7 +3268,8 @@ function initAppreciationRewardsAnimation(root) {
         rotation: index =>
           (
             scatterStates[index]
-              ?.rotation || 0
+              ?.rotation ||
+            0
           ) * 0.08,
 
         scaleX: 1.03,
@@ -1542,7 +3280,11 @@ function initAppreciationRewardsAnimation(root) {
         duration: 0.18,
 
         stagger: {
-          amount: 0.08,
+          amount:
+            isMobile()
+              ? 0.05
+              : 0.08,
+
           from: 'center'
         },
 
@@ -1552,10 +3294,8 @@ function initAppreciationRewardsAnimation(root) {
     );
 
     /**
-     * 第二段：文字完整散开。
-     *
-     * 这里保持不透明，
-     * 让用户能看清飞散的过程。
+     * 第二段：
+     * 文字完整散开。
      */
     impactTimeline.to(
       characterInners,
@@ -1570,22 +3310,29 @@ function initAppreciationRewardsAnimation(root) {
 
         rotation: index =>
           scatterStates[index]
-            ?.rotation || 0,
+            ?.rotation ||
+          0,
 
         scaleX: index =>
           scatterStates[index]
-            ?.scale || 0.82,
+            ?.scale ||
+          0.82,
 
         scaleY: index =>
           scatterStates[index]
-            ?.scale || 0.82,
+            ?.scale ||
+          0.82,
 
         autoAlpha: 1,
 
         duration: 0.78,
 
         stagger: {
-          amount: 0.24,
+          amount:
+            isMobile()
+              ? 0.16
+              : 0.24,
+
           from: 'center'
         },
 
@@ -1595,35 +3342,55 @@ function initAppreciationRewardsAnimation(root) {
     );
 
     /**
-     * 第三段：散开完成后再慢慢淡出。
-     */
-    /**
-     * 第三段：文字继续向外扩散，同时慢慢淡出。
+     * 第三段：
+     * 继续扩散并慢慢淡出。
      */
     impactTimeline.to(
       characterInners,
       {
         x: index =>
-          (scatterStates[index]?.x || 0) * 1.15,
+          (
+            scatterStates[index]?.x ||
+            0
+          ) * 1.15,
 
         y: index =>
-          (scatterStates[index]?.y || 0) * 1.15,
+          (
+            scatterStates[index]?.y ||
+            0
+          ) * 1.15,
 
         rotation: index =>
-          (scatterStates[index]?.rotation || 0) * 1.12,
+          (
+            scatterStates[index]
+              ?.rotation ||
+            0
+          ) * 1.12,
 
         scaleX: index =>
-          (scatterStates[index]?.scale || 0.82) * 0.92,
+          (
+            scatterStates[index]
+              ?.scale ||
+            0.82
+          ) * 0.92,
 
         scaleY: index =>
-          (scatterStates[index]?.scale || 0.82) * 0.92,
+          (
+            scatterStates[index]
+              ?.scale ||
+            0.82
+          ) * 0.92,
 
         autoAlpha: 0,
 
         duration: 0.55,
 
         stagger: {
-          amount: 0.14,
+          amount:
+            isMobile()
+              ? 0.09
+              : 0.14,
+
           from: 'center'
         },
 
@@ -1665,7 +3432,10 @@ function initAppreciationRewardsAnimation(root) {
           currentProgress
         );
 
-      if (progressDistance < 0.001) {
+      if (
+        progressDistance <
+        0.001
+      ) {
         impactTimeline
           .progress(targetProgress)
           .pause();
@@ -1675,43 +3445,45 @@ function initAppreciationRewardsAnimation(root) {
 
       impactTimeline.pause();
 
-      /**
-       * 散开速度比原来慢。
-       * 恢复速度不用太慢。
-       */
       const baseDuration =
         opened ? 1.5 : 0.62;
 
-      impactProgressTween = gsap.to(
-        impactTimeline,
-        {
-          progress: targetProgress,
+      impactProgressTween =
+        gsap.to(
+          impactTimeline,
+          {
+            progress:
+              targetProgress,
 
-          duration: Math.max(
-            0.12,
-            baseDuration *
-            progressDistance
-          ),
+            duration: Math.max(
+              0.12,
+              baseDuration *
+              progressDistance
+            ),
 
-          ease: opened
-            ? 'power2.out'
-            : 'power2.inOut',
+            ease: opened
+              ? 'power2.out'
+              : 'power2.inOut',
 
-          overwrite: true,
+            overwrite: true,
 
-          onComplete() {
-            impactTimeline
-              .progress(targetProgress)
-              .pause();
+            onComplete() {
+              impactTimeline
+                .progress(
+                  targetProgress
+                )
+                .pause();
 
-            impactProgressTween = null;
-          },
+              impactProgressTween =
+                null;
+            },
 
-          onInterrupt() {
-            impactProgressTween = null;
+            onInterrupt() {
+              impactProgressTween =
+                null;
+            }
           }
-        }
-      );
+        );
     };
 
     /**
@@ -1737,56 +3509,56 @@ function initAppreciationRewardsAnimation(root) {
 
     /**
      * 初始化所有卡片。
-     *
-     * zIndex 只在这里设置一次，
-     * 后面的动画不再修改层级。
      */
-    cards.forEach((card, index) => {
-      gsap.set(card, {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
+    cards.forEach(
+      (card, index) => {
+        gsap.set(card, {
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
 
-        xPercent: -50,
-        yPercent: -50,
+          xPercent: -50,
+          yPercent: -50,
 
-        x: () =>
-          getStackBasePosition().x,
+          x: () =>
+            getStackBasePosition().x,
 
-        y: () =>
-          getHiddenY(),
+          y: () =>
+            getHiddenY(),
 
-        rotation:
-          isMobile() ? 6 : 10,
+          rotation:
+            isMobile() ? 6 : 10,
 
-        scale: 0.92,
-        autoAlpha: 0,
+          scale: 0.92,
+          autoAlpha: 0,
 
-        zIndex:
-          getCardZIndex(index),
+          zIndex:
+            getCardZIndex(index),
 
-        transformOrigin:
-          isMobile()
-            ? '50% 50%'
-            : '50% 110%',
+          transformOrigin:
+            isMobile()
+              ? '50% 50%'
+              : '50% 110%',
 
-        force3D: true,
+          force3D: true,
 
-        willChange:
-          'transform, opacity'
-      });
-    });
+          willChange:
+            'transform, opacity'
+        });
+      }
+    );
 
     /**
      * 卡片主时间轴。
      */
-    cardTimeline = gsap.timeline({
-      paused: true,
+    cardTimeline =
+      gsap.timeline({
+        paused: true,
 
-      defaults: {
-        overwrite: 'auto'
-      }
-    });
+        defaults: {
+          overwrite: 'auto'
+        }
+      });
 
     cardTimeline.addLabel(
       'step-0',
@@ -1810,8 +3582,8 @@ function initAppreciationRewardsAnimation(root) {
       /**
        * 已经出现的卡片重新排列。
        *
-       * 注意：
-       * 这里不再修改 zIndex。
+       * 移动端不再让所有旧卡片
+       * 强烈反弹，降低动画压力。
        */
       cards
         .slice(0, enteringIndex)
@@ -1845,8 +3617,15 @@ function initAppreciationRewardsAnimation(root) {
 
               autoAlpha: 1,
 
-              duration: 0.65,
-              ease: 'back.out(1.8)'
+              duration:
+                isMobile()
+                  ? 0.42
+                  : 0.65,
+
+              ease:
+                isMobile()
+                  ? 'power3.out'
+                  : 'back.out(1.8)'
             },
             segmentStart
           );
@@ -1854,8 +3633,6 @@ function initAppreciationRewardsAnimation(root) {
 
       /**
        * 当前卡片从底部进入。
-       *
-       * 这里同样不修改 zIndex。
        */
       cardTimeline.fromTo(
         enteringCard,
@@ -1874,7 +3651,11 @@ function initAppreciationRewardsAnimation(root) {
               enteringIndex,
               visibleCount
             ).rotation +
-            (isMobile() ? 6 : 10),
+            (
+              isMobile()
+                ? 6
+                : 10
+            ),
 
           scale: 0.92,
           autoAlpha: 0
@@ -1906,8 +3687,15 @@ function initAppreciationRewardsAnimation(root) {
 
           autoAlpha: 1,
 
-          duration: 0.8,
-          ease: 'back.out(2.2)',
+          duration:
+            isMobile()
+              ? 0.56
+              : 0.8,
+
+          ease:
+            isMobile()
+              ? 'back.out(1.35)'
+              : 'back.out(2.2)',
 
           immediateRender: false
         },
@@ -1946,14 +3734,15 @@ function initAppreciationRewardsAnimation(root) {
           ? targetStep
           : currentStep;
 
-      currentStep = targetStep;
+      currentStep =
+        targetStep;
 
       stepTween?.kill();
       stepTween = null;
 
       /**
        * 初始化或刷新时，
-       * 直接设置到最终状态。
+       * 直接设置到对应状态。
        */
       if (immediate) {
         cardTimeline.time(
@@ -1995,7 +3784,11 @@ function initAppreciationRewardsAnimation(root) {
         cardTimeline.tweenTo(
           `step-${targetStep}`,
           {
-            duration: 0.58,
+            duration:
+              isMobile()
+                ? 0.46
+                : 0.58,
+
             ease: 'power2.out',
             overwrite: true,
 
@@ -2008,6 +3801,66 @@ function initAppreciationRewardsAnimation(root) {
             }
           }
         );
+    };
+
+    /**
+     * 移动端步骤防抖。
+     *
+     * 原本 Math.round() 会在临界点
+     * 反复从 step 1 和 step 2 之间切换。
+     *
+     * 现在向下必须超过 0.62，
+     * 向上必须退回 0.38，
+     * 才切换步骤。
+     */
+    const getStableStep = self => {
+      const rawStep =
+        self.progress *
+        totalCards;
+
+      if (currentStep < 0) {
+        return Math.round(rawStep);
+      }
+
+      /**
+       * PC 继续使用直接计算，
+       * 只对移动端增加缓冲区。
+       */
+      if (!isMobile()) {
+        return Math.round(rawStep);
+      }
+
+      let nextStep =
+        currentStep;
+
+      if (self.direction > 0) {
+        while (
+          nextStep < totalCards &&
+          rawStep >=
+            nextStep + 0.62
+        ) {
+          nextStep += 1;
+        }
+      } else if (
+        self.direction < 0
+      ) {
+        while (
+          nextStep > 0 &&
+          rawStep <=
+            nextStep - 0.62
+        ) {
+          nextStep -= 1;
+        }
+      } else {
+        nextStep =
+          Math.round(rawStep);
+      }
+
+      return gsap.utils.clamp(
+        0,
+        totalCards,
+        nextStep
+      );
     };
 
     scrollTrigger =
@@ -2024,10 +3877,7 @@ function initAppreciationRewardsAnimation(root) {
 
         onUpdate(self) {
           const nextStep =
-            Math.round(
-              self.progress *
-              totalCards
-            );
+            getStableStep(self);
 
           if (
             nextStep !== currentStep
@@ -2037,6 +3887,13 @@ function initAppreciationRewardsAnimation(root) {
         },
 
         onRefresh(self) {
+          /**
+           * 尺寸变化后，
+           * 重新测量一次布局。
+           */
+          clearLayoutCache();
+          measureLayout();
+
           scatterStates =
             createScatterStates();
 
@@ -2044,7 +3901,7 @@ function initAppreciationRewardsAnimation(root) {
           impactTimeline.invalidate();
 
           /**
-           * 刷新后重新固定卡片层级。
+           * 刷新后重新固定层级。
            */
           cards.forEach(
             (card, index) => {
@@ -2079,13 +3936,16 @@ function initAppreciationRewardsAnimation(root) {
       true
     );
 
-    document.fonts?.ready.then(() => {
-      if (destroyed) {
-        return;
-      }
+    document.fonts?.ready
+      .then(() => {
+        if (destroyed) {
+          return;
+        }
 
-      ScrollTrigger.refresh();
-    });
+        clearLayoutCache();
+        ScrollTrigger.refresh();
+      })
+      .catch(() => {});
   }, section);
 
   return () => {
@@ -2114,7 +3974,9 @@ function initAppreciationRewardsAnimation(root) {
     title.innerHTML =
       originalTitleHTML;
 
-    if (originalAriaLabel === null) {
+    if (
+      originalAriaLabel === null
+    ) {
       title.removeAttribute(
         'aria-label'
       );
@@ -2125,8 +3987,12 @@ function initAppreciationRewardsAnimation(root) {
       );
     }
 
-    if (originalTitleStyle === null) {
-      title.removeAttribute('style');
+    if (
+      originalTitleStyle === null
+    ) {
+      title.removeAttribute(
+        'style'
+      );
     } else {
       title.setAttribute(
         'style',
@@ -2135,7 +4001,6 @@ function initAppreciationRewardsAnimation(root) {
     }
   };
 }
-
 
 function initStoriesBeyondOrdinary(root) {
 
