@@ -2262,6 +2262,11 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
 
     }
+    &[style*="--story-card-background:#E3E3E3"] {
+    .story-card__toggle {
+      color: #000;
+    }
+  }
           &--expanded .story-card__toggle-icon {
         transform: rotate(180deg);
       }
