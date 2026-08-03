@@ -682,11 +682,11 @@ export default function StoryShareModal() {
                       </div>
 
                       <p className="story-receipt__name">
-                        A customer once came into my store after a serious motorcycle accident. He had been through so much, but his VAPORESSO Armour G had made it through the wreck. That moment turned into a conversation about strength, resilience, and finding a way to move forward.For me, moving beyond ordinary means proving that change is possible when you refuse to give up.
+                       {formData.story}
                       </p>
 
                       <p className="story-receipt__country">
-                       Michel
+                       {formData.fullName}
                       </p>
                     </div>
                   </div>
