@@ -2919,6 +2919,10 @@ function initAppreciationRewardsAnimation(root) {
       if (index === 2) {
         return totalCards + 100;
       }
+      
+      if (!isMobile() && index === totalCards - 1) {
+        return Math.max(1, index - 1);
+      }
 
       return index + 1;
     };

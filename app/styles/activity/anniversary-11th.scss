@@ -976,7 +976,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       width: 100%;
 
       @media (max-width: 1023px) {
-        height: max(100vh, 820px);
+        height: max(100vh, 740px);
       }
     }
 
@@ -1259,7 +1259,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
 
     .reward-list__header {
-      padding-top: 1.6rem;
+      padding-top: 1.3rem;
 
       &__title {
         font-size: 0.8rem;
@@ -1297,6 +1297,14 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
       padding: 0.16rem;
       border-radius: 0.16rem;
+
+      &:nth-of-type(2) {
+       height: 10.9rem;
+      }
+
+      &:nth-of-type(3) {
+        height: 10.06rem;
+      }
     }
 
     .reward-card__shape {
@@ -2042,9 +2050,11 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     cursor: pointer;
     appearance: none;
-     &-icon {
+
+    &-icon {
       display: none;
-      }
+    }
+
     &:focus {
       outline: none;
     }
@@ -2245,6 +2255,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     &__toggle {
       border-radius: 0.12rem;
       color: #fff;
+
       &-icon {
         position: absolute;
         right: 2.5rem;
@@ -2262,14 +2273,16 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
 
     }
+
     &[style*="--story-card-background:#E3E3E3"] {
-    .story-card__toggle {
-      color: #000;
-    }
-  }
-          &--expanded .story-card__toggle-icon {
-        transform: rotate(180deg);
+      .story-card__toggle {
+        color: #000;
       }
+    }
+
+    &--expanded .story-card__toggle-icon {
+      transform: rotate(180deg);
+    }
 
     &--overflowing:hover:not(&--expanded) &__text {
       display: -webkit-box;
@@ -2358,16 +2371,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       inset: 0;
       z-index: 1;
 
-      background:
-        linear-gradient(180deg,
-          rgba(0, 8, 16, 0.18) 0%,
-          rgba(0, 8, 16, 0.04) 45%,
-          rgba(0, 0, 0, 0.38) 100%),
-        linear-gradient(90deg,
-          rgba(0, 0, 0, 0.16) 0%,
-          transparent 30%,
-          transparent 70%,
-          rgba(0, 0, 0, 0.16) 100%);
+      background:#000;
 
       opacity: 0;
       visibility: hidden;
