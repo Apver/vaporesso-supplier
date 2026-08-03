@@ -255,6 +255,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
+
     @media (min-width: 1024px) and (max-width: 1450px) {
       height: 864px;
     }
@@ -739,6 +740,9 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     @media (max-width: 1023px) {
       padding-top: 1.6rem;
+      position: relative;
+      height: 400vh;
+      padding-top: 0;
     }
   }
 
@@ -746,6 +750,18 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     height: 400vh;
     position: relative;
     transform-style: preserve-3d;
+
+    @media (max-width: 1023px) {
+      position: sticky;
+      top: 0;
+
+      width: 100%;
+      height: 100vh;
+      height: 100svh;
+
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
   }
 
   .year-highlight__header {
@@ -754,9 +770,17 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     margin: 0 auto 8rem;
 
     @media (max-width: 1023px) {
-      max-width: 100%;
+      position: absolute;
+      top: 1.6rem;
+      right: 0;
+      left: 0;
+      z-index: 10;
+
       width: 6.1rem;
-      margin: 0 auto 0.72rem;
+      max-width: 100%;
+      margin: 0 auto;
+
+      will-change: transform, opacity;
     }
 
     &__title {
@@ -939,16 +963,19 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   .reward-list {
     position: relative;
     height: 300vh;
-     @media (max-width: 1023px) {
-        // height: 320vh;
-      }
+
+    @media (max-width: 1023px) {
+      // height: 320vh;
+    }
+
     &__stick {
       position: sticky;
       height: 100vh;
       top: 0;
       width: 100%;
+
       @media (max-width: 1023px) {
-           height: max(100vh, 800px);
+        height: max(100vh, 800px);
       }
     }
 
@@ -1400,6 +1427,13 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       position: absolute;
       bottom: -45px;
       left: 0;
+      width: 100%;
+
+      img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+      }
     }
 
     &__wrapper {
@@ -1438,7 +1472,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       font-size: 1.8rem;
       font-style: normal;
       line-height: 150%;
-      margin-bottom: 3rem;
+      margin-bottom: 15rem;
     }
 
     &__content {
@@ -1479,7 +1513,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     position: relative;
     text-align: center;
     margin: 0 auto;
-    padding-top:6rem;
+    padding-top: 28rem;
 
     &__title {
       color: #000;
@@ -1496,17 +1530,12 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       &_span {
         display: block;
       }
-
       &_span1 {
-        font-family: var(--pwc);
-        font-size: 6.8rem;
-        letter-spacing: -0.068rem;
-        background: linear-gradient(91deg, #F189FF 6.02%, #9C07FF 99.44%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        line-height: 2.3;
-        z-index: 2;
+        color: #d44cff;
+  font-family: var(--pwc);
+  font-size: 6.8rem;
+  line-height: 2.3;
+  letter-spacing: -0.068rem;
       }
 
       .title-break {
@@ -1517,6 +1546,33 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       &_span2 {
         margin-top: -3rem;
       }
+       overflow: visible;
+
+  .char {
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+    vertical-align: baseline;
+    white-space: pre;
+  }
+
+  .char-inner {
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+
+    transform-origin: 50% 50%;
+    backface-visibility: visible;
+  }
+
+  .char--space {
+    min-width: 0.25em;
+  }
 
     }
   }
@@ -1685,7 +1741,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   }
 
   &__header {
-    width: min(calc(100% - 40px), 920px);
+    width: 92rem;
     margin: 0 auto;
     text-align: center;
   }
@@ -2571,32 +2627,33 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     width: 100%;
     object-fit: cover;
     left: 0;
-    img{
+
+    img {
       display: block;
-       width: 100%;
-       object-fit: cover;
+      width: 100%;
+      object-fit: cover;
     }
   }
 }
 
 @media screen and (max-width: 767px) {
-.terms-and-conditions {
+  .terms-and-conditions {
 
-  padding: 1.6rem 0 2.6rem;
+    padding: 1.6rem 0 2.6rem;
 
-  &__inner {
-    width: 6.7rem;
+    &__inner {
+      width: 6.7rem;
+    }
+
+    &__title {
+      margin: 0 0 0.32rem;
+      font-size: 0.48rem;
+
+    }
+
+    &__list {
+      font-size: 0.24rem;
+    }
   }
-
-  &__title {
-    margin: 0 0 0.32rem;
-    font-size: 0.48rem;
-
-  }
-
-  &__list {
-   font-size: 0.24rem;
-  }
-}
 
 }

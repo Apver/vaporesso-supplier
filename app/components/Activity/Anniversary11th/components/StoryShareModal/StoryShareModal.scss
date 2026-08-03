@@ -69,6 +69,14 @@
         background: transparent;
 
         cursor: pointer;
+          img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+     transition: transform 0.25s ease;
+  }
 
         span {
             position: absolute;
@@ -100,8 +108,11 @@
             }
 
             span:last-child {
-                transform: translate(-50%, -50%) rotate(45deg);
+                transform: translate(-50%, -50%) rotate(135deg);
             }
+                 img {
+  transform:  rotate(135deg);
+  }
         }
 
         &:focus-visible {

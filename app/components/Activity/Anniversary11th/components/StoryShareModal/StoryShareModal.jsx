@@ -461,8 +461,7 @@ export default function StoryShareModal() {
           aria-label="Close modal"
           onClick={handleClose}
         >
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
+          <img src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-12.webp" alt="" aria-hidden="true"/>
         </button>
 
         {step === 'form' && (
