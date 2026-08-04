@@ -23,7 +23,7 @@ function initVideoBanner(root) {
   const pcPoster = container.dataset.pcPoster;
   const mobilePoster = container.dataset.mobilePoster;
 
-  const mediaQuery = window.matchMedia('(max-width: 768px)');
+  const mediaQuery = window.matchMedia('(max-width: 1023px)');
 
   const handleMediaChange = (e) => {
     const isMobile = e.matches;
@@ -2561,7 +2561,7 @@ function initExtraordinaryHeroVideo(section) {
   }
 
   const mobileMedia = window.matchMedia(
-    '(max-width: 767px)',
+    '(max-width: 1023px)',
   );
 
   let currentSrc = '';
@@ -2741,8 +2741,8 @@ function initExtraordinaryHeroAnimation(root) {
 
     gsapMatchMedia.add(
       {
-        desktop: '(min-width: 768px)',
-        mobile: '(max-width: 767px)',
+        desktop: '(min-width: 1024px)',
+        mobile: '(max-width: 1023px)',
         reduceMotion:
           '(prefers-reduced-motion: reduce)',
       },
