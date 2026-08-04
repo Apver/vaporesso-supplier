@@ -25,7 +25,7 @@ function RewardCardShape() {
   {/* 移动端 */}
   <svg
     className="reward-card__shape reward-card__shape--mobile"
-    viewBox="0 0 329 543"
+    viewBox="0 0 329 470"
     preserveAspectRatio="none"
     aria-hidden="true"
   >

@@ -716,15 +716,14 @@ function initializeAnimation(root) {
 
           const extraY = index === 2 ? 25 : 0;
 
-          const mobileCardUpOffset = isMobile
-            ? 0.1 * index * rootFontSize
-            : 0;
+          // const mobileCardUpOffset = isMobile
+          //   ? 0.1 * index * rootFontSize
+          //   : 0;
 
           gsap.set(card, {
             position: 'absolute',
             top:
-              index * stackOffset -
-              mobileCardUpOffset,
+              index * stackOffset,
             left: 0,
             right: 0,
             margin: '0 auto',
