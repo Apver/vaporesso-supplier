@@ -290,126 +290,6 @@ function initYearHighlightAnimation(root) {
     };
   });
 
-  // =========================
-  // 移动端纵向翻牌动画
-  // =========================
-  // media.add('(max-width: 1023px)', () => {
-  //   const state = { step: 0 };
-  //   const lastIndex = cards.length - 1;
-
-  //   let stageWidth = 0;
-  //   // let stageHeight = 0;
-  //   let cardWidth = 0;
-  //   let cardHeight = 0;
-  //   let centerX = 0;
-  //   let centerY = 0;
-
-  //   // const resize = () => {
-  //   //   stageWidth = content.clientWidth || window.innerWidth;
-  //   //   stageHeight = content.clientHeight || window.innerHeight;
-  //   //   cardWidth = cards[0].offsetWidth || 335;
-  //   //   cardHeight = cards[0].offsetHeight || 500;
-  //   //   centerX = stageWidth * 0.5;
-  //   //   centerY = stageHeight * 0.5;
-  //   // };
-  //     const resize = () => {
-  //       stageWidth = content.clientWidth || window.innerWidth;
-  //       cardWidth =cards[0].offsetWidth || 335;
-  //       cardHeight = cards[0].offsetHeight || 500;
-  //       const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize) || 10;
-  //       centerX = stageWidth * 0.5;
-  //       centerY = cardHeight * 0.5 + 1.2 * rootFontSize;
-  //     };
-
-  //   const render = () => {
-  //     const currentIndex = Math.floor(state.step);
-  //     const progress = state.step - currentIndex;
-
-  //     const baseX = centerX - cardWidth * 0.5;
-  //     const baseY = centerY - cardHeight * 0.5;
-
-  //     cards.forEach((card, index) => {
-  //       let rotationX = 0;
-  //       let opacity = 1;
-  //       let visibility = 'visible';
-  //       let zIndex = cards.length - index;
-  //       if (index < currentIndex) {
-  //         opacity = 0;
-  //         visibility = 'hidden';
-  //         zIndex = 0;
-  //       }
-  //       // 当前卡片向外翻
-  //       if (index === currentIndex) {
-  //         rotationX = lerp(0, -88, progress * progress);
-  //         opacity = 1 - smoothstep(0.85, 1, progress);
-  //         visibility = opacity > 0.001 ? 'visible' : 'hidden';
-  //         zIndex = 1000;
-  //       }
-
-  //       // 后面的卡片全部保持原位叠放
-  //       if (index > currentIndex) {
-  //         rotationX = 0;
-  //         opacity = 1;
-  //         visibility = 'visible';
-  //         zIndex = cards.length - index;
-  //       }
-
-  //       gsap.set(card, {
-  //         x: baseX,
-  //         y: baseY,
-  //         z: 0,
-  //         scale: 1,
-  //         rotationX,
-  //         rotationY: 0,
-  //         rotationZ: 0,
-  //         opacity,
-  //         visibility,
-  //         zIndex,
-  //         transformOrigin: '50% 100%',
-  //         force3D: true
-  //       });
-  //     });
-  //   };
-
-  //   resize();
-  //   render();
-
-  //   const tween = gsap.to(state, {
-  //     step: lastIndex,
-  //     ease: 'none',
-  //     scrollTrigger: {
-  //       trigger: content,
-  //       start: 'top top',
-  //       endTrigger: wrapper,
-  //       end: 'bottom bottom',
-  //       scrub: true,
-  //       invalidateOnRefresh: true,
-  //       onRefreshInit: resize,
-  //       onRefresh: () => {
-  //         resize();
-  //         render();
-  //       },
-  //       onUpdate: render
-  //     }
-  //   });
-
-  //   const handleResize = () => {
-  //     resize();
-  //     render();
-  //   };
-
-  //   window.addEventListener('resize', handleResize);
-
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //     tween.scrollTrigger?.kill();
-  //     tween.kill();
-
-  //     gsap.set(cards, {
-  //       clearProps: 'transform,opacity,visibility,zIndex,transformOrigin'
-  //     });
-  //   };
-  // });
 
   media.add('(max-width: 1023px)', () => {
     const header = section.querySelector(
@@ -885,7 +765,8 @@ function initializeAnimation(root) {
            * 移动端增加一点追赶时间，
            * 过滤触摸滚动产生的不连续帧。
            */
-          scrub: isMobile ? 0.35 : true,
+          // scrub: isMobile ? 0.35 : true,
+          scrub: true,
 
           invalidateOnRefresh: true,
           onRefreshInit: setLayout,
@@ -3161,45 +3042,69 @@ export function useAnniversary11thPage(rootRef) {
 }
 export function useAnniversary11thLenis() {
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.add('anniversary-11th-page');
+    const html = document.documentElement;
 
-    const lenis = new Lenis();
-    lenis.on('scroll', ScrollTrigger.update);
+    html.classList.add('anniversary-11th-page');
 
-    ScrollTrigger.scrollerProxy(root, {
-      scrollTop(value) {
-        if (arguments.length) {
-          lenis.scrollTo(value, { immediate: true });
-        }
-        return lenis.scroll;
-      },
-      getBoundingClientRect() {
-        return {
-          top: 0,
-          left: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-        };
-      },
-      pinType: root.style.transform ? 'transform' : 'fixed',
+    ScrollTrigger.config({
+      ignoreMobileResize: true,
+      limitCallbacks: true,
     });
 
-    const onRefresh = () => lenis.resize();
-    ScrollTrigger.addEventListener('refresh', onRefresh);
+    const lenis = new Lenis({
+      autoRaf: false,
+      autoResize: true,
+      smoothWheel: true,
+      syncTouch: false,
+    });
 
-    const onTick = (time) => {
+    const handleLenisScroll = () => {
+      ScrollTrigger.update();
+    };
+
+    const handleGsapTick = (time) => {
       lenis.raf(time * 1000);
     };
-    gsap.ticker.add(onTick);
+
+    lenis.on('scroll', handleLenisScroll);
+
+    gsap.ticker.add(handleGsapTick);
     gsap.ticker.lagSmoothing(0);
 
+    let refreshFrame = requestAnimationFrame(() => {
+      refreshFrame = null;
+      ScrollTrigger.refresh();
+    });
+
+    const handlePageShow = (event) => {
+      if (!event.persisted) return;
+
+      lenis.resize();
+      ScrollTrigger.refresh();
+    };
+
+    window.addEventListener('pageshow', handlePageShow);
+
     return () => {
-      ScrollTrigger.removeEventListener('refresh', onRefresh);
-      gsap.ticker.remove(onTick);
+      if (refreshFrame) {
+        cancelAnimationFrame(refreshFrame);
+        refreshFrame = null;
+      }
+
+      window.removeEventListener(
+        'pageshow',
+        handlePageShow
+      );
+
+      lenis.off?.('scroll', handleLenisScroll);
+
+      gsap.ticker.remove(handleGsapTick);
+
       lenis.destroy();
-      ScrollTrigger.scrollerProxy(root, {});
-      root.classList.remove('anniversary-11th-page');
+
+      html.classList.remove(
+        'anniversary-11th-page'
+      );
     };
   }, []);
 }
