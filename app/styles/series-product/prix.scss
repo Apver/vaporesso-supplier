@@ -1,0 +1,1041 @@
+.product-prix {
+  // Spec 结构为：div > img + .colors，.colors 不是 first-child，需选第一个色块容器内的 .colors
+  .spec-content .f .d > div:first-child .colors {
+    width: 48%;
+    margin-left: 0;
+  }
+  @media screen and (max-width: 1023px) {
+    .spec-content .f .colors {
+      width: 104%;
+      margin-left: -2.6%;
+    }
+    .spec-content .f .d > div:nth-child(3) .colors {
+      width: 106.8%;
+      margin-left: -3.6%;
+    }
+  }
+  &-kv {
+    .ui-v4-kv-content {
+      display: flex;
+      flex-direction: column-reverse;
+      &__slogan {
+        line-height: 31px;
+        font-family: 'DinExp-Bold';
+        margin-top: 16px;
+      }
+    }
+    &-title {
+      width: 422px;
+    }
+    @media screen and (max-width: 1023px) {
+      height: 12rem;
+      .ui-v4-kv-content {
+        display: flex;
+        flex-direction: column-reverse;
+        top: unset;
+        bottom: 1.2rem;
+        &__slogan {
+          font-size: 0.36rem;
+          line-height: 0.38rem;
+          margin-top: 0.16rem;
+        }
+      }
+      &-title {
+        width: 5.14rem;
+      }
+    }
+  }
+  &-brief {
+    padding: 150px 0 120px;
+    .ui-v4-brief__title {
+      background: linear-gradient(
+        91deg,
+        #2b2b2b 16.58%,
+        #939393 44.62%,
+        #bcbcbc 49.82%,
+        #1a1919 76.7%
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+    .ui-v4-brief__description {
+      max-width: 664px;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+    @media screen and (max-width: 1023px) {
+      &.ui-v4-brief {
+        flex-direction: column;
+        padding: 1.6rem 0.5rem 1.2rem;
+      }
+      .ui-v4-brief__title {
+        text-align: center;
+        width: 4rem;
+      }
+      .ui-v4-brief__description {
+        width: 6.1rem;
+        margin: 0.6rem auto 0;
+        font-size: 0.3rem;
+        line-height: 0.45rem;
+        font-family: 'DinExp';
+      }
+    }
+  }
+  &-sales {
+    background-color: #f1f4f7;
+    padding: 140px 0;
+    &-content {
+      max-width: 980px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    &-item {
+      position: relative;
+      picture {
+        width: 100%;
+        height: 100%;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      &-1 {
+        width: 400px;
+        height: 400px;
+      }
+      &-2 {
+        width: 280px;
+        height: 400px;
+      }
+      &-3 {
+        width: 280px;
+        height: 167px;
+      }
+      &-4 {
+        width: 280px;
+        height: 224px;
+        margin-top: 10px;
+      }
+      &-5 {
+        width: 400px;
+        height: 225px;
+      }
+      &-6 {
+        width: 570px;
+        height: 225px;
+      }
+    }
+    &__title {
+      font-family: 'DinExp-Bold';
+      font-size: 24px;
+      line-height: 29px;
+      white-space: pre-line;
+      position: absolute;
+      top: 26px;
+      left: 30px;
+      padding-right: 34;
+    }
+    &-item-3 &__title {
+      top: 66px;
+      padding-right: 120px;
+    }
+    &-item-6 &__title {
+      padding-right: 360px;
+    }
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0.3rem;
+      &-content {
+        max-width: 6.9rem;
+        gap: 0.12rem;
+        flex-wrap: wrap;
+      }
+      &-block {
+        display: flex;
+        gap: 0.12rem;
+      }
+      &-item {
+        &-1 {
+          width: 3.38rem;
+          height: 4.3rem;
+        }
+        &-2 {
+          width: 3.4rem;
+          height: 4.3rem;
+        }
+        &-3 {
+          width: 3.38rem;
+          height: 3.5rem;
+        }
+        &-4 {
+          width: 3.4rem;
+          height: 3.5rem;
+          margin-top: 0;
+        }
+        &-5 {
+          width: 6.9rem;
+          height: 3.22rem;
+        }
+        &-6 {
+          width: 6.9rem;
+          height: 3.6rem;
+        }
+      }
+      &__title {
+        font-size: 0.3rem;
+        line-height: 0.36rem;
+        top: 0.36rem;
+        left: 0.24rem;
+      }
+      &-item-3 &__title {
+        padding-right: 0;
+        top: 2.42rem;
+      }
+      &-item-5 &__title,
+      &-item-6 &__title {
+        width: 100%;
+        left: 0;
+        padding-right: 0;
+        text-align: center;
+      }
+    }
+  }
+  &-version {
+    padding: 140px 0;
+    flex-direction: column;
+    &-tab {
+      position: relative;
+      display: flex;
+      gap: 60px;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+      overflow: visible;
+      &__title {
+        padding-bottom: 16px;
+        font-size: 20px;
+        line-height: 25px;
+        color: rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        transition: color 0.3s ease;
+        &.active {
+          color: #000;
+        }
+      }
+      &__indicator {
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        height: 2px;
+        background: #000;
+        transform-origin: left center;
+        transition:
+          transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+          width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+      }
+    }
+    &-panels {
+      position: relative;
+      width: 100%;
+      margin-top: 50px;
+      display: grid;
+    }
+    &-content {
+      grid-area: 1 / 1;
+      flex-direction: column;
+      width: 100%;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
+      &.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      &__title {
+        font-size: 48px;
+        line-height: 57px;
+        font-family: 'DinExp-Bold';
+      }
+      &__subtitle {
+        margin: 16px 0 50px;
+        font-size: 24px;
+        line-height: 29px;
+        font-family: 'DinExp-Bold';
+        color: #b88836;
+      }
+      &__media {
+        width: 1050px;
+        height: auto;
+        object-fit: cover;
+        position: relative;
+      }
+      &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      &-filter-tip {
+        position: absolute;
+        top: 270px;
+        font-size: 40px;
+        line-height: 57px;
+        font-family: 'DinExp-Bold';
+        background: linear-gradient(
+          65deg,
+          #717171 27.9%,
+          #b0b0b0 44.8%,
+          #cfcfcf 52.57%,
+          #717171 72.52%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      &-filter-tip.left {
+        left: 60px;
+      }
+      &-filter-tip.right {
+        right: 44px;
+      }
+      &__description {
+        margin-top: 36px;
+        font-size: 18px;
+        line-height: 24px;
+        font-family: 'DinExp';
+        span {
+          font-family: 'DinExp-Bold';
+        }
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0 1.2rem;
+      &-tab {
+        gap: 0.8rem;
+        border-bottom: 0.04rem solid rgba(0, 0, 0, 0.2);
+        &__title {
+          padding-bottom: 0.24rem;
+          font-size: 0.36rem;
+          line-height: 0.45rem;
+        }
+        &__indicator {
+          bottom: -0.04rem;
+          height: 0.04rem;
+        }
+      }
+      &-panels {
+        margin-top: 0.8rem;
+      }
+      &-content {
+        &__title {
+          font-size: 0.6rem;
+          line-height: 0.69rem;
+          text-align: center;
+        }
+        &__subtitle {
+          margin: 0.24rem 0 0.8rem;
+          font-size: 0.36rem;
+          line-height: 0.42rem;
+        }
+        &__media {
+          width: 6.9rem;
+          height: auto;
+        }
+        &-filter-tip {
+          top: 0.91rem;
+          font-size: 0.32rem;
+          line-height: 0.42rem;
+        }
+        &-filter-tip.left {
+          left: 1.49rem;
+        }
+        &-filter-tip.right {
+          right: 1.43rem;
+        }
+        &__description {
+          width: 6.1rem;
+          margin-top: 0.6rem;
+          font-size: 0.3rem;
+          line-height: 0.4rem;
+        }
+      }
+    }
+  }
+  &-replaceable {
+    padding: 150px 0;
+    background-color: #f1f4f7;
+    flex-direction: column;
+    &__title {
+      max-width: 728px;
+      font-size: 48px;
+      line-height: 55px;
+      font-family: 'DinExp-Bold';
+      text-align: center;
+    }
+    &__description {
+      margin-top: 16px;
+      font-size: 18px;
+      line-height: 24px;
+      font-family: 'DinExp';
+    }
+    &-content {
+      width: 1050px;
+      margin-top: 50px;
+      background-color: #fff;
+      display: flex;
+      gap: 73px;
+      padding: 51px 100px 51px 43px;
+      &-combined {
+        width: 506px;
+        height: 438px;
+        position: relative;
+        overflow: hidden;
+        &__bg {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+        }
+        &__product {
+          position: absolute;
+          width: auto;
+          height: 100%;
+          object-fit: cover;
+          top: 0;
+          right: 10px;
+          z-index: 5;
+        }
+      }
+      &-operation {
+        width: 412px;
+        &__title {
+          margin-bottom: 10px;
+          font-size: 20px;
+          line-height: 20px;
+          font-family: 'DinExp-Bold';
+        }
+        &__title.kit-title {
+          margin-top: 40px;
+        }
+        &__list {
+          width: 328px;
+          display: flex;
+          row-gap: 4px;
+          column-gap: 16px;
+          flex-wrap: wrap;
+        }
+        &__item {
+          width: 70px;
+          height: 105px;
+          padding-top: 6px;
+          box-sizing: border-box;
+          font-size: 14px;
+          line-height: 14px;
+          font-family: 'DinExp';
+          color: rgba(0, 0, 0, 0.4);
+          border-radius: 6px;
+          cursor: pointer;
+          img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+          }
+        }
+        &__panel-item.active {
+          background: rgba(56, 191, 248, 0.06);
+          border: 1px solid #58b3da;
+        }
+        &__kit-item {
+          &-desc {
+            margin-top: 10px;
+            text-align: center;
+          }
+          &.active {
+            background: rgba(160, 207, 228, 0.5);
+            color: #000;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0;
+      &__title {
+        max-width: 6.1rem;
+        font-size: 0.6rem;
+        line-height: 0.69rem;
+      }
+      &__description {
+        width: 6.1rem;
+        margin-top: 0.24rem;
+        font-size: 0.3rem;
+        line-height: 0.42rem;
+      }
+      &-content {
+        width: 6.9rem;
+        margin-top: 0.8rem;
+        flex-direction: column;
+        gap: 0.4rem;
+        padding: 0.4rem 0.4rem 0.72rem;
+        &-combined {
+          width: 6.1rem;
+          height: 5.2rem;
+          &__bg {
+            width: 6.02rem;
+            left: -0.12rem;
+          }
+          &__product {
+            height: 5.2rem;
+            right: 0.56rem;
+          }
+        }
+        &-operation {
+          width: 6.1rem;
+          margin-top: 0.4rem;
+          &__title {
+            font-size: 0.32rem;
+            line-height: 0.32rem;
+            margin-bottom: 0.22rem;
+          }
+          &__title.kit-title {
+            margin-top: 0.48rem;
+          }
+          &__list {
+            width: 6.1rem;
+            align-items: space-between;
+            column-gap: 0.03rem;
+            box-sizing: border-box;
+            flex-wrap: nowrap;
+          }
+          &__item {
+            width: 0.84rem;
+            height: 1.26rem;
+            padding-top: 0.1rem;
+            font-size: 0.24rem;
+            line-height: 0.24rem;
+            border-radius: 0.12rem;
+          }
+          &__panel-item.active {
+            border: 0.02rem solid #58b3da;
+          }
+          &__kit-item {
+            &-desc {
+              display: none;
+            }
+            &.active {
+              background: rgba(160, 207, 228, 0.5);
+              color: #000;
+            }
+          }
+        }
+      }
+    }
+  }
+  &-dual {
+    padding: 150px 0;
+    column-gap: 80px;
+    &-left {
+      width: 436px;
+      &__icon {
+        width: 203px;
+        height: auto;
+      }
+      &__title {
+        margin: 24px 0 16px;
+        font-size: 48px;
+        line-height: 50px;
+        font-family: 'DinExp-Bold';
+      }
+      &__description {
+        font-size: 17px;
+        line-height: 23px;
+        font-family: 'DinExp';
+      }
+      &__image {
+        width: 418px;
+        height: auto;
+        margin-top: 48px;
+        position: relative;
+        &-description {
+          width: 100%;
+          text-align: center;
+          transform: translateX(-50%);
+          font-size: 17px;
+          line-height: 23px;
+          font-family: 'DinExp';
+          position: absolute;
+          bottom: 35px;
+          left: 50%;
+          z-index: 5;
+          span {
+            font-size: 36px;
+            line-height: 49px;
+            font-family: 'DinExp-Bold';
+            background: linear-gradient(180deg, #ff8000 0%, #e9d66f 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+        }
+      }
+    }
+    &-right {
+      width: 500px;
+      position: relative;
+      &-list {
+        display: flex;
+        column-gap: 58px;
+        font-size: 13px;
+        line-height: 17px;
+        font-family: 'DinExp';
+        position: absolute;
+        left: 97px;
+        bottom: 46px;
+        z-index: 5;
+        &-data {
+          margin-bottom: 6px;
+          font-size: 60px;
+          line-height: 60px;
+          font-family: 'DinExp-Bold';
+          background: linear-gradient(180deg, #ff8000 0%, #e9d66f 100%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          span {
+            font-size: 30px;
+            line-height: 30px;
+          }
+          &-icon {
+            display: block-inline;
+            width: 17px;
+            height: 30px;
+            margin: 0 0 8px 8px;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0;
+      position: relative;
+      &-left {
+        width: 6.9rem;
+        &__icon {
+          width: 2.54rem;
+          margin-left: 0.4rem;
+        }
+        &__title {
+          width: 6.1rem;
+          font-size: 0.6rem;
+          line-height: 0.63rem;
+          margin: 0.48rem auto 0.28rem;
+        }
+        &__description {
+          width: 6.1rem;
+          margin: 0 auto;
+          font-size: 0.3rem;
+          line-height: 0.42rem;
+        }
+        &__image {
+          width: 6.9rem;
+          height: auto;
+          margin-top: 9.6rem;
+          &-description {
+            font-size: 0.32rem;
+            line-height: 0.43rem;
+            bottom: 0.6rem;
+            span {
+              font-size: 0.72rem;
+              line-height: 0.72rem;
+            }
+          }
+        }
+      }
+      &-right {
+        width: 6.9rem;
+        position: absolute;
+        top: 6.56rem;
+        left: 0.3rem;
+        z-index: 4;
+        &-list {
+          column-gap: 0.72rem;
+          font-size: 0.26rem;
+          line-height: 0.34rem;
+          left: 0.86rem;
+          bottom: 0.72rem;
+          &-data {
+            font-size: 0.96rem;
+            line-height: 0.96rem;
+            margin-bottom: 0.12rem;
+            span {
+              font-size: 0.48rem;
+              line-height: 0.48rem;
+            }
+            &-icon {
+              width: 0.34rem;
+              height: 0.6rem;
+              margin: 0 0 0.16rem 0.08rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  &-power {
+    padding: 212px 0 212px 24.48vw;
+    display: flex;
+    column-gap: 100px;
+    align-items: center;
+    overflow: hidden;
+    background-color: #121212;
+    &__title {
+      width: 370px;
+      font-size: 48px;
+      line-height: 50px;
+      font-family: 'DinExp-Bold';
+      background: linear-gradient(133deg, #b68a31 -14.87%, #f6dd97 73.82%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    &-list {
+      display: flex;
+      gap: 24px;
+      &-item {
+        width: 360px;
+        height: 560px;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        &-data {
+          position: absolute;
+          bottom: 40px;
+          left: 0;
+          width: 100%;
+          font-size: 16px;
+          line-height: 21px;
+          color: #fff;
+          text-align: center;
+          font-family: 'DinExp';
+          &-title {
+            margin-bottom: 4px;
+            font-size: 36px;
+            line-height: 36px;
+            font-family: 'DinExp-Bold';
+            color: #e3bc79;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0;
+      row-gap: 0.8rem;
+      flex-direction: column;
+      &__title {
+        width: 6.1rem;
+        font-size: 0.6rem;
+        line-height: 0.6rem;
+      }
+      &-list {
+        gap: 0.32rem;
+        padding: 0 0.7rem;
+        &-item {
+          width: 5.2rem;
+          height: 8.08rem;
+          border-radius: 0.12rem;
+          &-data {
+            bottom: 0.72rem;
+            font-size: 0.3rem;
+            line-height: 0.41rem;
+            &-title {
+              font-size: 0.48rem;
+              line-height: 0.48rem;
+              margin-bottom: 0.08rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  &-battery {
+    padding: 140px 0 20px;
+    flex-direction: column;
+    &__title {
+      font-size: 48px;
+      line-height: 52px;
+      font-family: 'DinExp-Bold';
+    }
+    &__description {
+      max-width: 680px;
+      margin: 20px 0 60px;
+      font-size: 16px;
+      line-height: 24px;
+      font-family: 'DinExp';
+    }
+    &-content {
+      width: 1050px;
+      position: relative;
+      &-mah {
+        font-size: 180px;
+        line-height: 180px;
+        letter-spacing: -6px;
+        font-family: 'DinExp-Bold';
+        background: linear-gradient(0deg, #00e559 0%, #ffe400 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: absolute;
+        top: -13px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      img {
+        position: relative;
+        z-index: 5;
+      }
+      &-list {
+        display: flex;
+        column-gap: 84px;
+        font-size: 26px;
+        line-height: 26px;
+        color: #2ed16d;
+        font-family: 'DinExp-Bold';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        &-item-title {
+          font-size: 66px;
+          line-height: 66px;
+          letter-spacing: -1.68px;
+          background: linear-gradient(0deg, #00e559 0%, #ffe400 100%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0 0;
+      &__title {
+        width: 6.1rem;
+        font-size: 0.6rem;
+        line-height: 0.6rem;
+      }
+      &__description {
+        width: 6.1rem;
+        font-size: 0.3rem;
+        line-height: 0.42rem;
+        margin: 0.24rem auto 1.92rem;
+      }
+      &-content {
+        width: 100vw;
+        &-mah {
+          font-size: 1.56rem;
+          line-height: 1.56rem;
+          letter-spacing: -0.06rem;
+          top: -1.2rem;
+        }
+        &-list {
+          width: 100vw;
+          justify-content: center;
+          column-gap: 0.8rem;
+          font-size: 0.32rem;
+          line-height: 0.32rem;
+          top: -1.2rem;
+          &-item-title {
+            font-size: 0.76rem;
+            line-height: 0.76rem;
+            letter-spacing: -0.01rem;
+          }
+        }
+      }
+    }
+  }
+  &-mode {
+    padding: 140px 0;
+    flex-direction: column;
+    &__title {
+      font-size: 48px;
+      line-height: 48px;
+      font-family: 'DinExp-Bold';
+    }
+    &-list {
+      margin-top: 48px;
+      display: flex;
+      gap: 20px;
+      &-item {
+        width: 480px;
+        overflow: hidden;
+        position: relative;
+        &-text {
+          width: 378px;
+          position: absolute;
+          top: 384px;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 16px;
+          line-height: 21px;
+          font-family: 'DinExp';
+          color: rgba(0, 0, 0, 0.6);
+          span {
+            color: #000;
+          }
+        }
+        &__title {
+          margin-bottom: 10px;
+          font-size: 28px;
+          line-height: 28px;
+          font-family: 'DinExp-Bold';
+          color: #292424;
+        }
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0;
+      &__title {
+        width: 6.1rem;
+        font-size: 0.6rem;
+        line-height: 0.6rem;
+      }
+      &-list {
+        margin-top: 0.8rem;
+        flex-direction: column;
+        gap: 0.28rem;
+        &-item {
+          width: 6.9rem;
+          &-text {
+            width: 6.1rem;
+            top: 5.34rem;
+            font-size: 0.3rem;
+            line-height: 0.3rem;
+          }
+          &__title {
+            margin-bottom: 0.12rem;
+            font-size: 0.4rem;
+            line-height: 0.4rem;
+          }
+        }
+      }
+    }
+  }
+  &-pod {
+    padding: 140px 0;
+    flex-direction: column;
+    background-color: #f1f4f7;
+    &__title {
+      font-size: 48px;
+      line-height: 50px;
+      font-family: 'DinExp-Bold';
+    }
+    &__description {
+      font-size: 16px;
+      line-height: 21px;
+      font-family: 'DinExp';
+      margin: 14px 0 28px;
+    }
+    &-list {
+      display: flex;
+      gap: 20px;
+      &-item {
+        width: 500px;
+        background-color: #fff;
+        img {
+          display: block;
+          width: 350px;
+          margin: 0 auto;
+        }
+        &__title {
+          margin: 49px auto 46px;
+          font-size: 32px;
+          line-height: 32px;
+          font-family: 'DinExp-Bold';
+          text-align: center;
+        }
+        &-content {
+          width: 100%;
+          height: 148px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #c6af87;
+          &-mode {
+            font-size: 36px;
+            line-height: 41px;
+            &__title {
+              margin-bottom: 12px;
+              font-size: 22px;
+              line-height: 25px;
+              color: rgba(0, 0, 0, 0.5);
+            }
+          }
+          &-divider {
+            width: 1px;
+            height: 110px;
+            margin: 0 46px;
+            background-color: #000;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0 1.2rem;
+      &__title {
+        width: 6.1rem;
+        font-size: 0.6rem;
+        line-height: 0.6rem;
+      }
+      &__description {
+        width: 6.1rem;
+        font-size: 0.3rem;
+        line-height: 0.42rem;
+        margin: 0.24rem auto 0.8rem;
+      }
+      &-list {
+        flex-direction: column;
+        gap: 0.32rem;
+        &-item {
+          width: 6.7rem;
+          img {
+            width: 4.7rem;
+          }
+          &__title {
+            font-size: 0.43rem;
+            line-height: 0.43rem;
+            margin: 0.72rem auto 0.68rem;
+          }
+          &-content {
+            height: 2rem;
+            &-mode {
+              font-size: 0.48rem;
+              line-height: 0.56rem;
+              &__title {
+                margin-bottom: 0.16rem;
+                font-size: 0.3rem;
+                line-height: 0.34rem;
+              }
+            }
+            &-divider {
+              width: 0.02rem;
+              height: 1.28rem;
+              margin: 0 0.62rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  &-end-product {
+    padding: 160px 0 200px;
+    @media screen and (max-width: 1023px) {
+      padding: 1.2rem 0 1.6rem;
+    }
+  }
+}

@@ -3,6 +3,7 @@ import uiV3Styles from '~/styles/series-product/ui-v3.scss?url';
 import uiV4Styles from '~/styles/ui-v4/common.scss?url';
 import xros6Styles from '~/styles/series-product/xros-6.scss?url';
 import xrosMiniRetroStyles from '~/styles/series-product/xros-mini-retro.scss?url';
+import prixKitStyles from '~/styles/series-product/prix.scss?url';
 
 /** URL / Shopify handle → template（metafield 缺失时的回退） */
 export const SERIES_PRODUCT_HANDLE_TEMPLATE_MAP = {
@@ -74,6 +75,7 @@ const SERIES_PRODUCT_STYLESHEETS_BY_TEMPLATE = {
   'xros-mini-retro': [productStyles, uiV4Styles, xrosMiniRetroStyles],
   'xros-mini-fresh': [productStyles, uiV4Styles, xrosMiniRetroStyles],
   'xros-se': [productStyles, uiV4Styles, xrosMiniRetroStyles],
+  prix: [productStyles, uiV4Styles, prixKitStyles],
 };
 
 function hrefsToStylesheetDescriptors(hrefs) {
