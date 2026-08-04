@@ -17,7 +17,7 @@ const AppreciationRewards = () => {
                 />
                 <source
                   media="(max-width: 1023px)"
-                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-05-2-new2.svg"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-05-2-new2.svg?v=1785829745"
                 />
                 <img
                   src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-05-2.svg"
@@ -198,7 +198,7 @@ const AppreciationRewards = () => {
                 />
                 <source
                   media="(max-width: 1023px)"
-                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-05-3-new2.svg"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-05-3-new2.svg?v=1785829745"
                 />
                 <img
                   src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-05-3.svg"

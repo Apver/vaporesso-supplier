@@ -279,7 +279,7 @@ const RewardList = () => {
                 />
                 <source
                   media="(max-width: 1023px)"
-                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-03-6-new2.svg"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-03-6-new2.png?v=1785829745"
                 />
                 <img
                   src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-03-6.svg"

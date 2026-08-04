@@ -987,7 +987,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       width: 100%;
 
       @media (max-width: 1023px) {
-        top: -1.2rem;
+        top: -1.5rem;
       }
 
       img {
@@ -2661,11 +2661,10 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
   &__bg {
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     width: 100%;
     object-fit: cover;
     left: 0;
-
     img {
       display: block;
       width: 100%;
