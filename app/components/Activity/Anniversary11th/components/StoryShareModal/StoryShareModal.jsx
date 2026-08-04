@@ -10,6 +10,7 @@ import {toPng} from 'html-to-image';
 import {STORY_SHARE_MODAL_OPEN_EVENT} from './storyShareModalEvents';
 
 import './StoryShareModal.scss';
+// import { log } from 'echarts/types/src/util/log.js';
 
 const INITIAL_FORM_DATA = {
   fullName: '',
@@ -58,7 +59,7 @@ async function dataUrlToFile(dataUrl, fileName) {
   const blob = await response.blob();
 
   return new File([blob], fileName, {
-    type: 'image/png',
+    type: 'image/webp',
   });
 }
 

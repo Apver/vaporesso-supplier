@@ -191,106 +191,332 @@ function initYearHighlightAnimation(root) {
   };
 
   const media = gsap.matchMedia();
-
   // =========================
   // PC 端横向 3D 动画
   // =========================
-  media.add('(min-width: 1024px)', () => {
-    const state = { offset: 0 };
-    const maxRotateX = 88;
+  // media.add('(min-width: 1024px)', () => {
+  //   const state = { offset: 0 };
+  //   const maxRotateX = 88;
 
-    let width = 0;
-    let height = 0;
-    let spacing = 0;
-    let cardWidth = 0;
-    let cardHeight = 0;
-    let leftBound = 0;
-    let visibleWidth = 0;
-    let startOffset = 0;
-    let endOffset = 0;
+  //   let width = 0;
+  //   let height = 0;
+  //   let spacing = 0;
+  //   let cardWidth = 0;
+  //   let cardHeight = 0;
+  //   let leftBound = 0;
+  //   let visibleWidth = 0;
+  //   let startOffset = 0;
+  //   let endOffset = 0;
 
-    const resize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      cardWidth = cards[0].offsetWidth || 480;
-      cardHeight = cards[0].offsetHeight || 620;
+  //   const resize = () => {
+  //     width = window.innerWidth;
+  //     height = window.innerHeight;
+  //     cardWidth = cards[0].offsetWidth || 480;
+  //     cardHeight = cards[0].offsetHeight || 620;
 
-      const rootFontSize = parseFloat(
-        getComputedStyle(document.documentElement).fontSize
+  //     const rootFontSize = parseFloat(
+  //       getComputedStyle(document.documentElement).fontSize
+  //     );
+
+  //     spacing = cardWidth + 10 * rootFontSize;
+  //     leftBound = -cardWidth * 0.5;
+
+  //     const rightBound = width + cardWidth * 0.5;
+
+  //     visibleWidth = rightBound - leftBound;
+  //     startOffset = leftBound;
+  //     endOffset = rightBound + (cards.length - 1) * spacing;
+  //   };
+
+  //   const render = () => {
+  //     cards.forEach((card, index) => {
+  //       const x = state.offset - index * spacing;
+  //       const progress = clamp(0, 1, (x - leftBound) / visibleWidth);
+  //       const upright = Math.sin(progress * Math.PI);
+  //       const opacity =
+  //         smoothstep(0.005, 0.02, progress) *
+  //         (1 - smoothstep(0.98, 0.995, progress));
+
+  //       gsap.set(card, {
+  //         x: x - cardWidth * 0.5,
+  //         y: lerp(height * 0.84, height * 0.18, progress) - cardHeight * 0.5,
+  //         z: upright * 72,
+  //         rotationX: -Math.cos(progress * Math.PI) * maxRotateX,
+  //         rotationZ: 0,
+  //         scale: 1,
+  //         opacity,
+  //         visibility: opacity > 0.001 ? 'visible' : 'hidden',
+  //         transformOrigin: '50% 50%',
+  //         zIndex: Math.round(progress * 1000 + upright * 100),
+  //         force3D: true
+  //       });
+  //     });
+  //   };
+
+  //   resize();
+  //   state.offset = startOffset;
+  //   render();
+
+  //   const tween = gsap.to(state, {
+  //     offset: endOffset,
+  //     ease: 'none',
+  //     scrollTrigger: {
+  //       trigger: section,
+  //       start: 'top bottom',
+  //       end: 'bottom top',
+  //       scrub: true,
+  //       invalidateOnRefresh: true,
+  //       onRefreshInit: resize,
+  //       onUpdate: render
+  //     }
+  //   });
+
+  //   const handleResize = () => {
+  //     resize();
+  //     render();
+  //   };
+
+  //   window.addEventListener('resize', handleResize);
+
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //     tween.scrollTrigger?.kill();
+  //     tween.kill();
+
+  //     gsap.set(cards, {
+  //       clearProps: 'transform,opacity,visibility,zIndex,transformOrigin'
+  //     });
+  //   };
+  // });
+// =========================
+// PC 端：从右向左平移
+// 不翻转，最后一张停在屏幕中间
+// =========================
+media.add('(min-width: 1024px)', () => {
+  const state = {
+    offset: 0
+  };
+
+  const lastIndex = cards.length - 1;
+
+  let viewportWidth = 0;
+  let viewportHeight = 0;
+
+  let cardWidth = 0;
+  let cardHeight = 0;
+  let spacing = 0;
+
+  let leftBound = 0;
+  let rightBound = 0;
+  let visibleWidth = 0;
+
+  let startOffset = 0;
+  let endOffset = 0;
+
+  const resize = () => {
+    viewportWidth = window.innerWidth;
+    viewportHeight = window.innerHeight;
+
+    cardWidth =
+      cards[0].offsetWidth || 480;
+
+    cardHeight =
+      cards[0].offsetHeight || 620;
+
+    const rootFontSize =
+      parseFloat(
+        getComputedStyle(
+          document.documentElement
+        ).fontSize
+      ) || 10;
+
+    // 卡片之间的间距
+    spacing =
+      cardWidth +
+      4 * rootFontSize;
+
+    // 左右可视边界
+    leftBound =
+      -cardWidth * 0.5;
+
+    rightBound =
+      viewportWidth +
+      cardWidth * 0.5;
+
+    visibleWidth =
+      rightBound -
+      leftBound;
+
+    /*
+     * 第一张初始已经露出约 75%。
+     * 数值越大，初始露出的部分越多。
+     */
+    startOffset =
+      viewportWidth -
+      cardWidth * 0.25;
+
+    /*
+     * 最后一张卡片最终停在屏幕中间。
+     */
+    endOffset =
+      viewportWidth * 0.5 -
+      lastIndex * spacing;
+  };
+
+  const render = () => {
+    // 卡片垂直居中
+    const cardY =
+      viewportHeight * 0.5 -
+      cardHeight * 0.5;
+
+    cards.forEach((card, index) => {
+      /*
+       * 每一张卡片依次排列在右侧。
+       * offset 减小时，整组从右向左移动。
+       */
+      const cardCenterX =
+        state.offset +
+        index * spacing;
+
+      const progress = clamp(
+        0,
+        1,
+        (
+          rightBound -
+          cardCenterX
+        ) / visibleWidth
       );
 
-      spacing = cardWidth + 10 * rootFontSize;
-      leftBound = -cardWidth * 0.5;
+      /*
+       * 右侧进入时渐显，
+       * 左侧离开时渐隐。
+       */
+      const opacity =
+        smoothstep(
+          0.001,
+          0.025,
+          progress
+        ) *
+        (
+          1 -
+          smoothstep(
+            0.975,
+            0.999,
+            progress
+          )
+        );
 
-      const rightBound = width + cardWidth * 0.5;
+      gsap.set(card, {
+        x:
+          cardCenterX -
+          cardWidth * 0.5,
 
-      visibleWidth = rightBound - leftBound;
-      startOffset = leftBound;
-      endOffset = rightBound + (cards.length - 1) * spacing;
-    };
+        y: cardY,
+        z: 0,
 
-    const render = () => {
-      cards.forEach((card, index) => {
-        const x = state.offset - index * spacing;
-        const progress = clamp(0, 1, (x - leftBound) / visibleWidth);
-        const upright = Math.sin(progress * Math.PI);
-        const opacity =
-          smoothstep(0.005, 0.02, progress) *
-          (1 - smoothstep(0.98, 0.995, progress));
+        rotationX: 0,
+        rotationY: 0,
+        rotationZ: 0,
 
-        gsap.set(card, {
-          x: x - cardWidth * 0.5,
-          y: lerp(height * 0.84, height * 0.18, progress) - cardHeight * 0.5,
-          z: upright * 72,
-          rotationX: -Math.cos(progress * Math.PI) * maxRotateX,
-          rotationZ: 0,
-          scale: 1,
-          opacity,
-          visibility: opacity > 0.001 ? 'visible' : 'hidden',
-          transformOrigin: '50% 50%',
-          zIndex: Math.round(progress * 1000 + upright * 100),
-          force3D: true
-        });
+        scale: 1,
+
+        opacity,
+
+        visibility:
+          opacity > 0.001
+            ? 'visible'
+            : 'hidden',
+
+        zIndex:
+          cards.length - index,
+
+        transformOrigin: '50% 50%',
+        force3D: true
       });
-    };
+    });
+  };
 
-    resize();
-    state.offset = startOffset;
-    render();
+  resize();
 
-    const tween = gsap.to(state, {
-      offset: endOffset,
+  state.offset = startOffset;
+
+  render();
+
+  const tween = gsap.fromTo(
+    state,
+    {
+      offset: () => startOffset
+    },
+    {
+      offset: () => endOffset,
+
       ease: 'none',
+
+      onUpdate: render,
+
       scrollTrigger: {
         trigger: section,
+
         start: 'top bottom',
         end: 'bottom top',
+
         scrub: true,
         invalidateOnRefresh: true,
-        onRefreshInit: resize,
+
+        onRefreshInit: () => {
+          resize();
+        },
+
+        onRefresh: self => {
+          state.offset = lerp(
+            startOffset,
+            endOffset,
+            self.progress
+          );
+
+          render();
+        },
+
         onUpdate: render
       }
+    }
+  );
+
+  const handleResize = () => {
+    resize();
+
+    const progress =
+      tween.scrollTrigger?.progress || 0;
+
+    state.offset = lerp(
+      startOffset,
+      endOffset,
+      progress
+    );
+
+    render();
+  };
+
+  window.addEventListener(
+    'resize',
+    handleResize
+  );
+
+  return () => {
+    window.removeEventListener(
+      'resize',
+      handleResize
+    );
+
+    tween.scrollTrigger?.kill();
+    tween.kill();
+
+    gsap.set(cards, {
+      clearProps:
+        'transform,opacity,visibility,zIndex,transformOrigin'
     });
-
-    const handleResize = () => {
-      resize();
-      render();
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      tween.scrollTrigger?.kill();
-      tween.kill();
-
-      gsap.set(cards, {
-        clearProps: 'transform,opacity,visibility,zIndex,transformOrigin'
-      });
-    };
-  });
-
-
+  };
+});
   media.add('(max-width: 1023px)', () => {
     const header = section.querySelector(
       '.year-highlight__header'
@@ -716,6 +942,8 @@ function initializeAnimation(root) {
 
           const extraY = index === 2 ? 25 : 0;
 
+         const extraY1 = isMobile && index === 1 ? 16 : 0;
+
           // const mobileCardUpOffset = isMobile
           //   ? 0.1 * index * rootFontSize
           //   : 0;
@@ -732,7 +960,7 @@ function initializeAnimation(root) {
             x: 0,
             y: 0,
             xPercent: direction * 20,
-            yPercent: index * 75 + extraY,
+            yPercent: index * 75 + extraY + extraY1,
             rotation: direction * -5,
 
             transformOrigin: '50% 50%',

@@ -77,7 +77,7 @@ const AppreciationRewards = () => {
                     alt=""
                   />
                 </picture>
-                <div className="travel-card__content">
+                <div className="travel-card__content" style={{'--travel-card--txt-color': '#0F0','--travel-card--tle-color': '#0F0'}}>
                   <h3 className="travel-card__h3">Street Style Set</h3>
                   <div className="travel-card__text">Hoodie + Keychain</div>
                 </div>
@@ -102,7 +102,7 @@ const AppreciationRewards = () => {
                     alt=""
                   />
                 </picture>
-                <div className="travel-card__content">
+                <div className="travel-card__content" style={{'--travel-card--txt-color': '#E7B0FF','--travel-card--tle-color': '#E7B0FF'}}>
                   <h3 className="travel-card__h3">Summer Travel Set</h3>
                   <div className="travel-card__text">T-shirt + Clogs</div>
                 </div>
@@ -127,9 +127,9 @@ const AppreciationRewards = () => {
                     alt=""
                   />
                 </picture>
-                <div className="travel-card__content">
+                <div className="travel-card__content" style={{'--travel-card--txt-color': '#C0F51A','--travel-card--tle-color': '#C0F51A'}}>
                   <h3 className="travel-card__h3">Premium China Tour</h3>
-                  <div className="travel-card__text">VAPORESSO HQ Visit in Shenzhen</div>
+                  <div className="travel-card__text">VAPORESSO HQ Visit <br /> in  Shenzhen</div>
                 </div>
               </div>
                <div className="appreciation-reward__card">
@@ -152,9 +152,9 @@ const AppreciationRewards = () => {
                     alt=""
                   />
                 </picture>
-                <div className="travel-card__content">
+                <div className="travel-card__content" style={{'--travel-card--txt-color': '#A3E4FF','--travel-card--tle-color': '#A3E4FF'}}>
                   <h3 className="travel-card__h3">Co-branded Merchandise</h3>
-                  <div className="travel-card__text">T-shirt + Clogs</div>
+                  <div className="travel-card__text">VAPORESSO × AFA</div>
                 </div>
               </div>
               <div className="appreciation-reward__card">
@@ -177,7 +177,7 @@ const AppreciationRewards = () => {
                     alt=""
                   />
                 </picture>
-                <div className="travel-card__content">
+                <div className="travel-card__content" style={{'--travel-card--txt-color': '#FFA648','--travel-card--tle-color': '#FFA648'}}>
                   <h3 className="travel-card__h3">Creative Desk Set</h3>
                   <div className="travel-card__text">Cap + Mouse Pad</div>
                 </div>

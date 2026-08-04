@@ -1,4 +1,7 @@
 
+import {
+  openStoreLocationsModal,
+} from '../components/StoreLocationsModal';
 function InstagramIcon() {
   return (
     <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -8,33 +11,33 @@ function InstagramIcon() {
 }
 function RewardCardShape() {
   return (
-<div className="reward-card__shape-wrapper">
-  {/* 桌面端 */}
-  <svg
-    className="reward-card__shape reward-card__shape--desktop"
-    viewBox="0 0 880 460"
-    preserveAspectRatio="none"
-    aria-hidden="true"
-  >
-    <path
-      d="M872 0C876.418 0 880 3.58172 880 8V452C880 456.418 876.418 460 872 460H8C3.58172 460 0 456.418 0 452V85C0 80.5817 3.58172 77 8 77H578C582.418 77 586 73.4183 586 69V8C586 3.58172 589.582 0 594 0H872Z"
-      fill="currentColor"
-    />
-  </svg>
+    <div className="reward-card__shape-wrapper">
+      {/* 桌面端 */}
+      <svg
+        className="reward-card__shape reward-card__shape--desktop"
+        viewBox="0 0 880 460"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M872 0C876.418 0 880 3.58172 880 8V452C880 456.418 876.418 460 872 460H8C3.58172 460 0 456.418 0 452V85C0 80.5817 3.58172 77 8 77H578C582.418 77 586 73.4183 586 69V8C586 3.58172 589.582 0 594 0H872Z"
+          fill="currentColor"
+        />
+      </svg>
 
-  {/* 移动端 */}
-  <svg
-    className="reward-card__shape reward-card__shape--mobile"
-    viewBox="0 0 329 470"
-    preserveAspectRatio="none"
-    aria-hidden="true"
-  >
-    <path
-      d="M321 0C325.418 1.15966e-06 329 3.58172 329 8V63.6992C329 64.2476 329 64.811 329 65.3594V535C329 539.418 325.418 543 321 543H8C3.58173 543 0 539.418 0 535V65.3594C0 60.9411 3.58172 57.3594 8 57.3594H157C161.418 57.3594 165 53.7777 165 49.3594V8C165 3.58172 168.582 0 173 0H321Z"
-      fill="currentColor"
-    />
-  </svg>
-</div>
+      {/* 移动端 */}
+      <svg
+        className="reward-card__shape reward-card__shape--mobile"
+        viewBox="0 0 329 470"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M321 0C325.418 1.15966e-06 329 3.58172 329 8V63.6992C329 64.2476 329 64.811 329 65.3594V535C329 539.418 325.418 543 321 543H8C3.58173 543 0 539.418 0 535V65.3594C0 60.9411 3.58172 57.3594 8 57.3594H157C161.418 57.3594 165 53.7777 165 49.3594V8C165 3.58172 168.582 0 173 0H321Z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
   );
 }
 
@@ -44,249 +47,259 @@ const RewardList = () => {
       className="reward-list"
     >
       <div className="reward-list__stick">
-      <picture className="reward-list__bg">
-        <source
-          media="(min-width: 2440px)"
-          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-1.svg"
-        />
-        <source
-          media="(min-width: 1024px)"
-          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-1.svg"
-        />
-        <source
-          media="(max-width: 1023px)"
-          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-1.svg"
-        />
-        <img
-          src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-1.svg"
-          className=""
-          alt=""
-        />
-      </picture>
-      <div className="reward-list__wrapper">
-        <div className="reward-list__header">
-          <h3 className="reward-list__header__title">
-            <span className="reward-list__header__title_span">Limited Anniversary</span> <span className="reward-list__header__title_span reward-list__header__title_span1">Rewards</span>
-          </h3>
-          <p className="reward-list__header__text"> Every extraordinary moment begins with a bold leap beyond the ordinary.Inspired by &quot;Past&quot; and &quot;Future&quot;, join our time-spanning dialogue and unlock exclusive 11th Anniversary rewards.</p>
-        </div>
-        <div className="reward-list__content">
-          <div className="reward-list__content__wrp">
-            <div className="reward-list__card reward-card--first">
-              <RewardCardShape />
-              <header className="reward-card__header">
-                <h3 className="reward-card__title">
-                  Instagram Declaration
-                </h3>
+        <picture className="reward-list__bg">
+          <source
+            media="(min-width: 2440px)"
+            srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-1.svg"
+          />
+          <source
+            media="(min-width: 1024px)"
+            srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-1.svg"
+          />
+          <source
+            media="(max-width: 1023px)"
+            srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-1.svg"
+          />
+          <img
+            src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-1.svg"
+            className=""
+            alt=""
+          />
+        </picture>
+        <div className="reward-list__wrapper">
+          <div className="reward-list__header">
+            <h3 className="reward-list__header__title">
+              <span className="reward-list__header__title_span">Limited Anniversary</span> <span className="reward-list__header__title_span reward-list__header__title_span1">Rewards</span>
+            </h3>
+            <p className="reward-list__header__text"> Every extraordinary moment begins with a bold leap beyond the ordinary. <br /> Inspired by &quot;Past&quot; and &quot;Future&quot;, join our time-spanning dialogue and unlock exclusive 11th Anniversary rewards.</p>
+          </div>
+          <div className="reward-list__content">
+            <div className="reward-list__content__wrp">
+              <div className="reward-list__card reward-card--first">
+                <RewardCardShape />
+                <header className="reward-card__header">
+                  <h3 className="reward-card__title">
+                    Instagram Declaration
+                  </h3>
 
-                <div className="reward-card__date">
-                  Aug 5 – Sep 18, 2026
-                </div>
-              </header>
+                  <div className="reward-card__date">
+                    Aug 5 – Sep 18, 2026
+                  </div>
+                </header>
 
-              <div className="reward-card__body">
-                <div className="reward-card__content">
-                  <p className="reward-card__description">
-                    {
-                      'What would you do if you could time-travel? Share your boldest past or future visions and tell us what "MOVE BEYOND ORDINARY" means to you. Post your story on Instagram to win!'
-                    }
-                  </p>
+                <div className="reward-card__body">
+                  <div className="reward-card__content">
+                    <p className="reward-card__description">
+                      {
+                        'What would you do if you could time-travel? Share your boldest past or future visions and tell us what "MOVE BEYOND ORDINARY" means to you. Post your story on Instagram to win!'
+                      }
+                    </p>
 
-                  <div className="reward-card__divider" />
+                    <div className="reward-card__divider" />
 
-                  <div className="reward-card__join">
-                    <h4 className="reward-card__join-title">
-                      How to Join:
-                    </h4>
+                    <div className="reward-card__join">
+                      <h4 className="reward-card__join-title">
+                        How to Join:
+                      </h4>
 
-                    <ol className="reward-card__steps">
-                      <li>
-                        1. Follow{' '}
-                        <strong>
-                          @vaporesso_global
-                        </strong>{' '}
-                        on <strong>Instagram</strong>
-                      </li>
+                      <ol className="reward-card__steps">
+                        <li>
+                          1. Follow{' '}
+                          <strong>
+                            @vaporesso_global
+                          </strong>{' '}
+                          on <strong>Instagram</strong>
+                        </li>
 
-                      <li>
-                        2. Share your{' '}
-                        <strong>
-                          time-travel vision
-                        </strong>{' '}
-                        in a post
-                      </li>
+                        <li>
+                          2. Share your{' '}
+                          <strong>
+                            time-travel vision
+                          </strong>{' '}
+                          in a post
+                        </li>
 
-                      <li>
-                        <strong>
-                          3. Tag @vaporesso_global
-                        </strong>{' '}
-                        and use{' '}
-                        <strong>
-                          #VAPORESSO11th.
-                        </strong>
-                      </li>
-                    </ol>
+                        <li>
+                          <strong>
+                            3. Tag @vaporesso_global
+                          </strong>{' '}
+                          and use{' '}
+                          <strong>
+                            #VAPORESSO11th.
+                          </strong>
+                        </li>
+                      </ol>
+                    </div>
+
+                    <a
+                      className="reward-card__button"
+                      href="https://www.instagram.com/vaporesso_global/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <InstagramIcon />
+
+                      <span>Join Now</span>
+                    </a>
                   </div>
 
-                  <a
-                    className="reward-card__button"
-                    href="https://www.instagram.com/vaporesso_global/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <InstagramIcon />
-
-                    <span>Join Now</span>
-                  </a>
-                </div>
-
-                <div className="reward-card__media">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-3.webp"
-                    alt="Instagram Declaration"
-                  />
+                  <div className="reward-card__media">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-3.webp"
+                      alt="Instagram Declaration"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="reward-list__card reward-card--second">
-              <RewardCardShape />
-              <header className="reward-card__header">
-                <h3 className="reward-card__title">
-                  Pop-Up AI Station
-                </h3>
+              <div className="reward-list__card reward-card--second">
+                <RewardCardShape />
+                <header className="reward-card__header">
+                  <h3 className="reward-card__title">
+                    Pop-Up AI Station
+                  </h3>
 
-                <div className="reward-card__date">
-                  Early Aug – Aug 31, 2026
-                </div>
-              </header>
-
-              <div className="reward-card__body">
-                <div className="reward-card__content">
-                  <p className="reward-card__description">
-                    {
-                      'Step into the future with our interactive AI installations. Visit designated offline stores to co-create your exclusive anniversary artwork and walk away with a premium giveaway.'
-                    }
-                  </p>
-
-                  <div className="reward-card__divider" />
-
-                  <div className="reward-card__join">
-                    <h4 className="reward-card__join-title">
-                      How to Join:
-                    </h4>
-
-                    <ol className="reward-card__steps">
-                      <li>
-                        1.{' '}
-                        <strong>
-                          Visit designated stores
-                        </strong>{' '}
-                        in the US, UK, France, or UAE
-                      </li>
-
-                      <li>
-                        2. Experience the{' '}
-                        <strong>
-                          interactive AI art installation
-                        </strong>{' '}
-                        on-site
-                      </li>
-
-                      <li>
-                        3. Collect your free 11th-Anniversary custom magnet instantly
-                      </li>
-                    </ol>
+                  <div className="reward-card__date">
+                    Early Aug – Aug 31, 2026
                   </div>
-                </div>
+                </header>
 
-                <div className="reward-card__media">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-5.webp"
-                    alt="Instagram Declaration"
-                  />
+                <div className="reward-card__body">
+                  <div className="reward-card__content">
+                    <p className="reward-card__description">
+                      {
+                        'Step into the future with our interactive AI installations. Visit designated offline stores to co-create your exclusive anniversary artwork and walk away with a premium giveaway.'
+                      }
+                    </p>
+
+                    <div className="reward-card__divider" />
+
+                    <div className="reward-card__join">
+                      <h4 className="reward-card__join-title">
+                        How to Join:
+                      </h4>
+
+                      <ol className="reward-card__steps">
+                        <li>
+                          1.{' '}
+                          <strong>
+                            Visit
+                          </strong>
+                           {' '}
+                          <button
+                            type="button"
+                            className="store-location-trigger"
+                            aria-haspopup="dialog"
+                            onClick={openStoreLocationsModal}
+                          >
+                            designated stores
+                          </button>
+                          {' '}
+                          in the US, UK, France, or UAE
+                        </li>
+
+                        <li>
+                          2. Experience the{' '}
+                          <strong>
+                            interactive AI art installation
+                          </strong>{' '}
+                          on-site
+                        </li>
+
+                        <li>
+                          3. Collect your free 11th-Anniversary custom magnet instantly
+                        </li>
+                      </ol>
+                    </div>
+                  </div>
+
+                  <div className="reward-card__media">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-5.webp"
+                      alt="Instagram Declaration"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="reward-list__card reward-card--third">
-              <RewardCardShape />
-              <header className="reward-card__header">
-                <h3 className="reward-card__title">
-                  Website Chronicle
-                </h3>
+              <div className="reward-list__card reward-card--third">
+                <RewardCardShape />
+                <header className="reward-card__header">
+                  <h3 className="reward-card__title">
+                    Website Chronicle
+                  </h3>
 
-                <div className="reward-card__date">
-                  Aug 18 – Sep 18, 2026
-                </div>
-              </header>
-
-              <div className="reward-card__body">
-                <div className="reward-card__content">
-                  <p className="reward-card__description">
-                    {
-                      'Every milestone is a shared journey. Visit our official 11th Anniversary website and submit your story of moving beyond ordinary with VAPORESSO to win exclusive rewards.'
-                    }
-                  </p>
-
-                  <div className="reward-card__divider" />
-
-                  <div className="reward-card__join">
-                    <h4 className="reward-card__join-title">
-                      How to Join:
-                    </h4>
-
-                    <ol className="reward-card__steps">
-                      <li>
-                        1.{' '}Visit the
-                        <strong>
-                         {' '} official 11th Anniversary website
-                        </strong>
-                      </li>
-
-                      <li>
-                        2. Submit your{' '}
-                        <strong>
-                          personal growth story
-                        </strong>
-                      </li>
-
-                      <li>
-                        3. Outstanding stories will be chosen to win exclusive prizes
-                      </li>
-                    </ol>
+                  <div className="reward-card__date">
+                    Aug 18 – Sep 18, 2026
                   </div>
-                </div>
+                </header>
 
-                <div className="reward-card__media">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-6.webp"
-                    alt="Instagram Declaration"
-                  />
+                <div className="reward-card__body">
+                  <div className="reward-card__content">
+                    <p className="reward-card__description">
+                      {
+                        'Every milestone is a shared journey. Visit our official 11th Anniversary website and submit your story of moving beyond ordinary with VAPORESSO to win exclusive rewards.'
+                      }
+                    </p>
+
+                    <div className="reward-card__divider" />
+
+                    <div className="reward-card__join">
+                      <h4 className="reward-card__join-title">
+                        How to Join:
+                      </h4>
+
+                      <ol className="reward-card__steps">
+                        <li>
+                          1.{' '}Visit the
+                          <strong>
+                            {' '} official 11th Anniversary website
+                          </strong>
+                        </li>
+
+                        <li>
+                          2. Submit your{' '}
+                          <strong>
+                            personal growth story
+                          </strong>
+                        </li>
+
+                        <li>
+                          3. Outstanding stories will be chosen to win exclusive prizes
+                        </li>
+                      </ol>
+                    </div>
+                  </div>
+
+                  <div className="reward-card__media">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-04-6.webp"
+                      alt="Instagram Declaration"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
-       <picture className="reward-list-btm__bg">
-                <source
-                  media="(min-width: 2440px)"
-                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-03-6.svg"
-                />
-                <source
-                  media="(min-width: 1024px)"
-                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-03-6.svg"
-                />
-                <source
-                  media="(max-width: 1023px)"
-                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-03-6-new2.png?v=1785829745"
-                />
-                <img
-                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-03-6.svg"
-                  className=""
-                  alt=""
-                />
-              </picture>
+      <picture className="reward-list-btm__bg">
+        <source
+          media="(min-width: 2440px)"
+          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-03-6.svg"
+        />
+        <source
+          media="(min-width: 1024px)"
+          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-03-6.svg"
+        />
+        <source
+          media="(max-width: 1023px)"
+          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-03-6-new2.png?v=1785829745"
+        />
+        <img
+          src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-03-6.svg"
+          className=""
+          alt=""
+        />
+      </picture>
     </section>
   );
 }

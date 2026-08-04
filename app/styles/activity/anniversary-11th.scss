@@ -145,7 +145,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
       @media screen and (max-width: 1023px) {
         width: 100%;
-        margin-bottom: 0.6rem;
+        margin-bottom: 0.27rem;
         font-size: 0.8rem;
         letter-spacing: -0.032rem;
       }
@@ -737,7 +737,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   // 路径: Anniversary11th/section/YearHighlights.jsx
   // ==========================================
   .year-highlight {
-    padding-top: 20rem;
+    padding-top: 15.2rem;
 
     @media (max-width: 1023px) {
       padding-top: 1.6rem;
@@ -748,7 +748,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   }
 
   .year-highlight__wrapper {
-    height: 400vh;
+    height: 450vh;
     position: relative;
     transform-style: preserve-3d;
 
@@ -757,8 +757,8 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       top: 0;
 
       width: 100%;
-      height: 100vh;
-      height: 100svh;
+      height: 105vh;
+      height: 105svh;
 
       overflow: hidden;
       transform-style: preserve-3d;
@@ -846,7 +846,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     position: sticky;
     top: 0;
     width: 100%;
-    height: 100vh;
+    height: 105vh;
     overflow: hidden;
 
     &__wrp {
@@ -937,6 +937,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
   @media (max-width: 1023px) {
     .year-highlight__content {
       isolation: isolate;
+          height: 100vh;
     }
 
     .year-highlight__content__wrp {
@@ -1197,6 +1198,59 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       font-weight: 400;
       font-family: var(--deb);
     }
+    .store-location-trigger {
+    display: inline-flex;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    color: #91FF00;
+    font-family: var(--deb) !important;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+
+
+    text-align: inherit;
+    text-decoration: underline;
+
+    cursor: pointer;
+    transition:
+      opacity 0.25s ease,
+      color 0.25s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:active {
+      opacity: 0.5;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      border-radius: 0;
+      outline: 0;
+      outline-offset: 0;
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+  }
+
   }
 
   .reward-card__button {
@@ -1382,7 +1436,11 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     .reward-card__steps {
       font-size: 0.28rem;
+      .store-location-trigger{
+          font-size: 0.28rem;
+      }
     }
+    
 
     .reward-card__button {
       width: 2.8rem;
@@ -1611,7 +1669,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     }
 
     .travel-card__text {
-      color: #0F0;
+      color: var(--travel-card--txt-color);
       font-family: var(--deb);
       font-size: 1.8rem;
       font-weight: 400;

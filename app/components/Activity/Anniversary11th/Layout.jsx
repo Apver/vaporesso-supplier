@@ -12,6 +12,7 @@ import StoriesBeyondOrdinary from './sections/StoriesBeyondOrdinary';
 import TermsAndConditions from './sections/TermsAndConditions';
 import ExtraordinaryHero from './sections/ExtraordinaryHero';
 import StoryShareModal from './components/StoryShareModal';
+import StoreLocationsModal from './components/StoreLocationsModal';
 
 
 export function Anniversary11thLayout() {
@@ -39,6 +40,7 @@ export function Anniversary11thLayout() {
         </div>
       </div>
       <StoryShareModal />
+        <StoreLocationsModal />
     </div>
   );
 }

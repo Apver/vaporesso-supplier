@@ -1,0 +1,355 @@
+
+.store-locations-modal-scope {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  width: 100%;
+  height: 100%;
+
+  isolation: isolate;
+
+  .store-locations-modal {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+  }
+
+  .store-locations-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    background: rgba(0, 0, 0, 0.40);
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    cursor: default;
+
+    animation:
+      store-locations-backdrop-in
+      0.3s
+      ease
+      both;
+  }
+
+  .store-locations-modal__dialog {
+    position: relative;
+    z-index: 1;
+
+    width: min(790px, calc(100vw - 40px));
+    max-height: calc(100vh - 80px);
+    min-height: 530px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    border: 6px solid #fff;
+
+    background-color: #a8e9f2;
+     background-image: url('https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-11.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    // background-size: cover;
+
+    color: #000;
+
+    animation:
+      store-locations-dialog-in
+      0.45s
+      cubic-bezier(0.16, 1, 0.3, 1)
+      both;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+      rgba(0, 0, 0, 0.35)
+      transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 990px;
+      background: rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  .story-share-modal__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    cursor: pointer;
+
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease,
+      background-color 0.25s ease;
+
+    img {
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+
+      pointer-events: none;
+      user-select: none;
+    }
+
+    &:hover {
+      transform: scale(1.08);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 0 solid #ff1493;
+      outline-offset: 0rem;
+    }
+  }
+
+  .store-locations-modal__content {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    padding: 80px 75px 50px;
+
+    text-align: center;
+  }
+
+  .store-locations-modal__title {
+    width: min(100%, 637px);
+    margin: 0;
+font-family: var(--deb);
+font-size: 42px;
+font-style: normal;
+font-weight: 400;
+line-height: 90%;
+letter-spacing: -1.68px;
+  }
+
+  .store-locations-modal__description {
+    width: min(100%, 637px);
+    margin: 16px auto 40px;
+font-family: var(--dde);
+font-size: 15px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%; 
+  }
+
+  .store-locations-modal__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    width: 100%;
+  }
+
+  .store-locations-modal__item {
+    width: 100%;
+
+    text-align: center;
+
+    h3,
+    p {
+      margin: 0;
+    }
+  }
+
+  .store-locations-modal__country {
+  color: #FF008E;
+text-align: center;
+font-family: var(--deb);
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%; 
+  }
+
+  .store-locations-modal__store,
+  .store-locations-modal__address {
+color: #000;
+font-family: var(--dde);
+font-size: 15px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+  }
+
+  .store-locations-modal__address {
+    max-width: 100%;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+}
+
+@keyframes store-locations-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes store-locations-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(2rem) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 1023px) {
+  .store-locations-modal-scope {
+    .store-locations-modal {
+      padding: 0.6rem 0.32rem;
+    }
+
+    .store-locations-modal__dialog {
+      width: 100%;
+      max-height: calc(90dvh);
+      min-height: auto;
+      border-width: 0.12rem;
+      background-image: url('https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-06-11.svg?v=1785225409');
+    }
+
+    .story-share-modal__close {
+      top: 0.3rem;
+      right: 0.3rem;
+
+     width: 0.48rem;
+height: 0.48rem;
+    }
+
+    .store-locations-modal__content {
+      padding: 1.4rem 0.43rem 1.2rem;
+    }
+
+    .store-locations-modal__title {
+      max-width: 5.76rem;
+
+     font-size: 0.64rem;
+letter-spacing: -0.0256rem;
+
+    }
+
+    .store-locations-modal__description {
+      margin-top: 0.32rem;
+      margin-bottom: 0.72rem;
+
+     font-size: 0.28rem;
+
+    }
+
+    .store-locations-modal__list {
+      gap: 0.4rem;
+    }
+
+    .store-locations-modal__country {
+      font-size: 0.36rem;
+
+    }
+
+    .store-locations-modal__store,
+    .store-locations-modal__address {
+     font-size: 0.28rem;
+
+    }
+  }
+}
+
+
+@media (hover: none) {
+  .anniversary-11th {
+    .store-location-trigger:hover {
+      opacity: 1;
+    }
+  }
+
+  .store-locations-modal-scope {
+    .story-share-modal__close:hover {
+      background: transparent;
+      transform: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anniversary-11th {
+    .store-location-trigger {
+      transition: none;
+    }
+  }
+
+  .store-locations-modal-scope {
+    .story-share-modal__close {
+      transition: none;
+    }
+
+    .store-locations-modal__backdrop,
+    .store-locations-modal__dialog {
+      animation: none;
+    }
+  }
+}
