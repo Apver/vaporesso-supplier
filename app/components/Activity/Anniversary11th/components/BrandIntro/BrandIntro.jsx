@@ -293,7 +293,6 @@ const BrandIntro = forwardRef(
             autoAlpha: 1,
           });
 
-          // 【修改点1】：删除了之前的 --mask-hole 重置，改为确保 wrapper 完全可见
           gsap.set(wrapper, {
             autoAlpha: 1, 
           });
@@ -375,13 +374,13 @@ const BrandIntro = forwardRef(
             )
 
             /*
-             * 【修改点2】：移除了原来的圆孔放大效果（--mask-hole: 150%）
-             * 改为让背景容器 (wrapper) 与 Logo 同步淡出，直接露出视频。
+             * 
+             *背景容器 (wrapper) 与 Logo 同步淡出，直接露出视频。
              */
             .to(
               wrapper,
               {
-                autoAlpha: 0, // 直接淡出背景色块
+                autoAlpha: 0,
                 duration: t(0.25),
                 ease: 'power2.in', 
               },

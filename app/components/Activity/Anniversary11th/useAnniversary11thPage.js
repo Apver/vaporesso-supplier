@@ -605,12 +605,6 @@ function initializeAnimation(root) {
 
         const extraOffset = 5 * rootFontSize;
 
-        /*
-         * 重要：
-         * 测量位置之前，先清除时间轴当前产生的位移。
-         * 否则 getBoundingClientRect() 会包含 transform，
-         * 导致移动端每次 refresh 算出的距离不一样。
-         */
         gsap.set(cardWrapper, {
           y: 0,
           x: 0,
@@ -694,7 +688,6 @@ function initializeAnimation(root) {
             stackOffset * (cards.length - 1),
           y: 0,
 
-          // 移动端不要强制创建大量 GPU 图层
           force3D: isMobile ? false : 'auto',
         });
 
@@ -782,10 +775,6 @@ function initializeAnimation(root) {
         timeline.to(
           mainHeader,
           {
-            /*
-             * 使用函数值。
-             * refresh 后会读取最新的高度。
-             */
             y: () => -mainHeaderHeight,
             duration: wrapperMoveDuration,
             ease: 'none',
@@ -796,10 +785,6 @@ function initializeAnimation(root) {
         timeline.to(
           cardWrapper,
           {
-            /*
-             * 不要直接写 y: -moveUpDistance，
-             * 否则 refresh 后仍可能使用旧数值。
-             */
             y: () => -moveUpDistance,
             duration: wrapperMoveDuration,
             ease: 'none',
@@ -1023,9 +1008,6 @@ function initAppreciationRewardsAnimation(root) {
       span.textContent = '';
       span.style.overflow = 'visible';
 
-      /**
-       * 取消文字渐变，使用纯色。
-       */
       span.style.background = 'none';
       span.style.backgroundImage = 'none';
       span.style.backgroundClip =
@@ -2230,16 +2212,6 @@ function initAppreciationRewardsAnimation(root) {
         );
     };
 
-    /**
-     * 移动端步骤防抖。
-     *
-     * 原本 Math.round() 会在临界点
-     * 反复从 step 1 和 step 2 之间切换。
-     *
-     * 现在向下必须超过 0.62，
-     * 向上必须退回 0.38，
-     * 才切换步骤。
-     */
     const getStableStep = self => {
       const rawStep =
         self.progress *
@@ -2474,27 +2446,25 @@ function initStoriesBeyondOrdinary(root) {
     });
   };
 
-  // 核心优化点：通过原生 scrollHeight 和 clientHeight 判断是否溢出
+  // 判断是否溢出
   const measureCard = (card) => {
     if (isDestroyed) return;
 
     const { text, toggle } = getCardElements(card);
     if (!text || !toggle) return;
 
-    // 如果当前是展开状态，为了准确测量，先临时移除展开状态的影响
+    // 如果当前是展开状态，先临时移除展开状态的影响
     const wasExpanded = card.classList.contains('story-card--expanded');
     if (wasExpanded) {
       card.classList.remove('story-card--expanded');
     }
 
-    // scrollHeight 是文本实际总高度，clientHeight 是被 CSS line-clamp 限制后的可视高度
-    // 增加 2px 的容差，防止浏览器渲染子像素精度导致的误判
     const isOverflowing = text.scrollHeight > text.clientHeight + 2;
 
     card.classList.toggle('story-card--overflowing', isOverflowing);
     toggle.hidden = !isOverflowing;
 
-    // 恢复之前的展开状态，或者如果不再溢出了则强制收起
+    // 恢复之前的展开状态
     if (isOverflowing && wasExpanded) {
       card.classList.add('story-card--expanded');
     } else if (!isOverflowing) {
@@ -2534,7 +2504,7 @@ function initStoriesBeyondOrdinary(root) {
   };
   document.addEventListener('pointerdown', handleDocumentPointerDown);
 
-  // 优化 ResizeObserver：只重新计算尺寸发生变化的卡片
+  // 只重新计算尺寸发生变化的卡片
   let resizeFrame = null;
   const resizeObserver = typeof ResizeObserver !== 'undefined'
     ? new ResizeObserver((entries) => {
@@ -2548,7 +2518,7 @@ function initStoriesBeyondOrdinary(root) {
 
   cards.forEach((card) => {
     resizeObserver?.observe(card);
-    measureCard(card); // 初始测量
+    measureCard(card); 
   });
 
   // 字体加载完成后重新测量
@@ -2558,7 +2528,6 @@ function initStoriesBeyondOrdinary(root) {
     })
     .catch(() => undefined);
 
-  // 返回清理函数
   return () => {
     isDestroyed = true;
     if (resizeFrame !== null) cancelAnimationFrame(resizeFrame);
@@ -2602,7 +2571,6 @@ function initExtraordinaryHeroVideo(section) {
     if (destroyed) return;
 
     video.play().catch(() => {
-      // 自动播放被浏览器拦截时，不影响页面动画
     });
   };
 
@@ -2621,7 +2589,7 @@ function initExtraordinaryHeroVideo(section) {
 
     if (!nextSrc) {
       console.warn(
-        '[ExtraordinaryHero] 当前设备没有配置视频地址',
+        '当前设备没有配置视频地址',
       );
 
       return;
@@ -2750,7 +2718,7 @@ function initExtraordinaryHeroAnimation(root) {
     !meta
   ) {
     console.warn(
-      '[ExtraordinaryHero] 模块内部元素不完整',
+      '模块内部元素不完整',
     );
 
     return () => { };
@@ -2784,20 +2752,10 @@ function initExtraordinaryHeroAnimation(root) {
           reduceMotion,
         } = matchMediaContext.conditions;
 
-        /*
-         * 清除上一次响应式切换时，
-         * GSAP 给 media 添加的行内宽高。
-         *
-         * 初始宽高继续读取原来的 CSS。
-         */
         gsapInstance.set(media, {
           clearProps: 'width,height',
         });
 
-        /*
-         * 移动端增加滚动距离。
-         * 桌面端继续使用原来的 CSS 高度。
-         */
         if (mobile) {
           gsapInstance.set(section, {
             height: '240svh',
