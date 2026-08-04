@@ -1336,11 +1336,14 @@ function initAppreciationRewardsAnimation(root) {
      * 始终保持最上层。
      */
     const getCardZIndex = index => {
+       if (isMobile()) {
+    return index + 1;
+  }
       if (index === 2) {
         return totalCards + 100;
       }
       
-      if (!isMobile() && index === totalCards - 1) {
+      if (index === totalCards - 1) {
         return Math.max(1, index - 1);
       }
 
