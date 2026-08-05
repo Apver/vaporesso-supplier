@@ -90,8 +90,11 @@ export const BatterySection = () => {
 
   return (
     <div className="product-prix-battery ui-v4-flex" ref={sectionRef}>
-      {/* <h3 className="product-prix-battery__title">Battery</h3>
-      <p className="product-prix-battery__description">
+      <h3 className="product-prix-battery__title">
+        Large Battery, Fast Charging, <br />
+        Ready to Go
+      </h3>
+      {/* <p className="product-prix-battery__description">
         The powerful 2600mAh battery delivers long-lasting power, ensuring you
         can enjoy your device for hours on end.
       </p> */}
