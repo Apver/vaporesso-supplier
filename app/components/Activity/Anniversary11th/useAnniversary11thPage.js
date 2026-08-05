@@ -367,7 +367,7 @@ media.add('(min-width: 1024px)', () => {
     // 卡片垂直居中
     const cardY =
       viewportHeight * 0.5 -
-      cardHeight * 0.5;
+      cardHeight * 0.6;
 
     cards.forEach((card, index) => {
       /*
