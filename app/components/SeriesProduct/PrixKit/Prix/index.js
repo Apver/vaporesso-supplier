@@ -7,4 +7,5 @@ export {PowerSection} from './PowerSection';
 export {BatterySection} from './BatterySection';
 export {ModeSection} from './ModeSection';
 export {PodSection} from './PodSection';
+export {OperationSection} from './OperationSection';
 export {PrixProductSpecData} from './languageText.js';

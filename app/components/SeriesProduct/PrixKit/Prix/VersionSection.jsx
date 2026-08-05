@@ -42,7 +42,7 @@ export const VersionSection = () => {
 
   return (
     <div className="product-prix-version ui-v4-flex">
-      <div className="product-prix-version-tab" ref={tabBarRef}>
+      <div className="product-prix-version-tab to-top" ref={tabBarRef}>
         {VERSION_LIST.map((item, index) => (
           <div
             key={item.id}
@@ -81,14 +81,14 @@ export const VersionSection = () => {
           }`}
           aria-hidden={activeIndex !== 0}
         >
-          <h4 className="product-prix-version-content__title">
+          <h4 className="product-prix-version-content__title to-top">
             {VERSION_LIST[0].title}
           </h4>
-          <p className="product-prix-version-content__subtitle">
+          <p className="product-prix-version-content__subtitle to-top">
             {VERSION_LIST[0].subtitle}
           </p>
           <video
-            className="product-prix-version-content__media s-hide"
+            className="product-prix-version-content__media s-hide to-top"
             src="https://cdn.shopify.com/videos/c/o/v/98f242a9503e4f19b90716e5b5db5d35.mp4"
             autoPlay
             muted
@@ -96,7 +96,7 @@ export const VersionSection = () => {
             playsInline
           />
           <video
-            className="product-prix-version-content__media x-hide"
+            className="product-prix-version-content__media x-hide to-top"
             src="https://cdn.shopify.com/videos/c/o/v/2585552d3de4412bba9b05d2783b7e24.mp4"
             poster="https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-04-1.webp"
             autoPlay
@@ -104,7 +104,7 @@ export const VersionSection = () => {
             loop
             playsInline
           />
-          <p className="product-prix-version-content__description">
+          <p className="product-prix-version-content__description to-top">
             Switch panels to unlock matching on-screen animations
           </p>
         </div>
@@ -115,13 +115,13 @@ export const VersionSection = () => {
           }`}
           aria-hidden={activeIndex !== 1}
         >
-          <h4 className="product-prix-version-content__title">
+          <h4 className="product-prix-version-content__title to-top">
             {VERSION_LIST[1].title}
           </h4>
-          <p className="product-prix-version-content__subtitle">
+          <p className="product-prix-version-content__subtitle to-top">
             {VERSION_LIST[1].subtitle}
           </p>
-          <div className="product-prix-version-content__media">
+          <div className="product-prix-version-content__media to-top">
             <picture>
               <source
                 media="(max-width: 1023px)"
@@ -132,14 +132,14 @@ export const VersionSection = () => {
                 alt="Filter Tips & Drip Tips | Easy Switch"
               />
             </picture>
-            <p className="product-prix-version-content-filter-tip left">
+            <p className="product-prix-version-content-filter-tip left to-top">
               Drip Tip
             </p>
-            <p className="product-prix-version-content-filter-tip right">
+            <p className="product-prix-version-content-filter-tip right to-top">
               Filter Tip
             </p>
           </div>
-          <p className="product-prix-version-content__description">
+          <p className="product-prix-version-content__description to-top">
             <span className="product-prix-version-content__description-title">
               Drip Tip:{' '}
             </span>

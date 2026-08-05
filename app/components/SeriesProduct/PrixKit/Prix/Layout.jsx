@@ -13,6 +13,7 @@ import {
   BatterySection,
   ModeSection,
   PodSection,
+  OperationSection,
 } from '~/components/SeriesProduct/PrixKit/Prix';
 import {KvSectionV4, BriefSectionV4, EndProduct} from '~/components/ui-v4';
 export function PrixLayout({children, onCheckSpecs}) {
@@ -50,6 +51,46 @@ export function PrixLayout({children, onCheckSpecs}) {
     mobImageUrl:
       'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-02.webp',
   };
+  const ModeData = {
+    title: 'Easy or Pro, Setup As You Like',
+    list: [
+      {
+        id: 'easy',
+        title: 'EASY',
+        desc_title: 'Portrait, ',
+        description:
+          'Switch between IMPACT and PWR, with a 4W output difference.',
+        img: 'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-09-1.webp',
+      },
+      {
+        id: 'pro',
+        title: 'PRO',
+        desc_title: 'Landscape,',
+        description: 'Precisely adjust wattage in 0.5W steps.',
+        img: 'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-09-2.webp',
+      },
+    ],
+  };
+  const ChoiceData = {
+    className: 'product-prix-choice',
+    title: 'Dual Activation, Your Choice',
+    description:
+      'Auto-Draw / Button, Use Either Or Both, Mode Menu Select \nDual: Auto-draw + button',
+    list: [
+      {
+        id: 'auto',
+        title: 'AUTO',
+        description: 'Auto-draw mode',
+        img: 'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-11-1.jpg',
+      },
+      {
+        id: 'btn',
+        title: 'BTN',
+        description: 'Button mode',
+        img: 'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-11-2.webp',
+      },
+    ],
+  };
   const EndProductData = {
     title: 'PRIX',
     imgUrl:
@@ -77,8 +118,10 @@ export function PrixLayout({children, onCheckSpecs}) {
       <DualMesh />
       <PowerSection />
       <BatterySection />
-      <ModeSection />
+      <ModeSection {...ModeData} />
       <PodSection />
+      <ModeSection {...ChoiceData} />
+      <OperationSection />
       <EndProduct
         className="product-prix-end-product"
         data={EndProductData}

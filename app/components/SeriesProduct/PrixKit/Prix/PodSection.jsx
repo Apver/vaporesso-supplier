@@ -17,13 +17,15 @@ export const PodSection = () => {
   ];
   return (
     <div className="product-prix-pod ui-v4-flex">
-      <h3 className="product-prix-pod__title">One Pod, Two Experiences</h3>
-      <p className="product-prix-pod__description">
+      <h3 className="product-prix-pod__title to-top">
+        One Pod, Two Experiences
+      </h3>
+      <p className="product-prix-pod__description to-top">
         EASY setup | 2 exclusive experiences unlocked
       </p>
       <div className="product-prix-pod-list">
         {PodList.map((item) => (
-          <div className="product-prix-pod-list-item" key={item.id}>
+          <div className="product-prix-pod-list-item to-left" key={item.id}>
             <img src={item.img} alt={item.title} />
             <p className="product-prix-pod-list-item__title">{item.title}</p>
             <div className="product-prix-pod-list-item-content">

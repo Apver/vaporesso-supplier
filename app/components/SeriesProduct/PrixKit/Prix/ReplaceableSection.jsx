@@ -75,13 +75,13 @@ export const ReplaceableSection = () => {
   const [activeKitId, setActiveKitId] = useState(1);
   return (
     <div className="product-prix-replaceable ui-v4-flex">
-      <h3 className="product-prix-replaceable__title">
+      <h3 className="product-prix-replaceable__title to-top">
         Replaceable Magnetic Panel, Show Your Style
       </h3>
-      <p className="product-prix-replaceable__description">
+      <p className="product-prix-replaceable__description to-top">
         Choose a device and panel to see how they look together.
       </p>
-      <div className="product-prix-replaceable-content">
+      <div className="product-prix-replaceable-content to-top">
         <div className="product-prix-replaceable-content-combined">
           <img
             className="product-prix-replaceable-content-combined__product"
