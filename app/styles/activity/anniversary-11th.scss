@@ -114,6 +114,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     @media screen and (max-width: 1023px) {
       height: auto;
+      aspect-ratio: 375 / 600;
     }
   }
 
@@ -989,7 +990,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       width: 100%;
 
       @media (max-width: 1023px) {
-        top: -1.5rem;
+        top: -2rem;
       }
 
       img {

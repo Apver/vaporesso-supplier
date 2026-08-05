@@ -205,6 +205,31 @@ return createPortal(
             ))}
           </div>
         </div>
+
+
+
+ <picture className="store-locations-modal__bg">
+        <source
+          media="(min-width: 2440px)"
+          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-11.svg"
+        />
+        <source
+          media="(min-width: 1024px)"
+          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-11.svg"
+        />
+        <source
+          media="(max-width: 1023px)"
+          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-06-11.svg?v=1785225409"
+        />
+        <img
+          src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-11.svg"
+          className=""
+          alt=""
+        />
+      </picture>
+
+
+
       </div>
     </div>
   </div>,

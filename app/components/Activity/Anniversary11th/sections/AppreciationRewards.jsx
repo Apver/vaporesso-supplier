@@ -17,7 +17,7 @@ const AppreciationRewards = () => {
                 />
                 <source
                   media="(max-width: 1023px)"
-                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-05-2-new2.svg?v=1785829745"
+                  srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-05-2-new2.png?v=1785904589"
                 />
                 <img
                   src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-05-2.svg"
