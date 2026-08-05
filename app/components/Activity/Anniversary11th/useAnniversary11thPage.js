@@ -1269,7 +1269,7 @@ function initAppreciationRewardsAnimation(root) {
 
         Object.assign(char.style, {
           position: 'relative',
-          display: 'inline-block',
+          display: 'inline-flex',
           overflow: 'visible',
           verticalAlign: 'baseline',
           whiteSpace: 'pre'
@@ -1279,7 +1279,7 @@ function initAppreciationRewardsAnimation(root) {
           charInner.style,
           {
             position: 'relative',
-            display: 'inline-block',
+            display: 'inline-flex',
             overflow: 'visible',
 
             color: 'inherit',

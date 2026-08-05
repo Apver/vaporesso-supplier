@@ -990,7 +990,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       width: 100%;
 
       @media (max-width: 1023px) {
-        top: -2rem;
+        top: -1.8rem;
       }
 
       img {
@@ -1625,7 +1625,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
       .char {
         position: relative;
-        display: inline-block;
+        display: inline-flex;
         overflow: visible;
         vertical-align: baseline;
         white-space: pre;
@@ -1633,7 +1633,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
       .char-inner {
         position: relative;
-        display: inline-block;
+        display: inline-flex;
         overflow: visible;
 
         color: inherit;
