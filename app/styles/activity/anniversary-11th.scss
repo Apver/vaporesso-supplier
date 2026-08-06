@@ -1643,6 +1643,10 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
         transform-origin: 50% 50%;
         backface-visibility: visible;
+         @media (max-width: 1023px) {
+          padding-inline: 0.04em;
+          margin-inline: -0.04em;
+         }
       }
 
       .char--space {
