@@ -76,7 +76,8 @@ export const ReplaceableSection = () => {
   return (
     <div className="product-prix-replaceable ui-v4-flex">
       <h3 className="product-prix-replaceable__title to-top">
-        Replaceable Magnetic Panel, Show Your Style
+        Replaceable Magnetic Panel, <br />
+        Show Your Style
       </h3>
       <p className="product-prix-replaceable__description to-top">
         Choose a device and panel to see how they look together.

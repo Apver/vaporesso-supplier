@@ -91,7 +91,8 @@ export const BatterySection = () => {
   return (
     <div className="product-prix-battery ui-v4-flex" ref={sectionRef}>
       <h3 className="product-prix-battery__title">
-        Large Battery, Fast Charging, <br />
+        Large Battery, <br className="x-hide" />
+        Fast Charging, <br />
         Ready to Go
       </h3>
       {/* <p className="product-prix-battery__description">

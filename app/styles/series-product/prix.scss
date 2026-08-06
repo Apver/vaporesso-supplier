@@ -83,6 +83,7 @@
         font-size: 0.3rem;
         line-height: 0.45rem;
         font-family: 'DinExp';
+        text-align: center;
       }
     }
   }
@@ -246,6 +247,7 @@
     &-content {
       grid-area: 1 / 1;
       flex-direction: column;
+      justify-content: flex-start;
       width: 100%;
       opacity: 0;
       visibility: hidden;
@@ -471,6 +473,7 @@
         max-width: 6.1rem;
         font-size: 0.6rem;
         line-height: 0.69rem;
+        text-align: left;
       }
       &__description {
         width: 6.1rem;
@@ -868,6 +871,7 @@
       }
       &-content {
         width: 100vw;
+        margin-top: 1.92rem;
         &-mah {
           font-size: 1.56rem;
           line-height: 1.56rem;
@@ -948,6 +952,10 @@
         margin-top: 0.24rem;
         font-size: 0.3rem;
         line-height: 0.42rem;
+        text-align: left;
+        span {
+          font-family: 'DinExp-Bold';
+        }
       }
       &-list {
         margin-top: 0.8rem;
@@ -970,6 +978,9 @@
         }
       }
     }
+  }
+  &-choice &-mode__title {
+    padding-right: 1rem;
   }
   &-choice &-mode-list-item-text {
     top: 38px;
@@ -1029,6 +1040,7 @@
           &-mode {
             font-size: 36px;
             line-height: 41px;
+            font-family: 'DinExp-Bold';
             &__title {
               margin-bottom: 12px;
               font-size: 22px;

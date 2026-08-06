@@ -72,10 +72,10 @@ export function PrixLayout({children, onCheckSpecs}) {
     ],
   };
   const ChoiceData = {
+    isChoice: true,
     className: 'product-prix-choice',
     title: 'Dual Activation, Your Choice',
-    description:
-      'Auto-Draw / Button, Use Either Or Both, Mode Menu Select \nDual: Auto-draw + button',
+    description: 'Auto-Draw / Button, Use Either Or Both, Mode Menu Select',
     list: [
       {
         id: 'auto',

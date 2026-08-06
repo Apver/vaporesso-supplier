@@ -18,7 +18,8 @@ export const PodSection = () => {
   return (
     <div className="product-prix-pod ui-v4-flex">
       <h3 className="product-prix-pod__title to-top">
-        One Pod, Two Experiences
+        One Pod, <br className="x-hide" />
+        Two Experiences
       </h3>
       <p className="product-prix-pod__description to-top">
         EASY setup | 2 exclusive experiences unlocked
@@ -40,7 +41,7 @@ export const PodSection = () => {
               <div className="product-prix-pod-list-item-content-divider"></div>
               <div className="product-prix-pod-list-item-content-mode">
                 <p className="product-prix-pod-list-item-content-mode__title">
-                  POWER SETTING:
+                  POWER MODE:
                 </p>
                 <p className="product-prix-pod-list-item-content-mode__value">
                   {item.pwr}
