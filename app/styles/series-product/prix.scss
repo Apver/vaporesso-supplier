@@ -1269,6 +1269,8 @@
         width: 6.1rem;
         font-size: 0.6rem;
         line-height: 0.6rem;
+        padding-right: 1rem;
+        white-space: pre-line;
       }
       &__description {
         width: 6.1rem;
@@ -1300,11 +1302,6 @@
           }
         }
       }
-    }
-  }
-  @media screen and (max-width: 1023px) {
-    &-choice &-mode__title {
-      padding-right: 1rem;
     }
   }
   &-choice &-mode-list-item-text {

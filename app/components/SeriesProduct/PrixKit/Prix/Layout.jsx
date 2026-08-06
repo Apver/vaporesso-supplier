@@ -52,7 +52,7 @@ export function PrixLayout({children, onCheckSpecs}) {
       'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-02.webp',
   };
   const ModeData = {
-    title: 'Easy or Pro, Setup As You Like',
+    title: 'Easy or Pro, \nSetup As You Like',
     list: [
       {
         id: 'pro',
