@@ -1270,7 +1270,7 @@ function initAppreciationRewardsAnimation(root) {
         Object.assign(char.style, {
           position: 'relative',
           display: 'inline-flex',
-          // overflow: 'visible',
+          overflow: 'visible',
           verticalAlign: 'baseline',
           whiteSpace: 'pre'
         });
@@ -1280,7 +1280,7 @@ function initAppreciationRewardsAnimation(root) {
           {
             position: 'relative',
             display: 'inline-flex',
-            // overflow: 'visible',
+            overflow: 'visible',
 
             color: 'inherit',
             fontFamily: 'inherit',
@@ -1291,7 +1291,7 @@ function initAppreciationRewardsAnimation(root) {
               'currentColor',
 
             transformOrigin: '50% 50%',
-            backfaceVisibility: 'hidden'
+            backfaceVisibility: 'visible'
           }
         );
 
