@@ -41,7 +41,7 @@ export const PrixProductSpecData = {
       id: 'msrp',
       itemTitle: 'MSRP',
       itemType: 'textWithImage',
-      primaryTextWithImage: '$17.06',
+      primaryTextWithImage: ['$15 (Global Ver.)', '$18 (Korea Ver.)'],
     },
     {
       id: 'size',

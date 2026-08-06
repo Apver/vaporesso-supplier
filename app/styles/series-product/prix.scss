@@ -1197,6 +1197,9 @@
       line-height: 21px;
       font-family: 'DinExp';
       text-align: center;
+      span {
+        font-family: 'DinExp-Bold';
+      }
     }
     &-list {
       margin-top: 48px;
@@ -1339,7 +1342,7 @@
       font-size: 16px;
       line-height: 21px;
       font-family: 'DinExp';
-      margin: 14px 0 28px;
+      margin: 14px 0 48px;
     }
     &-list {
       display: flex;
