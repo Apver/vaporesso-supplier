@@ -111,13 +111,13 @@ export const OperationSection = () => {
 
       ScrollTrigger.create({
         trigger: section,
-        start: 'top 50px',
+        start: 'center center',
         once: true,
         onEnter: () => {
           unlockScroll = lockScroll();
           pinTrigger = ScrollTrigger.create({
             trigger: section,
-            start: 'top 50px',
+            start: 'center center',
             end: 'max',
             pin: true,
             pinSpacing: true,

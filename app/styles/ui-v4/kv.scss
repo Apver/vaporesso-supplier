@@ -35,6 +35,12 @@
       font-family: 'DinExp';
     }
   }
+  @media screen and (max-width: 1450px) {
+    height: 576px;
+    &__slogan {
+      font-size: 24px;
+    }
+  }
   @media screen and (max-width: 1023px) {
     height: 13.5rem;
     &-content {

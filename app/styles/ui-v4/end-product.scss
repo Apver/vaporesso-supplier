@@ -42,6 +42,30 @@
   &-btn:hover {
     color: #0f0;
   }
+  @media screen and (max-width: 1450px) {
+    padding: 104px 0 176px;
+    &-title {
+      font-size: 38px;
+      line-height: 42px;
+      margin-bottom: 13px;
+    }
+    &-img {
+      width: 272px;
+    }
+    &-sales-list {
+      max-width: 796px;
+      gap: 10px;
+    }
+    &-sales-item {
+      padding: 6px 12px;
+      font-size: 12px;
+      line-height: 12px;
+    }
+    &-btn {
+      margin-top: 24px;
+      padding: 9px 26px;
+    }
+  }
   @media screen and (max-width: 1023px) {
     width: 100%;
     padding: 01.6rem 0.24rem;

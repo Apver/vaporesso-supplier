@@ -24,8 +24,8 @@ export const BatterySection = () => {
 
     const ctx = gsap.context(() => {
       const hideY = getHideY();
-      gsap.set(mah, {xPercent: -50, y: hideY, autoAlpha: 0});
-      gsap.set(list, {xPercent: -50, y: hideY, autoAlpha: 0});
+      gsap.set(mah, {y: hideY, autoAlpha: 0});
+      gsap.set(list, {y: hideY, autoAlpha: 0});
 
       let tl;
       tl = gsap.timeline({
@@ -41,8 +41,8 @@ export const BatterySection = () => {
           onRefreshInit: () => {
             if (!tl || tl.progress() === 0) {
               const y = getHideY();
-              gsap.set(mah, {xPercent: -50, y, autoAlpha: 0});
-              gsap.set(list, {xPercent: -50, y, autoAlpha: 0});
+              gsap.set(mah, {y, autoAlpha: 0});
+              gsap.set(list, {y, autoAlpha: 0});
             }
           },
         },

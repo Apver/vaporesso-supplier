@@ -16,7 +16,6 @@
     margin-bottom: 40px;
     font-family: 'DinExp-Bold';
     font-size: 32px;
-    font-weight: 700;
     line-height: 36px;
     white-space: pre-line;
   }
@@ -46,6 +45,25 @@
       display: block;
       width: 20px;
       height: 20px;
+    }
+  }
+  @media screen and (max-width: 1450px) {
+    padding: 160px 0 120px;
+    &__media {
+      width: 784px;
+    }
+    &__title {
+      width: 582px;
+      margin-bottom: 32px;
+      font-family: 'DinExp-Bold';
+      font-size: 26px;
+      line-height: 21px;
+    }
+    &__description {
+      width: 582px;
+      margin: 32px auto 0;
+      font-size: 13px;
+      line-height: 17px;
     }
   }
   @media screen and (max-width: 1023px) {

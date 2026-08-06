@@ -55,18 +55,18 @@ export function PrixLayout({children, onCheckSpecs}) {
     title: 'Easy or Pro, Setup As You Like',
     list: [
       {
+        id: 'pro',
+        title: 'PRO',
+        desc_title: 'Landscape, ',
+        description: 'Precisely adjust wattage in 0.5W steps.',
+        img: 'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-09-1.webp?v=1785997420',
+      },
+      {
         id: 'easy',
         title: 'EASY',
         desc_title: 'Portrait, ',
         description:
           'Switch between IMPACT and PWR, with a 4W output difference.',
-        img: 'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-09-1.webp?v=1785997420',
-      },
-      {
-        id: 'pro',
-        title: 'PRO',
-        desc_title: 'Landscape, ',
-        description: 'Precisely adjust wattage in 0.5W steps.',
         img: 'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-09-2.webp?v=1785997413',
       },
     ],
