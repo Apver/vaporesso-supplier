@@ -211,18 +211,18 @@ return createPortal(
  <picture className="store-locations-modal__bg">
         <source
           media="(min-width: 2440px)"
-          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-11.svg"
+          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-11-new3.svg?v=1786002017"
         />
         <source
           media="(min-width: 1024px)"
-          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-11.svg"
+          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-11-new3.svg?v=1786002017"
         />
         <source
           media="(max-width: 1023px)"
-          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-06-11.svg?v=1785225409"
+          srcSet="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-Mob-06-11-new3.svg?v=1786002016"
         />
         <img
-          src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-11.svg"
+          src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-11-new3.svg?v=1786002017"
           className=""
           alt=""
         />

@@ -1626,7 +1626,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       .char {
         position: relative;
         display: inline-flex;
-        overflow: visible;
+        // overflow: visible;
         vertical-align: baseline;
         white-space: pre;
       }
@@ -1634,7 +1634,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       .char-inner {
         position: relative;
         display: inline-flex;
-        overflow: visible;
+        // overflow: visible;
 
         color: inherit;
         font-family: inherit;
