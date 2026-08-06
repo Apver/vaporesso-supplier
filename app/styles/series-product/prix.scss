@@ -953,9 +953,6 @@
         font-size: 0.3rem;
         line-height: 0.42rem;
         text-align: left;
-        span {
-          font-family: 'DinExp-Bold';
-        }
       }
       &-list {
         margin-top: 0.8rem;
@@ -974,6 +971,9 @@
             margin-bottom: 0.12rem;
             font-size: 0.4rem;
             line-height: 0.4rem;
+          }
+          &__description-title {
+            font-family: 'DinExp-Bold';
           }
         }
       }
@@ -1192,7 +1192,7 @@
         &-item {
           width: 3.84rem;
           margin-top: 0.36rem;
-          font-size: 0.24rem;
+          font-size: 0.28rem;
           line-height: 0.36rem;
           background-size: 100% 0.02rem;
           &:first-child {
