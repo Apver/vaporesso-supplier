@@ -12,7 +12,7 @@ export const PrixProductSpecData = {
       itemType: 'color',
       primaryColorImages: [
         `${SPEC_IMG}/prix-colors.webp?v=1786002820`,
-        `${SPEC_IMG}/prix-patch.webp?v=1786002914`,
+        `${SPEC_IMG}/prix-patch.webp?v=1786086453`,
       ],
       primaryColorTitle: [
         ['PRIX CHROME KIT', 'PRIX WHITE KIT', 'PRIX BLACK KIT'],
@@ -21,20 +21,20 @@ export const PrixProductSpecData = {
           'BLACK PANEL',
           'WHITE PANEL',
           'METAL HEART(BK) PANEL',
-          'RETRO SIGN PANEL',
           'METAL HEART(SL) PANEL',
+          'RETRO SIGN PANEL',
           'RED RACING PANEL',
         ],
       ],
       primaryColorImagesMobile: [
         `${SPEC_IMG}/prix-Mob-colors.webp?v=1786002809`,
-        `${SPEC_IMG}/prix-Mob-patch-1.webp?v=1786002923`,
+        `${SPEC_IMG}/prix-Mob-patch-1.webp?v=1786086460`,
         `${SPEC_IMG}/prix-Mob-patch-2.webp?v=1786002934`,
       ],
       primaryColorTitleMobile: [
         ['PRIX CHROME KIT', 'PRIX WHITE KIT', 'PRIX BLACK KIT'],
         ['CHROME PANEL', 'BLACK PANEL', 'WHITE PANEL', 'METAL HEART(BK) PANEL'],
-        ['RETRO SIGN PANEL', 'METAL HEART(SL) PANEL', 'RED RACING PANEL', ''],
+        ['METAL HEART(SL) PANEL', 'RETRO SIGN PANEL', 'RED RACING PANEL', ''],
       ],
     },
     {
