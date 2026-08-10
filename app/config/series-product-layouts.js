@@ -19,6 +19,10 @@ import {
   PrixProductSpecData,
 } from '~/components/SeriesProduct/PrixKit/Prix';
 import {resolveSeriesProductTemplate} from '~/config/series-product-links';
+import {
+  ArmourOctaLayout,
+  ArmourOctaProductSpecData,
+} from '~/components/SeriesProduct/ArmourSeries/ArmourOcta';
 
 /** 不展示 ProductNav / SpecSection / Product3DViewer 的 template 值 */
 export const SERIES_PRODUCT_NO_NAV_TEMPLATES = [];
@@ -76,6 +80,7 @@ export const SERIES_PRODUCT_SPEC_DATA_IN_JS = [
   'xros-mini-fresh',
   'xros-se',
   'prix',
+  'armour-octa',
 ];
 
 /** template → 硬编码 Spec 数据（见各产品目录 languageText.js） */
@@ -85,6 +90,7 @@ export const SERIES_PRODUCT_SPEC_DATA_BY_TEMPLATE = {
   'xros-mini-fresh': XrosMiniFreshProductSpecData,
   'xros-se': XrosSeProductSpecData,
   prix: PrixProductSpecData,
+  'armour-octa': ArmourOctaProductSpecData,
 };
 
 /**
@@ -115,5 +121,9 @@ export const SERIES_PRODUCT_LAYOUT_ENTRIES = {
   prix: {
     Layout: PrixLayout,
     specElementId: 'check-specs-prix',
+  },
+  'armour-octa': {
+    Layout: ArmourOctaLayout,
+    specElementId: 'check-specs-armour-octa',
   },
 };

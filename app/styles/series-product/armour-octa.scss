@@ -1,0 +1,94 @@
+.product-armour-octa {
+  // Spec 结构为：div > img + .colors，.colors 不是 first-child，需选第一个色块容器内的 .colors
+  .spec-content .f .d > div:first-child .colors {
+    width: 48%;
+    margin-left: 0;
+  }
+  @media screen and (max-width: 1023px) {
+    .spec-content .f .colors {
+      width: 104%;
+      margin-left: -2.6%;
+    }
+    .spec-content .f .d > div:nth-child(3) .colors {
+      width: 106.8%;
+      margin-left: -3.6%;
+    }
+  }
+  &-kv {
+    .ui-v4-kv-content {
+      display: flex;
+      flex-direction: column-reverse;
+      &__slogan {
+        line-height: 31px;
+        font-family: 'DinExp-Bold';
+        margin-top: 16px;
+      }
+    }
+    &-title {
+      width: 422px;
+    }
+    @media screen and (max-width: 1450px) {
+      .ui-v4-kv-content {
+        &__slogan {
+          line-height: 25px;
+          margin-top: 13px;
+        }
+      }
+      &-title {
+        width: 338px;
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      height: 12rem;
+      .ui-v4-kv-content {
+        display: flex;
+        flex-direction: column-reverse;
+        top: unset;
+        bottom: 1.2rem;
+        &__slogan {
+          font-size: 0.36rem;
+          line-height: 0.38rem;
+          margin-top: 0.16rem;
+        }
+      }
+      &-title {
+        width: 5.14rem;
+      }
+    }
+  }
+  &-brief {
+    padding: 150px 0 120px;
+    .ui-v4-brief__description {
+      max-width: 664px;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+    @media screen and (max-width: 1450px) {
+      padding: 120px 0 96px;
+      .ui-v4-brief__description {
+        width: 531px;
+        font-size: 12px;
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      &.ui-v4-brief {
+        flex-direction: column;
+        padding: 1.6rem 0.5rem 1.2rem;
+      }
+      .ui-v4-brief__description {
+        width: 6.1rem;
+        margin: 0.6rem auto 0;
+        font-size: 0.3rem;
+        line-height: 0.45rem;
+        font-family: 'DinExp';
+        text-align: center;
+      }
+    }
+  }
+  &-end-product {
+    padding: 160px 0 200px;
+    @media screen and (max-width: 1023px) {
+      padding: 1.2rem 0 1.6rem;
+    }
+  }
+}
