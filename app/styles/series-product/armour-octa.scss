@@ -1,32 +1,39 @@
 .product-armour-octa {
+
   // Spec 结构为：div > img + .colors，.colors 不是 first-child，需选第一个色块容器内的 .colors
-  .spec-content .f .d > div:first-child .colors {
+  .spec-content .f .d>div:first-child .colors {
     width: 48%;
     margin-left: 0;
   }
+
   @media screen and (max-width: 1023px) {
     .spec-content .f .colors {
       width: 104%;
       margin-left: -2.6%;
     }
-    .spec-content .f .d > div:nth-child(3) .colors {
+
+    .spec-content .f .d>div:nth-child(3) .colors {
       width: 106.8%;
       margin-left: -3.6%;
     }
   }
+
   &-kv {
     .ui-v4-kv-content {
       display: flex;
       flex-direction: column-reverse;
+
       &__slogan {
         line-height: 31px;
         font-family: 'DinExp-Bold';
         margin-top: 16px;
       }
     }
+
     &-title {
       width: 422px;
     }
+
     @media screen and (max-width: 1450px) {
       .ui-v4-kv-content {
         &__slogan {
@@ -34,61 +41,1572 @@
           margin-top: 13px;
         }
       }
+
       &-title {
         width: 338px;
       }
     }
+
     @media screen and (max-width: 1023px) {
       height: 12rem;
+
       .ui-v4-kv-content {
         display: flex;
         flex-direction: column-reverse;
         top: unset;
         bottom: 1.2rem;
+
         &__slogan {
           font-size: 0.36rem;
           line-height: 0.38rem;
           margin-top: 0.16rem;
         }
       }
+
       &-title {
         width: 5.14rem;
       }
     }
   }
+
   &-brief {
-    padding: 150px 0 120px;
+    &.ui-v4-brief {
+      padding: 150px 0;
+    }
+
     .ui-v4-brief__description {
-      max-width: 664px;
+      max-width: 700px;
       font-size: 14px;
       line-height: 1.3;
     }
+
     @media screen and (max-width: 1450px) {
-      padding: 120px 0 96px;
+      &.ui-v4-brief {
+        padding: 120px 0;
+      }
+
       .ui-v4-brief__description {
-        width: 531px;
+        max-width: 560px;
         font-size: 12px;
       }
     }
+
     @media screen and (max-width: 1023px) {
       &.ui-v4-brief {
         flex-direction: column;
-        padding: 1.6rem 0.5rem 1.2rem;
+        padding: 1.6rem 0.5rem;
       }
+
       .ui-v4-brief__description {
         width: 6.1rem;
         margin: 0.6rem auto 0;
         font-size: 0.3rem;
-        line-height: 0.45rem;
+        line-height: 1.5;
         font-family: 'DinExp';
-        text-align: center;
       }
     }
   }
+
   &-end-product {
     padding: 160px 0 200px;
+
     @media screen and (max-width: 1023px) {
       padding: 1.2rem 0 1.6rem;
     }
   }
+
+
+  // OctaProtection.jsx css start
+  .octa-protection {
+    position: relative;
+    width: 100%;
+    padding: 150px 0;
+    background: #F4F4F4;
+
+    &__header {
+      width: 100%;
+      margin: 0 auto 48px;
+      text-align: center;
+      color: #000;
+    }
+
+    &__title {
+      font-size: 48px;
+      font-weight: 400;
+      line-height: 108%;
+      font-family: 'DinExp-Bold';
+    }
+
+    &__subtitle {
+      margin: 16px 0 0;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 138.889%;
+    }
+
+    &__content {
+      width: 980px;
+      max-width: calc(100% - 40px);
+      margin: 0 auto;
+    }
+
+    &__proof-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-rows: 204px 204px;
+      gap: 10px;
+    }
+
+    &__proof-card {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      background: #fff;
+
+      &--water {
+        grid-column: 1;
+        grid-row: 1 / 3;
+      }
+
+      &--shock {
+        grid-column: 2 / 4;
+        grid-row: 1;
+      }
+
+      &--dust {
+        grid-column: 2 / 4;
+        grid-row: 2;
+      }
+
+      &--waterjet {
+        grid-column: 4;
+        grid-row: 1 / 3;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          .octa-protection__proof-image {
+            transform: scale(1.025);
+          }
+        }
+      }
+    }
+
+    &__proof-picture {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__proof-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.6s ease;
+    }
+
+    &__proof-info {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      left: 24px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    &__proof-title {
+      margin: 0;
+      font-family: 'DinExp-Bold';
+      color: #FFF;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 104.545%;
+    }
+
+    &__proof-desc {
+      margin: 6px 0 0;
+      color: rgba(255, 255, 255, 0.60);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 128.571%;
+    }
+
+    &__safety-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    &__safety-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 0;
+      min-height: 200px;
+      padding: 24px 28px;
+      background: #fff;
+      text-align: center;
+    }
+
+    &__safety-icon {
+      display: block;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 24px;
+      object-fit: contain;
+    }
+
+    &__safety-title {
+      width: 100%;
+      max-width: 180px;
+      color: #000;
+      text-align: center;
+      font-family: 'DinExp-Bold';
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 120%;
+    }
+
+    &__safety-desc {
+      width: 100%;
+      max-width: 170px;
+      margin: 5px 0 0;
+      color: rgba(0, 0, 0, 0.60);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 130%;
+    }
+  }
+
+  @media screen and (max-width: 1450px) {
+    .octa-protection {
+      padding: 120px 0;
+
+      &__header {
+        margin-bottom: 38px;
+      }
+
+      &__title {
+        font-size: 38px;
+      }
+
+      &__subtitle {
+        margin-top: 13px;
+        font-size: 14px;
+      }
+
+      &__content {
+        width: 784px;
+        max-width: calc(100% - 32px);
+      }
+
+      &__proof-grid {
+        grid-template-rows: 163px 163px;
+        gap: 8px;
+      }
+
+      &__proof-info {
+        top: 19px;
+        right: 19px;
+        left: 19px;
+      }
+
+      &__proof-title {
+        font-size: 18px;
+      }
+
+      &__proof-desc {
+        margin-top: 5px;
+        font-size: 11px;
+      }
+
+      &__safety-grid {
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      &__safety-card {
+        min-height: 160px;
+        padding: 19px 22px;
+      }
+
+      &__safety-icon {
+        width: 38px;
+        height: 38px;
+        margin-bottom: 19px;
+      }
+
+      &__safety-title {
+        max-width: 144px;
+        font-size: 14px;
+      }
+
+      &__safety-desc {
+        max-width: 136px;
+        margin-top: 4px;
+        font-size: 11px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .octa-protection {
+      padding: 1.6rem 0;
+
+      &__header {
+        width: 100%;
+        margin: 0 0 0.6rem;
+        padding: 0 0.7rem;
+        text-align: left;
+      }
+
+      &__title {
+        font-size: 0.6rem;
+      }
+
+      &__subtitle {
+        margin: 0.24rem 0 0;
+        font-size: 0.3rem;
+
+      }
+
+      &__content {
+        width: auto;
+        max-width: none;
+        margin: 0 0.16rem;
+      }
+
+      &__proof-grid {
+        grid-template-columns: 4.24fr 2.76fr;
+        grid-template-rows: 3.28rem 2.6rem 2.7rem;
+        gap: 0.16rem;
+      }
+
+      &__proof-card {
+        &--water {
+          grid-column: 1 / 3;
+          grid-row: 1;
+        }
+
+        &--shock {
+          grid-column: 1;
+          grid-row: 2;
+        }
+
+        &--dust {
+          grid-column: 1;
+          grid-row: 3;
+
+          .octa-protection__proof-desc {
+            width: 2rem;
+          }
+        }
+
+        &--waterjet {
+          grid-column: 2;
+          grid-row: 2 / 4;
+        }
+
+        &--water {
+          .octa-protection__proof-info {
+            top: 1.26rem;
+          }
+        }
+      }
+
+      &__proof-picture {
+        width: 100%;
+        height: 100%;
+      }
+
+      &__proof-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: none;
+      }
+
+      &__proof-info {
+        top: 0.48rem;
+        right: 0.48rem;
+        left: 0.48rem;
+      }
+
+      &__proof-title {
+        font-size: 0.3rem;
+        line-height: 133.333%;
+
+      }
+
+      &__proof-desc {
+        margin: 0.08rem 0 0;
+        font-size: 0.26rem;
+        line-height: 115.385%;
+      }
+
+      &__safety-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.16rem;
+        margin-top: 0.16rem;
+      }
+
+      &__safety-card {
+        min-height: 3.28rem;
+        padding: 0.4rem 0.16rem;
+
+        &:nth-child(2) {
+          .octa-protection__safety-desc {
+            max-width: 3.18rem;
+          }
+        }
+
+        &:nth-child(4) {
+          .octa-protection__safety-desc {
+            max-width: 2rem;
+          }
+        }
+      }
+
+      &__safety-icon {
+        width: 0.8rem;
+        height: 0.8rem;
+        margin-bottom: 0.28rem;
+      }
+
+      &__safety-title {
+        max-width: 3.18rem;
+        font-size: 0.3rem;
+        line-height: 120%;
+      }
+
+      &__safety-desc {
+        max-width: 2.5rem;
+        margin: 0.08rem 0 0;
+        font-size: 0.26rem;
+        line-height: 130%;
+      }
+    }
+  }
+
+  // OctaProtection.jsx css end
+
+
+  // MilitaryProof.jsx css start
+  .military-proof {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 224/125;
+    overflow: hidden;
+    background: #000;
+
+    &__background {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    &__mark {
+      position: absolute;
+      top: 76px;
+      left: 50%;
+      z-index: 2;
+      background: linear-gradient(180deg, #FFF 25.3%, rgba(255, 255, 255, 0.75) 65%, rgba(255, 255, 255, 0.10) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: 'DinExp-Bold';
+      font-size: 550px;
+      font-weight: 400;
+      line-height: 54.545%;
+      transform: translateX(-50%);
+      transform-origin: center bottom;
+      white-space: nowrap;
+      will-change: transform, opacity;
+    }
+
+    &__foreground {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      pointer-events: none;
+    }
+
+    &__copy {
+      position: absolute;
+      right: 40px;
+      bottom: 100px;
+      left: 40px;
+      z-index: 4;
+      color: #fff;
+      text-align: center;
+      will-change: transform, opacity;
+    }
+
+    &__title {
+      font-family: 'DinExp-Bold';
+      font-size: 48px;
+      font-weight: 400;
+      line-height: 1;
+
+      span {
+        color: #FE5A11;
+      }
+    }
+
+    &__subtitle {
+      font-family: 'DinExp-Bold';
+      font-size: 48px;
+      font-weight: 400;
+      line-height: 1;
+    }
+  }
+
+  @media screen and (max-width: 1450px) {
+    .military-proof {
+      &__mark {
+        top: 61px;
+        font-size: 440px;
+      }
+
+      &__copy {
+        right: 32px;
+        bottom: 80px;
+        left: 32px;
+      }
+
+      &__title {
+        font-size: 38px;
+      }
+
+      &__subtitle {
+        font-size: 38px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .military-proof {
+      aspect-ratio: 375/600;
+
+      &__mark {
+        top: 1.92rem;
+        font-size: 4.8rem;
+        line-height: 104.167%;
+      }
+
+      &__copy {
+        right: 0.4rem;
+        bottom: 0.82rem;
+        left: 0.4rem;
+      }
+
+      &__title {
+        font-size: 0.6rem;
+      }
+
+      &__subtitle {
+        margin-top: 0rem;
+        font-size: 0.6rem;
+      }
+    }
+  }
+
+  // MilitaryProof.jsx css end
+
+
+// OctaProofShowcase.jsx css start
+  
+    .octa-proof-showcase {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    min-height: 900px;
+    padding: 80px 0;
+    overflow: hidden;
+    background: #fff;
+
+    &__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 1120px;
+      max-width: calc(100% - 80px);
+    }
+
+    &__header {
+      width: 100%;
+      margin-bottom: 48px;
+      color: #000;
+      text-align: center;
+    }
+
+    &__title {
+      margin: 0;
+      font-family: 'DinExp-Bold';
+      font-size: 48px;
+      font-weight: 400;
+      line-height: 1;
+
+      span {
+        color: #FE5A11;
+      }
+    }
+
+    &__subtitle {
+      margin: 2px 0 0;
+      font-family: 'DinExp-Bold';
+      font-size: 48px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    &__stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      isolation: isolate;
+      perspective: 1800px;
+      transform-style: preserve-3d;
+    }
+
+    &__slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      clip-path: polygon(
+        56px 0,
+        calc(100% - 56px) 0,
+        100% 56px,
+        100% calc(100% - 56px),
+        calc(100% - 56px) 100%,
+        56px 100%,
+        0 calc(100% - 56px),
+        0 56px
+      );
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+    }
+
+    &__picture {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    &__slide-content {
+      position: absolute;
+      top: 145px;
+      left: 96px;
+      z-index: 2;
+      width: 430px;
+      color: #fff;
+      pointer-events: none;
+    }
+
+    &__slide-title {
+      margin: 0;
+      white-space: pre-line;
+      font-family: 'DinExp-Bold';
+      font-size: 44px;
+      font-weight: 400;
+      line-height: 110%;
+
+      span {
+        color: #FE5A11;
+      }
+    }
+
+    &__slide-desc {
+      width: 400px;
+      margin: 26px 0 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 140%;
+    }
+
+    &__metrics {
+      display: flex;
+      align-items: flex-start;
+      gap: 64px;
+      margin-top: 54px;
+    }
+
+    &__metric {
+      flex: 0 0 auto;
+      min-width: 90px;
+    }
+
+    &__metric-value {
+      display: flex;
+      align-items: flex-end;
+      color: #fff;
+      font-family: 'DinExp-Bold';
+      font-size: 58px;
+      font-weight: 400;
+      line-height: 90%;
+      white-space: nowrap;
+
+      span {
+        margin-left: 4px;
+        font-size: 24px;
+        line-height: 1;
+      }
+    }
+
+    &__metric-label {
+      margin-top: 14px;
+      color: #fff;
+      font-family: 'DinExp-Bold';
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 120%;
+      white-space: nowrap;
+    }
+
+    &__dots {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    &__dot {
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      transition: width 0.3s ease,background 0.3s ease;
+
+      &.is-active {
+        width: 8px;
+        background: #fff;
+      }
+    }
+
+    &__note {
+      width: 100%;
+      margin: 20px 0 0;
+      color: rgba(0, 0, 0, 0.35);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 130%;
+      text-align: center;
+    }
+  }
+
+  @media screen and (max-width: 1450px) {
+    .octa-proof-showcase {
+      min-height: 720px;
+      padding: 64px 0;
+
+      &__inner {
+        width: 896px;
+        max-width: calc(100% - 64px);
+      }
+
+      &__header {
+        margin-bottom: 38px;
+      }
+
+      &__title {
+        font-size: 38px;
+      }
+
+      &__subtitle {
+        margin-top: 2px;
+        font-size: 38px;
+      }
+
+      &__stage {
+        perspective: 1440px;
+      }
+
+      &__slide {
+        clip-path: polygon(
+          45px 0,
+          calc(100% - 45px) 0,
+          100% 45px,
+          100% calc(100% - 45px),
+          calc(100% - 45px) 100%,
+          45px 100%,
+          0 calc(100% - 45px),
+          0 45px
+        );
+      }
+
+      &__slide-content {
+        top: 116px;
+        left: 77px;
+        width: 344px;
+      }
+
+      &__slide-title {
+        font-size: 35px;
+      }
+
+      &__slide-desc {
+        width: 320px;
+        margin-top: 21px;
+        font-size: 14px;
+      }
+
+      &__metrics {
+        gap: 51px;
+        margin-top: 43px;
+      }
+
+      &__metric {
+        min-width: 72px;
+      }
+
+      &__metric-value {
+        font-size: 46px;
+
+        span {
+          margin-left: 3px;
+          font-size: 19px;
+        }
+      }
+
+      &__metric-label {
+        margin-top: 11px;
+        font-size: 13px;
+      }
+
+      &__dots {
+        bottom: 14px;
+        gap: 8px;
+      }
+
+      &__dot {
+        width: 6px;
+        height: 6px;
+
+        &.is-active {
+          width: 6px;
+        }
+      }
+
+      &__note {
+        margin-top: 16px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .octa-proof-showcase {
+      height: 100svh;
+      min-height: 12rem;
+      padding: 1rem 0.32rem;
+
+      &__inner {
+        width: 100%;
+        max-width: none;
+      }
+
+      &__header {
+        width: 100%;
+        margin-bottom: 0.6rem;
+      }
+
+      &__title {
+        font-size: 0.48rem;
+        line-height: 105%;
+      }
+
+      &__subtitle {
+        margin-top: 0.04rem;
+        font-size: 0.48rem;
+        line-height: 105%;
+      }
+
+      &__stage {
+        width: 100%;
+        aspect-ratio: 1 / 1.1;
+        perspective: 16rem;
+      }
+
+      &__slide {
+        clip-path: polygon(
+          0.32rem 0,
+          calc(100% - 0.32rem) 0,
+          100% 0.32rem,
+          100% calc(100% - 0.32rem),
+          calc(100% - 0.32rem) 100%,
+          0.32rem 100%,
+          0 calc(100% - 0.32rem),
+          0 0.32rem
+        );
+      }
+
+      &__picture {
+        width: 100%;
+        height: 100%;
+      }
+
+      &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      &__slide-content {
+        top: 1.2rem;
+        left: 0.6rem;
+        width: 5.5rem;
+      }
+
+      &__slide-title {
+        font-size: 0.52rem;
+        line-height: 108%;
+      }
+
+      &__slide-desc {
+        width: 5rem;
+        margin-top: 0.3rem;
+        font-size: 0.24rem;
+        line-height: 140%;
+      }
+
+      &__metrics {
+        gap: 0.7rem;
+        margin-top: 0.6rem;
+      }
+
+      &__metric {
+        min-width: 1.3rem;
+      }
+
+      &__metric-value {
+        font-size: 0.72rem;
+        line-height: 90%;
+
+        span {
+          margin-left: 0.05rem;
+          font-size: 0.3rem;
+        }
+      }
+
+      &__metric-label {
+        margin-top: 0.16rem;
+        font-size: 0.22rem;
+        line-height: 120%;
+      }
+
+      &__dots {
+        bottom: 0.24rem;
+        gap: 0.12rem;
+      }
+
+      &__dot {
+        width: 0.1rem;
+        height: 0.1rem;
+
+        &.is-active {
+          width: 0.1rem;
+        }
+      }
+
+      &__note {
+        margin-top: 0.24rem;
+        padding: 0 0.2rem;
+        font-size: 0.16rem;
+        line-height: 130%;
+      }
+    }
+  }
+// OctaProofShowcase.jsx css end
+
+
+
+
+
+
+
+// OctaVoltageSurge.jsx css end
+.octa-voltage-surge {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1920 / 860;
+    min-height: 860px;
+    overflow: hidden;
+   background: linear-gradient(180deg, #E94903 0%, #DEDEDE 100%);
+
+    &__inner {
+      position: relative;
+      z-index: 2;
+      width: 1050px;
+      max-width: calc(100% - 80px);
+      height: 100%;
+      margin: 0 auto;
+    }
+
+    &__wave {
+      position: absolute;
+      top: 510px;
+      left: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 172px;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    &__wave-base,
+    &__wave-pulse {
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    &__wave-base {
+      stroke: #D94A0D;
+      stroke-width: 3px;
+    }
+
+    &__wave-pulse {
+      // stroke: #E6723F;
+      // stroke-width: 5px;
+      // filter: drop-shadow(0 0 7px #D94A0D);
+         stroke: #D94A0D;
+      stroke-width: 3px;
+    }
+
+    &__copy {
+      position: absolute;
+      top: 212px;
+      left: 0;
+      z-index: 4;
+      width: 343px;
+      color: #000;
+      will-change: transform, opacity;
+    }
+
+    &__title {
+      font-family: 'DinExp-Bold';
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 100%;
+    }
+
+    &__desc {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 130%; 
+    margin-top: 20px;
+    }
+
+    &__device-picture {
+      position: absolute;
+      top: 175px;
+      left: 56%;
+      z-index: 3;
+      display: block;
+     width: 437px;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    &__device {
+      display: block;
+      width: 100%;
+      height: auto;
+      will-change: transform, opacity;
+    }
+
+    &__threshold {
+      position: absolute;
+      top: 348px;
+      right: 0;
+      z-index: 4;
+      width: 304px;
+      text-align: center;
+     color: rgba(114, 59, 35, 0.60);
+      will-change: transform, opacity;
+    }
+
+    &__threshold-value {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      font-family: 'DinExp-Bold';
+      font-size: 100px;
+      font-weight: 400;
+      line-height: 90%;
+      white-space: nowrap;
+      letter-spacing: -2px;
+    }
+
+    &__threshold-operator {
+      margin-right: 4px;
+    }
+
+    &__threshold-unit {
+      // margin: 0 0 5px 6px;
+      font-size: 38px;
+      line-height: 110%;
+    }
+
+    &__threshold-desc {
+      margin: 11px auto 0;
+      white-space: pre-line;
+     color: #451600;
+      font-family: 'DinExp-Bold';
+      text-align: right;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 115%;
+    }
+
+    &__note {
+      position: absolute;
+      bottom: 43px;
+      left: 0;
+      z-index: 4;
+      width: 343px;
+      color: rgba(0, 0, 0, 0.50);
+      font-size: 15px;
+      line-height: 130%;
+    }
+  }
+
+@media screen and (max-width: 1450px) {
+  .octa-voltage-surge {
+    min-height: 688px;
+
+    &__inner {
+      width: 840px;
+      max-width: calc(100% - 64px);
+    }
+
+    &__wave {
+      top: 408px;
+      height: 138px;
+    }
+
+    &__wave-base {
+      stroke-width: 2px;
+    }
+
+    &__wave-pulse {
+      stroke-width: 4px;
+      filter: drop-shadow(0 0 6px #D94A0D);
+    }
+
+    &__copy {
+      top: 170px;
+      width: 274px;
+    }
+
+    &__title {
+      font-size: 38px;
+    }
+
+    &__desc {
+      margin-top: 16px;
+      font-size: 13px;
+    }
+
+    &__device-picture {
+      top: 140px;
+      left: 56%;
+      width: 350px;
+    }
+
+    &__threshold {
+      top: 278px;
+      width: 243px;
+    }
+
+    &__threshold-value {
+      font-size: 80px;
+      letter-spacing: -2px;
+    }
+
+    &__threshold-operator {
+      margin-right: 3px;
+    }
+
+    &__threshold-unit {
+      font-size: 30px;
+    }
+
+    &__threshold-desc {
+      margin-top: 9px;
+      font-size: 19px;
+    }
+
+    &__note {
+      bottom: 34px;
+      width: 274px;
+      font-size: 12px;
+    }
+  }
+}
+
+  @media screen and (max-width: 1023px) {
+    .octa-voltage-surge {
+      aspect-ratio: auto;
+      min-height: 0;
+      height: 13.6rem;
+
+      &__inner {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+      }
+
+      &__wave {
+        top: 6.3rem;
+        height: 2.4rem;
+      }
+
+      &__wave-base {
+        stroke-width: 1.5px;
+      }
+
+      &__wave-pulse {
+        stroke-width: 3px;
+      }
+
+      &__copy {
+        top: 0.9rem;
+        left: 0.5rem;
+        width: 5.8rem;
+      }
+
+      &__title {
+        font-size: 0.52rem;
+        line-height: 105%;
+      }
+
+      &__desc {
+        width: 5.8rem;
+        margin-top: 0.28rem;
+        font-size: 0.24rem;
+        line-height: 135%;
+      }
+
+      &__device-picture {
+        top: 4rem;
+        width: 4.9rem;
+      }
+
+      &__threshold {
+        top: 8.7rem;
+        right: auto;
+        left: 50%;
+        width: 6rem;
+        transform: translateX(-50%);
+      }
+
+      &__threshold-value {
+        font-size: 1.1rem;
+      }
+
+      &__threshold-operator {
+        margin-right: 0.04rem;
+      }
+
+      &__threshold-unit {
+        margin: 0 0 0.05rem 0.08rem;
+        font-size: 0.4rem;
+      }
+
+      &__threshold-desc {
+        margin-top: 0.22rem;
+        font-size: 0.3rem;
+        line-height: 110%;
+      }
+
+      &__note {
+        bottom: 0.35rem;
+        left: 0.5rem;
+        width: 6.2rem;
+        font-size: 0.18rem;
+      }
+    }
+  }
+// OctaVoltageSurge.jsx css end
+
+
+
+
+// OctaOverheatProtection.jsx start
+  .octa-overheat {
+    width: 100%;
+    padding: 130px 0 120px;
+    background: #F4F4F4;
+
+    &__header {
+      width: 760px;
+      max-width: calc(100% - 40px);
+      margin: 0 auto 44px;
+      color: #000;
+      text-align: center;
+    }
+
+    &__title {
+      margin: 0;
+      font-family: 'DinExp-Bold';
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 100%;
+    }
+
+    &__subtitle {
+      width: 680px;
+      max-width: 100%;
+      margin: 24px auto 0;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 130%;
+    }
+
+    &__media {
+      position: relative;
+      width: 980px;
+      max-width: calc(100% - 80px);
+      aspect-ratio: 980 / 560;
+      margin: 0 auto;
+      overflow: hidden;
+      background: #120700;
+    }
+
+    &__picture {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    &__temperature {
+      position: absolute;
+      top: 215px;
+      left: 62px;
+      z-index: 2;
+      color: #fff;
+    }
+
+    &__temperature-value {
+      display: flex;
+      align-items: flex-end;
+      font-family: 'DinExp-Bold';
+      font-size: 60px;
+      font-weight: 700;
+      line-height: 90%;
+      letter-spacing: -2px;
+    }
+
+    &__temperature-unit {
+      margin: 0 0 2px 3px;
+      font-size: 28px;
+      line-height: 100%;
+      letter-spacing: 0;
+    }
+
+    &__temperature-desc {
+      margin: 16px 0 0;
+      color: #FE5A11;
+      font-family: 'DinExp-Bold';
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 120%;
+    }
+
+    &__note {
+      position: absolute;
+      bottom: 58px;
+      left: 62px;
+      z-index: 2;
+      width: 360px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 130%;
+    }
+  }
+
+  @media screen and (max-width: 1450px) {
+    .octa-overheat {
+      padding: 104px 0 96px;
+
+      &__header {
+        width: 608px;
+        max-width: calc(100% - 32px);
+        margin-bottom: 35px;
+      }
+
+      &__title {
+        font-size: 38px;
+      }
+
+      &__subtitle {
+        width: 544px;
+        margin-top: 19px;
+        font-size: 13px;
+      }
+
+      &__media {
+        width: 784px;
+        max-width: calc(100% - 64px);
+      }
+
+      &__temperature {
+        top: 172px;
+        left: 50px;
+      }
+
+      &__temperature-value {
+        font-size: 48px;
+        letter-spacing: -2px;
+      }
+
+      &__temperature-unit {
+        margin: 0 0 2px 2px;
+        font-size: 22px;
+      }
+
+      &__temperature-desc {
+        margin-top: 13px;
+        font-size: 14px;
+      }
+
+      &__note {
+        bottom: 46px;
+        left: 50px;
+        width: 288px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .octa-overheat {
+      padding: 1.6rem 0;
+
+      &__header {
+        width: auto;
+        max-width: none;
+        margin: 0 0.5rem 0.6rem;
+      }
+
+      &__title {
+        font-size: 0.56rem;
+        line-height: 105%;
+      }
+
+      &__subtitle {
+        width: 6.2rem;
+        max-width: 100%;
+        margin-top: 0.28rem;
+        font-size: 0.24rem;
+        line-height: 135%;
+      }
+
+      &__media {
+        width: auto;
+        max-width: none;
+        aspect-ratio: auto;
+        height: 8.8rem;
+        margin: 0 0.16rem;
+      }
+
+      &__image {
+        object-position: center;
+      }
+
+      &__temperature {
+        top: 4.5rem;
+        left: 0.6rem;
+      }
+
+      &__temperature-value {
+        font-size: 0.9rem;
+        line-height: 90%;
+        letter-spacing: -0.02rem;
+      }
+
+      &__temperature-unit {
+        margin: 0 0 0.02rem 0.04rem;
+        font-size: 0.4rem;
+      }
+
+      &__temperature-desc {
+        margin-top: 0.2rem;
+        font-size: 0.3rem;
+      }
+
+      &__note {
+        bottom: 0.5rem;
+        left: 0.6rem;
+        width: 5.4rem;
+        font-size: 0.18rem;
+      }
+    }
+  }
+// OctaOverheatProtection.jsx end
+
+
+
+
+
+
+
 }
