@@ -1,17 +1,17 @@
 .product-armour-octa {
-  // Spec 结构为：div > img + .colors，.colors 不是 first-child，需选第一个色块容器内的 .colors
-  .spec-content .f .d > div:first-child .colors {
-    width: 48%;
-    margin-left: 0;
-  }
-  @media screen and (max-width: 1023px) {
-    .spec-content .f .colors {
-      width: 104%;
-      margin-left: -2.6%;
-    }
-    .spec-content .f .d > div:nth-child(3) .colors {
-      width: 106.8%;
+  .ui_v3-no_max_width_finish.f {
+    .colors {
+      width: 108%;
       margin-left: -3.6%;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .ui_v3-no_max_width_finish.f {
+      .colors {
+        width: 128%;
+        margin-left: -14%;
+      }
     }
   }
   &-kv {
@@ -82,6 +82,333 @@
         line-height: 0.45rem;
         font-family: 'DinExp';
         text-align: center;
+      }
+    }
+  }
+  .apv_title {
+    font-family: 'DinExp-Bold';
+    font-size: 48px;
+    line-height: 48px;
+  }
+  .apv_desc {
+    margin-top: 20px;
+    font-family: 'DinExp';
+    font-size: 16px;
+    line-height: 21px;
+  }
+  .apv_flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media screen and (max-width: 1023px) {
+    .apv_title {
+      width: 6.1rem;
+      font-size: 0.6rem;
+      line-height: 0.6rem;
+      text-align: left;
+    }
+
+    .apv_desc {
+      width: 6.1rem;
+      margin-top: 0.24rem;
+      font-size: 0.3rem;
+      line-height: 0.42rem;
+      text-align: left;
+    }
+  }
+  /* tech part */
+  &-tech {
+    width: 100vw;
+    padding: 200px 0 120px;
+    color: #fff;
+    background-color: #111;
+
+    .tech_content {
+      width: 1280px;
+      height: 900px;
+      margin: 0 auto;
+      border-radius: 30px;
+      background-color: #000;
+      justify-content: flex-start;
+    }
+
+    .tech_left {
+      width: 414px;
+      height: 740px;
+      margin: 0 120px 0 138px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .dual_desc {
+      opacity: 0;
+    }
+
+    .itank_desc,
+    .axon_desc {
+      opacity: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 3;
+    }
+
+    .itank_desc.active,
+    .axon_desc.active,
+    .dual_desc.active {
+      opacity: 1;
+    }
+
+    .tech_title_img {
+      margin-bottom: 100px;
+    }
+
+    .tech_content .apv_tips {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .tech_btns {
+      width: 390px;
+      height: 45px;
+      color: rgba(255, 255, 255, 0.5);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      justify-content: space-between;
+    }
+
+    .tech_btn_item {
+      width: fit-content;
+      height: 45px;
+      padding-bottom: 20px;
+      box-sizing: border-box;
+      font-size: 20px;
+      line-height: 25px;
+      font-family: 'DinExp-Bold';
+      cursor: pointer;
+    }
+
+    .tech_btn_item.active {
+      color: #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .tech_right {
+      position: relative;
+    }
+
+    .itank_imgs,
+    .axon_imgs {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+    }
+
+    .dual_imgs {
+      opacity: 0;
+    }
+
+    .dual_imgs.active,
+    .itank_imgs.active,
+    .axon_imgs.active {
+      opacity: 1;
+    }
+
+    .right_imgs {
+      width: 556px;
+      height: 740px;
+    }
+
+    .right_img_top {
+      width: 556px;
+      height: 360px;
+      margin-bottom: 20px;
+      padding: 245px 0 0 24px;
+      position: relative;
+    }
+
+    .right_img_top_bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .right_top_number {
+      font-size: 60px;
+      line-height: 60px;
+      font-family: 'DinExp-Bold';
+      color: #00ff00;
+      position: relative;
+      z-index: 5;
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+
+    .right_top_percent {
+      font-size: 30px;
+      line-height: 30px;
+      font-family: 'DinExp-Bold';
+      color: #00ff00;
+    }
+
+    .right_top_up {
+      width: 17px;
+      height: 30px;
+      object-fit: cover;
+      margin: 0 0 8px 8px;
+      display: inline-block;
+    }
+
+    .right_top_desc {
+      margin-top: 6px;
+      font-size: 13px;
+      line-height: 17px;
+      font-family: 'DinExp';
+      color: #fff;
+      position: relative;
+      z-index: 5;
+    }
+
+    .right_img_bottom {
+      width: 556px;
+      height: 360px;
+    }
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0 0.8rem;
+      background-color: #000;
+      flex-direction: column;
+      .tech_content {
+        width: 100vw;
+        height: fit-content;
+        margin: 0 auto;
+        border-radius: none;
+        background-color: #000;
+        flex-direction: column;
+      }
+
+      .tech_left {
+        width: 6.1rem;
+        height: fit-content;
+        margin: 0 auto;
+        justify-content: flex-start;
+      }
+
+      .itank_desc,
+      .axon_desc {
+        position: absolute;
+        bottom: none;
+        top: 1.44rem;
+      }
+
+      .tech_title_img {
+        margin-bottom: 0.64rem;
+      }
+
+      .dual_desc .tech_title_img {
+        width: 2.66rem;
+        height: 0.9rem;
+      }
+
+      .itank_desc .tech_title_img {
+        width: 1.72rem;
+        height: 1.76rem;
+      }
+
+      .axon_desc .tech_title_img {
+        width: 3.4rem;
+        height: 0.6rem;
+      }
+
+      .tech_btns {
+        width: 5.66rem;
+        height: 0.64rem;
+        margin-right: 0.44rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .tech_btn_item {
+        height: 0.64rem;
+        padding-bottom: 0.26rem;
+        font-size: 0.3rem;
+        line-height: 0.38rem;
+      }
+
+      .right_imgs {
+        width: 6.5rem;
+        height: fit-content;
+        margin-top: 0.8rem;
+      }
+
+      .itank_imgs {
+        margin-top: 0.4rem;
+      }
+
+      .axon_imgs {
+        margin-top: -0.36rem;
+      }
+
+      .right_img_top {
+        width: 6.5rem;
+        height: 4rem;
+        margin-bottom: 0.24rem;
+        padding: 2.34rem 0 0 0.4rem;
+      }
+
+      .right_top_number {
+        font-size: 0.88rem;
+        line-height: 0.88rem;
+      }
+
+      .right_top_percent {
+        font-size: 0.48rem;
+        line-height: 0.48rem;
+      }
+
+      .right_top_up {
+        width: 0.34rem;
+        height: 0.6rem;
+        object-fit: cover;
+        margin: 0 0 0.06rem 0.04rem;
+        display: inline-block;
+      }
+
+      .right_top_desc {
+        width: 2.2rem;
+        margin-top: 0.04rem;
+        font-size: 0.26rem;
+        line-height: 0.34rem;
+      }
+
+      .right_img_bottom {
+        width: 6.5rem;
+        height: 4rem;
+      }
+    }
+  }
+  &-pod-compatible {
+    .ui-v4-pod-compatible {
+      &-item {
+        padding-top: 20px;
+        &-version {
+          padding: 0 0 14px;
+          font-size: 17px;
+          line-height: 17px;
+        }
+        &-line {
+          top: 52px;
+        }
+        &-img {
+          top: 36px;
+        }
+        &-ohm {
+          margin-top: 178px;
+        }
       }
     }
   }

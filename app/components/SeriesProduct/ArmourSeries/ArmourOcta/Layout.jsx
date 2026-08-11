@@ -10,6 +10,7 @@ import {
   PodCompatible,
   EndProduct,
 } from '~/components/ui-v4';
+import {TechSection} from '~/components/SeriesProduct/ArmourSeries/ArmourOcta/TechSection';
 export function ArmourOctaLayout({children, onCheckSpecs}) {
   const rootRef = useRef(null);
   useEffect(() => {
@@ -44,7 +45,6 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
     mobImageUrl:
       'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-02.webp',
   };
-
   const PodCompatibleData = {
     title: 'Compatible With Multiple GTi Coils',
     description:
@@ -52,51 +52,61 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
     podList: [
       {
         id: 'pod1',
-        version: '3ml Version',
+        version: 'Pre-installed',
         imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros-mini-retro-9_1.webp',
-        ohm: '0.6Ω',
-        type: 'Top Filling',
+          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-ultra-web-14-1.webp',
+        ohm: 'GTi 0.2Ω DUAL MESH',
+        type: '60-75W\nBEST: 65W',
+        tag: 'New',
       },
       {
         id: 'pod2',
-        version: '3ml Version',
+        version: 'In-Box',
         imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros-mini-retro-9_2.webp',
-        ohm: '0.8Ω',
-        type: 'Top Filling',
+          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-ultra-web-14-2.webp',
+        ohm: 'GTi 0.4Ω DUAL MESH',
+        type: '50-60W\nBEST: 55W',
+        tag: 'New',
       },
       {
         id: 'pod3',
-        version: '2ml Version',
+        version: 'Coming Soon',
         imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros-mini-retro-9_3.webp',
-        ohm: '0.6Ω',
-        type: 'Top Filling',
+          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-ultra-web-14-3.webp',
+        ohm: 'GTi 0.15Ω DUAL MESH',
+        type: '75-90W\nBEST: 85W',
       },
       {
         id: 'pod4',
-        version: '2ml Version',
+        version: 'Compatible',
         imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros-mini-retro-9_4.webp',
-        ohm: '0.8Ω',
-        type: 'Top Filling',
+          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-ultra-web-14-4.webp',
+        ohm: 'GTi 0.15Ω MESH',
+        type: '75-90W\nBEST: 85W',
       },
       {
         id: 'pod5',
-        version: '2ml Version',
+        version: 'Compatible',
         imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros-mini-retro-9_5.webp',
-        ohm: '1.0Ω',
-        type: 'Top Filling',
+          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-ultra-web-14-5.webp',
+        ohm: 'GTi 0.2Ω MESH',
+        type: '60-75W\nBEST: 65W',
       },
       {
         id: 'pod6',
-        version: '2ml Version',
+        version: 'Compatible',
         imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros-mini-retro-9_6.webp',
-        ohm: '1.2Ω',
-        type: 'Top Filling',
+          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-ultra-web-14-6.webp',
+        ohm: 'GTi 0.4Ω MESH',
+        type: '50-60W\nBEST: 55W',
+      },
+      {
+        id: 'pod7',
+        version: 'Compatible',
+        imgUrl:
+          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-ultra-web-14-7.webp',
+        ohm: 'GTi 0.5Ω MESH',
+        type: '30-40W\nBEST: 35W',
       },
     ],
   };
@@ -126,6 +136,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
         className="product-armour-octa-brief"
         data={BriefSectionData}
       />
+      <TechSection />
       <PodCompatible
         className="product-armour-octa-pod-compatible"
         {...PodCompatibleData}
