@@ -83,7 +83,7 @@ export const OctaOvertimeProtection = ({ data }) => {
         });
 
         gsap.set(l2, {
-          opacity: 0.45,
+          opacity: 1,
         });
 
         gsap.set(l1Name, {
@@ -121,7 +121,7 @@ export const OctaOvertimeProtection = ({ data }) => {
         });
 
         gsap.set(l1, {
-          opacity: 0.45,
+          opacity: 1,
         });
 
         gsap.set(l2, {
@@ -138,7 +138,7 @@ export const OctaOvertimeProtection = ({ data }) => {
 
         if (l1Accent) {
           gsap.set(l1Accent, {
-            color: '#FFFFFF',
+            color: '#FE5A11',
           });
         }
 

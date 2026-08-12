@@ -344,8 +344,8 @@ const overtimeProtectionData = {
 
   level2: {
     name: 'L2',
-    description:
-      '2 overtime triggers\nwithin 2 mins.\nPower off.',
+    description:'2 overtime triggers\nwithin 2 mins.',
+     accent: 'Power off.'
   }
 };
 
