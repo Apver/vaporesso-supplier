@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -6,7 +6,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const OctaProofShowcase = ({ data }) => {
   const sectionRef = useRef(null);
-
+   const boxRef = useRef(null);
   const {
     title,
     subtitle,
@@ -14,9 +14,9 @@ export const OctaProofShowcase = ({ data }) => {
     slides = [],
   } = data;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const section = sectionRef.current;
-
+      const box = boxRef.current;
     if (!section || slides.length <= 1) return;
 
     const ctx = gsap.context(() => {
@@ -147,7 +147,8 @@ export const OctaProofShowcase = ({ data }) => {
         start: 'top top',
         end: () =>
           `+=${window.innerHeight * (slides.length * 1.15)}`,
-        pin: true,
+        pin: box,
+        pinSpacing: true,
         scrub: 0.7,
         anticipatePin: 1,
         invalidateOnRefresh: true,
@@ -186,8 +187,9 @@ export const OctaProofShowcase = ({ data }) => {
   return (
     <section
       ref={sectionRef}
-      className="octa-proof-showcase"
+      className="octa-proof-showcase-section"
     >
+      <div ref={boxRef} className='octa-proof-showcase'>
       <div className="octa-proof-showcase__inner">
         <div className="octa-proof-showcase__header">
           <h2 className="octa-proof-showcase__title">
@@ -290,6 +292,7 @@ export const OctaProofShowcase = ({ data }) => {
             {note}
           </p>
         )}
+      </div>
       </div>
     </section>
   );

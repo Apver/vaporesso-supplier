@@ -15,19 +15,23 @@
       }
     }
   }
+
   &-kv {
     .ui-v4-kv-content {
       display: flex;
       flex-direction: column-reverse;
+
       &__slogan {
         line-height: 31px;
         font-family: 'DinExp-Bold';
         margin-top: 16px;
       }
     }
+
     &-title {
       width: 422px;
     }
+
     @media screen and (max-width: 1450px) {
       .ui-v4-kv-content {
         &__slogan {
@@ -35,47 +39,58 @@
           margin-top: 13px;
         }
       }
+
       &-title {
         width: 338px;
       }
     }
+
     @media screen and (max-width: 1023px) {
       height: 12rem;
+
       .ui-v4-kv-content {
         display: flex;
         flex-direction: column-reverse;
         top: unset;
         bottom: 1.2rem;
+
         &__slogan {
           font-size: 0.36rem;
           line-height: 0.38rem;
           margin-top: 0.16rem;
         }
       }
+
       &-title {
         width: 5.14rem;
       }
     }
   }
+
   &-brief {
     padding: 150px 0 120px;
+
     .ui-v4-brief__description {
       max-width: 664px;
       font-size: 14px;
       line-height: 1.3;
     }
+
     @media screen and (max-width: 1450px) {
       padding: 120px 0 96px;
+
       .ui-v4-brief__description {
         width: 531px;
         font-size: 12px;
       }
     }
+
     @media screen and (max-width: 1023px) {
       &.ui-v4-brief {
         flex-direction: column;
         padding: 1.6rem 0.5rem 1.2rem;
       }
+
       .ui-v4-brief__description {
         width: 6.1rem;
         margin: 0.6rem auto 0;
@@ -86,22 +101,26 @@
       }
     }
   }
+
   .apv_title {
     font-family: 'DinExp-Bold';
     font-size: 48px;
     line-height: 48px;
   }
+
   .apv_desc {
     margin-top: 20px;
     font-family: 'DinExp';
     font-size: 16px;
     line-height: 21px;
   }
+
   .apv_flex {
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
   @media screen and (max-width: 1023px) {
     .apv_title {
       width: 6.1rem;
@@ -118,6 +137,7 @@
       text-align: left;
     }
   }
+
   /* tech part */
   &-tech {
     width: 100vw;
@@ -280,10 +300,12 @@
       width: 556px;
       height: 360px;
     }
+
     @media screen and (max-width: 1023px) {
       padding: 1.6rem 0 0.8rem;
       background-color: #000;
       flex-direction: column;
+
       .tech_content {
         width: 100vw;
         height: fit-content;
@@ -392,29 +414,36 @@
       }
     }
   }
+
   &-pod-compatible {
     .ui-v4-pod-compatible {
       &-item {
         padding-top: 20px;
+
         &-version {
           padding: 0 0 14px;
           font-size: 17px;
           line-height: 17px;
         }
+
         &-line {
           top: 52px;
         }
+
         &-img {
           top: 36px;
         }
+
         &-ohm {
           margin-top: 178px;
         }
       }
     }
   }
+
   &-end-product {
     padding: 160px 0 200px;
+
     @media screen and (max-width: 1023px) {
       padding: 1.2rem 0 1.6rem;
     }
@@ -936,9 +965,12 @@
   // MilitaryProof.jsx css end
 
 
-// OctaProofShowcase.jsx css start
-  
-    .octa-proof-showcase {
+  // OctaProofShowcase.jsx css start
+.octa-proof-showcase-section {
+  position: relative;
+  width: 100%;
+}
+  .octa-proof-showcase {
     position: relative;
     display: flex;
     align-items: center;
@@ -1003,16 +1035,14 @@
       overflow: hidden;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      clip-path: polygon(
-        56px 0,
-        calc(100% - 56px) 0,
-        100% 56px,
-        100% calc(100% - 56px),
-        calc(100% - 56px) 100%,
-        56px 100%,
-        0 calc(100% - 56px),
-        0 56px
-      );
+      clip-path: polygon(56px 0,
+          calc(100% - 56px) 0,
+          100% 56px,
+          100% calc(100% - 56px),
+          calc(100% - 56px) 100%,
+          56px 100%,
+          0 calc(100% - 56px),
+          0 56px);
       transform-style: preserve-3d;
       will-change: transform, opacity;
     }
@@ -1124,7 +1154,7 @@
       height: 8px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.4);
-      transition: width 0.3s ease,background 0.3s ease;
+      transition: width 0.3s ease, background 0.3s ease;
 
       &.is-active {
         width: 8px;
@@ -1171,16 +1201,14 @@
       }
 
       &__slide {
-        clip-path: polygon(
-          45px 0,
-          calc(100% - 45px) 0,
-          100% 45px,
-          100% calc(100% - 45px),
-          calc(100% - 45px) 100%,
-          45px 100%,
-          0 calc(100% - 45px),
-          0 45px
-        );
+        clip-path: polygon(45px 0,
+            calc(100% - 45px) 0,
+            100% 45px,
+            100% calc(100% - 45px),
+            calc(100% - 45px) 100%,
+            45px 100%,
+            0 calc(100% - 45px),
+            0 45px);
       }
 
       &__slide-content {
@@ -1277,16 +1305,14 @@
       }
 
       &__slide {
-        clip-path: polygon(
-          0.32rem 0,
-          calc(100% - 0.32rem) 0,
-          100% 0.32rem,
-          100% calc(100% - 0.32rem),
-          calc(100% - 0.32rem) 100%,
-          0.32rem 100%,
-          0 calc(100% - 0.32rem),
-          0 0.32rem
-        );
+        clip-path: polygon(0.32rem 0,
+            calc(100% - 0.32rem) 0,
+            100% 0.32rem,
+            100% calc(100% - 0.32rem),
+            calc(100% - 0.32rem) 100%,
+            0.32rem 100%,
+            0 calc(100% - 0.32rem),
+            0 0.32rem);
       }
 
       &__picture {
@@ -1366,7 +1392,8 @@
       }
     }
   }
-// OctaProofShowcase.jsx css end
+
+  // OctaProofShowcase.jsx css end
 
 
 
@@ -1374,14 +1401,14 @@
 
 
 
-// OctaVoltageSurge.jsx css end
-.octa-voltage-surge {
+  // OctaVoltageSurge.jsx css end
+  .octa-voltage-surge {
     position: relative;
     width: 100%;
     aspect-ratio: 1920 / 860;
-    min-height: 860px;
+    height: 860px;
     overflow: hidden;
-   background: linear-gradient(180deg, #E94903 0%, #DEDEDE 100%);
+    background: linear-gradient(180deg, #E94903 0%, #DEDEDE 100%);
 
     &__inner {
       position: relative;
@@ -1419,7 +1446,7 @@
       // stroke: #E6723F;
       // stroke-width: 5px;
       // filter: drop-shadow(0 0 7px #D94A0D);
-         stroke: #D94A0D;
+      stroke: #D94A0D;
       stroke-width: 3px;
     }
 
@@ -1441,10 +1468,10 @@
     }
 
     &__desc {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 130%; 
-    margin-top: 20px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 130%;
+      margin-top: 20px;
     }
 
     &__device-picture {
@@ -1453,7 +1480,7 @@
       left: 56%;
       z-index: 3;
       display: block;
-     width: 437px;
+      width: 437px;
       transform: translateX(-50%);
       pointer-events: none;
     }
@@ -1472,7 +1499,7 @@
       z-index: 4;
       width: 304px;
       text-align: center;
-     color: rgba(114, 59, 35, 0.60);
+      color: rgba(114, 59, 35, 0.60);
       will-change: transform, opacity;
     }
 
@@ -1501,7 +1528,7 @@
     &__threshold-desc {
       margin: 11px auto 0;
       white-space: pre-line;
-     color: #451600;
+      color: #451600;
       font-family: 'DinExp-Bold';
       text-align: right;
       font-size: 24px;
@@ -1521,79 +1548,79 @@
     }
   }
 
-@media screen and (max-width: 1450px) {
-  .octa-voltage-surge {
-    min-height: 688px;
+  @media screen and (max-width: 1450px) {
+    .octa-voltage-surge {
+      height: 688px;
 
-    &__inner {
-      width: 840px;
-      max-width: calc(100% - 64px);
-    }
+      &__inner {
+        width: 840px;
+        max-width: calc(100% - 64px);
+      }
 
-    &__wave {
-      top: 408px;
-      height: 138px;
-    }
+      &__wave {
+        top: 408px;
+        height: 138px;
+      }
 
-    &__wave-base {
-      stroke-width: 2px;
-    }
+      &__wave-base {
+        stroke-width: 2px;
+      }
 
-    &__wave-pulse {
-      stroke-width: 4px;
-      filter: drop-shadow(0 0 6px #D94A0D);
-    }
+      &__wave-pulse {
+        stroke-width: 4px;
+        filter: drop-shadow(0 0 6px #D94A0D);
+      }
 
-    &__copy {
-      top: 170px;
-      width: 274px;
-    }
+      &__copy {
+        top: 170px;
+        width: 274px;
+      }
 
-    &__title {
-      font-size: 38px;
-    }
+      &__title {
+        font-size: 38px;
+      }
 
-    &__desc {
-      margin-top: 16px;
-      font-size: 13px;
-    }
+      &__desc {
+        margin-top: 16px;
+        font-size: 13px;
+      }
 
-    &__device-picture {
-      top: 140px;
-      left: 56%;
-      width: 350px;
-    }
+      &__device-picture {
+        top: 140px;
+        left: 56%;
+        width: 350px;
+      }
 
-    &__threshold {
-      top: 278px;
-      width: 243px;
-    }
+      &__threshold {
+        top: 278px;
+        width: 243px;
+      }
 
-    &__threshold-value {
-      font-size: 80px;
-      letter-spacing: -2px;
-    }
+      &__threshold-value {
+        font-size: 80px;
+        letter-spacing: -2px;
+      }
 
-    &__threshold-operator {
-      margin-right: 3px;
-    }
+      &__threshold-operator {
+        margin-right: 3px;
+      }
 
-    &__threshold-unit {
-      font-size: 30px;
-    }
+      &__threshold-unit {
+        font-size: 30px;
+      }
 
-    &__threshold-desc {
-      margin-top: 9px;
-      font-size: 19px;
-    }
+      &__threshold-desc {
+        margin-top: 9px;
+        font-size: 19px;
+      }
 
-    &__note {
-      bottom: 34px;
-      width: 274px;
-      font-size: 12px;
+      &__note {
+        bottom: 34px;
+        width: 274px;
+        font-size: 12px;
+      }
     }
   }
-}
 
   @media screen and (max-width: 1023px) {
     .octa-voltage-surge {
@@ -1678,12 +1705,13 @@
       }
     }
   }
-// OctaVoltageSurge.jsx css end
+
+  // OctaVoltageSurge.jsx css end
 
 
 
 
-// OctaOverheatProtection.jsx start
+  // OctaOverheatProtection.jsx start
   .octa-overheat {
     width: 100%;
     padding: 150px 0 120px;
@@ -1716,7 +1744,7 @@
       position: relative;
       width: 1050px;
       max-width: calc(100% - 80px);
-     aspect-ratio: 7/4;
+      aspect-ratio: 7/4;
       margin: 0 auto;
       overflow: hidden;
       background: #120700;
@@ -1740,8 +1768,8 @@
 
     &__temperature {
       position: absolute;
-      top: 215px;
-      left: 62px;
+      top: 251px;
+      left: 65px;
       z-index: 2;
       color: #fff;
     }
@@ -1750,37 +1778,35 @@
       display: flex;
       align-items: flex-end;
       font-family: 'DinExp-Bold';
-      font-size: 60px;
+      font-size: 64px;
       font-weight: 700;
-      line-height: 90%;
-      letter-spacing: -2px;
+      line-height: 1;
     }
 
     &__temperature-unit {
-      margin: 0 0 2px 3px;
-      font-size: 28px;
-      line-height: 100%;
-      letter-spacing: 0;
+      margin: 0 0 0 5px;
+      font-size: 36px;
+      line-height: 1;
     }
 
     &__temperature-desc {
-      margin: 16px 0 0;
+      margin: 8px 0 0;
       color: #FE5A11;
       font-family: 'DinExp-Bold';
       font-size: 18px;
       font-weight: 700;
-      line-height: 120%;
+      line-height: 130%;
     }
 
     &__note {
       position: absolute;
-      bottom: 58px;
-      left: 62px;
+      bottom: 60px;
+      left: 65px;
       z-index: 2;
-      width: 360px;
+      width: 347px;
       margin: 0;
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 13px;
+      color: rgba(255, 255, 255, 0.80);
+      font-size: 15px;
       font-weight: 400;
       line-height: 130%;
     }
@@ -1788,12 +1814,12 @@
 
   @media screen and (max-width: 1450px) {
     .octa-overheat {
-      padding: 104px 0 96px;
+      padding: 120px 0 96px;
 
       &__header {
-        width: 608px;
+        width: 588px;
         max-width: calc(100% - 32px);
-        margin-bottom: 35px;
+        margin-bottom: 38px;
       }
 
       &__title {
@@ -1801,41 +1827,39 @@
       }
 
       &__subtitle {
-        width: 544px;
-        margin-top: 19px;
+        margin-top: 16px;
         font-size: 13px;
       }
 
       &__media {
-        width: 784px;
+        width: 840px;
         max-width: calc(100% - 64px);
       }
 
       &__temperature {
-        top: 172px;
-        left: 50px;
+        top: 201px;
+        left: 52px;
       }
 
       &__temperature-value {
-        font-size: 48px;
-        letter-spacing: -2px;
+        font-size: 51px;
       }
 
       &__temperature-unit {
-        margin: 0 0 2px 2px;
-        font-size: 22px;
+        margin-left: 4px;
+        font-size: 29px;
       }
 
       &__temperature-desc {
-        margin-top: 13px;
+        margin-top: 6px;
         font-size: 14px;
       }
 
       &__note {
-        bottom: 46px;
-        left: 50px;
-        width: 288px;
-        font-size: 10px;
+        bottom: 48px;
+        left: 52px;
+        width: 278px;
+        font-size: 12px;
       }
     }
   }
@@ -1904,10 +1928,269 @@
       }
     }
   }
-// OctaOverheatProtection.jsx end
+
+  // OctaOverheatProtection.jsx end
 
 
 
+
+
+
+
+  // OctaOvertimeProtection.jsx start
+     .octa-overtime-scroll {
+    position: relative;
+    width: 100%;
+    height: 200vh;
+    background: #050505;
+  }
+
+  .octa-overtime {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(
+      180deg,
+      #050505 0%,
+      #111111 58%,
+      #4B4B4B 100%
+    );
+
+    &__inner {
+      position: relative;
+      width: 1220px;
+      max-width: calc(100% - 80px);
+      height: 100%;
+      margin: 0 auto;
+    }
+
+    &__content {
+      position: absolute;
+      top: 265px;
+      left: 0;
+      z-index: 3;
+      width: 560px;
+      color: #fff;
+    }
+
+    &__title {
+      margin: 0;
+      white-space: pre-line;
+      font-family: 'DinExp-Bold';
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 100%;
+    }
+
+    &__levels {
+      display: flex;
+      align-items: flex-start;
+      gap: 110px;
+      margin-top: 68px;
+    }
+
+    &__level {
+      width: 150px;
+      color: #fff;
+      will-change: opacity;
+
+      &--l1 {
+        .octa-overtime__level-name {
+          color: #FE5A11;
+        }
+
+        .octa-overtime__level-accent {
+          color: #FE5A11;
+        }
+      }
+
+      &--l2 {
+        opacity: 0.5;
+
+        .octa-overtime__level-name {
+          color: #fff;
+        }
+      }
+    }
+
+    &__level-name {
+      font-family: 'DinExp-Bold';
+      font-size: 58px;
+      font-weight: 700;
+      line-height: 100%;
+      will-change: color;
+    }
+
+    &__level-desc {
+      margin-top: 14px;
+      white-space: pre-line;
+      color: #fff;
+      font-family: 'DinExp-Bold';
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 125%;
+    }
+
+    &__level-accent {
+      margin-top: 2px;
+      font-family: 'DinExp-Bold';
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 125%;
+      will-change: color;
+    }
+
+    &__device-wrap {
+      position: absolute;
+      top: 0;
+      right: -20px;
+      z-index: 2;
+      width: 680px;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    &__device-picture {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      will-change: opacity;
+    }
+
+    &__device--l1 {
+      z-index: 1;
+    }
+
+    &__device--l2 {
+      z-index: 2;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    &__device-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
+  @media screen and (max-width: 1450px) {
+    .octa-overtime-scroll {
+      height: 200vh;
+    }
+
+    .octa-overtime {
+      &__inner {
+        width: 976px;
+        max-width: calc(100% - 64px);
+      }
+
+      &__content {
+        top: 212px;
+        width: 448px;
+      }
+
+      &__title {
+        font-size: 38px;
+      }
+
+      &__levels {
+        gap: 88px;
+        margin-top: 54px;
+      }
+
+      &__level {
+        width: 120px;
+      }
+
+      &__level-name {
+        font-size: 46px;
+      }
+
+      &__level-desc {
+        margin-top: 11px;
+        font-size: 12px;
+      }
+
+      &__level-accent {
+        margin-top: 2px;
+        font-size: 12px;
+      }
+
+      &__device-wrap {
+        right: -16px;
+        width: 544px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .octa-overtime-scroll {
+      height: 180svh;
+    }
+
+    .octa-overtime {
+      height: 100svh;
+
+      &__inner {
+        width: 100%;
+        max-width: none;
+      }
+
+      &__content {
+        top: 0.9rem;
+        left: 0.5rem;
+        width: 6.5rem;
+      }
+
+      &__title {
+        font-size: 0.56rem;
+        line-height: 105%;
+      }
+
+      &__levels {
+        gap: 1.2rem;
+        margin-top: 0.5rem;
+      }
+
+      &__level {
+        width: 2.2rem;
+      }
+
+      &__level-name {
+        font-size: 0.8rem;
+      }
+
+      &__level-desc {
+        margin-top: 0.16rem;
+        font-size: 0.22rem;
+      }
+
+      &__level-accent {
+        margin-top: 0.04rem;
+        font-size: 0.22rem;
+      }
+
+      &__device-wrap {
+        top: 4rem;
+        right: auto;
+        bottom: 0;
+        left: 50%;
+        width: 6.4rem;
+        height: 8.2rem;
+        transform: translateX(-50%);
+      }
+    }
+  }
+  // OctaOvertimeProtection.jsx end
 
 
 

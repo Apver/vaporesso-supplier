@@ -17,7 +17,8 @@ OctaProtection,
  MilitaryProof,
  OctaProofShowcase,
  OctaVoltageSurge,
- OctaOverheatProtection
+ OctaOverheatProtection,
+ OctaOvertimeProtection
 } from '~/components/SeriesProduct/ArmourSeries/ArmourOcta';
 import {TechSection} from '~/components/SeriesProduct/ArmourSeries/ArmourOcta/TechSection';
 export function ArmourOctaLayout({children, onCheckSpecs}) {
@@ -300,7 +301,7 @@ const overheatProtectionData = {
 
   image: {
     pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-08-1-2x.webp',
-    mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-08-1-3x.webp',
+    mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-08-1-3x.webp',
   },
 
   temperature: '<75',
@@ -309,6 +310,43 @@ const overheatProtectionData = {
   temperatureDesc:'Once Beyond, Stop Charging',
 
   note:'*All certifications and tests apply to the MOD only, based on standardized third-party lab conditions.',
+};
+
+
+
+const overtimeProtectionData = {
+  title: (
+    <>
+      V2.0 Overtime Protection
+      <br />
+      Prevent Accidental
+      <br />
+      10s Long-Press
+    </>
+  ),
+
+  image: {
+    l1: {
+      pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-10-1-2x.webp',
+      mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-10-1-3x.webp',
+    },
+
+    l2: {
+      pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-10-2-2x.webp',
+      mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-10-2-3x.webp',
+    },
+  },
+  level1: {
+    name: 'L1',
+    description: '1 overtime trigger.',
+    accent: 'Output cut off.',
+  },
+
+  level2: {
+    name: 'L2',
+    description:
+      '2 overtime triggers\nwithin 2 mins.\nPower off.',
+  }
 };
 
 
@@ -324,10 +362,11 @@ const overheatProtectionData = {
         data={BriefSectionData}
       />
       <OctaProtection />
-      <MilitaryProof data={militaryProofData}/>
+      <MilitaryProof data={militaryProofData} />
       <OctaProofShowcase data={proofShowcaseData} />
       <OctaVoltageSurge data={voltageSurgeData} />
-      <OctaOverheatProtection data={overheatProtectionData}/>
+      <OctaOverheatProtection data={overheatProtectionData} />
+      <OctaOvertimeProtection data={overtimeProtectionData} />
       <TechSection />
       <PodCompatible
         className="product-armour-octa-pod-compatible"
