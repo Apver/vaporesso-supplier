@@ -11,6 +11,7 @@ export { OctaOverheatProtection } from './OctaOverheatProtection';
 export { OctaOvertimeProtection } from './OctaOvertimeProtection';
 export { OctaComparison } from './OctaComparison';
 export { OctaTextureShowcase } from './OctaTextureShowcase';
-
+export { OctaComfortHold } from './OctaComfortHold';
+export { OctaDetailShowcase } from './OctaDetailShowcase';
 
 

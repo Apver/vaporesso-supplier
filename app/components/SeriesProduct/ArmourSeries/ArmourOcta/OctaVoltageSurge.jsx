@@ -228,7 +228,7 @@ export const OctaVoltageSurge = ({ data }) => {
         />
       </svg>
 
-      <div className="octa-voltage-surge__inner">
+      <div className="octa-voltage-surge__inner to-top">
         <div className="octa-voltage-surge__copy">
           <h2 className="octa-voltage-surge__title">
             {title}

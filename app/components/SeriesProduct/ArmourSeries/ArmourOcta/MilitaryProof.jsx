@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const MilitaryProof = ({ data }) => {
+export const MilitaryProof = ({ data, className = '' }) => {
   const sectionRef = useRef(null);
 
   const {
@@ -63,7 +63,7 @@ export const MilitaryProof = ({ data }) => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="military-proof">
+    <section ref={sectionRef} className={`military-proof ${className}`}>
       <picture className="military-proof__background-picture">
         <source
           media="(max-width: 1023px)"

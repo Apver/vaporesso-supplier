@@ -47,11 +47,11 @@ export const OctaComparison = ({ data }) => {
   return (
     <section className="octa-comparison">
       <div className="octa-comparison__container">
-        <h2 className="octa-comparison__title">
+        <h2 className="octa-comparison__title to-top">
           {title}
         </h2>
 
-        <div className="octa-comparison__scroll">
+        <div className="octa-comparison__scroll to-top">
           <table className="octa-comparison__table">
             <thead>
               <tr>

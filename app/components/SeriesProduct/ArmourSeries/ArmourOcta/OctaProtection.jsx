@@ -129,17 +129,17 @@ export  function OctaProtection() {
   return (
     <div className="octa-protection">
       <div className="octa-protection__header">
-        <h2 className="octa-protection__title">
+        <h2 className="octa-protection__title to-top">
           Inside-Out, 8 Ways To Stay Armoured
         </h2>
 
-        <p className="octa-protection__subtitle">
+        <p className="octa-protection__subtitle to-top">
           Battery Guard Inside, 4X Proof Outside—
           Octa Cover All
         </p>
       </div>
 
-      <div className="octa-protection__content">
+      <div className="octa-protection__content to-top">
         <div className="octa-protection__proof-grid">
           {proofCards.map((item) => (
             <ProofCard

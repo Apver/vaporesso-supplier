@@ -1,7 +1,10 @@
 import '~/styles/ui-v4/pod-compatible.scss';
-export function PodCompatible({title, description, podList, className}) {
+export function PodCompatible({title, description, podList, className,subTitle}) {
   return (
     <div className={`ui-v4-pod-compatible ${className || ''}`}>
+       {subTitle && (
+        <p className="ui-v4-pod-compatible-subTitle to-top">{subTitle}</p>
+      )}
       <h3 className="ui-v4-pod-compatible-title to-top">{title}</h3>
       {description && (
         <p className="ui-v4-pod-compatible-description to-top">{description}</p>

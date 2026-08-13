@@ -7,7 +7,7 @@ export const OctaTextureShowcase = ({ data }) => {
   return (
     <section className="octa-texture">
       <div className="octa-texture__inner">
-        <h2 className="octa-texture__title">
+        <h2 className="octa-texture__title to-top">
           {title}
         </h2>
 
@@ -15,7 +15,7 @@ export const OctaTextureShowcase = ({ data }) => {
           {items.map((item) => (
             <div
               key={item.key}
-              className="octa-texture__item"
+              className="octa-texture__item to-top"
             >
               <div className="octa-texture__card">
                 <picture className="octa-texture__picture">

@@ -88,16 +88,15 @@
     @media screen and (max-width: 1023px) {
       &.ui-v4-brief {
         flex-direction: column;
-        padding: 1.6rem 0.5rem 1.2rem;
+        padding: 1.6rem 0.5rem;
       }
 
       .ui-v4-brief__description {
         width: 6.1rem;
         margin: 0.6rem auto 0;
         font-size: 0.3rem;
-        line-height: 0.45rem;
+        line-height: 1.5;
         font-family: 'DinExp';
-        text-align: center;
       }
     }
   }
@@ -188,6 +187,7 @@
     }
 
     .tech_content .apv_tips {
+      margin-top: 16px;
       color: rgba(255, 255, 255, 0.5);
     }
 
@@ -246,9 +246,13 @@
     .right_img_top {
       width: 556px;
       height: 360px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       padding: 245px 0 0 24px;
       position: relative;
+    }
+    .right_img_top.right_img_full{
+      height: 100%;
+      margin: 0;
     }
 
     .right_img_top_bg {
@@ -259,12 +263,15 @@
       top: 0;
       left: 0;
     }
+     .right_img_top.right_img_full .right_img_top_bg {
+      height: 100%;
+     }
 
     .right_top_number {
       font-size: 60px;
-      line-height: 60px;
+      line-height: 1;
       font-family: 'DinExp-Bold';
-      color: #00ff00;
+      color: #FE5A11;
       position: relative;
       z-index: 5;
       align-items: flex-end;
@@ -275,7 +282,7 @@
       font-size: 30px;
       line-height: 30px;
       font-family: 'DinExp-Bold';
-      color: #00ff00;
+      color: #FE5A11;
     }
 
     .right_top_up {
@@ -416,6 +423,24 @@
   }
 
   &-pod-compatible {
+    .ui-v4-pod-compatible-subTitle{
+      color: #FE5A11;
+      text-align: center;
+      font-family: var(--deb);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 125%;
+      margin-bottom: 16px;
+      @media screen and (max-width: 1450px) {
+       font-size: 16px;
+       margin-bottom: 13px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      font-size: 0.3rem;
+       margin-bottom: 0.24rem;
+    }
+    }
     .ui-v4-pod-compatible {
       &-item {
         padding-top: 20px;
@@ -442,7 +467,11 @@
   }
 
   &-end-product {
-    padding: 160px 0 200px;
+    padding: 150px 0;
+
+    @media screen and (max-width: 1450px) {
+       padding: 120px 0;
+    }
 
     @media screen and (max-width: 1023px) {
       padding: 1.2rem 0 1.6rem;
@@ -811,7 +840,7 @@
       &__safety-icon {
         width: 0.8rem;
         height: 0.8rem;
-        margin-bottom: 0.28rem;
+        margin-bottom: 0.2rem;
       }
 
       &__safety-title {
@@ -870,6 +899,7 @@
       will-change: transform, opacity;
     }
 
+
     &__foreground {
       position: absolute;
       inset: 0;
@@ -909,6 +939,12 @@
       font-size: 48px;
       font-weight: 400;
       line-height: 1;
+    }
+    &.military-proof1 {
+      .military-proof__mark {
+       line-height: 0.7;
+       top: 117px;
+      }
     }
   }
 
@@ -977,7 +1013,7 @@
     justify-content: center;
     width: 100%;
     height: 100vh;
-    min-height: 900px;
+    // min-height: 900px;
     padding: 80px 0;
     overflow: hidden;
     background: #fff;
@@ -986,7 +1022,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 1120px;
+      width: 1050px;
       max-width: calc(100% - 80px);
     }
 
@@ -998,7 +1034,6 @@
     }
 
     &__title {
-      margin: 0;
       font-family: 'DinExp-Bold';
       font-size: 48px;
       font-weight: 400;
@@ -1010,7 +1045,6 @@
     }
 
     &__subtitle {
-      margin: 2px 0 0;
       font-family: 'DinExp-Bold';
       font-size: 48px;
       font-weight: 400;
@@ -1020,7 +1054,7 @@
     &__stage {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 1050 / 600;
       overflow: hidden;
       isolation: isolate;
       perspective: 1800px;
@@ -1035,14 +1069,6 @@
       overflow: hidden;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      clip-path: polygon(56px 0,
-          calc(100% - 56px) 0,
-          100% 56px,
-          100% calc(100% - 56px),
-          calc(100% - 56px) 100%,
-          56px 100%,
-          0 calc(100% - 56px),
-          0 56px);
       transform-style: preserve-3d;
       will-change: transform, opacity;
     }
@@ -1067,12 +1093,13 @@
 
     &__slide-content {
       position: absolute;
-      top: 145px;
+      top: 50%;
       left: 96px;
       z-index: 2;
       width: 430px;
       color: #fff;
       pointer-events: none;
+      transform: translateY(-50%);
     }
 
     &__slide-title {
@@ -1090,23 +1117,22 @@
 
     &__slide-desc {
       width: 400px;
-      margin: 26px 0 0;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 18px;
+      margin: 20px 0 0;
+      color: #fff;
+      font-size: 16px;
       font-weight: 400;
-      line-height: 140%;
+      line-height: 130%;
     }
 
     &__metrics {
       display: flex;
       align-items: flex-start;
-      gap: 64px;
-      margin-top: 54px;
+      gap: 60px;
+      margin-top: 40px;
     }
 
     &__metric {
       flex: 0 0 auto;
-      min-width: 90px;
     }
 
     &__metric-value {
@@ -1116,166 +1142,147 @@
       font-family: 'DinExp-Bold';
       font-size: 58px;
       font-weight: 400;
-      line-height: 90%;
+      line-height: 100%;
       white-space: nowrap;
 
       span {
-        margin-left: 4px;
+        margin-left: 6px;
         font-size: 24px;
-        line-height: 1;
+        line-height: 1.4;
       }
     }
 
     &__metric-label {
-      margin-top: 14px;
+      margin-top: 6px;
       color: #fff;
       font-family: 'DinExp-Bold';
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 400;
-      line-height: 120%;
+      line-height: 130%;
       white-space: nowrap;
     }
 
     &__dots {
       position: absolute;
-      bottom: 18px;
+      bottom: 28px;
       left: 50%;
       z-index: 30;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 16px;
       transform: translateX(-50%);
       pointer-events: none;
     }
 
     &__dot {
       display: block;
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.4);
       transition: width 0.3s ease, background 0.3s ease;
 
       &.is-active {
-        width: 8px;
+        width: 10px;
         background: #fff;
       }
     }
 
     &__note {
       width: 100%;
-      margin: 20px 0 0;
-      color: rgba(0, 0, 0, 0.35);
-      font-size: 12px;
+      margin: 30px 0 0;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 13px;
       font-weight: 400;
       line-height: 130%;
       text-align: center;
     }
   }
 
-  @media screen and (max-width: 1450px) {
-    .octa-proof-showcase {
-      min-height: 720px;
-      padding: 64px 0;
+@media screen and (max-width: 1450px) {
+  .octa-proof-showcase {
+    padding: 64px 0;
 
-      &__inner {
-        width: 896px;
-        max-width: calc(100% - 64px);
-      }
+    &__inner {
+      width: 840px;
+      max-width: calc(100% - 64px);
+    }
 
-      &__header {
-        margin-bottom: 38px;
-      }
+    &__header {
+      margin-bottom: 38px;
+    }
 
-      &__title {
-        font-size: 38px;
-      }
+    &__title {
+      font-size: 38px;
+    }
 
-      &__subtitle {
-        margin-top: 2px;
-        font-size: 38px;
-      }
+    &__subtitle {
+      font-size: 38px;
+    }
 
-      &__stage {
-        perspective: 1440px;
-      }
+    &__stage {
+      perspective: 1440px;
+    }
 
-      &__slide {
-        clip-path: polygon(45px 0,
-            calc(100% - 45px) 0,
-            100% 45px,
-            100% calc(100% - 45px),
-            calc(100% - 45px) 100%,
-            45px 100%,
-            0 calc(100% - 45px),
-            0 45px);
-      }
+    &__slide-content {
+      left: 77px;
+      width: 344px;
+    }
 
-      &__slide-content {
-        top: 116px;
-        left: 77px;
-        width: 344px;
-      }
+    &__slide-title {
+      font-size: 35px;
+    }
 
-      &__slide-title {
-        font-size: 35px;
-      }
+    &__slide-desc {
+      width: 320px;
+      margin-top: 16px;
+      font-size: 13px;
+    }
 
-      &__slide-desc {
-        width: 320px;
-        margin-top: 21px;
-        font-size: 14px;
-      }
+    &__metrics {
+      gap: 48px;
+      margin-top: 32px;
+    }
 
-      &__metrics {
-        gap: 51px;
-        margin-top: 43px;
-      }
+    &__metric-value {
+      font-size: 46px;
 
-      &__metric {
-        min-width: 72px;
-      }
-
-      &__metric-value {
-        font-size: 46px;
-
-        span {
-          margin-left: 3px;
-          font-size: 19px;
-        }
-      }
-
-      &__metric-label {
-        margin-top: 11px;
-        font-size: 13px;
-      }
-
-      &__dots {
-        bottom: 14px;
-        gap: 8px;
-      }
-
-      &__dot {
-        width: 6px;
-        height: 6px;
-
-        &.is-active {
-          width: 6px;
-        }
-      }
-
-      &__note {
-        margin-top: 16px;
-        font-size: 10px;
+      span {
+        margin-left: 5px;
+        font-size: 19px;
       }
     }
+
+    &__metric-label {
+      margin-top: 5px;
+      font-size: 10px;
+    }
+
+    &__dots {
+      bottom: 22px;
+      gap: 13px;
+    }
+
+    &__dot {
+      width: 8px;
+      height: 8px;
+
+      &.is-active {
+        width: 8px;
+      }
+    }
+
+    &__note {
+      margin-top: 24px;
+      font-size: 10px;
+    }
   }
+}
 
   @media screen and (max-width: 1023px) {
     .octa-proof-showcase {
       height: 100svh;
-      min-height: 12rem;
-      padding: 1rem 0.32rem;
+      padding: 1.6rem 0.47rem;
 
       &__inner {
         width: 100%;
@@ -1284,35 +1291,26 @@
 
       &__header {
         width: 100%;
-        margin-bottom: 0.6rem;
+        margin-bottom: 0.8rem;
       }
 
       &__title {
-        font-size: 0.48rem;
-        line-height: 105%;
+        font-size: 0.6rem;
+        line-height: 100%;
       }
 
       &__subtitle {
-        margin-top: 0.04rem;
-        font-size: 0.48rem;
-        line-height: 105%;
+        font-size: 0.6rem;
+        line-height: 100%;
       }
 
       &__stage {
         width: 100%;
-        aspect-ratio: 1 / 1.1;
+        aspect-ratio: 65/108;
         perspective: 16rem;
       }
 
       &__slide {
-        clip-path: polygon(0.32rem 0,
-            calc(100% - 0.32rem) 0,
-            100% 0.32rem,
-            100% calc(100% - 0.32rem),
-            calc(100% - 0.32rem) 100%,
-            0.32rem 100%,
-            0 calc(100% - 0.32rem),
-            0 0.32rem);
       }
 
       &__picture {
@@ -1328,66 +1326,66 @@
       }
 
       &__slide-content {
-        top: 1.2rem;
+        top: 0.6rem;
         left: 0.6rem;
-        width: 5.5rem;
+        width: 5.36rem;
+        transform: translateY(0);
       }
 
       &__slide-title {
-        font-size: 0.52rem;
-        line-height: 108%;
+        font-size: 0.48rem;
+        line-height: 100%;
       }
 
       &__slide-desc {
-        width: 5rem;
-        margin-top: 0.3rem;
-        font-size: 0.24rem;
-        line-height: 140%;
+        margin-top: 0.24rem;
+        font-size: 0.26rem;
+        line-height: 153.846%;
       }
 
       &__metrics {
-        gap: 0.7rem;
-        margin-top: 0.6rem;
+        gap: 0.6rem;
+        margin-top: 0.4rem;
       }
 
       &__metric {
-        min-width: 1.3rem;
       }
 
       &__metric-value {
-        font-size: 0.72rem;
-        line-height: 90%;
+        font-size: 0.96rem;
+        line-height: 100%;
 
         span {
           margin-left: 0.05rem;
-          font-size: 0.3rem;
+          font-size: 0.48rem;
+          line-height: 1.25;
         }
       }
 
       &__metric-label {
-        margin-top: 0.16rem;
-        font-size: 0.22rem;
-        line-height: 120%;
+        margin-top: 0.08rem;
+        font-size: 0.26rem;
+        line-height: 130%;
       }
 
       &__dots {
-        bottom: 0.24rem;
-        gap: 0.12rem;
+        bottom: 0.4rem;
+        gap: 0.28rem;
       }
 
       &__dot {
-        width: 0.1rem;
-        height: 0.1rem;
+        width: 0.16rem;
+        height: 0.16rem;
 
         &.is-active {
-          width: 0.1rem;
+          width: 0.16rem;
         }
       }
 
       &__note {
-        margin-top: 0.24rem;
-        padding: 0 0.2rem;
-        font-size: 0.16rem;
+        margin-top: 0.38rem;
+        // padding: 0 0.2rem;
+        font-size: 0.22rem;
         line-height: 130%;
       }
     }
@@ -1626,7 +1624,7 @@
     .octa-voltage-surge {
       aspect-ratio: auto;
       min-height: 0;
-      height: 13.6rem;
+      height: 14.74rem;
 
       &__inner {
         width: 100%;
@@ -1635,73 +1633,75 @@
       }
 
       &__wave {
-        top: 6.3rem;
-        height: 2.4rem;
+        top: 9.96rem;
+        height: 2.38rem;
       }
 
       &__wave-base {
-        stroke-width: 1.5px;
+        stroke-width: 2px;
       }
 
       &__wave-pulse {
-        stroke-width: 3px;
+        stroke-width: 2px;
       }
 
       &__copy {
-        top: 0.9rem;
-        left: 0.5rem;
-        width: 5.8rem;
+        top: 1.6rem;
+        left: 0.7rem;
+        width: 6.1rem;
       }
 
       &__title {
-        font-size: 0.52rem;
-        line-height: 105%;
+        font-size: 0.6rem;
+        line-height: 1;
       }
 
       &__desc {
-        width: 5.8rem;
-        margin-top: 0.28rem;
-        font-size: 0.24rem;
-        line-height: 135%;
+        margin-top: 0.24rem;
+        font-size: 0.3rem;
+        line-height: 130%;
       }
 
       &__device-picture {
-        top: 4rem;
+        top: 6.44rem;
         width: 4.9rem;
+        left: 0.5rem;
+        aspect-ratio: 35/44;
+
       }
 
       &__threshold {
-        top: 8.7rem;
-        right: auto;
-        left: 50%;
-        width: 6rem;
-        transform: translateX(-50%);
+        top: 7.22rem;
+        left: auto;
+         right: 0.5rem;
+        width: 2.68rem;
       }
 
       &__threshold-value {
-        font-size: 1.1rem;
+        font-size: 1.28rem;
       }
 
       &__threshold-operator {
-        margin-right: 0.04rem;
+        margin-right: 0rem;
       }
 
       &__threshold-unit {
-        margin: 0 0 0.05rem 0.08rem;
-        font-size: 0.4rem;
+        margin: 0 0 0rem 0.08rem;
+        font-size: 0.56rem;
       }
 
       &__threshold-desc {
-        margin-top: 0.22rem;
+        margin-top: 0rem;
         font-size: 0.3rem;
         line-height: 110%;
+        color: #000;
       }
 
       &__note {
-        bottom: 0.35rem;
-        left: 0.5rem;
-        width: 6.2rem;
-        font-size: 0.18rem;
+        bottom: 1rem;
+        left: 0.7rem;
+        width: 6.1rem;
+        font-size: 0.26rem;
       }
     }
   }
@@ -1984,7 +1984,7 @@
     }
 
     &__level {
-      width: 121px;
+      width: 123px;
       color: #fff;
       will-change: opacity;
 
@@ -2093,7 +2093,7 @@
       }
 
       &__level {
-        width: 97px;
+        width: 99px;
       }
 
       &__level-name {
@@ -2742,24 +2742,24 @@
   .octa-texture {
   position: relative;
   width: 100%;
-  padding: 150px 0 140px;
+  padding: 150px 0;
   overflow: hidden;
   color: #fff;
   background: #111;
 
   &__inner {
-    width: 1220px;
+    width: 1120px;
     max-width: calc(100% - 80px);
     margin: 0 auto;
   }
 
   &__title {
-    margin: 0 0 58px;
+    margin: 0 0 48px;
     color: #fff;
     font-family: 'DinExp-Bold';
     font-size: 48px;
     font-weight: 700;
-    line-height: 100%;
+    line-height: 108%;
     text-align: center;
   }
 
@@ -2767,35 +2767,16 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    gap: 55px;
+    gap: 40px;
   }
 
   &__item {
-    flex: 0 0 230px;
-    width: 230px;
-    text-align: center;
+    flex: 0 0 calc((100% - 40px * 3) / 4);
   }
 
   &__card {
     position: relative;
-    width: 230px;
-    height: 470px;
     overflow: hidden;
-
-    /*
-     * 设计稿四个角不是普通矩形，
-     * 顶部、底部都有切角
-     */
-    clip-path: polygon(
-      18% 0,
-      82% 0,
-      100% 8%,
-      100% 92%,
-      82% 100%,
-      18% 100%,
-      0 92%,
-      0 8%
-    );
   }
 
   &__picture {
@@ -2810,60 +2791,47 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    transition: transform 0.5s ease;
   }
 
   &__name {
-    margin-top: 21px;
+    margin-top: 20px;
     color: var(--texture-color, #fff);
     font-family: 'DinExp-Bold';
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
-    line-height: 100%;
+    line-height: 110%;
     text-align: center;
-  }
-
-  &__item:hover {
-    .octa-texture__image {
-      transform: scale(1.035);
-    }
   }
 }
 
 
 @media screen and (max-width: 1450px) {
   .octa-texture {
-    padding: 120px 0 112px;
+  padding: 120px 0;
 
-    &__inner {
-      width: 976px;
-      max-width: calc(100% - 64px);
-    }
-
-    &__title {
-      margin-bottom: 46px;
-      font-size: 38px;
-    }
-
-    &__list {
-      gap: 44px;
-    }
-
-    &__item {
-      flex-basis: 184px;
-      width: 184px;
-    }
-
-    &__card {
-      width: 184px;
-      height: 376px;
-    }
-
-    &__name {
-      margin-top: 17px;
-      font-size: 13px;
-    }
+  &__inner {
+    width: 896px;
+    max-width: calc(100% - 64px);
   }
+
+  &__title {
+    margin: 0 0 38px;
+    font-size: 38px;
+  }
+
+  &__list {
+    gap: 32px;
+  }
+
+  &__item {
+    flex: 0 0 calc((100% - 32px * 3) / 4);
+  }
+
+  &__name {
+    margin-top: 14px;
+    font-size: 18px;
+  }
+}
 }
 
 
@@ -2884,10 +2852,6 @@
       text-align: center;
     }
 
-    /*
-     * 手机端没有设计稿的话，
-     * 建议横向滑动，不要硬挤成四个很小的卡片
-     */
     &__list {
       justify-content: flex-start;
       gap: 0.32rem;
@@ -2941,5 +2905,495 @@
 }
 
 // OctaTextureShowcase.jsx end
+
+
+
+
+// OctaComfortHold.jsx start
+.octa-comfort {
+  position: relative;
+  width: 100%;
+  padding: 150px 0;
+  overflow: hidden;
+  color: #fff;
+  background: #000;
+
+  &__container {
+    width: 1050px;
+    max-width: calc(100% - 80px);
+    margin: 0 auto;
+  }
+
+  &__header {
+    margin-bottom: 48px;
+    text-align: center;
+  }
+
+  &__eyebrow {
+    margin-bottom: 12px;
+    color: #FE5A11;
+    font-family: 'DinExp-Bold';
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  &__title {
+    color: #fff;
+    font-family: 'DinExp-Bold';
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+  }
+  &__media {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  &__background {
+    position: relative;
+    inset: 0;
+    z-index: 1;
+    // width: 100%;
+    // height: 100%;
+  }
+
+  &__background-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__hand {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    will-change: transform;
+  }
+
+  &__hand-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+
+  &__description {
+    width: 613px;
+    max-width: 100%;
+    margin: 48px auto 0;
+    color: #FFF;
+    font-family: 'DinExp';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.3;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 1450px) {
+  .octa-comfort {
+    padding: 120px 0;
+
+    &__container {
+      width: 840px;
+      max-width: calc(100% - 64px);
+    }
+
+    &__header {
+      margin-bottom: 38px;
+    }
+
+    &__eyebrow {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    &__title {
+      font-size: 38px;
+    }
+
+    &__description {
+      width: 490px;
+      margin-top: 38px;
+      font-size: 13px;
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .octa-comfort {
+    padding: 1.1rem 0 1rem;
+
+    &__container {
+      width: 100%;
+      max-width: none;
+    }
+
+    &__header {
+      padding: 0 0.4rem;
+      margin-bottom: 0.55rem;
+    }
+
+    &__eyebrow {
+      margin-bottom: 0.16rem;
+      font-size: 0.24rem;
+      line-height: 1.15;
+    }
+
+    &__title {
+      font-size: 0.52rem;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    &__media {
+      width: calc(100% - 0.4rem);
+      height: 6.2rem;
+      margin: 0 auto;
+    }
+
+    &__background-image {
+      object-position: center;
+    }
+    &__hand {
+      left: 12%;
+      bottom: -1%;
+      width: 65%;
+    }
+
+    &__description {
+      width: calc(100% - 0.8rem);
+      margin-top: 0.42rem;
+      font-size: 0.22rem;
+      line-height: 1.25;
+    }
+  }
+}
+
+// OctaComfortHold.jsx end
+
+
+
+
+
+
+
+// OctaDetailShowcase.jsx start
+.octa-detail {
+  position: relative;
+  width: 100%;
+  padding: 150px 0;
+  overflow: hidden;
+  color: #fff;
+  background: #f5f5f5;
+
+  &__container {
+    width: 980px;
+    max-width: calc(100% - 80px);
+    margin: 0 auto;
+  }
+
+  &__title {
+    margin-bottom: 48px;
+    color: #000;
+    font-family: 'DinExp-Bold';
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 40% 29% 31%;
+    grid-template-rows: 285px 165px 165px;
+    grid-template-areas:
+      'tank lock lock'
+      'tank cage usb'
+      'tank cage collision';
+    gap: 10px;
+    width: 100%;
+  }
+
+  &__item {
+    position: relative;
+    overflow: hidden;
+    background: #414141;
+
+    &--tank {
+      grid-area: tank;
+    }
+
+    &--lock {
+      grid-area: lock;
+    }
+
+    &--cage {
+      grid-area: cage;
+    }
+
+    &--usb {
+      grid-area: usb;
+    }
+
+    &--collision {
+      grid-area: collision;
+    }
+  }
+
+  &__picture {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+    &__video {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__content {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 2;
+    max-width: calc(100% - 56px);
+  }
+
+  &__item-title {
+    color: #fff;
+    font-family: 'DinExp-Bold';
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.02;
+  }
+
+  &__desc {
+    margin-top: 10px;
+    color: #fff;
+    font-family: 'DinExp';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  &__item--tank {
+    .octa-detail__image {
+
+    }
+  }
+
+  &__item--lock {
+    .octa-detail__image {
+
+    }
+  }
+
+
+  &__item--cage {
+    .octa-detail__image {
+
+    }
+  }
+
+  &__item--usb {
+    .octa-detail__image {
+
+    }
+  }
+  &__item--collision {
+    .octa-detail__content {
+      top: 24px;
+      left: auto;
+      right: 26px;
+      max-width: 44%;
+    }
+
+    .octa-detail__desc{
+       margin-top: 8px;
+    }
+  }
+}
+@media screen and (max-width: 1450px) {
+  .octa-detail {
+    padding: 120px 0;
+
+    &__container {
+      width: 784px;
+      max-width: calc(100% - 64px);
+    }
+
+    &__title {
+      margin-bottom: 38px;
+      font-size: 38px;
+    }
+
+    &__grid {
+      grid-template-rows: 228px 132px 132px;
+      gap: 8px;
+    }
+
+    &__content {
+      top: 19px;
+      left: 19px;
+      max-width: calc(100% - 45px);
+    }
+
+    &__item-title {
+      font-size: 16px;
+    }
+
+    &__desc {
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    &__item--collision {
+      .octa-detail__content {
+        top: 19px;
+         right: 21px;
+      }
+
+      .octa-detail__desc {
+        margin-top: 6px;
+      }
+    }
+  }
+}
+
+
+
+
+@media screen and (max-width: 1023px) {
+  .octa-detail {
+    padding: 1.65rem 0;
+
+    &__container {
+      width: 100%;
+      max-width: none;
+    }
+
+    &__title {
+      width: 6.6rem;
+      margin: 0 0 0.65rem 0.72rem;
+      font-size: 0.58rem;
+      line-height: 1;
+      letter-spacing: 0;
+      text-align: left;
+    }
+
+    &__grid {
+      width: calc(100% - 0.32rem);
+      margin: 0 auto;
+
+      grid-template-columns: 40% 60%;
+      grid-template-rows:
+        3.85rem
+        2.65rem
+        2.65rem
+        3.65rem;
+
+      grid-template-areas:
+        'lock lock'
+        'tank usb'
+        'tank collision'
+        'cage cage';
+      gap: 0.14rem;
+    }
+
+    &__content {
+      top: 0.32rem;
+      left: 0.26rem;
+      max-width: calc(100% - 0.52rem);
+    }
+
+    &__item-title {
+      font-size: 0.28rem;
+      line-height: 1.08;
+    }
+
+    &__desc {
+      margin-top: 0.18rem;
+      font-size: 0.22rem;
+      line-height: 1.15;
+    }
+    &__item--lock {
+      .octa-detail__image {
+        object-position: center center;
+      }
+    }
+    &__item--tank {
+      .octa-detail__content {
+        top: 0.3rem;
+        left: 0.26rem;
+      }
+
+      .octa-detail__image {
+        object-position: center bottom;
+      }
+    }
+    &__item--usb {
+      .octa-detail__image {
+        object-position: right bottom;
+      }
+    }
+
+    &__item--collision {
+      .octa-detail__content {
+        top: 0.35rem;
+        left: 54%;
+        max-width: 42%;
+      }
+
+      .octa-detail__image {
+        object-position: left center;
+      }
+    }
+    &__item--cage {
+      .octa-detail__content {
+        top: 0.3rem;
+        left: 0.26rem;
+      }
+
+      .octa-detail__image {
+        object-position: center bottom;
+      }
+    }
+  }
+}
+// OctaDetailShowcase.jsx end
+
+
 
 }

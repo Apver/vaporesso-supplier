@@ -201,11 +201,11 @@ export const OctaOvertimeProtection = ({ data }) => {
       <div className="octa-overtime">
         <div className="octa-overtime__inner">
           <div className="octa-overtime__content">
-            <h2 className="octa-overtime__title">
+            <h2 className="octa-overtime__title to-top">
               {title}
             </h2>
 
-            <div className="octa-overtime__levels">
+            <div className="octa-overtime__levels to-top">
               <div className="octa-overtime__level octa-overtime__level--l1">
                 <div className="octa-overtime__level-name">
                   {level1.name}
@@ -244,7 +244,7 @@ export const OctaOvertimeProtection = ({ data }) => {
             </div>
           </div>
 
-          <div className="octa-overtime__device-wrap">
+          <div className="octa-overtime__device-wrap to-top">
             <picture className="octa-overtime__device-picture octa-overtime__device--l1">
               <source
                 media="(max-width: 1023px)"

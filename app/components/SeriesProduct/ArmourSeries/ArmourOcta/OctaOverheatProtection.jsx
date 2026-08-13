@@ -12,18 +12,18 @@ export const OctaOverheatProtection = ({ data }) => {
   return (
     <section className="octa-overheat">
       <div className="octa-overheat__header">
-        <h2 className="octa-overheat__title">
+        <h2 className="octa-overheat__title to-top">
           {title}
         </h2>
 
         {subtitle && (
-          <p className="octa-overheat__subtitle">
+          <p className="octa-overheat__subtitle to-top">
             {subtitle}
           </p>
         )}
       </div>
 
-      <div className="octa-overheat__media">
+      <div className="octa-overheat__media to-top">
         <picture className="octa-overheat__picture">
           <source
             media="(max-width: 1023px)"
