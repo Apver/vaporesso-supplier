@@ -18,7 +18,9 @@ OctaProtection,
  OctaProofShowcase,
  OctaVoltageSurge,
  OctaOverheatProtection,
- OctaOvertimeProtection
+ OctaOvertimeProtection,
+ OctaComparison,
+ OctaTextureShowcase
 } from '~/components/SeriesProduct/ArmourSeries/ArmourOcta';
 import {TechSection} from '~/components/SeriesProduct/ArmourSeries/ArmourOcta/TechSection';
 export function ArmourOctaLayout({children, onCheckSpecs}) {
@@ -349,6 +351,232 @@ const overtimeProtectionData = {
   }
 };
 
+const comparisonData = {
+  title: "WHAT'S NEW IN OCTA?",
+
+  products: [
+    {
+      key: 'octa',
+      name: <>ARMOUR OCTA</>,
+      highlight: true,
+      image: {
+        pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-16-1-2x.webp',
+        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-16-1-3x.webp',
+      },
+    },
+    {
+      key: 'max',
+      name: 'ARMOUR MAX',
+      image: {
+        pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-16-2-2x.webp',
+        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-16-2-3x.webp',
+      },
+    },
+  ],
+
+  rows: [
+    {
+      key: 'waterproof',
+      label: 'Water-proof',
+      values: {
+        octa: {
+          title: 'IP69K+IP68',
+          upgrade: true,
+        },
+        max: {
+          title: 'All TPU Protection',
+        },
+      },
+    },
+    {
+      key: 'drop',
+      label: 'Drop resistance',
+      values: {
+        octa: {
+          title: 'MIL-STD-810H',
+          upgrade: true,
+        },
+        max: {
+          title: 'All TPU Protection',
+        },
+      },
+    },
+   {
+  key: 'protection',
+  group: true,
+
+  labels: [
+    {
+      text: 'Battery Guard',
+    },
+    {
+      text: (
+        <>
+          Voltage Surge Protection
+        </>
+      ),
+      muted: true,
+    },
+    {
+      text: (
+        <>
+          CHARGING OVERHEAT Protection
+        </>
+      ),
+      muted: true,
+    },
+  ],
+
+  values: {
+    octa: [
+      {
+        title: 'NEW',
+        upgrade: true,
+      },
+      {
+        type: 'dot',
+        variant: 'orange',
+      },
+      {
+        type: 'dot',
+        variant: 'orange',
+      },
+    ],
+
+    max: [
+      {
+        type: 'dot',
+        variant: 'outline',
+      },
+      {
+        text: 'NA',
+        muted: true,
+      },
+      {
+        text: 'NA',
+        muted: true,
+      },
+    ],
+  },
+},
+    {
+      key: 'overtime',
+      label: (
+        <>
+          Overtime Protection
+          <br />
+          Overtime: Fire Hold&gt;10±1S
+        </>
+      ),
+      groupStart: true,
+      values: {
+        octa: {
+          title: 'V2.0, 2X Safety',
+          upgrade: true,
+           opacity: true,
+          description: (
+            <>
+              L1: Overtime 1 time. Output cut off.
+              <br />
+              L2: Overtime 2 times within 2 mins.
+              <br />
+              Power off.
+            </>
+          ),
+        },
+        max: {
+          title: 'V1.0',
+            opacity: true,
+          description: (
+            <>
+              L1: Consistent Overtime. Output Off
+              <br />
+              L2: NA
+            </>
+          ),
+        },
+      },
+    },
+    {
+      key: 'coil',
+      label: 'Coil',
+      groupStart: true,
+      values: {
+        octa: {
+          title: 'GTI Dual Mesh',
+          upgrade: true,
+        },
+        max: {
+          title: 'Single Mesh',
+        },
+      },
+    },
+    {
+      key: 'battery',
+      label: 'Battery',
+      values: {
+        octa: {
+          title: '18650 *2',
+        },
+        max: {
+          title: '21700/18650 *2',
+        },
+      },
+    },
+  ],
+};
+
+
+
+
+const textureData = {
+  title: (
+    <>
+      Premium & Elegant Texture
+      <br />
+      Up to Your Style
+    </>
+  ),
+
+  items: [
+    {
+      key: 'green',
+      name: 'Titanium Grey',
+      color: '#4EBFAB',
+      image: {
+        pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-14-1-2x.webp',
+        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-14-1-3x.webp',
+      },
+    },
+    {
+      key: 'grey',
+      name: 'Titanium Grey',
+      color: '#BABABA',
+      image: {
+        pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-14-2-2x.webp',
+        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-14-2-3x.webp',
+      },
+    },
+    {
+      key: 'blue',
+      name: 'Rally Blue',
+      color: '#4C80FA',
+      image: {
+        pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-14-3-2x.webp',
+        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-14-3-3x.webp',
+      },
+    },
+    {
+      key: 'white',
+      name: 'Aero White',
+      color: '#C15B8B',
+      image: {
+        pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-14-4-2x.webp',
+        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-14-4-3x.webp',
+      },
+    },
+  ],
+};
 
   return (
     <div className="product-armour-octa" ref={rootRef}>
@@ -367,6 +595,8 @@ const overtimeProtectionData = {
       <OctaVoltageSurge data={voltageSurgeData} />
       <OctaOverheatProtection data={overheatProtectionData} />
       <OctaOvertimeProtection data={overtimeProtectionData} />
+      <OctaComparison  data={comparisonData} />
+      <OctaTextureShowcase data={textureData} />
       <TechSection />
       <PodCompatible
         className="product-armour-octa-pod-compatible"

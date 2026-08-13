@@ -1946,9 +1946,9 @@
 
   .octa-overtime {
     position: sticky;
-    top: 0;
+    top: 52px;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 52px);
     overflow: hidden;
     background: linear-gradient(180deg, #000 0%, #161616 43.75%, #5A5A5A 100%);
     &__inner {
@@ -1970,8 +1970,6 @@
     }
 
     &__title {
-      margin: 0;
-      white-space: pre-line;
       font-family: 'DinExp-Bold';
       font-size: 48px;
       font-weight: 700;
@@ -1981,12 +1979,12 @@
     &__levels {
       display: flex;
       align-items: flex-start;
-      gap: 110px;
-      margin-top: 68px;
+      gap: 60px;
+      margin-top: 60px;
     }
 
     &__level {
-      width: 150px;
+      width: 121px;
       color: #fff;
       will-change: opacity;
 
@@ -2001,8 +1999,6 @@
       }
 
       &--l2 {
-        opacity: 0.5;
-
         .octa-overtime__level-name {
           color: #fff;
         }
@@ -2011,29 +2007,26 @@
 
     &__level-name {
       font-family: 'DinExp-Bold';
-      font-size: 58px;
+      font-size: 60px;
       font-weight: 700;
       line-height: 100%;
       will-change: color;
     }
 
     &__level-desc {
-      margin-top: 14px;
-      white-space: pre-line;
+      margin-top: 8px;
       color: #fff;
       font-family: 'DinExp-Bold';
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 400;
-      line-height: 125%;
+      line-height: 1.3;
     }
 
     &__level-accent {
-      margin-top: 2px;
-      font-family: 'DinExp-Bold';
-      font-size: 15px;
+       font-family: 'DinExp-Bold';
+      font-size: 14px;
       font-weight: 400;
-      line-height: 125%;
-      will-change: color;
+      line-height: 1.3;
     }
 
     &__device-wrap {
@@ -2043,7 +2036,7 @@
       width: 849px;
       height: 849px;
       pointer-events: none;
-      bottom: 21%;
+      bottom: 7%;
     }
 
     &__device-picture {
@@ -2078,7 +2071,6 @@
 
   @media screen and (max-width: 1450px) {
     .octa-overtime-scroll {
-      height: 200vh;
     }
 
     .octa-overtime {
@@ -2088,8 +2080,7 @@
       }
 
       &__content {
-        top: 212px;
-        width: 448px;
+        width: 441px;
       }
 
       &__title {
@@ -2097,31 +2088,32 @@
       }
 
       &__levels {
-        gap: 88px;
-        margin-top: 54px;
+        gap: 48px;
+        margin-top: 48px;
       }
 
       &__level {
-        width: 120px;
+        width: 97px;
       }
 
       &__level-name {
-        font-size: 46px;
+        font-size: 48px;
       }
 
       &__level-desc {
-        margin-top: 11px;
-        font-size: 12px;
+        margin-top: 6px;
+        font-size: 11px;
       }
 
       &__level-accent {
-        margin-top: 2px;
         font-size: 12px;
+          font-size: 11px;
       }
 
       &__device-wrap {
-        right: -16px;
-        width: 544px;
+        right: -80px;
+        width: 679px;
+        height: 679px;
       }
     }
   }
@@ -2188,5 +2180,766 @@
 
 
 
+
+
+  // OctaComparison.jsx start
+
+  .octa-comparison {
+  position: relative;
+  width: 100%;
+  padding: 150px 0;
+  overflow: hidden;
+  color: #fff;
+  background: #434348;
+
+  &__container {
+    width: 1080px;
+    max-width: calc(100% - 80px);
+    margin: 0 auto;
+  }
+
+  &__title {
+    margin: 0 0 80px;
+    color: #fff;
+    font-family: 'DinExp-Bold';
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: -1px;
+    text-align: center;
+  }
+
+  &__scroll {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  &__table {
+    width: 100%;
+    min-width: 1000px;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: separate;
+  }
+  &__feature-head,
+  &__feature {
+    width: 33.33%;
+  }
+  &__product-head,
+  &__cell {
+    width: 33.33%;
+  }
+  &__feature-head {
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    background: #2A2A2A;
+  }
+
+  &__product-head {
+    padding: 20px 20px 40px 20px;
+    vertical-align: bottom;
+    background: #38383A;
+
+    &--highlight {
+      background: #38383A;
+
+      .octa-comparison__product-name {
+        color: #FE5A11;
+      }
+    }
+
+    &:last-child {
+      background: #3A3D3B;
+    }
+  }
+
+  &__product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 160px;
+  }
+
+  &__product-image {
+    display: block;
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  &__product-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-family: 'DinExp-Bold';
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    margin-top: 20px;
+  }
+  &__feature,
+  &__cell {
+    position: relative;
+    padding: 20px;
+    vertical-align: middle;
+            &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 20px;
+      left: 20px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  &__feature {
+    position: sticky;
+    left: 0;
+    z-index: 4;
+    color: #fff;
+    background: #292929;
+    font-family: 'DinExp-Bold';
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 110%;
+    text-align: center;
+
+    &--muted {
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  &__cell {
+    color: #fff;
+    background: #373737;
+    text-align: center;
+
+    &:last-child {
+      background: #3c403d;
+    }
+
+    &--highlight {
+      .octa-comparison__cell-title,
+      .octa-comparison__cell-desc {
+        color: #fe5a11;
+      }
+    }
+
+    &--muted {
+      .octa-comparison__cell-title,
+      .octa-comparison__cell-desc {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+
+  &__cell-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__cell-title {
+    color: #fff;
+    font-family: 'DinExp-Bold';
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.1;
+        display: flex;
+    align-items: center;
+     &--opacity {
+      opacity: 0.8;
+    }
+  }
+
+  &__cell-desc {
+    margin-top: 10px;
+    color: #fff;
+    opacity: 0.8;
+    font-family: 'DinExp';
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  &__upgrade {
+    display: inline-block;
+    margin-left: 8px;
+    color: #FE5A11;
+  }
+  &__dot {
+    display: block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+
+    &--orange {
+      border: 0;
+      background: #FE5A11;
+    }
+  }
+  &__group-list {
+  // display: grid;
+  // grid-template-rows: repeat(3, 1fr);
+  // width: 100%;
+  // height: 100%;
+    .octa-comparison__group-item:not(:first-child) {
+    margin-top: 30px;
+  }
+}
+
+&__group-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #fff;
+  font-family: 'DinExp-Bold';
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  &--muted {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+&__row {
+  &--protection {
+    .octa-comparison__feature,
+    .octa-comparison__cell {
+    
+    }
+    .octa-comparison__feature::before,
+    .octa-comparison__cell::before {
+
+    }
+  }
+
+  &--group-start {
+    .octa-comparison__feature,
+    .octa-comparison__cell {
+      &::before {
+
+      }
+    }
+  }
+
+  &--large {
+    .octa-comparison__feature,
+    .octa-comparison__cell {
+
+    }
+  }
+}
+}
+
+
+@media screen and (max-width: 1450px) {
+  .octa-comparison {
+    padding: 120px 0;
+
+    &__container {
+      width: 864px;
+      max-width: calc(100% - 64px);
+    }
+
+    &__title {
+      margin-bottom: 64px;
+      font-size: 38px;
+      letter-spacing: -0.8px;
+    }
+
+    &__scroll {
+      &::-webkit-scrollbar {
+        height: 4px;
+      }
+    }
+
+    &__table {
+      width: 100%;
+      min-width: 800px;
+    }
+
+    &__product-head {
+      padding: 16px 16px 32px;
+    }
+
+    &__picture {
+      height: 128px;
+    }
+
+    &__product-image {
+      width: auto;
+      height: 100%;
+    }
+
+    &__product-name {
+      margin-top: 16px;
+      font-size: 19px;
+    }
+
+    &__feature,
+    &__cell {
+      padding: 16px;
+
+      &::before {
+        right: 16px;
+        left: 16px;
+      }
+    }
+
+    &__feature {
+      font-size: 14px;
+    }
+
+    &__cell-title {
+      font-size: 14px;
+    }
+
+    &__cell-desc {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    &__upgrade {
+      margin-left: 6px;
+
+      svg {
+        width: 8px;
+        height: 15px;
+      }
+    }
+
+    &__dot {
+      width: 10px;
+      height: 10px;
+      border-width: 2px;
+
+      &--orange {
+        border: 0;
+      }
+    }
+    &__group-list {
+      .octa-comparison__group-item:not(:first-child) {
+        margin-top: 24px;
+      }
+    }
+
+    &__group-item {
+      font-size: 14px;
+
+      &--muted {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    &__row {
+      &--protection {
+        .octa-comparison__feature,
+        .octa-comparison__cell {
+          padding: 16px;
+        }
+
+        .octa-comparison__feature::before,
+        .octa-comparison__cell::before {
+          right: 16px;
+          left: 16px;
+        }
+      }
+
+      &--group-start {
+        .octa-comparison__feature,
+        .octa-comparison__cell {
+          &::before {
+            right: 16px;
+            left: 16px;
+          }
+        }
+      }
+
+      &--large {
+        .octa-comparison__feature,
+        .octa-comparison__cell {
+          height: 116px;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 1023px) {
+  .octa-comparison {
+    padding: 0.9rem 0 0.7rem;
+
+    &__inner {
+      width: 100%;
+      max-width: none;
+    }
+
+    &__title {
+      margin: 0 0.3rem 0.42rem;
+      font-size: 0.38rem;
+      line-height: 100%;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    &__scroll {
+      width: 100%;
+      padding-left: 0.2rem;
+      padding-bottom: 0.35rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: thin;
+      scrollbar-color:
+        rgba(255, 255, 255, 0.5)
+        rgba(255, 255, 255, 0.12);
+
+      &::-webkit-scrollbar {
+        height: 0.04rem;
+      }
+
+      &::-webkit-scrollbar-track {
+        margin-left: 0.3rem;
+        margin-right: 0.5rem;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.55);
+      }
+    }
+    &__table {
+      width: 8.4rem;
+      min-width: 8.4rem;
+    }
+    &__feature-head,
+    &__feature {
+      width: 1.6rem;
+      min-width: 1.6rem;
+    }
+    &__product-head,
+    &__cell {
+      width: 1.6rem;
+      min-width: 1.6rem;
+    }
+    &__feature-head {
+      left: 0;
+      z-index: 10;
+      height: 2.88rem;
+    }
+
+    &__product-head {
+      height: 2.88rem;
+      padding: 0.18rem 0.12rem 0.16rem;
+    }
+
+    &__picture {
+      height: 2rem;
+    }
+
+    &__product-image {
+      width: auto;
+      height: 1.45rem;
+      max-width: 90%;
+    }
+
+    &__product-name {
+      min-height: 0.55rem;
+      font-size: 0.28rem;
+      line-height: 100%;
+    }
+    &__feature,
+    &__cell {
+      height: 0.58rem;
+      padding: 0 0.1rem;
+      border-top-width: 1px;
+    }
+
+    &__feature {
+      left: 0;
+      z-index: 9;
+      font-size: 0.18rem;
+      line-height: 110%;
+    }
+
+    &__cell-title {
+      font-size: 0.18rem;
+      line-height: 110%;
+    }
+
+    &__cell-desc {
+      margin-top: 0.06rem;
+      font-size: 0.16rem;
+      line-height: 115%;
+    }
+
+    &__upgrade {
+      margin-left: 0.03rem;
+      font-size: 0.23rem;
+    }
+    &__dot {
+      width: 0.14rem;
+      height: 0.14rem;
+      border-width: 0.02rem;
+    }
+
+    &__dot--orange {
+      border: 0;
+    }
+    &__row {
+      &--large {
+        .octa-comparison__feature,
+        .octa-comparison__cell {
+          height: 1.9rem;
+        }
+      }
+    }
+  }
+}
+
+  // OctaComparison.jsx end
+
+
+
+
+// OctaTextureShowcase.jsx start
+  .octa-texture {
+  position: relative;
+  width: 100%;
+  padding: 150px 0 140px;
+  overflow: hidden;
+  color: #fff;
+  background: #111;
+
+  &__inner {
+    width: 1220px;
+    max-width: calc(100% - 80px);
+    margin: 0 auto;
+  }
+
+  &__title {
+    margin: 0 0 58px;
+    color: #fff;
+    font-family: 'DinExp-Bold';
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 100%;
+    text-align: center;
+  }
+
+  &__list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 55px;
+  }
+
+  &__item {
+    flex: 0 0 230px;
+    width: 230px;
+    text-align: center;
+  }
+
+  &__card {
+    position: relative;
+    width: 230px;
+    height: 470px;
+    overflow: hidden;
+
+    /*
+     * 设计稿四个角不是普通矩形，
+     * 顶部、底部都有切角
+     */
+    clip-path: polygon(
+      18% 0,
+      82% 0,
+      100% 8%,
+      100% 92%,
+      82% 100%,
+      18% 100%,
+      0 92%,
+      0 8%
+    );
+  }
+
+  &__picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+  }
+
+  &__name {
+    margin-top: 21px;
+    color: var(--texture-color, #fff);
+    font-family: 'DinExp-Bold';
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 100%;
+    text-align: center;
+  }
+
+  &__item:hover {
+    .octa-texture__image {
+      transform: scale(1.035);
+    }
+  }
+}
+
+
+@media screen and (max-width: 1450px) {
+  .octa-texture {
+    padding: 120px 0 112px;
+
+    &__inner {
+      width: 976px;
+      max-width: calc(100% - 64px);
+    }
+
+    &__title {
+      margin-bottom: 46px;
+      font-size: 38px;
+    }
+
+    &__list {
+      gap: 44px;
+    }
+
+    &__item {
+      flex-basis: 184px;
+      width: 184px;
+    }
+
+    &__card {
+      width: 184px;
+      height: 376px;
+    }
+
+    &__name {
+      margin-top: 17px;
+      font-size: 13px;
+    }
+  }
+}
+
+
+@media screen and (max-width: 1023px) {
+  .octa-texture {
+    padding: 1rem 0 1.2rem;
+
+    &__inner {
+      width: 100%;
+      max-width: none;
+    }
+
+    &__title {
+      width: 6.8rem;
+      margin: 0 auto 0.65rem;
+      font-size: 0.52rem;
+      line-height: 105%;
+      text-align: center;
+    }
+
+    /*
+     * 手机端没有设计稿的话，
+     * 建议横向滑动，不要硬挤成四个很小的卡片
+     */
+    &__list {
+      justify-content: flex-start;
+      gap: 0.32rem;
+      width: 100%;
+      padding: 0 0.4rem 0.25rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      box-sizing: border-box;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      &::after {
+        content: '';
+        flex: 0 0 0.08rem;
+      }
+    }
+
+    &__item {
+      flex: 0 0 3.5rem;
+      width: 3.5rem;
+      scroll-snap-align: start;
+    }
+
+    &__card {
+      width: 3.5rem;
+      height: 7.1rem;
+
+      clip-path: polygon(
+        18% 0,
+        82% 0,
+        100% 8%,
+        100% 92%,
+        82% 100%,
+        18% 100%,
+        0 92%,
+        0 8%
+      );
+    }
+
+    &__name {
+      margin-top: 0.26rem;
+      font-size: 0.24rem;
+    }
+  }
+}
+
+// OctaTextureShowcase.jsx end
 
 }

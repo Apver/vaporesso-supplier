@@ -9,4 +9,8 @@ export { OctaProofShowcase } from './OctaProofShowcase';
 export { OctaVoltageSurge } from './OctaVoltageSurge';
 export { OctaOverheatProtection } from './OctaOverheatProtection';
 export { OctaOvertimeProtection } from './OctaOvertimeProtection';
+export { OctaComparison } from './OctaComparison';
+export { OctaTextureShowcase } from './OctaTextureShowcase';
+
+
 
