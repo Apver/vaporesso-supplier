@@ -414,7 +414,7 @@ export default function StoryShareModal() {
       //     return;
       //   }
       // }
-      await dataUrlToFile(dataUrl, fileName);
+      // await dataUrlToFile(dataUrl, fileName);
       downloadDataUrl(dataUrl, fileName);
     } catch (error) {
       if (
