@@ -1356,7 +1356,7 @@ function initAppreciationRewardsAnimation(root) {
      * 数字越大，卡片越靠下。
      */
     const getCardDownOffset = () =>
-      isMobile() ? 180 : 10;
+      isMobile() ? 120 : 10;
 
     /**
      * 第一张卡片进入后，

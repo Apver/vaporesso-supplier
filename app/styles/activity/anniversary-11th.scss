@@ -761,7 +761,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       width: 100%;
       height: 105vh;
       height: 105svh;
-      min-height: 705px;
+      min-height: 725px;
       overflow: hidden;
       transform-style: preserve-3d;
     }
@@ -2346,6 +2346,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     &--expanded .story-card__toggle-icon {
       transform: rotate(180deg);
+              bottom: 0.15rem;
     }
 
    &--overflowing:hover:not(&--expanded) &__text,
