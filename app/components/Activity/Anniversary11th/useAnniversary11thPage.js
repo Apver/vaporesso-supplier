@@ -288,12 +288,19 @@ function initYearHighlightAnimation(root) {
   //     });
   //   };
   // });
+
 // =========================
-// PC 端：从右向左平移
-// 不翻转，最后一张停在屏幕中间
+// PC 端：header + content 先上移，再从右向左平移
 // =========================
 media.add('(min-width: 1024px)', () => {
+  const header = section.querySelector('.year-highlight__header');
+
+  if (!header) {
+    return () => {};
+  }
+
   const state = {
+    headerProgress: 0,
     offset: 0
   };
 
@@ -313,61 +320,87 @@ media.add('(min-width: 1024px)', () => {
   let startOffset = 0;
   let endOffset = 0;
 
+  let headerMoveY = 0;
+  let contentMoveY = 0;
+
   const resize = () => {
     viewportWidth = window.innerWidth;
     viewportHeight = window.innerHeight;
 
-    cardWidth =
-      cards[0].offsetWidth || 480;
-
-    cardHeight =
-      cards[0].offsetHeight || 620;
+    cardWidth = cards[0].offsetWidth || 480;
+    cardHeight = cards[0].offsetHeight || 620;
 
     const rootFontSize =
       parseFloat(
-        getComputedStyle(
-          document.documentElement
-        ).fontSize
+        getComputedStyle(document.documentElement).fontSize
       ) || 10;
 
+    const headerStyle = getComputedStyle(header);
+    const headerMarginBottom =
+      parseFloat(headerStyle.marginBottom) || 0;
+
     // 卡片之间的间距
-    spacing =
-      cardWidth +
-      4 * rootFontSize;
+    spacing = cardWidth + 4 * rootFontSize;
 
     // 左右可视边界
-    leftBound =
-      -cardWidth * 0.5;
+    leftBound = -cardWidth * 0.5;
 
-    rightBound =
-      viewportWidth +
-      cardWidth * 0.5;
+    rightBound = viewportWidth + cardWidth * 0.5;
 
-    visibleWidth =
-      rightBound -
-      leftBound;
+    visibleWidth = rightBound - leftBound;
 
     /*
      * 第一张初始已经露出约 75%。
      * 数值越大，初始露出的部分越多。
      */
-    startOffset =
-      viewportWidth -
-      cardWidth * 1.2;
+    startOffset = viewportWidth - cardWidth * 1.2;
 
     /*
      * 最后一张卡片最终停在屏幕中间。
      */
-    endOffset =
-      viewportWidth * 0.5 -
-      lastIndex * spacing;
+    endOffset = viewportWidth * 0.5 - lastIndex * spacing;
+
+    /*
+     * header 向上移出屏幕。
+     */
+    headerMoveY = -(
+      header.offsetTop +
+      header.offsetHeight +
+      2 * rootFontSize
+    );
+
+    /*
+     * content 向上补掉 header + margin-bottom 的空间。
+     * 想上移更多/更少。
+     */
+    contentMoveY = -(
+      header.offsetHeight +
+      headerMarginBottom
+    );
   };
 
   const render = () => {
-    // 卡片垂直居中
-    const cardY =
-      viewportHeight * 0.5 -
-      cardHeight * 0.6;
+    const headerProgress = state.headerProgress;
+
+    const headerOpacity =
+      1 - smoothstep(0.7, 1, headerProgress);
+
+    // header 上移并淡出
+    gsap.set(header, {
+      y: headerMoveY * headerProgress,
+      opacity: headerOpacity,
+      visibility: headerOpacity > 0.001 ? 'visible' : 'hidden',
+      force3D: true
+    });
+
+    // year-highlight__content 同步向上移动
+    gsap.set(content, {
+      y: contentMoveY * headerProgress,
+      force3D: true
+    });
+
+    // content 自己已经被整体上移，所以卡片内部 y 保持为 0
+    const cardY = 0;
 
     cards.forEach((card, index) => {
       /*
@@ -407,10 +440,7 @@ media.add('(min-width: 1024px)', () => {
         );
 
       gsap.set(card, {
-        x:
-          cardCenterX -
-          cardWidth * 0.5,
-
+        x: cardCenterX - cardWidth * 0.5,
         y: cardY,
         z: 0,
 
@@ -427,8 +457,7 @@ media.add('(min-width: 1024px)', () => {
             ? 'visible'
             : 'hidden',
 
-        zIndex:
-          cards.length - index,
+        zIndex: cards.length - index,
 
         transformOrigin: '50% 50%',
         force3D: true
@@ -438,63 +467,60 @@ media.add('(min-width: 1024px)', () => {
 
   resize();
 
+  state.headerProgress = 0;
   state.offset = startOffset;
 
   render();
 
-  const tween = gsap.fromTo(
+  const timeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+
+      // 和移动端一样：进入 sticky 后开始动画
+      start: 'top top',
+      end: 'bottom bottom',
+
+      scrub: true,
+      invalidateOnRefresh: true,
+
+      onRefreshInit: resize,
+
+      onRefresh: () => {
+        resize();
+        render();
+      },
+
+      onUpdate: render
+    }
+  });
+
+  // 第一段：header 和 content 一起往上移
+  timeline.to(state, {
+    headerProgress: 1,
+    duration: 1,
+    ease: 'none',
+    onUpdate: render
+  });
+
+  // 第二段：PC 卡片从右往左移动
+  timeline.fromTo(
     state,
     {
       offset: () => startOffset
     },
     {
       offset: () => endOffset,
-
+      duration: Math.max(lastIndex, 1),
       ease: 'none',
-
-      onUpdate: render,
-
-      scrollTrigger: {
-        trigger: section,
-
-        start: 'top bottom',
-        end: 'bottom top',
-
-        scrub: true,
-        invalidateOnRefresh: true,
-
-        onRefreshInit: () => {
-          resize();
-        },
-
-        onRefresh: self => {
-          state.offset = lerp(
-            startOffset,
-            endOffset,
-            self.progress
-          );
-
-          render();
-        },
-
-        onUpdate: render
-      }
+      immediateRender: false,
+      onUpdate: render
     }
   );
 
   const handleResize = () => {
     resize();
-
-    const progress =
-      tween.scrollTrigger?.progress || 0;
-
-    state.offset = lerp(
-      startOffset,
-      endOffset,
-      progress
-    );
-
     render();
+    timeline.scrollTrigger?.refresh();
   };
 
   window.addEventListener(
@@ -508,8 +534,16 @@ media.add('(min-width: 1024px)', () => {
       handleResize
     );
 
-    tween.scrollTrigger?.kill();
-    tween.kill();
+    timeline.scrollTrigger?.kill();
+    timeline.kill();
+
+    gsap.set(header, {
+      clearProps: 'transform,opacity,visibility'
+    });
+
+    gsap.set(content, {
+      clearProps: 'transform'
+    });
 
     gsap.set(cards, {
       clearProps:
@@ -517,6 +551,7 @@ media.add('(min-width: 1024px)', () => {
     });
   };
 });
+
   media.add('(max-width: 1023px)', () => {
     const header = section.querySelector(
       '.year-highlight__header'
@@ -779,6 +814,7 @@ media.add('(min-width: 1024px)', () => {
     });
   };
 }
+
 
 function initializeAnimation(root) {
   const section = root.querySelector('.reward-list');
