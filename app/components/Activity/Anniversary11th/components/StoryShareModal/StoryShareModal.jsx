@@ -5,13 +5,9 @@ import {
   useState,
 } from 'react';
 import {createPortal} from 'react-dom';
-import {toPng} from 'html-to-image';
-
+import {toBlob} from 'html-to-image';
 import {STORY_SHARE_MODAL_OPEN_EVENT} from './storyShareModalEvents';
-
 import './StoryShareModal.scss';
-// import { log } from 'echarts/types/src/util/log.js';
-
 const INITIAL_FORM_DATA = {
   name: '',
   email: '',
@@ -54,25 +50,38 @@ function getRandomReceipt() {
   return RECEIPT_TYPES[randomIndex];
 }
 
-async function dataUrlToFile(dataUrl, fileName) {
-  const response = await fetch(dataUrl);
-  const blob = await response.blob();
-
-  return new File([blob], fileName, {
-    type: 'image/png',
-  });
+function isIOSDevice() {
+  return (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (
+      navigator.platform === 'MacIntel' &&
+      navigator.maxTouchPoints > 1
+    )
+  );
 }
 
-function downloadDataUrl(dataUrl, fileName) {
+function downloadBlob(blob, fileName) {
+  const downloadBlob = isIOSDevice()
+    ? new Blob([blob], {
+        type: 'application/octet-stream',
+      })
+    : blob;
+
+  const url = URL.createObjectURL(downloadBlob);
+
   const link = document.createElement('a');
 
-  link.href = dataUrl;
+  link.href = url;
   link.download = fileName;
   link.style.display = 'none';
 
   document.body.appendChild(link);
+
   link.click();
-  link.remove();
+  window.setTimeout(() => {
+    link.remove();
+    URL.revokeObjectURL(url);
+  }, 1000);
 }
 
 export default function StoryShareModal() {
@@ -294,7 +303,7 @@ export default function StoryShareModal() {
   };
 
   /**
-   * 在这里接入实际的故事提交接口。
+   * 提交接口。
    */
   const submitStory = async (submitData) => {
     console.log('Story submit data:', submitData);
@@ -372,70 +381,56 @@ export default function StoryShareModal() {
     setErrorMessage('');
   };
 
-  const handleDownloadAndShare = async () => {
-    if (!receiptRef.current || isExporting) return;
+const handleDownloadAndShare = async () => {
+  if (!receiptRef.current || isExporting) return;
 
-    setIsExporting(true);
-    setErrorMessage('');
+  setIsExporting(true);
+  setErrorMessage('');
 
-    try {
-      const dataUrl = await toPng(
-        receiptRef.current,
-        {
-          cacheBust: true,
-          pixelRatio: 3,
-          // backgroundColor: '#ffffff',
-        },
-      );
+  try {
+    const isMobile = window.matchMedia(
+      '(max-width: 767px)',
+    ).matches;
 
-      const fileName =
-        `extraordinary-story-${Date.now()}.png`;
+    const blob = await toBlob(
+      receiptRef.current,
+      {
+        cacheBust: true,
 
-      // const canUseFileShare =
-      //   typeof navigator !== 'undefined' &&
-      //   typeof navigator.share === 'function' &&
-      //   typeof navigator.canShare === 'function';
+        // PC 保持高清
+        // 手机降低一点，避免 Safari Canvas 内存压力过大
+        pixelRatio: isMobile ? 2 : 3,
+      },
+    );
 
-      // if (canUseFileShare) {
-      //   const file = await dataUrlToFile(
-      //     dataUrl,
-      //     fileName,
-      //   );
-
-      //   const shareData = {
-      //     title: 'My Extraordinary Story',
-      //     text:
-      //       'Thank you for being part of our extraordinary journey.',
-      //     files: [file],
-      //   };
-
-      //   if (navigator.canShare(shareData)) {
-      //     await navigator.share(shareData);
-      //     return;
-      //   }
-      // }
-      // await dataUrlToFile(dataUrl, fileName);
-      downloadDataUrl(dataUrl, fileName);
-    } catch (error) {
-      if (
-        error instanceof Error &&
-        error.name === 'AbortError'
-      ) {
-        return;
-      }
-
-      console.error(
-        '[StoryShareModal] Export failed:',
-        error,
-      );
-
-      setErrorMessage(
-        'The image could not be generated. Please try again.',
-      );
-    } finally {
-      setIsExporting(false);
+    if (!blob) {
+      throw new Error('Image blob generation failed.');
     }
-  };
+
+    const fileName =
+      `extraordinary-story-${Date.now()}.png`;
+
+    downloadBlob(blob, fileName);
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      error.name === 'AbortError'
+    ) {
+      return;
+    }
+
+    console.error(
+      '[StoryShareModal] Export failed:',
+      error,
+    );
+
+    setErrorMessage(
+      'The image could not be generated. Please try again.',
+    );
+  } finally {
+    setIsExporting(false);
+  }
+};
 
   if (!portalElement || !isOpen) {
     return null;
