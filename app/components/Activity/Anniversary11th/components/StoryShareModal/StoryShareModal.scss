@@ -160,7 +160,6 @@
   &__title {
     span {
       display: inline-block;
-
       margin-bottom: -18px;
       font-family: var(--pwc);
       font-size: 36px;
@@ -376,7 +375,8 @@
 
     span {
       display: block;
-
+                z-index: 1;
+    position: relative;
       font-family: var(--pwc);
       font-size: 36px;
       font-style: normal;
