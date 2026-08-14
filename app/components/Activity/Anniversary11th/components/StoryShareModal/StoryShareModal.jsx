@@ -497,6 +497,14 @@ export default function StoryShareModal() {
                   ? 'Submitting...'
                   : 'Submit'}
               </button>
+                {errorMessage && (
+                <p
+                  className="story-share-modal__error story-share-modal__error--desktop"
+                  role="alert"
+                >
+                  {errorMessage}
+                </p>
+              )}
             </div>
 
             <div className="story-share-modal__fields">
@@ -591,7 +599,7 @@ export default function StoryShareModal() {
 
               {errorMessage && (
                 <p
-                  className="story-share-modal__error"
+                  className="story-share-modal__error story-share-modal__error--mobile"
                   role="alert"
                 >
                   {errorMessage}

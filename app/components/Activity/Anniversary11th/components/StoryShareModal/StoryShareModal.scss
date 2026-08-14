@@ -330,13 +330,17 @@
 
   &__error {
     margin: 0;
-
     color: #b70000;
-
     font-family: var(--dde);
     font-size: 14px;
     line-height: 140%;
-    margin-top: 10px;
+    margin-top: 0;
+        &--mobile {
+      display: none;
+    }
+        &--desktop {
+      margin-top: 15px;
+    }
   }
 
   &__complete {
@@ -748,7 +752,15 @@
     }
 
     &__error {
-      font-size: 0.22px;
+      font-size: 0.26rem;
+      margin-top: 0;
+      text-align: center;
+              &--mobile {
+      display: block;
+    }
+        &--desktop {
+     display: none;
+    }
     }
 
     &__complete {
