@@ -271,7 +271,7 @@
     color: #0F0;
     color: #0F0;
     text-align: center;
-    font-family: var(--deb);
+    font-family: var(--deb) !important;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -336,6 +336,7 @@
     font-family: var(--dde);
     font-size: 14px;
     line-height: 140%;
+    margin-top: 10px;
   }
 
   &__complete {
@@ -451,7 +452,7 @@
 .story-receipt {
   position: relative;
 
-  width: 300px;
+  width: 264px;
   aspect-ratio: 1153 / 1736;
 
   overflow: hidden;
@@ -611,7 +612,7 @@
 
 @media screen and (max-width: 1023px) {
   .story-share-modal {
-    padding: 0.32rem;
+    padding: 0.32rem 0.3rem;
 
     &__receipt-rotate {
 
@@ -659,7 +660,7 @@
     &__form {
       grid-template-columns: 1fr;
       gap: 0.4rem;
-      padding: 1rem 0.4rem;
+      padding: 0.82rem 0.46rem;
     }
 
 
@@ -711,7 +712,7 @@
     }
 
     &__button {
-      min-height: 0.94rem;
+      min-height: 0.88rem;
 
       padding: 0.28rem 1rem;
 
@@ -723,11 +724,23 @@
       &--mobile {
         display: flex;
         margin: 0 auto;
+                margin-top: 0.16rem;
       }
 
       &--desktop {
         display: none;
       }
+          &:hover:not(:disabled) {
+      background: #000;
+      color: #0F0;
+
+      transform: translateY(0px);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
     }
 
     &__intro>&__button {
@@ -742,7 +755,7 @@
       grid-template-columns: 1fr;
       gap: 0.24rem;
 
-      padding: 0.56rem 0.6rem;
+      padding: 0.56rem 0.6rem 0.8rem;
       // border: none;
       display: flex;
       flex-direction: column-reverse;
@@ -800,7 +813,7 @@
   }
 
   .story-receipt {
-    width: 4rem;
+    width: 3.32rem;
 
     &__story {
       font-size: 0.32254rem;

@@ -761,7 +761,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       width: 100%;
       height: 105vh;
       height: 105svh;
-
+      min-height: 705px;
       overflow: hidden;
       transform-style: preserve-3d;
     }
@@ -1686,12 +1686,16 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
   @media (max-width: 1023px) {
     .appreciation-reward {
+       height: 300svh;
+           &__stick {
+      height: 100svh;
+    }
       .appreciation-reward-tp__bg {
         top: -20px;
       }
 
       .appreciation-reward-bt__bg {
-        bottom: -45px;
+        bottom: -0.45rem;
       }
 
       &__note {
@@ -1712,7 +1716,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     }
 
     .appreciation-reward__header {
-      padding-top: 1.6rem;
+      padding-top: 2.4rem;
 
       &__title {
         font-size: 0.8rem;
@@ -1948,7 +1952,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     background: #0F0;
 
     color: #000;
-    font-family: var(--deb);
+    font-family: var(--deb) !important;
     font-size: 1.8rem;
     font-style: normal;
     font-weight: 400;
@@ -2319,7 +2323,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     &__toggle {
       border-radius: 0.12rem;
-      color: #fff;
+      color: var(--story-card-color);
 
       &-icon {
         position: absolute;
@@ -2339,25 +2343,21 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
     }
 
-    &[style*="--story-card-background:#E3E3E3"] {
-      .story-card__toggle {
-        color: #000;
-      }
-    }
 
     &--expanded .story-card__toggle-icon {
       transform: rotate(180deg);
     }
 
-    &--overflowing:hover:not(&--expanded) &__text {
+   &--overflowing:hover:not(&--expanded) &__text,
+    &--overflowing:focus-within:not(&--expanded) &__text {
       display: -webkit-box;
       overflow: hidden;
 
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 6;
     }
-
-    &--overflowing:hover:not(&--expanded) &__surface {
+    &--overflowing:hover:not(&--expanded) &__surface,
+    &--overflowing:focus-within:not(&--expanded) &__surface {
       bottom: 0;
 
       min-height: 0;
@@ -2366,7 +2366,8 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       transform: none;
     }
 
-    &--overflowing:hover:not(&--expanded) &__text-wrapper::after {
+    &--overflowing:hover:not(&--expanded) &__text-wrapper::after,
+    &--overflowing:focus-within:not(&--expanded) &__text-wrapper::after {
       opacity: 1;
     }
   }
@@ -2557,7 +2558,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       border: 0;
       border-radius: 0;
       outline: none;
-      font-family: var(--deb);
+      font-family: var(--deb) !important;
       font-size: 1.8rem;
       font-style: normal;
       font-weight: 400;
@@ -2646,7 +2647,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
       &__description {
         margin-top: 0.4rem;
         font-size: 0.36rem;
-
+        width: 3.5rem;
       }
 
       &__buttons {
@@ -2689,7 +2690,7 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 // TermsAndConditions start
 .terms-and-conditions {
   position: relative;
-  padding: 20rem 0;
+  padding: 20rem 0 26rem;
   background: #fff;
   
 

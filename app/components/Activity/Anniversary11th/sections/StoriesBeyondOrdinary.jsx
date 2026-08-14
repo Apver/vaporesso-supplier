@@ -69,9 +69,7 @@ const StoriesBeyondOrdinary = () =>{
 
                
               </div>
-            </div>
-
-            <button
+                  <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-ethan1"
@@ -96,6 +94,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+        
         
           </article>
 
@@ -137,9 +138,7 @@ const StoriesBeyondOrdinary = () =>{
 
               
               </div>
-            </div>
-
-            <button
+                 <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-wilson1"
@@ -164,6 +163,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+         
           </article>
 
           <article
@@ -204,9 +206,7 @@ const StoriesBeyondOrdinary = () =>{
 
              
               </div>
-            </div>
-
-            <button
+                          <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-tracie1"
@@ -231,6 +231,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+
           </article>
 
           <article
@@ -271,9 +274,7 @@ const StoriesBeyondOrdinary = () =>{
 
                
               </div>
-            </div>
-
-            <button
+               <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-matthew1"
@@ -298,6 +299,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+           
           </article>
 
           <article
@@ -334,9 +338,7 @@ const StoriesBeyondOrdinary = () =>{
 
               
               </div>
-            </div>
-
-            <button
+                <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-olivia"
@@ -361,6 +363,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+          
           </article>
            <article
             className="story-card"
@@ -397,9 +402,7 @@ const StoriesBeyondOrdinary = () =>{
 
                
               </div>
-            </div>
-
-            <button
+                 <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-ethan"
@@ -424,6 +427,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+         
           </article>
 
           <article
@@ -464,9 +470,7 @@ const StoriesBeyondOrdinary = () =>{
 
               
               </div>
-            </div>
-
-            <button
+                <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-wilson"
@@ -491,6 +495,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+          
           </article>
 
           <article
@@ -531,8 +538,7 @@ const StoriesBeyondOrdinary = () =>{
 
              
               </div>
-            </div>
-
+              
             <button
               type="button"
               className="story-card__toggle"
@@ -558,6 +564,8 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
           </article>
 
           <article
@@ -598,8 +606,7 @@ const StoriesBeyondOrdinary = () =>{
 
                
               </div>
-            </div>
-
+              
             <button
               type="button"
               className="story-card__toggle"
@@ -625,6 +632,8 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
           </article>
 
           <article
@@ -661,9 +670,7 @@ const StoriesBeyondOrdinary = () =>{
 
               
               </div>
-            </div>
-
-            <button
+                <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-olivia"
@@ -688,6 +695,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+          
           </article>
         </div>
 
@@ -729,9 +739,7 @@ const StoriesBeyondOrdinary = () =>{
 
                
               </div>
-            </div>
-
-            <button
+                   <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-sophia"
@@ -756,6 +764,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+       
           </article>
 
           <article
@@ -796,9 +807,7 @@ const StoriesBeyondOrdinary = () =>{
 
               
               </div>
-            </div>
-
-            <button
+                  <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-tracy"
@@ -823,6 +832,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+        
           </article>
 
           <article
@@ -863,9 +875,7 @@ const StoriesBeyondOrdinary = () =>{
                 </div>
 
               </div>
-            </div>
-
-            <button
+                   <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-nick"
@@ -890,6 +900,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+       
           </article>
 
           <article
@@ -930,9 +943,7 @@ const StoriesBeyondOrdinary = () =>{
                 </div>
 
               </div>
-            </div>
-
-            <button
+                 <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-wally"
@@ -957,6 +968,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+         
           </article>
 
           <article
@@ -994,8 +1008,7 @@ const StoriesBeyondOrdinary = () =>{
 
               
               </div>
-            </div>
-
+              
             <button
               type="button"
               className="story-card__toggle"
@@ -1021,6 +1034,8 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
           </article>
             <article
             className="story-card"
@@ -1059,9 +1074,7 @@ const StoriesBeyondOrdinary = () =>{
 
                
               </div>
-            </div>
-
-            <button
+                  <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-sophia"
@@ -1086,6 +1099,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+        
           </article>
 
           <article
@@ -1126,9 +1142,7 @@ const StoriesBeyondOrdinary = () =>{
 
               
               </div>
-            </div>
-
-            <button
+                   <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-tracy"
@@ -1153,6 +1167,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+       
           </article>
 
           <article
@@ -1193,9 +1210,7 @@ const StoriesBeyondOrdinary = () =>{
                 </div>
 
               </div>
-            </div>
-
-            <button
+                 <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-nick"
@@ -1220,6 +1235,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+         
           </article>
 
           <article
@@ -1260,9 +1278,7 @@ const StoriesBeyondOrdinary = () =>{
                 </div>
 
               </div>
-            </div>
-
-            <button
+                <button
               type="button"
               className="story-card__toggle"
               aria-controls="story-content-wally"
@@ -1287,6 +1303,9 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
+          
           </article>
 
           <article
@@ -1324,8 +1343,7 @@ const StoriesBeyondOrdinary = () =>{
 
               
               </div>
-            </div>
-
+              
             <button
               type="button"
               className="story-card__toggle"
@@ -1351,6 +1369,8 @@ const StoriesBeyondOrdinary = () =>{
                 />
               </svg>
             </button>
+            </div>
+
           </article>
         </div>
       </div>

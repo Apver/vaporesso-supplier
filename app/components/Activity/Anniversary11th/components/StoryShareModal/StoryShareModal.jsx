@@ -13,10 +13,10 @@ import './StoryShareModal.scss';
 // import { log } from 'echarts/types/src/util/log.js';
 
 const INITIAL_FORM_DATA = {
-  fullName: '',
+  name: '',
   email: '',
   country: '',
-  story: '',
+  comment: '',
 };
 
 const RECEIPT_TYPES = [
@@ -59,7 +59,7 @@ async function dataUrlToFile(dataUrl, fileName) {
   const blob = await response.blob();
 
   return new File([blob], fileName, {
-    type: 'image/webp',
+    type: 'image/png',
   });
 }
 
@@ -299,8 +299,8 @@ export default function StoryShareModal() {
   const submitStory = async (submitData) => {
     console.log('Story submit data:', submitData);
 
-    /*
-    const response = await fetch('/api/story-submit', {
+    
+    const response = await fetch('https://brand.vaporesso.com/vaporesso/java/data/comment/addComment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -313,7 +313,7 @@ export default function StoryShareModal() {
     }
 
     return response.json();
-    */
+    
   };
 
   const handleSubmit = async (event) => {
@@ -334,11 +334,13 @@ export default function StoryShareModal() {
     const receipt = getRandomReceipt();
 
     const submitData = {
-      fullName: formData.fullName.trim(),
+      name: formData.fullName.trim(),
       email: formData.email.trim(),
       country: formData.country.trim(),
-      story: formData.story.trim(),
-      receiptType: receipt.id,
+      comment: formData.story.trim(),
+      // tag: receipt.id,
+      url: window.location.href,
+      type: '20260818'
     };
 
     setIsSubmitting(true);
@@ -382,37 +384,37 @@ export default function StoryShareModal() {
         {
           cacheBust: true,
           pixelRatio: 3,
-          backgroundColor: '#ffffff',
+          // backgroundColor: '#ffffff',
         },
       );
 
       const fileName =
         `extraordinary-story-${Date.now()}.png`;
 
-      const canUseFileShare =
-        typeof navigator !== 'undefined' &&
-        typeof navigator.share === 'function' &&
-        typeof navigator.canShare === 'function';
+      // const canUseFileShare =
+      //   typeof navigator !== 'undefined' &&
+      //   typeof navigator.share === 'function' &&
+      //   typeof navigator.canShare === 'function';
 
-      if (canUseFileShare) {
-        const file = await dataUrlToFile(
-          dataUrl,
-          fileName,
-        );
+      // if (canUseFileShare) {
+      //   const file = await dataUrlToFile(
+      //     dataUrl,
+      //     fileName,
+      //   );
 
-        const shareData = {
-          title: 'My Extraordinary Story',
-          text:
-            'Thank you for being part of our extraordinary journey.',
-          files: [file],
-        };
+      //   const shareData = {
+      //     title: 'My Extraordinary Story',
+      //     text:
+      //       'Thank you for being part of our extraordinary journey.',
+      //     files: [file],
+      //   };
 
-        if (navigator.canShare(shareData)) {
-          await navigator.share(shareData);
-          return;
-        }
-      }
-
+      //   if (navigator.canShare(shareData)) {
+      //     await navigator.share(shareData);
+      //     return;
+      //   }
+      // }
+      await dataUrlToFile(dataUrl, fileName);
       downloadDataUrl(dataUrl, fileName);
     } catch (error) {
       if (
@@ -444,8 +446,6 @@ export default function StoryShareModal() {
       <button
         type="button"
         className="story-share-modal__backdrop"
-        aria-label="Close story modal"
-        onClick={handleClose}
       />
 
       <div
@@ -574,9 +574,9 @@ export default function StoryShareModal() {
                   onChange={handleInputChange}
                 />
 
-                <span className="story-share-modal__counter">
+                {/* <span className="story-share-modal__counter">
                   {formData.story.length}/400
-                </span>
+                </span> */}
               </div>
 
               <button

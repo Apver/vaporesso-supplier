@@ -353,7 +353,7 @@ media.add('(min-width: 1024px)', () => {
      */
     startOffset =
       viewportWidth -
-      cardWidth * 0.25;
+      cardWidth * 1.2;
 
     /*
      * 最后一张卡片最终停在屏幕中间。
@@ -883,7 +883,7 @@ function initializeAnimation(root) {
 
           gsap.set(mainHeader, {
             y: 0,
-            force3D: isMobile ? false : 'auto',
+            // force3D: isMobile ? false : 'auto',
           });
         } else {
           mainHeaderHeight = 0;
@@ -914,7 +914,7 @@ function initializeAnimation(root) {
             stackOffset * (cards.length - 1),
           y: 0,
 
-          force3D: isMobile ? false : 'auto',
+          // force3D: isMobile ? false : 'auto',
         });
 
         cards.forEach((card, index) => {
@@ -934,7 +934,7 @@ function initializeAnimation(root) {
               rotation: 0,
 
               transformOrigin: '50% 50%',
-              force3D: isMobile ? false : 'auto',
+              // force3D: isMobile ? false : 'auto',
             });
 
             return;
@@ -964,7 +964,7 @@ function initializeAnimation(root) {
             rotation: direction * -5,
 
             transformOrigin: '50% 50%',
-            force3D: isMobile ? false : 'auto',
+            // force3D: isMobile ? false : 'auto',
           });
         });
       };
@@ -981,12 +981,8 @@ function initializeAnimation(root) {
           start: 'top top',
           end: 'bottom bottom',
 
-          /*
-           * 移动端增加一点追赶时间，
-           * 过滤触摸滚动产生的不连续帧。
-           */
-          // scrub: isMobile ? 0.35 : true,
-          scrub: true,
+          scrub: isMobile ? 0.3 : true,
+
 
           invalidateOnRefresh: true,
           onRefreshInit: setLayout,
@@ -1043,17 +1039,19 @@ function initializeAnimation(root) {
       timeline.to({}, {duration: 0.15});
 
       return () => {
+          const scrollTrigger = timeline?.scrollTrigger;
         timeline?.scrollTrigger?.kill();
         timeline?.kill();
 
         timeline = null;
 
-        if (
-          rewardScrollTrigger ===
-          timeline?.scrollTrigger
-        ) {
-          rewardScrollTrigger = null;
-        }
+        // if (
+        //   rewardScrollTrigger ===
+        //   timeline?.scrollTrigger
+        // ) {
+        //   rewardScrollTrigger = null;
+        // }
+        if (rewardScrollTrigger === scrollTrigger) { rewardScrollTrigger = null; }
 
         gsap.set(cards, {
           clearProps: [
@@ -2330,7 +2328,7 @@ function initAppreciationRewardsAnimation(root) {
 
           ease:
             isMobile()
-              ? 'back.out(1.35)'
+              ? 'power3.out'
               : 'back.out(2.2)',
 
           immediateRender: false
@@ -2512,43 +2510,65 @@ function initAppreciationRewardsAnimation(root) {
           }
         },
 
+        // onRefresh(self) {
+        //   /**
+        //    * 尺寸变化后，
+        //    * 重新测量一次布局。
+        //    */
+        //   clearLayoutCache();
+        //   measureLayout();
+
+        //   scatterStates =
+        //     createScatterStates();
+
+        //   cardTimeline.invalidate();
+        //   impactTimeline.invalidate();
+
+        //   /**
+        //    * 刷新后重新固定层级。
+        //    */
+        //   cards.forEach(
+        //     (card, index) => {
+        //       gsap.set(card, {
+        //         zIndex:
+        //           getCardZIndex(index)
+        //       });
+        //     }
+        //   );
+
+        //   const refreshStep =
+        //     Math.round(
+        //       self.progress *
+        //       totalCards
+        //     );
+
+        //   goToStep(
+        //     refreshStep,
+        //     true
+        //   );
+        // }
         onRefresh(self) {
-          /**
-           * 尺寸变化后，
-           * 重新测量一次布局。
-           */
-          clearLayoutCache();
-          measureLayout();
+            clearLayoutCache();
+            measureLayout();
 
-          scatterStates =
-            createScatterStates();
+            scatterStates = createScatterStates();
 
-          cardTimeline.invalidate();
-          impactTimeline.invalidate();
+            cardTimeline.invalidate();
+            impactTimeline.invalidate();
 
-          /**
-           * 刷新后重新固定层级。
-           */
-          cards.forEach(
-            (card, index) => {
+            cards.forEach((card, index) => {
               gsap.set(card, {
-                zIndex:
-                  getCardZIndex(index)
+                zIndex: getCardZIndex(index),
               });
-            }
-          );
+            });
 
-          const refreshStep =
-            Math.round(
-              self.progress *
-              totalCards
-            );
+            const refreshStep =
+              currentStep >= 0
+                ? currentStep
+                : Math.round(self.progress * totalCards);
 
-          goToStep(
-            refreshStep,
-            true
-          );
-        }
+            goToStep(refreshStep, true);
+          }
       });
 
     const initialStep =
