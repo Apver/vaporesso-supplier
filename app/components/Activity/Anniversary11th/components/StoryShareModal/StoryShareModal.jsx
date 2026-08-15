@@ -50,25 +50,42 @@ function getRandomReceipt() {
   return RECEIPT_TYPES[randomIndex];
 }
 
-function isIOSDevice() {
-  return (
-    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-    (
-      navigator.platform === 'MacIntel' &&
-      navigator.maxTouchPoints > 1
-    )
-  );
-}
+// function isIOSDevice() {
+//   return (
+//     /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+//     (
+//       navigator.platform === 'MacIntel' &&
+//       navigator.maxTouchPoints > 1
+//     )
+//   );
+// }
+
+// function downloadBlob(blob, fileName) {
+//   const downloadBlob = isIOSDevice()
+//     ? new Blob([blob], {
+//         type: 'application/octet-stream',
+//       })
+//     : blob;
+
+//   const url = URL.createObjectURL(downloadBlob);
+
+//   const link = document.createElement('a');
+
+//   link.href = url;
+//   link.download = fileName;
+//   link.style.display = 'none';
+
+//   document.body.appendChild(link);
+
+//   link.click();
+//   window.setTimeout(() => {
+//     link.remove();
+//     URL.revokeObjectURL(url);
+//   }, 1000);
+// }
 
 function downloadBlob(blob, fileName) {
-  const downloadBlob = isIOSDevice()
-    ? new Blob([blob], {
-        type: 'application/octet-stream',
-      })
-    : blob;
-
-  const url = URL.createObjectURL(downloadBlob);
-
+  const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
 
   link.href = url;
@@ -76,8 +93,8 @@ function downloadBlob(blob, fileName) {
   link.style.display = 'none';
 
   document.body.appendChild(link);
-
   link.click();
+  
   window.setTimeout(() => {
     link.remove();
     URL.revokeObjectURL(url);
@@ -381,6 +398,59 @@ export default function StoryShareModal() {
     setErrorMessage('');
   };
 
+// const handleDownloadAndShare = async () => {
+//   if (!receiptRef.current || isExporting) return;
+
+//   setIsExporting(true);
+//   setErrorMessage('');
+
+//   try {
+//     const isMobile = window.matchMedia(
+//       '(max-width: 767px)',
+//     ).matches;
+
+//     const blob = await toBlob(
+//       receiptRef.current,
+//       {
+//         cacheBust: true,
+
+//         // PC 保持高清
+//         // 手机降低一点，避免 Safari Canvas 内存压力过大
+//         pixelRatio: isMobile ? 2 : 3,
+//       },
+//     );
+
+//     if (!blob) {
+//       throw new Error('Image blob generation failed.');
+//     }
+
+//     const fileName =
+//       `extraordinary-story-${Date.now()}.png`;
+
+//     downloadBlob(blob, fileName);
+//   } catch (error) {
+//     if (
+//       error instanceof Error &&
+//       error.name === 'AbortError'
+//     ) {
+//       return;
+//     }
+
+//     console.error(
+//       '[StoryShareModal] Export failed:',
+//       error,
+//     );
+
+//     setErrorMessage(
+//       'The image could not be generated. Please try again.',
+//     );
+//   } finally {
+//     setIsExporting(false);
+//   }
+// };
+
+
+// 替换原有的 handleDownloadAndShare 函数
 const handleDownloadAndShare = async () => {
   if (!receiptRef.current || isExporting) return;
 
@@ -388,50 +458,44 @@ const handleDownloadAndShare = async () => {
   setErrorMessage('');
 
   try {
-    const isMobile = window.matchMedia(
-      '(max-width: 767px)',
-    ).matches;
-
-    const blob = await toBlob(
-      receiptRef.current,
-      {
-        cacheBust: true,
-
-        // PC 保持高清
-        // 手机降低一点，避免 Safari Canvas 内存压力过大
-        pixelRatio: isMobile ? 2 : 3,
-      },
-    );
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (isMobile) {
+      await toBlob(receiptRef.current, { pixelRatio: 1 });
+    }
+    const blob = await toBlob(receiptRef.current, {
+      cacheBust: true,
+      pixelRatio: isMobile ? 1.5 : 3,
+    });
 
     if (!blob) {
       throw new Error('Image blob generation failed.');
     }
 
-    const fileName =
-      `extraordinary-story-${Date.now()}.png`;
-
+    const fileName = `extraordinary-story-${Date.now()}.png`;
+    if (navigator.share && isMobile) {
+      const file = new File([blob], fileName, { type: blob.type });
+      
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: 'My Extraordinary Story',
+          files: [file],
+        });
+        return; 
+      }
+    }
     downloadBlob(blob, fileName);
   } catch (error) {
-    if (
-      error instanceof Error &&
-      error.name === 'AbortError'
-    ) {
+    if (error instanceof Error && error.name === 'AbortError') {
       return;
     }
 
-    console.error(
-      '[StoryShareModal] Export failed:',
-      error,
-    );
+    console.error('[StoryShareModal] Export failed:', error);
 
-    setErrorMessage(
-      'The image could not be generated. Please try again.',
-    );
+    setErrorMessage('The image could not be generated. Please try again.');
   } finally {
     setIsExporting(false);
   }
 };
-
   if (!portalElement || !isOpen) {
     return null;
   }
