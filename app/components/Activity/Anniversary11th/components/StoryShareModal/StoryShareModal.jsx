@@ -8,6 +8,7 @@ import {createPortal} from 'react-dom';
 import {toBlob} from 'html-to-image';
 import {STORY_SHARE_MODAL_OPEN_EVENT} from './storyShareModalEvents';
 import './StoryShareModal.scss';
+
 const INITIAL_FORM_DATA = {
   name: '',
   email: '',
@@ -50,40 +51,9 @@ function getRandomReceipt() {
   return RECEIPT_TYPES[randomIndex];
 }
 
-// function isIOSDevice() {
-//   return (
-//     /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-//     (
-//       navigator.platform === 'MacIntel' &&
-//       navigator.maxTouchPoints > 1
-//     )
-//   );
-// }
+// 移除了 isIOSDevice 辅助函数，不再需要
 
-// function downloadBlob(blob, fileName) {
-//   const downloadBlob = isIOSDevice()
-//     ? new Blob([blob], {
-//         type: 'application/octet-stream',
-//       })
-//     : blob;
-
-//   const url = URL.createObjectURL(downloadBlob);
-
-//   const link = document.createElement('a');
-
-//   link.href = url;
-//   link.download = fileName;
-//   link.style.display = 'none';
-
-//   document.body.appendChild(link);
-
-//   link.click();
-//   window.setTimeout(() => {
-//     link.remove();
-//     URL.revokeObjectURL(url);
-//   }, 1000);
-// }
-
+// 替换了原有的 downloadBlob 函数，移除 octopus-stream
 function downloadBlob(blob, fileName) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
@@ -325,7 +295,6 @@ export default function StoryShareModal() {
   const submitStory = async (submitData) => {
     console.log('Story submit data:', submitData);
 
-    
     const response = await fetch('https://brand.vaporesso.com/vaporesso/java/data/comment/addComment', {
       method: 'POST',
       headers: {
@@ -339,7 +308,6 @@ export default function StoryShareModal() {
     }
 
     return response.json();
-    
   };
 
   const handleSubmit = async (event) => {
@@ -398,104 +366,64 @@ export default function StoryShareModal() {
     setErrorMessage('');
   };
 
-// const handleDownloadAndShare = async () => {
-//   if (!receiptRef.current || isExporting) return;
+  // 替换了原有的 handleDownloadAndShare 函数
+  const handleDownloadAndShare = async () => {
+    if (!receiptRef.current || isExporting) return;
 
-//   setIsExporting(true);
-//   setErrorMessage('');
+    setIsExporting(true);
+    setErrorMessage('');
 
-//   try {
-//     const isMobile = window.matchMedia(
-//       '(max-width: 767px)',
-//     ).matches;
+    try {
+      const isMobile = window.matchMedia('(max-width: 767px)').matches;
 
-//     const blob = await toBlob(
-//       receiptRef.current,
-//       {
-//         cacheBust: true,
-
-//         // PC 保持高清
-//         // 手机降低一点，避免 Safari Canvas 内存压力过大
-//         pixelRatio: isMobile ? 2 : 3,
-//       },
-//     );
-
-//     if (!blob) {
-//       throw new Error('Image blob generation failed.');
-//     }
-
-//     const fileName =
-//       `extraordinary-story-${Date.now()}.png`;
-
-//     downloadBlob(blob, fileName);
-//   } catch (error) {
-//     if (
-//       error instanceof Error &&
-//       error.name === 'AbortError'
-//     ) {
-//       return;
-//     }
-
-//     console.error(
-//       '[StoryShareModal] Export failed:',
-//       error,
-//     );
-
-//     setErrorMessage(
-//       'The image could not be generated. Please try again.',
-//     );
-//   } finally {
-//     setIsExporting(false);
-//   }
-// };
-
-
-// 替换原有的 handleDownloadAndShare 函数
-const handleDownloadAndShare = async () => {
-  if (!receiptRef.current || isExporting) return;
-
-  setIsExporting(true);
-  setErrorMessage('');
-
-  try {
-    const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    if (isMobile) {
-      await toBlob(receiptRef.current, { pixelRatio: 1 });
-    }
-    const blob = await toBlob(receiptRef.current, {
-      cacheBust: true,
-      pixelRatio: isMobile ? 1.5 : 3,
-    });
-
-    if (!blob) {
-      throw new Error('Image blob generation failed.');
-    }
-
-    const fileName = `extraordinary-story-${Date.now()}.png`;
-    if (navigator.share && isMobile) {
-      const file = new File([blob], fileName, { type: blob.type });
-      
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          title: 'My Extraordinary Story',
-          files: [file],
-        });
-        return; 
+      // 【核心修改】确保所有字体（包括自定义字体）在调用 toBlob 之前已加载完毕。
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
       }
-    }
-    downloadBlob(blob, fileName);
-  } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
-      return;
-    }
 
-    console.error('[StoryShareModal] Export failed:', error);
+      // 【核心修改】移除了移动端的双重调用 Hack。
+      // 【修改】针对 iOS/移动端，设定更保守的 pixelRatio。
+      const blob = await toBlob(receiptRef.current, {
+        cacheBust: true,
+        // PC 保持高清 3；手机降低到 1.25 或 1.5，提高兼容性。
+        pixelRatio: isMobile ? 1.25 : 3,
+      });
 
-    setErrorMessage('The image could not be generated. Please try again.');
-  } finally {
-    setIsExporting(false);
-  }
-};
+      if (!blob) {
+        throw new Error('Image blob generation failed.');
+      }
+
+      const fileName = `extraordinary-story-${Date.now()}.png`;
+
+      // 【新增】移动端优先使用原生分享
+      if (navigator.share && isMobile) {
+        const file = new File([blob], fileName, { type: blob.type });
+        
+        // 检查文件是否可分享
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: 'My Extraordinary Story',
+            files: [file],
+          });
+          return;
+        }
+      }
+
+      // PC 端或不支持 Web Share 的移动端走普通下载
+      downloadBlob(blob, fileName);
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        return;
+      }
+
+      console.error('[StoryShareModal] Export failed:', error);
+
+      setErrorMessage('The image could not be generated. Please try again.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   if (!portalElement || !isOpen) {
     return null;
   }
