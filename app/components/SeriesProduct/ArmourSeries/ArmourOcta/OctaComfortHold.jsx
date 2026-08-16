@@ -3,6 +3,8 @@ import gsap from 'gsap';
 
 export const OctaComfortHold = ({ data }) => {
   const sectionRef = useRef(null);
+  const mediaRef = useRef(null);
+  const backgroundRef = useRef(null);
   const handRef = useRef(null);
 
   const {
@@ -12,88 +14,144 @@ export const OctaComfortHold = ({ data }) => {
     image,
   } = data;
 
-useLayoutEffect(() => {
-  const section = sectionRef.current;
-  const hand = handRef.current;
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const media = mediaRef.current;
+    const background = backgroundRef.current;
+    const hand = handRef.current;
 
-  if (!section || !hand) return;
+    if (!section || !media || !background || !hand) return;
 
-  const ctx = gsap.context(() => {
-    const MAX_X = 16;
-    const MAX_Y = 10;
-    const MAX_ROTATE = 0.8;
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
 
-    gsap.set(hand, {
-      x: 0,
-      y: 0,
-      rotation: 0,
-      transformOrigin: '50% 70%',
-    });
+      mm.add('(min-width: 1024px)', () => {
+        // 手的移动幅度
+        const HAND_X = 28;
+        const HAND_Y = 10;
+        const HAND_ROTATE = 1.2;
 
-    const moveX = gsap.quickTo(hand, 'x', {
-      duration: 0.65,
-      ease: 'power3.out',
-    });
+        // 背景反方向移动幅度
+        const BG_X = 14;
+        const BG_Y = 10;
 
-    const moveY = gsap.quickTo(hand, 'y', {
-      duration: 0.65,
-      ease: 'power3.out',
-    });
+        // 两层稍微放大，防止移动时露出边缘
+        gsap.set(hand, {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1.06,
+          transformOrigin: '50% 70%',
+        });
 
-    const rotate = gsap.quickTo(hand, 'rotation', {
-      duration: 0.75,
-      ease: 'power3.out',
-    });
+        gsap.set(background, {
+          x: 0,
+          y: 0,
+          scale: 1.06,
+          transformOrigin: '50% 50%',
+        });
 
-    const handlePointerMove = (event) => {
-      if (event.pointerType === 'touch') return;
+        const handX = gsap.quickTo(hand, 'x', {
+          duration: 0.65,
+          ease: 'power3.out',
+        });
 
-      const rect = section.getBoundingClientRect();
+        const handY = gsap.quickTo(hand, 'y', {
+          duration: 0.65,
+          ease: 'power3.out',
+        });
 
-      const x =
-        ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+        const handRotate = gsap.quickTo(hand, 'rotation', {
+          duration: 0.75,
+          ease: 'power3.out',
+        });
 
-      const y =
-        ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+        const bgX = gsap.quickTo(background, 'x', {
+          duration: 0.9,
+          ease: 'power3.out',
+        });
 
-      moveX(x * MAX_X);
-      moveY(y * MAX_Y);
-      rotate(x * MAX_ROTATE);
-    };
+        const bgY = gsap.quickTo(background, 'y', {
+          duration: 0.9,
+          ease: 'power3.out',
+        });
 
-    const handlePointerLeave = () => {
-      moveX(0);
-      moveY(0);
-      rotate(0);
-    };
+        const handlePointerMove = (event) => {
+          if (event.pointerType === 'touch') return;
 
-    section.addEventListener(
-      'pointermove',
-      handlePointerMove
-    );
+          const rect = media.getBoundingClientRect();
 
-    section.addEventListener(
-      'pointerleave',
-      handlePointerLeave
-    );
+          // 鼠标位置映射为 -1 ~ 1
+          const x = gsap.utils.clamp(
+            -1,
+            1,
+            ((event.clientX - rect.left) / rect.width - 0.5) * 2
+          );
+
+          const y = gsap.utils.clamp(
+            -1,
+            1,
+            ((event.clientY - rect.top) / rect.height - 0.5) * 2
+          );
+
+          // 手跟随鼠标
+          handX(x * HAND_X);
+          handY(y * HAND_Y);
+          handRotate(x * HAND_ROTATE);
+
+          // 背景反方向移动
+          bgX(x * -BG_X);
+          bgY(y * -BG_Y);
+        };
+
+        const handlePointerLeave = () => {
+          handX(0);
+          handY(0);
+          handRotate(0);
+
+          bgX(0);
+          bgY(0);
+        };
+
+        media.addEventListener(
+          'pointermove',
+          handlePointerMove
+        );
+
+        media.addEventListener(
+          'pointerleave',
+          handlePointerLeave
+        );
+
+        return () => {
+          media.removeEventListener(
+            'pointermove',
+            handlePointerMove
+          );
+
+          media.removeEventListener(
+            'pointerleave',
+            handlePointerLeave
+          );
+        };
+      });
+
+      // mobile 不做鼠标视差，同时重置 transform
+      mm.add('(max-width: 1023px)', () => {
+        gsap.set([background, hand], {
+          clearProps: 'transform',
+        });
+      });
+
+      return () => {
+        mm.revert();
+      };
+    }, section);
 
     return () => {
-      section.removeEventListener(
-        'pointermove',
-        handlePointerMove
-      );
-
-      section.removeEventListener(
-        'pointerleave',
-        handlePointerLeave
-      );
+      ctx.revert();
     };
-  }, section);
-
-  return () => {
-    ctx.revert();
-  };
-}, []);
+  }, []);
 
   return (
     <section
@@ -114,8 +172,14 @@ useLayoutEffect(() => {
           </h2>
         </div>
 
-        <div className="octa-comfort__media to-top">
-          <picture className="octa-comfort__background">
+        <div
+          ref={mediaRef}
+          className="octa-comfort__media to-top"
+        >
+          <picture
+            ref={backgroundRef}
+            className="octa-comfort__background"
+          >
             {image?.background?.mobile && (
               <source
                 media="(max-width: 1023px)"

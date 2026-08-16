@@ -41,10 +41,9 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
   const BriefSectionData = {
     // title: 'Swap Panels, Premium Style',
     desc: "Hey dude, how are you doing?\nWe've shared highs and got through lows side by side. Vaporesso has been there for all your key moments, \nalways protecting you and sticking around.\nThe Armour series is your reliable old pal: we never cut corners on making solid vape mods, and never stray from our original mission. Just like you, we're still on the road to getting better, chasing a brighter future.\nCheers to us, to all our shared memories, and to what's ahead.",
-    pcImageUrl:
-      'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-02-1-2x.webp',
-    mobImageUrl:
-      'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-02-1-3x.webp',
+    pcImageUrl:'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-02-1-2x.webp',
+    mobImageUrl:'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-02-1-3x.webp',
+    btnLink:"https://www.vaporesso.com/"
   };
   const PodCompatibleData = {
     title: 'Compatible With Multiple GTi Coils',
@@ -186,7 +185,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
           <>
             Cage structure:
             <br className='mb-visible' />
-            Armor-like guard
+            &nbsp;Armor-like guard
           </>
         ),
         image: {
@@ -429,13 +428,13 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
 
     image: {
       l1: {
-        pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-10-1-2x.webp',
-        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-10-1-3x.webp',
+        pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour_octa-10-1-2x-new1.webp',
+        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour_octa-mob-10-1-3x-new1.webp',
       },
 
       l2: {
-        pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-10-2-2x.webp',
-        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-10-2-3x.webp',
+        pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour_octa-10-2-2x-new1.webp',
+        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour_octa-mob-10-2-3x-new1.webp',
       },
     },
     level1: {
@@ -632,7 +631,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
     title: (
       <>
         Comfortable to Hold
-        <br />
+        <br className='octa--mb__visible' />
         Perfectly Fits in Your Palm
       </>
     ),
@@ -640,9 +639,9 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
     description: (
       <>
         The Armour Octa features the same premium silicone surface used on motorcycle
-        <br />
+        <br className='octa--mb__visible' />
         grips, offering a comfortable, ergonomic hold with sweat-resistant, anti-slip
-        <br />
+        <br  className='octa--mb__visible' />
         performance for enhanced long-term durability.
       </>
     ),

@@ -8,7 +8,9 @@ export const OctaProofShowcase = ({ data }) => {
   const sectionRef = useRef(null);
   const boxRef = useRef(null);
   const innerRef = useRef(null);
+  const bodyRef = useRef(null);
   const stageRef = useRef(null);
+
   const {
     title,
     subtitle,
@@ -16,27 +18,56 @@ export const OctaProofShowcase = ({ data }) => {
     slides = [],
   } = data;
 
-  useLayoutEffect(() => {
-    const section = sectionRef.current;
-    const box = boxRef.current;
-    const inner = innerRef.current;
-    const stage = stageRef.current;
-    if (!section || !box || !inner || !stage || slides.length <= 1) return;
+useLayoutEffect(() => {
+  const section = sectionRef.current;
+  const box = boxRef.current;
+  const inner = innerRef.current;
+  const stage = stageRef.current;
 
-    const ctx = gsap.context(() => {
-      const slideEls = gsap.utils.toArray(
-        '.octa-proof-showcase__slide'
-      );
+  if (
+    !section ||
+    !box ||
+    !inner ||
+    !stage ||
+    slides.length <= 1
+  ) {
+    return;
+  }
 
-      const dotEls = gsap.utils.toArray(
-        '.octa-proof-showcase__dot'
-      );
+  const ctx = gsap.context(() => {
+    const slideEls = gsap.utils.toArray(
+      '.octa-proof-showcase__slide',
+      section
+    );
 
+    const dotEls = gsap.utils.toArray(
+      '.octa-proof-showcase__dot',
+      section
+    );
+
+    const HOLD = 0.2;
+    const OUT_DURATION = 0.7;
+    const IN_DURATION = 0.75;
+    const IN_DELAY = 0.03;
+
+    const MOBILE_MOVE_DURATION = 1;
+
+    const setActiveDot = (index) => {
+      dotEls.forEach((dot, dotIndex) => {
+        dot.classList.toggle(
+          'is-active',
+          dotIndex === index
+        );
+      });
+    };
+
+    const resetSlides = () => {
       gsap.set(slideEls, {
         autoAlpha: 0,
         yPercent: 105,
         rotationX: -72,
         z: -40,
+        opacity: 0.75,
         transformOrigin: '50% 0%',
         transformPerspective: 1800,
         transformStyle: 'preserve-3d',
@@ -47,6 +78,7 @@ export const OctaProofShowcase = ({ data }) => {
         yPercent: 0,
         rotationX: 0,
         z: 0,
+        opacity: 1,
       });
 
       slideEls.forEach((slide, index) => {
@@ -55,48 +87,80 @@ export const OctaProofShowcase = ({ data }) => {
         });
       });
 
-      const setActiveDot = (index) => {
-        dotEls.forEach((dot, dotIndex) => {
-          dot.classList.toggle(
-            'is-active',
-            dotIndex === index
-          );
-        });
-      };
+      setActiveDot(0);
+    };
 
-      // 动画时间常量
-      const INITIAL_MOVE_DURATION = 1.0; 
-      const HOLD = 0.2;
-      const OUT_DURATION = 0.7;
-      const IN_DURATION = 0.75;
-      const IN_DELAY = 0.03;
-
-      const tl = gsap.timeline();
-
-      tl.to(inner, {
-        y: () => {
-          const isMobile = window.innerWidth <= 1023;
-          const currentY = gsap.getProperty(inner, 'y');
-          gsap.set(inner, { y: 0 });
-          
-          const boxRect = box.getBoundingClientRect();
-          const stageRect = stage.getBoundingClientRect();
-          
-          const targetY =isMobile? (boxRect.top + boxRect.height / 2) - (stageRect.top + stageRect.height /  1.38): 0 ;
-          gsap.set(inner, { y: currentY });
-          return targetY;
-        },
-        duration: INITIAL_MOVE_DURATION,
-        ease: 'power2.inOut',
+    const createTimeline = (isMobile) => {
+      resetSlides();
+      gsap.set(inner, {
+        y: 0,
       });
 
-      tl.to({}, { duration: HOLD });
+      const tl = gsap.timeline({
+        paused: true,
+      });
 
-      for (let i = 1; i < slideEls.length; i += 1) {
+      if (isMobile) {
+        tl.to(inner, {
+y: () => {
+  const stageRect =
+    stage.getBoundingClientRect();
+
+  const currentY =
+    Number(
+      gsap.getProperty(inner, 'y')
+    ) || 0;
+  const originalStageTop =
+    stageRect.top - currentY;
+
+  const stageCenter =
+    originalStageTop +
+    stageRect.height / 2;
+
+  const STICKY_TOP = 44;
+
+  const viewportHeight =
+    window.innerHeight;
+
+  const visibleCenter =
+    STICKY_TOP +
+    (viewportHeight - STICKY_TOP) / 2;
+
+  return visibleCenter - stageCenter;
+},
+
+          duration: MOBILE_MOVE_DURATION,
+          ease: 'power2.inOut',
+        });
+
+        tl.to({}, {
+          duration: HOLD,
+        });
+      } else {
+        /*
+         * PC 不移动
+         */
+        tl.to({}, {
+          duration: HOLD,
+        });
+      }
+
+      const activeTimes = [
+        isMobile
+          ? MOBILE_MOVE_DURATION + HOLD
+          : 0,
+      ];
+
+      for (
+        let i = 1;
+        i < slideEls.length;
+        i += 1
+      ) {
         const current = slideEls[i - 1];
         const next = slideEls[i];
 
-        const transitionStart = tl.duration();
+        const transitionStart =
+          tl.duration();
 
         tl.set(
           next,
@@ -150,12 +214,21 @@ export const OctaProofShowcase = ({ data }) => {
         tl.set(
           next,
           {
+            autoAlpha: 1,
             yPercent: 0,
             rotationX: 0,
             z: 0,
             opacity: 1,
           },
-          transitionStart + IN_DELAY + IN_DURATION
+          transitionStart +
+            IN_DELAY +
+            IN_DURATION
+        );
+
+        activeTimes.push(
+          transitionStart +
+            IN_DELAY +
+            IN_DURATION * 0.5
         );
 
         tl.to({}, {
@@ -163,166 +236,278 @@ export const OctaProofShowcase = ({ data }) => {
         });
       }
 
-      const totalDuration = tl.duration();
+      return {
+        tl,
+        activeTimes,
+      };
+    };
 
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        // 增加滑动总长度以匹配新增的 INITIAL_MOVE_DURATION
-        end: () =>
-          `+=${window.innerHeight * (slides.length * 1.15 + 1)}`,
-        pin: box,
-        pinSpacing: true,
-        scrub: 0.7,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
+    const createScrollAnimation = (
+      isMobile
+    ) => {
+      const { tl, activeTimes } =
+        createTimeline(isMobile);
 
-        animation: tl,
+      const totalDuration =
+        tl.duration();
 
-        onUpdate: (self) => {
-          const time = self.progress * totalDuration;
+      const scrollTrigger =
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top top',
+          endTrigger: section,
+          end: 'bottom bottom',
 
-          const segmentDuration =
-            HOLD +
-            Math.max(
-              OUT_DURATION,
-              IN_DELAY + IN_DURATION
+          scrub: 0.7,
+
+          animation: tl,
+
+          invalidateOnRefresh: true,
+
+          onUpdate: (self) => {
+            const currentTime =
+              self.progress *
+              totalDuration;
+
+            let activeIndex = 0;
+
+            for (
+              let i = 1;
+              i < activeTimes.length;
+              i += 1
+            ) {
+              if (
+                currentTime >=
+                activeTimes[i]
+              ) {
+                activeIndex = i;
+              } else {
+                break;
+              }
+            }
+
+            activeIndex = Math.max(
+              0,
+              Math.min(
+                slideEls.length - 1,
+                activeIndex
+              )
             );
 
-          let index = 0;
-
-          // 扣除初始的上移时间后再计算轮播图的 index
-          if (time >= INITIAL_MOVE_DURATION) {
-            const slideTime = time - INITIAL_MOVE_DURATION;
-            index = Math.floor(
-              (slideTime + HOLD * 0.5) / segmentDuration
+            setActiveDot(
+              activeIndex
             );
-          }
+          },
 
-          index = Math.max(
-            0,
-            Math.min(slides.length - 1, index)
-          );
+          onLeaveBack: () => {
+            setActiveDot(0);
+          },
+        });
 
-          setActiveDot(index);
-        },
-      });
+      return () => {
+        scrollTrigger.kill();
+        tl.kill();
 
-      setActiveDot(0);
-    }, section);
+        gsap.set(inner, {
+          clearProps: 'transform',
+        });
+      };
+    };
 
-    return () => ctx.revert();
-  }, [slides]);
+    const mm = gsap.matchMedia();
+
+    mm.add(
+      '(min-width: 1024px)',
+      () => {
+        return createScrollAnimation(
+          false
+        );
+      }
+    );
+    mm.add(
+      '(max-width: 1023px)',
+      () => {
+        return createScrollAnimation(
+          true
+        );
+      }
+    );
+
+    return () => {
+      mm.revert();
+    };
+  }, section);
+
+  return () => {
+    ctx.revert();
+  };
+}, [slides]);
+
+  const scrollHeight =
+    slides.length > 1
+      ? `${100 + (slides.length - 1) * 115}svh`
+      : '100svh';
 
   return (
     <section
       ref={sectionRef}
       className="octa-proof-showcase-section"
+      style={{
+        '--octa-proof-scroll-height': scrollHeight,
+      }}
     >
-      <div ref={boxRef} className='octa-proof-showcase'>
-      <div ref={innerRef} className="octa-proof-showcase__inner">
-        <div className="octa-proof-showcase__header">
-          <h2 className="octa-proof-showcase__title">
-            {title?.before}
+      <div
+        ref={boxRef}
+        className="octa-proof-showcase"
+      >
+        <div
+          ref={innerRef}
+          className="octa-proof-showcase__inner"
+        >
+          <div className="octa-proof-showcase__header">
+            <h2 className="octa-proof-showcase__title">
+              {title?.before}
 
-            {title?.highlight && (
-              <>
-                {' '}
-                <span>{title.highlight}</span>
-              </>
+              {title?.highlight && (
+                <>
+                  {' '}
+                  <span>
+                    {title.highlight}
+                  </span>
+                </>
+              )}
+
+              {title?.after && (
+                <>
+                  {' '}
+                  {title.after}
+                </>
+              )}
+            </h2>
+
+            {subtitle && (
+              <p className="octa-proof-showcase__subtitle">
+                {subtitle}
+              </p>
             )}
-
-            {title?.after && (
-              <> {title.after}</>
-            )}
-          </h2>
-
-          {subtitle && (
-            <p className="octa-proof-showcase__subtitle">
-              {subtitle}
-            </p>
-          )}
-        </div>
-
-        <div ref={stageRef} className="octa-proof-showcase__stage">
-          {slides.map((item, index) => (
+          </div>
+          <div
+            ref={bodyRef}
+            className="octa-proof-showcase__body"
+          >
             <div
-              key={item.key}
-              className="octa-proof-showcase__slide"
+              ref={stageRef}
+              className="octa-proof-showcase__stage"
             >
-              <picture className="octa-proof-showcase__picture">
-                <source
-                  media="(max-width: 1023px)"
-                  srcSet={item.image.mobile}
-                />
+              {slides.map((item, index) => (
+                <div
+                  key={item.key}
+                  className="octa-proof-showcase__slide"
+                >
+                  <picture className="octa-proof-showcase__picture">
+                    <source
+                      media="(max-width: 1023px)"
+                      srcSet={item.image.mobile}
+                    />
 
-                <img
-                  className="octa-proof-showcase__image"
-                  src={item.image.pc}
-                  alt={item.alt || ''}
-                  loading={index === 0 ? 'eager' : 'lazy'}
-                />
-              </picture>
+                    <img
+                      className="octa-proof-showcase__image"
+                      src={item.image.pc}
+                      alt={item.alt || ''}
+                      loading={
+                        index === 0
+                          ? 'eager'
+                          : 'lazy'
+                      }
+                    />
+                  </picture>
 
-              <div className="octa-proof-showcase__slide-content">
-                <h3 className="octa-proof-showcase__slide-title">
-                  <span>{item.title.highlight}</span>
-                  {item.title.text}
-                </h3>
+                  <div className="octa-proof-showcase__slide-content">
+                    <h3 className="octa-proof-showcase__slide-title">
+                      {item.title?.highlight && (
+                        <span>
+                          {
+                            item.title
+                              .highlight
+                          }
+                        </span>
+                      )}
 
-                {item.desc && (
-                  <p className="octa-proof-showcase__slide-desc">
-                    {item.desc}
-                  </p>
-                )}
+                      {item.title?.text}
+                    </h3>
 
-                {item.metrics?.length > 0 && (
-                  <div className="octa-proof-showcase__metrics">
-                    {item.metrics.map((metric, metricIndex) => (
-                      <div
-                        key={`${item.key}-${metricIndex}`}
-                        className="octa-proof-showcase__metric"
-                      >
-                        <div className="octa-proof-showcase__metric-value">
-                          {metric.value}
+                    {item.desc && (
+                      <p className="octa-proof-showcase__slide-desc">
+                        {item.desc}
+                      </p>
+                    )}
 
-                          {metric.suffix && (
-                            <span>{metric.suffix}</span>
-                          )}
-                        </div>
+                    {item.metrics?.length >
+                      0 && (
+                      <div className="octa-proof-showcase__metrics">
+                        {item.metrics.map(
+                          (
+                            metric,
+                            metricIndex
+                          ) => (
+                            <div
+                              key={`${item.key}-${metricIndex}`}
+                              className="octa-proof-showcase__metric"
+                            >
+                              <div className="octa-proof-showcase__metric-value">
+                                {
+                                  metric.value
+                                }
 
-                        <div className="octa-proof-showcase__metric-label">
-                          {metric.label}
-                        </div>
+                                {metric.suffix && (
+                                  <span>
+                                    {
+                                      metric.suffix
+                                    }
+                                  </span>
+                                )}
+                              </div>
+
+                              <div className="octa-proof-showcase__metric-label">
+                                {
+                                  metric.label
+                                }
+                              </div>
+                            </div>
+                          )
+                        )}
                       </div>
-                    ))}
+                    )}
                   </div>
+                </div>
+              ))}
+
+              <div className="octa-proof-showcase__dots">
+                {slides.map(
+                  (item, index) => (
+                    <span
+                      key={item.key}
+                      className={[
+                        'octa-proof-showcase__dot',
+                        index === 0
+                          ? 'is-active'
+                          : '',
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
+                    />
+                  )
                 )}
               </div>
             </div>
-          ))}
 
-          <div className="octa-proof-showcase__dots">
-            {slides.map((item, index) => (
-              <span
-                key={item.key}
-                className={[
-                  'octa-proof-showcase__dot',
-                  index === 0 ? 'is-active' : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-              />
-            ))}
+            {note && (
+              <p className="octa-proof-showcase__note">
+                {note}
+              </p>
+            )}
           </div>
         </div>
-
-        {note && (
-          <p className="octa-proof-showcase__note">
-            {note}
-          </p>
-        )}
-      </div>
       </div>
     </section>
   );

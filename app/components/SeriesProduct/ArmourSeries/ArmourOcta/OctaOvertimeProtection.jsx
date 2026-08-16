@@ -199,6 +199,8 @@ export const OctaOvertimeProtection = ({ data }) => {
       className="octa-overtime-scroll"
     >
       <div className="octa-overtime">
+
+        <h2 className="octa-overtime__title octa-overtime__title__mobile to-top">{title}</h2>
         <div className="octa-overtime__inner">
           <div className="octa-overtime__content">
             <h2 className="octa-overtime__title to-top">
