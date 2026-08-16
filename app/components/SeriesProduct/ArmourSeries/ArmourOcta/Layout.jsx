@@ -156,15 +156,15 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
         ),
         image: {
           pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-11-4-2x.webp',
-          mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-11-2-3x.webp',
+          mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-11-3-3x.webp',
         },
       },
 
       collision: {
         title: (
           <>
-            Anti-Collision
-            <br />
+            Anti-<br className='des-visible'/>Collision
+            <br className='mb-visible' />
             Pad:
           </>
         ),
@@ -177,7 +177,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
         ),
         image: {
           pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-11-5-2x.webp',
-          mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-11-2-3x.webp',
+          mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-11-4-3x.webp',
         },
       },
 
@@ -185,13 +185,13 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
         title: (
           <>
             Cage structure:
-            <br />
+            <br className='mb-visible' />
             Armor-like guard
           </>
         ),
         image: {
           pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-11-3-2x.webp',
-          mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-11-2-3x.webp',
+          mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-11-5-3x.webp',
         },
       },
     },
@@ -461,7 +461,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
         highlight: true,
         image: {
           pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-16-1-2x.webp',
-          mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-16-1-3x.webp',
+          mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-16-1-2x.webp',
         },
       },
       {
@@ -469,7 +469,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
         name: 'ARMOUR MAX',
         image: {
           pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-16-2-2x.webp',
-          mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-16-2-3x.webp',
+          mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-16-2-2x.webp',
         },
       },
     ],
@@ -676,7 +676,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
       color: '#4EBFAB',
       image: {
         pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-new-octa-14-1-2x.webp',
-        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-14-1-3x.webp',
+        mobile:'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-new-octa-14-1-2x.webp',
       },
     },
     {
@@ -685,7 +685,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
       color: '#BABABA',
       image: {
         pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-new-octa-14-2-2x.webp',
-        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-14-2-3x.webp',
+        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-new-octa-14-2-2x.webp',
       },
     },
     {
@@ -694,7 +694,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
       color: '#4C80FA',
       image: {
         pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-new-octa-14-3-2x.webp',
-        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-14-3-3x.webp',
+        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-new-octa-14-3-2x.webp',
       },
     },
     {
@@ -703,7 +703,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
       color: '#C15B8B',
       image: {
         pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-new-octa-14-4-2x.webp',
-        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-14-4-3x.webp',
+        mobile: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-new-octa-14-4-2x.webp',
       },
     },
   ],
@@ -725,17 +725,18 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
       <MilitaryProof data={militaryProofData1}  className="military-proof1" />
       <OctaVoltageSurge data={voltageSurgeData} />
       <OctaOverheatProtection data={overheatProtectionData} />
-      <MilitaryProof data={militaryProofData2} className="military-proof1" />
+      <MilitaryProof data={militaryProofData2} className="military-proof2" />
       <OctaOvertimeProtection data={overtimeProtectionData} />
       <OctaDetailShowcase data={detailData} />
        <TechSection />
-      <OctaComparison  data={comparisonData} />
+    
       <OctaComfortHold data={comfortData} />
       <OctaTextureShowcase data={textureData} />
       <PodCompatible
         className="product-armour-octa-pod-compatible"
         {...PodCompatibleData}
       />
+        <OctaComparison  data={comparisonData} />
       <EndProduct
         className="product-armour-octa-end-product"
         data={EndProductData}

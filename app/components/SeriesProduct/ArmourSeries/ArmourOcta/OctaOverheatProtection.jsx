@@ -17,7 +17,7 @@ export const OctaOverheatProtection = ({ data }) => {
         </h2>
 
         {subtitle && (
-          <p className="octa-overheat__subtitle to-top">
+          <p className="octa-overheat__subtitle octa-overheat__subtitle__destok to-top">
             {subtitle}
           </p>
         )}
@@ -58,6 +58,11 @@ export const OctaOverheatProtection = ({ data }) => {
           </p>
         )}
       </div>
+              {subtitle && (
+          <p className="octa-overheat__subtitle octa-overheat__subtitle__mobile to-top">
+            {subtitle}
+          </p>
+        )}
     </section>
   );
 };

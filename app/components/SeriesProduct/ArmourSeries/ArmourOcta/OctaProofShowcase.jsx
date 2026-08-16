@@ -6,7 +6,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const OctaProofShowcase = ({ data }) => {
   const sectionRef = useRef(null);
-   const boxRef = useRef(null);
+  const boxRef = useRef(null);
+  const innerRef = useRef(null);
+  const stageRef = useRef(null);
   const {
     title,
     subtitle,
@@ -16,8 +18,10 @@ export const OctaProofShowcase = ({ data }) => {
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
-      const box = boxRef.current;
-    if (!section || slides.length <= 1) return;
+    const box = boxRef.current;
+    const inner = innerRef.current;
+    const stage = stageRef.current;
+    if (!section || !box || !inner || !stage || slides.length <= 1) return;
 
     const ctx = gsap.context(() => {
       const slideEls = gsap.utils.toArray(
@@ -60,12 +64,31 @@ export const OctaProofShowcase = ({ data }) => {
         });
       };
 
-      const HOLD = 0.35;
+      // 动画时间常量
+      const INITIAL_MOVE_DURATION = 1.0; 
+      const HOLD = 0.2;
       const OUT_DURATION = 0.7;
       const IN_DURATION = 0.75;
       const IN_DELAY = 0.03;
 
       const tl = gsap.timeline();
+
+      tl.to(inner, {
+        y: () => {
+          const isMobile = window.innerWidth <= 1023;
+          const currentY = gsap.getProperty(inner, 'y');
+          gsap.set(inner, { y: 0 });
+          
+          const boxRect = box.getBoundingClientRect();
+          const stageRect = stage.getBoundingClientRect();
+          
+          const targetY =isMobile? (boxRect.top + boxRect.height / 2) - (stageRect.top + stageRect.height /  1.38): 0 ;
+          gsap.set(inner, { y: currentY });
+          return targetY;
+        },
+        duration: INITIAL_MOVE_DURATION,
+        ease: 'power2.inOut',
+      });
 
       tl.to({}, { duration: HOLD });
 
@@ -145,8 +168,9 @@ export const OctaProofShowcase = ({ data }) => {
       ScrollTrigger.create({
         trigger: section,
         start: 'top top',
+        // 增加滑动总长度以匹配新增的 INITIAL_MOVE_DURATION
         end: () =>
-          `+=${window.innerHeight * (slides.length * 1.15)}`,
+          `+=${window.innerHeight * (slides.length * 1.15 + 1)}`,
         pin: box,
         pinSpacing: true,
         scrub: 0.7,
@@ -165,9 +189,15 @@ export const OctaProofShowcase = ({ data }) => {
               IN_DELAY + IN_DURATION
             );
 
-          let index = Math.floor(
-            (time + HOLD * 0.5) / segmentDuration
-          );
+          let index = 0;
+
+          // 扣除初始的上移时间后再计算轮播图的 index
+          if (time >= INITIAL_MOVE_DURATION) {
+            const slideTime = time - INITIAL_MOVE_DURATION;
+            index = Math.floor(
+              (slideTime + HOLD * 0.5) / segmentDuration
+            );
+          }
 
           index = Math.max(
             0,
@@ -190,7 +220,7 @@ export const OctaProofShowcase = ({ data }) => {
       className="octa-proof-showcase-section"
     >
       <div ref={boxRef} className='octa-proof-showcase'>
-      <div className="octa-proof-showcase__inner">
+      <div ref={innerRef} className="octa-proof-showcase__inner">
         <div className="octa-proof-showcase__header">
           <h2 className="octa-proof-showcase__title">
             {title?.before}
@@ -214,7 +244,7 @@ export const OctaProofShowcase = ({ data }) => {
           )}
         </div>
 
-        <div className="octa-proof-showcase__stage">
+        <div ref={stageRef} className="octa-proof-showcase__stage">
           {slides.map((item, index) => (
             <div
               key={item.key}

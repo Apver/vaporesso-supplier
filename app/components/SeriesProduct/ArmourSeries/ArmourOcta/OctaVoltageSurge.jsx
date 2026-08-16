@@ -114,11 +114,11 @@ export const OctaVoltageSurge = ({ data }) => {
         opacity: 0,
       });
 
-      gsap.set('.octa-voltage-surge__device-picture', {
-        y: 70,
-        scale: 0.94,
-        opacity: 0,
-      });
+      // gsap.set('.octa-voltage-surge__device-picture', {
+      //   y: 70,
+      //   scale: 0.94,
+      //   opacity: 0,
+      // });
 
       gsap.set('.octa-voltage-surge__threshold', {
         y: 40,
@@ -169,17 +169,17 @@ export const OctaVoltageSurge = ({ data }) => {
         0.15
       );
 
-      tl.to(
-        '.octa-voltage-surge__device-picture',
-        {
-          y: 0,
-          scale: 1,
-          opacity: 1,
-          duration: 1.2,
-          ease: 'power3.out',
-        },
-        0.2
-      );
+      // tl.to(
+      //   '.octa-voltage-surge__device-picture',
+      //   {
+      //     y: 0,
+      //     scale: 1,
+      //     opacity: 1,
+      //     duration: 1.2,
+      //     ease: 'power3.out',
+      //   },
+      //   0.2
+      // );
 
       tl.to(
         '.octa-voltage-surge__threshold',
