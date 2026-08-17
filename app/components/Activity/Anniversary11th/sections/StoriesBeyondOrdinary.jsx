@@ -45,7 +45,7 @@ const StoriesBeyondOrdinary = () =>{
             <div className="story-card__surface">
               <div className="story-card__avatar">
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-1.webp"
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-2.webp"
                   alt=""
                   loading="lazy"
                 />
@@ -111,7 +111,7 @@ const StoriesBeyondOrdinary = () =>{
             <div className="story-card__surface">
               <div className="story-card__avatar">
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-2.webp"
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-3.webp"
                   alt=""
                   loading="lazy"
                 />
@@ -179,7 +179,7 @@ const StoriesBeyondOrdinary = () =>{
             <div className="story-card__surface">
               <div className="story-card__avatar">
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-3.webp"
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-4.webp"
                   alt=""
                   loading="lazy"
                 />
@@ -240,14 +240,14 @@ const StoriesBeyondOrdinary = () =>{
             className="story-card"
             style={{
               '--story-card-background': '#CA6417',
-              '--story-card-color': '#000',
+              '--story-card-color': '#fff',
               '--story-card-width': '46rem'
             }}
           >
             <div className="story-card__surface">
               <div className="story-card__avatar">
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-4.webp"
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-5.webp"
                   alt=""
                   loading="lazy"
                 />
@@ -315,7 +315,7 @@ const StoriesBeyondOrdinary = () =>{
             <div className="story-card__surface">
               <div className="story-card__avatar">
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-5.webp"
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-1.webp"
                   alt=""
                   loading="lazy"
                 />
@@ -378,7 +378,7 @@ const StoriesBeyondOrdinary = () =>{
             <div className="story-card__surface">
               <div className="story-card__avatar">
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-1.webp"
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-2.webp"
                   alt=""
                   loading="lazy"
                 />
@@ -443,7 +443,7 @@ const StoriesBeyondOrdinary = () =>{
             <div className="story-card__surface">
               <div className="story-card__avatar">
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-2.webp"
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-3.webp"
                   alt=""
                   loading="lazy"
                 />
@@ -511,7 +511,7 @@ const StoriesBeyondOrdinary = () =>{
             <div className="story-card__surface">
               <div className="story-card__avatar">
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-3.webp"
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-4.webp"
                   alt=""
                   loading="lazy"
                 />
@@ -572,14 +572,14 @@ const StoriesBeyondOrdinary = () =>{
             className="story-card"
             style={{
               '--story-card-background': '#CA6417',
-              '--story-card-color': '#000',
+              '--story-card-color': '#fff',
               '--story-card-width': '46rem'
             }}
           >
             <div className="story-card__surface">
               <div className="story-card__avatar">
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-4.webp"
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-5.webp"
                   alt=""
                   loading="lazy"
                 />
@@ -647,7 +647,7 @@ const StoriesBeyondOrdinary = () =>{
             <div className="story-card__surface">
               <div className="story-card__avatar">
                 <img
-                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-5.webp"
+                  src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-1.webp"
                   alt=""
                   loading="lazy"
                 />
@@ -718,7 +718,7 @@ const StoriesBeyondOrdinary = () =>{
                   loading="lazy"
                 />
                  <strong className="story-card__name">
-                  Sophia
+                  Andy
                 </strong>
               </div>
 
@@ -728,12 +728,7 @@ const StoriesBeyondOrdinary = () =>{
                     id="story-content-sophia"
                     className="story-card__text"
                   >
-                    An ordinary moment came when I decided
-                    to make a real change for myself. I
-                    wanted to step away from old habits and
-                    choose better for my future. Using my
-                    VAPORESSO device made that decision feel
-                    possible, and I never looked back.
+                   My extraordinary moment came when I decided to make a real change for myself. I wanted to move away from old habits and choose better for my mindset. Using my VAPORESSO device felt like taking control again, one small choice at a time. VAPORESSO! A decade of innovation, flavor, and reliability—here’s to many more amazing puffs!
                   </p>
                 </div>
 
@@ -1053,7 +1048,7 @@ const StoriesBeyondOrdinary = () =>{
                   loading="lazy"
                 />
                  <strong className="story-card__name">
-                  Sophia
+                  Andy
                 </strong>
               </div>
 
@@ -1063,12 +1058,7 @@ const StoriesBeyondOrdinary = () =>{
                     id="story-content-sophia"
                     className="story-card__text"
                   >
-                    An ordinary moment came when I decided
-                    to make a real change for myself. I
-                    wanted to step away from old habits and
-                    choose better for my future. Using my
-                    VAPORESSO device made that decision feel
-                    possible, and I never looked back.
+                   My extraordinary moment came when I decided to make a real change for myself. I wanted to move away from old habits and choose better for my mindset. Using my VAPORESSO device felt like taking control again, one small choice at a time. VAPORESSO! A decade of innovation, flavor, and reliability—here’s to many more amazing puffs!
                   </p>
                 </div>
 

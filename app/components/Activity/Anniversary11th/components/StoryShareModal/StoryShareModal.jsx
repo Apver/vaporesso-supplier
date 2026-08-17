@@ -823,17 +823,15 @@ export default function StoryShareModal() {
             receiptElement,
           );
 
-
+          await new Promise(resolve => setTimeout(resolve, 300));
           if (cancelled) {
             return;
           }
           const blob =
-            await toBlob(
-              receiptElement,
-              {
+            await toBlob( receiptElement,{
                 cacheBust: true,
-
-                pixelRatio: 2,
+                pixelRatio: 3,
+                style: {transform: 'none' }
               },
             );
 
@@ -895,8 +893,7 @@ export default function StoryShareModal() {
 
       setIsExporting(true);
       setErrorMessage('');
-      const fileName =
-        `extraordinary-story-${Date.now()}.png`;
+      const fileName = `extraordinary-story-${Date.now()}.png`;
       try {
         const file =
           new File(
@@ -1284,9 +1281,7 @@ export default function StoryShareModal() {
                   >
                     <img
                       className="story-receipt__background"
-                      src={
-                        selectedReceipt.image
-                      }
+                      src={`${selectedReceipt.image}?v=${Date.now()}`}
                       alt=""
                       crossOrigin="anonymous"
                     />
