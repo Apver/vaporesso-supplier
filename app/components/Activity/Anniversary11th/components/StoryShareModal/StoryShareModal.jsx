@@ -109,14 +109,12 @@ async function waitForReceiptAssets(element) {
     }
   }
 
-
   /**
    * 等待所有图片
    */
   const images = Array.from(
     element.querySelectorAll('img'),
   );
-
 
   await Promise.all(
     images.map(async (image) => {
@@ -139,7 +137,6 @@ async function waitForReceiptAssets(element) {
             resolve();
           };
 
-
           image.addEventListener(
             'load',
             handleDone,
@@ -147,7 +144,6 @@ async function waitForReceiptAssets(element) {
               once: true,
             },
           );
-
 
           image.addEventListener(
             'error',
@@ -158,7 +154,6 @@ async function waitForReceiptAssets(element) {
           );
         });
       }
-
 
       /**
        * 等待图片解码
@@ -180,7 +175,6 @@ async function waitForReceiptAssets(element) {
     }),
   );
 
-
   /**
    * 等布局稳定
    */
@@ -189,7 +183,7 @@ async function waitForReceiptAssets(element) {
 
 
 /**
- * Blob 下载 fallback
+ * Blob 下载
  */
 function downloadBlob(
   blob,
@@ -198,25 +192,19 @@ function downloadBlob(
   const url =
     URL.createObjectURL(blob);
 
-
   const link =
     document.createElement('a');
-
 
   link.href = url;
   link.download = fileName;
   link.rel = 'noopener';
   link.style.display = 'none';
 
-
   document.body.appendChild(link);
-
 
   link.click();
 
-
   link.remove();
-
 
   /**
    * Safari / WebView 下不要过早 revoke
@@ -243,31 +231,26 @@ export default function StoryShareModal() {
   const previousActiveElementRef =
     useRef(null);
 
-
   /**
    * 提前生成好的 PNG Blob
    */
   const exportBlobRef =
     useRef(null);
 
-
   const [
     portalElement,
     setPortalElement,
   ] = useState(null);
-
 
   const [
     isOpen,
     setIsOpen,
   ] = useState(false);
 
-
   const [
     step,
     setStep,
   ] = useState('form');
-
 
   const [
     formData,
@@ -276,30 +259,25 @@ export default function StoryShareModal() {
     INITIAL_FORM_DATA,
   );
 
-
   const [
     selectedReceipt,
     setSelectedReceipt,
   ] = useState(null);
-
 
   const [
     isSubmitting,
     setIsSubmitting,
   ] = useState(false);
 
-
   const [
     isExporting,
     setIsExporting,
   ] = useState(false);
 
-
   const [
     isExportReady,
     setIsExportReady,
   ] = useState(false);
-
 
   const [
     errorMessage,
@@ -351,9 +329,7 @@ export default function StoryShareModal() {
       previousActiveElementRef.current =
         document.activeElement;
 
-
       resetModal();
-
 
       setIsOpen(true);
     }, [
@@ -367,7 +343,6 @@ export default function StoryShareModal() {
   const handleClose =
     useCallback(() => {
       setIsOpen(false);
-
 
       window.requestAnimationFrame(
         () => {
@@ -387,7 +362,6 @@ export default function StoryShareModal() {
       STORY_SHARE_MODAL_OPEN_EVENT,
       handleOpen,
     );
-
 
     return () => {
       window.removeEventListener(
@@ -413,13 +387,11 @@ export default function StoryShareModal() {
       return undefined;
     }
 
-
     const htmlElement =
       document.documentElement;
 
     const bodyElement =
       document.body;
-
 
     const previousHtmlOverflow =
       htmlElement.style.overflow;
@@ -430,11 +402,9 @@ export default function StoryShareModal() {
     const previousBodyPaddingRight =
       bodyElement.style.paddingRight;
 
-
     const scrollbarWidth =
       window.innerWidth -
       htmlElement.clientWidth;
-
 
     htmlElement.style.overflow =
       'hidden';
@@ -442,17 +412,19 @@ export default function StoryShareModal() {
     bodyElement.style.overflow =
       'hidden';
 
-
     if (scrollbarWidth > 0) {
       bodyElement.style.paddingRight =
         `${scrollbarWidth}px`;
     }
+
     window.lenis?.stop?.();
+
     const focusTimer =
       window.setTimeout(() => {
         closeButtonRef.current
           ?.focus();
       }, 0);
+
     const handleKeyDown =
       (event) => {
         if (
@@ -463,13 +435,13 @@ export default function StoryShareModal() {
 
           return;
         }
+
         if (
           event.key !== 'Tab' ||
           !dialogRef.current
         ) {
           return;
         }
-
 
         const focusableElements =
           Array.from(
@@ -479,7 +451,6 @@ export default function StoryShareModal() {
               ),
           );
 
-
         if (
           !focusableElements.length
         ) {
@@ -488,15 +459,14 @@ export default function StoryShareModal() {
           return;
         }
 
-
         const firstElement =
           focusableElements[0];
-
 
         const lastElement =
           focusableElements[
             focusableElements.length - 1
           ];
+
         if (
           event.shiftKey &&
           document.activeElement ===
@@ -508,6 +478,7 @@ export default function StoryShareModal() {
 
           return;
         }
+
         if (
           !event.shiftKey &&
           document.activeElement ===
@@ -519,36 +490,29 @@ export default function StoryShareModal() {
         }
       };
 
-
     window.addEventListener(
       'keydown',
       handleKeyDown,
     );
-
 
     return () => {
       window.clearTimeout(
         focusTimer,
       );
 
-
       window.removeEventListener(
         'keydown',
         handleKeyDown,
       );
 
-
       htmlElement.style.overflow =
         previousHtmlOverflow;
-
 
       bodyElement.style.overflow =
         previousBodyOverflow;
 
-
       bodyElement.style.paddingRight =
         previousBodyPaddingRight;
-
 
       window.lenis?.start?.();
     };
@@ -568,7 +532,6 @@ export default function StoryShareModal() {
         value,
       } = event.target;
 
-
       setFormData(
         (
           currentFormData,
@@ -578,7 +541,6 @@ export default function StoryShareModal() {
           [name]: value,
         }),
       );
-
 
       if (errorMessage) {
         setErrorMessage('');
@@ -593,7 +555,6 @@ export default function StoryShareModal() {
     const emailRegExp =
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-
     if (
       !formData.name.trim()
     ) {
@@ -602,7 +563,6 @@ export default function StoryShareModal() {
       );
     }
 
-
     if (
       !formData.email.trim()
     ) {
@@ -610,7 +570,6 @@ export default function StoryShareModal() {
         'Please enter your email address.'
       );
     }
-
 
     if (
       !emailRegExp.test(
@@ -622,7 +581,6 @@ export default function StoryShareModal() {
       );
     }
 
-
     if (
       !formData.country.trim()
     ) {
@@ -631,7 +589,6 @@ export default function StoryShareModal() {
       );
     }
 
-
     if (
       !formData.comment.trim()
     ) {
@@ -639,7 +596,6 @@ export default function StoryShareModal() {
         'Please share your story.'
       );
     }
-
 
     return '';
   };
@@ -654,7 +610,6 @@ export default function StoryShareModal() {
         'Story submit data:',
         submitData,
       );
-
 
       const response =
         await fetch(
@@ -674,13 +629,11 @@ export default function StoryShareModal() {
           },
         );
 
-
       if (!response.ok) {
         throw new Error(
           'Story submission failed.',
         );
       }
-
 
       return response.json();
     };
@@ -693,15 +646,12 @@ export default function StoryShareModal() {
     async (event) => {
       event.preventDefault();
 
-
       if (isSubmitting) {
         return;
       }
 
-
       const validationMessage =
         validateForm();
-
 
       if (validationMessage) {
         setErrorMessage(
@@ -710,11 +660,13 @@ export default function StoryShareModal() {
 
         return;
       }
+
       /**
        * 随机选择 Receipt
        */
       const receipt =
         getRandomReceipt();
+
       const submitData = {
         name:
           formData.name.trim(),
@@ -735,19 +687,19 @@ export default function StoryShareModal() {
           '20260818',
       };
 
-
       setIsSubmitting(true);
 
       setErrorMessage('');
-
 
       try {
         await submitStory(
           submitData,
         );
+
         setSelectedReceipt(
           receipt,
         );
+
         setStep(
           'complete',
         );
@@ -756,7 +708,6 @@ export default function StoryShareModal() {
           '[StoryShareModal] Submit failed:',
           error,
         );
-
 
         setErrorMessage(
           error instanceof Error
@@ -768,6 +719,10 @@ export default function StoryShareModal() {
       }
     };
 
+
+  /**
+   * Previous Step
+   */
   const handlePreviousStep =
     () => {
       setStep('form');
@@ -779,6 +734,11 @@ export default function StoryShareModal() {
       exportBlobRef.current =
         null;
     };
+
+
+  /**
+   * 预生成下载图片
+   */
   useEffect(() => {
     if (
       step !== 'complete' ||
@@ -792,26 +752,20 @@ export default function StoryShareModal() {
       return undefined;
     }
 
-
     let cancelled = false;
-
 
     const prepareExportImage =
       async () => {
         exportBlobRef.current =
           null;
 
-
         setIsExportReady(false);
-
 
         try {
           await waitForRender();
 
-
           const receiptElement =
             receiptRef.current;
-
 
           if (
             !receiptElement ||
@@ -819,22 +773,35 @@ export default function StoryShareModal() {
           ) {
             return;
           }
+
           await waitForReceiptAssets(
             receiptElement,
           );
 
-          await new Promise(resolve => setTimeout(resolve, 300));
+          await new Promise(
+            (resolve) => {
+              setTimeout(
+                resolve,
+                300,
+              );
+            },
+          );
+
           if (cancelled) {
             return;
           }
+
           const blob =
-            await toBlob( receiptElement,{
+            await toBlob(
+              receiptElement,
+              {
                 cacheBust: true,
                 pixelRatio: 3,
-                style: {transform: 'none' }
+                style: {
+                  transform: 'none',
+                },
               },
             );
-
 
           if (!blob) {
             throw new Error(
@@ -842,19 +809,19 @@ export default function StoryShareModal() {
             );
           }
 
-
           if (cancelled) {
             return;
           }
+
           exportBlobRef.current =
             blob;
+
           setIsExportReady(true);
         } catch (error) {
           console.error(
             '[StoryShareModal] Prepare export failed:',
             error,
           );
-
 
           if (!cancelled) {
             setErrorMessage(
@@ -876,13 +843,20 @@ export default function StoryShareModal() {
     step,
     selectedReceipt,
   ]);
+
+
+  /**
+   * 下载图片，然后跳转 Instagram
+   */
   const handleDownloadAndShare =
     async () => {
       if (isExporting) {
         return;
       }
+
       const blob =
         exportBlobRef.current;
+
       if (!blob) {
         setErrorMessage(
           'The image is still being prepared. Please try again.',
@@ -892,87 +866,38 @@ export default function StoryShareModal() {
       }
 
       setIsExporting(true);
+
       setErrorMessage('');
-      const fileName = `extraordinary-story-${Date.now()}.png`;
+
+      const fileName =
+        `extraordinary-story-${Date.now()}.png`;
+
       try {
-        const file =
-          new File(
-            [
-              blob,
-            ],
-            fileName,
-            {
-              type:
-                blob.type ||
-                'image/png',
-            },
-          );
-
-
-        const shareData = {
-          title:
-            'My Extraordinary Story',
-
-          files: [
-            file,
-          ],
-        };
-        if (
-          typeof navigator.share ===
-            'function' &&
-          typeof navigator.canShare ===
-            'function' &&
-          navigator.canShare(
-            shareData,
-          )
-        ) {
-          await navigator.share(
-            shareData,
-          );
-
-
-          return;
-        }
         downloadBlob(
           blob,
           fileName,
         );
+
+      window.open(
+        'https://www.instagram.com/',
+        '_blank',
+        'noopener,noreferrer',
+      );
       } catch (error) {
-        if (
-          error instanceof Error &&
-          error.name ===
-            'AbortError'
-        ) {
-          return;
-        }
-
-
         console.error(
-          '[StoryShareModal] Share failed:',
+          '[StoryShareModal] Download failed:',
           error,
         );
-        try {
-          downloadBlob(
-            blob,
-            fileName,
-          );
-        } catch (
-          downloadError
-        ) {
-          console.error(
-            '[StoryShareModal] Download fallback failed:',
-            downloadError,
-          );
 
+        setErrorMessage(
+          'The image could not be downloaded. Please try again.',
+        );
 
-          setErrorMessage(
-            'The image could not be downloaded. Please try again.',
-          );
-        }
-      } finally {
         setIsExporting(false);
       }
     };
+
+
   if (
     !portalElement ||
     !isOpen
@@ -991,7 +916,6 @@ export default function StoryShareModal() {
         aria-label="Close modal"
         onClick={handleClose}
       />
-
 
       <div
         ref={dialogRef}
@@ -1013,6 +937,7 @@ export default function StoryShareModal() {
             aria-hidden="true"
           />
         </button>
+
         {step === 'form' && (
           <form
             className="story-share-modal__form"
@@ -1028,18 +953,25 @@ export default function StoryShareModal() {
                 <span>
                   Share
                 </span>
+
                 Your
+
                 <br />
+
                 Extraordinary
+
                 <br />
+
                 Story
               </h2>
+
               <p
                 className="story-share-modal__description"
               >
                 Share your story below to enter the
                 anniversary lucky draw.
               </p>
+
               <button
                 type="submit"
                 className="story-share-modal__button story-share-modal__button--desktop"
@@ -1049,6 +981,7 @@ export default function StoryShareModal() {
                   ? 'Submitting...'
                   : 'Submit'}
               </button>
+
               {errorMessage && (
                 <p
                   className="story-share-modal__error story-share-modal__error--desktop"
@@ -1058,7 +991,6 @@ export default function StoryShareModal() {
                 </p>
               )}
             </div>
-
 
             <div
               className="story-share-modal__fields"
@@ -1072,7 +1004,6 @@ export default function StoryShareModal() {
                 >
                   Full Name
                 </label>
-
 
                 <input
                   id="story-name"
@@ -1088,6 +1019,7 @@ export default function StoryShareModal() {
                   }
                 />
               </div>
+
               <div
                 className="story-share-modal__field"
               >
@@ -1097,7 +1029,6 @@ export default function StoryShareModal() {
                 >
                   Email Address
                 </label>
-
 
                 <input
                   id="story-email"
@@ -1113,6 +1044,7 @@ export default function StoryShareModal() {
                   }
                 />
               </div>
+
               <div
                 className="story-share-modal__field"
               >
@@ -1122,7 +1054,6 @@ export default function StoryShareModal() {
                 >
                   Country
                 </label>
-
 
                 <input
                   id="story-country"
@@ -1138,6 +1069,7 @@ export default function StoryShareModal() {
                   }
                 />
               </div>
+
               <div
                 className="story-share-modal__field story-share-modal__field--story"
               >
@@ -1147,7 +1079,6 @@ export default function StoryShareModal() {
                 >
                   Share Your Story
                 </label>
-
 
                 <textarea
                   id="story-comment"
@@ -1162,6 +1093,7 @@ export default function StoryShareModal() {
                   }
                 />
               </div>
+
               <button
                 type="submit"
                 className="story-share-modal__button story-share-modal__button--mobile"
@@ -1171,6 +1103,7 @@ export default function StoryShareModal() {
                   ? 'Submitting...'
                   : 'Submit'}
               </button>
+
               {errorMessage && (
                 <p
                   className="story-share-modal__error story-share-modal__error--mobile"
@@ -1182,6 +1115,7 @@ export default function StoryShareModal() {
             </div>
           </form>
         )}
+
         {step === 'complete' &&
           selectedReceipt && (
             <div
@@ -1198,7 +1132,6 @@ export default function StoryShareModal() {
                     Thank you
                   </span>
 
-
                   <strong>
                     for sharing your
 
@@ -1207,7 +1140,6 @@ export default function StoryShareModal() {
                     extraordinary journey.
                   </strong>
                 </h2>
-
 
                 <p
                   className="story-share-modal__complete-description"
@@ -1218,6 +1150,7 @@ export default function StoryShareModal() {
 
                   move beyond ordinary.
                 </p>
+
                 <div
                   className="story-share-modal__actions"
                 >
@@ -1230,7 +1163,6 @@ export default function StoryShareModal() {
                   >
                     Previous Step
                   </button>
-
 
                   <button
                     type="button"
@@ -1246,11 +1178,10 @@ export default function StoryShareModal() {
                     {!isExportReady
                       ? 'Preparing...'
                       : isExporting
-                        ? 'Sharing...'
+                        ? 'Opening Instagram...'
                         : 'Download & Share'}
                   </button>
                 </div>
-
 
                 {errorMessage && (
                   <p
@@ -1261,13 +1192,13 @@ export default function StoryShareModal() {
                   </p>
                 )}
               </div>
+
               <div
                 className="story-share-modal__receipt-preview"
               >
                 <div
                   className={[
                     'story-share-modal__receipt-rotate',
-
                     `story-share-modal__receipt-rotate--${selectedReceipt.id}`,
                   ].join(' ')}
                 >
@@ -1275,7 +1206,6 @@ export default function StoryShareModal() {
                     ref={receiptRef}
                     className={[
                       'story-receipt',
-
                       selectedReceipt.className,
                     ].join(' ')}
                   >
@@ -1285,7 +1215,6 @@ export default function StoryShareModal() {
                       alt=""
                       crossOrigin="anonymous"
                     />
-
 
                     <div
                       className="story-receipt__overlay"
@@ -1299,13 +1228,13 @@ export default function StoryShareModal() {
                           Story
                         </span>
 
-
                         <span
                           className="story-receipt__story__span2"
                         >
                           Receipt
                         </span>
                       </div>
+
                       <p
                         className="story-receipt__name"
                       >
@@ -1335,7 +1264,6 @@ export default function StoryShareModal() {
                   Previous Step
                 </button>
 
-
                 <button
                   type="button"
                   className="story-share-modal__button"
@@ -1350,7 +1278,7 @@ export default function StoryShareModal() {
                   {!isExportReady
                     ? 'Preparing...'
                     : isExporting
-                      ? 'Sharing...'
+                      ? 'Opening Instagram...'
                       : 'Download & Share'}
                 </button>
               </div>

@@ -1527,7 +1527,8 @@ html.anniversary-11th-page body.anniversary-intro-playing {
     &__bg img {
       display: block;
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
@@ -1684,9 +1685,9 @@ html.anniversary-11th-page body.anniversary-intro-playing {
 
   @media (max-width: 1023px) {
     .appreciation-reward {
-       height: 300svh;
+       height: 300vh;
            &__stick {
-      height: 100svh;
+      height: 100vh;
     }
       .appreciation-reward-tp__bg {
         top: -20px;

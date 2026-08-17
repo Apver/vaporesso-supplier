@@ -353,12 +353,12 @@ media.add('(min-width: 1024px)', () => {
      * 第一张初始已经露出约 75%。
      * 数值越大，初始露出的部分越多。
      */
-    startOffset = viewportWidth - cardWidth * 1.86;
+    startOffset = viewportWidth - cardWidth * 3.1;
 
     /*
      * 最后一张卡片最终停在屏幕中间。
      */
-    endOffset = viewportWidth * 0.5 - lastIndex * spacing;
+    endOffset = viewportWidth * 0.75 - lastIndex * spacing;
 
     /*
      * header 向上移出屏幕。
