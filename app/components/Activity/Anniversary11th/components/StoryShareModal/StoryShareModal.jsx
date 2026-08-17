@@ -10,11 +10,6 @@ import {
 } from 'react-dom';
 
 import {
-  getFontEmbedCSS,
-  toBlob,
-} from 'html-to-image';
-
-import {
   STORY_SHARE_MODAL_OPEN_EVENT,
 } from './storyShareModalEvents';
 
@@ -120,6 +115,1099 @@ function wait(
         delay,
       );
     },
+  );
+}
+
+
+/**
+ * Canvas 输出尺寸。
+ *
+ * 和 CSS 中：
+ * aspect-ratio: 1153 / 1736;
+ * 保持一致。
+ */
+const RECEIPT_CANVAS_WIDTH = 1153;
+const RECEIPT_CANVAS_HEIGHT = 1736;
+
+/**
+ * Canvas 导出时的视觉微调。
+ * 数值单位为页面中的 CSS px，最终会按 Receipt 比例放大到导出画布。
+ */
+const RECEIPT_VISUAL_OFFSET_PX = 2.5;
+const COMMENT_EXTRA_TOP_GAP_PX = 6;
+
+
+/**
+ * 将 Canvas 转为 PNG Blob
+ */
+function canvasToBlob(canvas) {
+  return new Promise(
+    (resolve, reject) => {
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            reject(
+              new Error(
+                'Canvas PNG generation failed.',
+              ),
+            );
+
+            return;
+          }
+
+          resolve(blob);
+        },
+        'image/png',
+        1,
+      );
+    },
+  );
+}
+
+
+/**
+ * object-fit: cover 的 Canvas 实现
+ */
+function drawImageCover(
+  context,
+  image,
+  width,
+  height,
+) {
+  const imageWidth =
+    image.naturalWidth || image.width;
+
+  const imageHeight =
+    image.naturalHeight || image.height;
+
+  if (
+    !imageWidth ||
+    !imageHeight
+  ) {
+    throw new Error(
+      'Receipt background image has invalid dimensions.',
+    );
+  }
+
+  const imageRatio =
+    imageWidth / imageHeight;
+
+  const targetRatio =
+    width / height;
+
+  let sourceX = 0;
+  let sourceY = 0;
+  let sourceWidth = imageWidth;
+  let sourceHeight = imageHeight;
+
+  if (
+    imageRatio > targetRatio
+  ) {
+    sourceWidth =
+      imageHeight * targetRatio;
+
+    sourceX =
+      (imageWidth - sourceWidth) / 2;
+  } else {
+    sourceHeight =
+      imageWidth / targetRatio;
+
+    sourceY =
+      (imageHeight - sourceHeight) / 2;
+  }
+
+  context.drawImage(
+    image,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
+    0,
+    0,
+    width,
+    height,
+  );
+}
+
+
+/**
+ * CSS px 字符串转 number
+ */
+function parseCssPixel(value) {
+  const result =
+    Number.parseFloat(value);
+
+  return Number.isFinite(result)
+    ? result
+    : 0;
+}
+
+
+/**
+ * 将 DOM Rect 转换到最终 Canvas 坐标
+ */
+function convertRectToCanvas(
+  rect,
+  receiptRect,
+  scaleX,
+  scaleY,
+) {
+  return {
+    x:
+      (rect.left - receiptRect.left) *
+      scaleX,
+
+    y:
+      (rect.top - receiptRect.top) *
+      scaleY,
+
+    width:
+      rect.width * scaleX,
+
+    height:
+      rect.height * scaleY,
+  };
+}
+
+
+/**
+ * 从页面当前 CSS 生成 Canvas font。
+ *
+ * 不在 JS 里猜字体，直接使用 getComputedStyle()。
+ */
+function applyComputedFont(
+  context,
+  computedStyle,
+  scale,
+) {
+  const fontSize =
+    parseCssPixel(
+      computedStyle.fontSize,
+    ) * scale;
+
+  const fontStyle =
+    computedStyle.fontStyle ||
+    'normal';
+
+  const fontWeight =
+    computedStyle.fontWeight ||
+    '400';
+
+  const fontFamily =
+    computedStyle.fontFamily ||
+    'sans-serif';
+
+  const rawLineHeight =
+    computedStyle.lineHeight;
+
+  let lineHeight =
+    parseCssPixel(
+      rawLineHeight,
+    ) * scale;
+
+  /**
+   * getComputedStyle() 正常情况下会把百分比 / 倍数 line-height
+   * 计算成 px。这里再做一层 fallback。
+   */
+  if (!lineHeight) {
+    lineHeight =
+      fontSize * 1.2;
+  }
+
+  context.font =
+    `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;
+
+  /**
+   * 不再使用 top baseline。
+   * CSS 的 line-height 是“行盒”，glyph 会在行盒中按 baseline 排版；
+   * Canvas 用 alphabetic baseline 后可以用字体 metrics 还原这个关系。
+   */
+  context.textBaseline =
+    'alphabetic';
+
+  return {
+    fontSize,
+    lineHeight,
+    letterSpacing:
+      parseCssPixel(
+        computedStyle.letterSpacing,
+      ) * scale,
+  };
+}
+
+
+/**
+ * 根据当前 Canvas font metrics，计算文字在一个 CSS 行盒里的 baseline。
+ *
+ * 这样 line-height: 2.3 / 150% 等不会再把 glyph 贴在盒子顶部。
+ */
+function getBaselineForLineBox(
+  context,
+  text,
+  lineTop,
+  lineHeight,
+  fallbackFontSize,
+) {
+  const metrics =
+    context.measureText(
+      text || 'Mg',
+    );
+
+  const ascent =
+    metrics.actualBoundingBoxAscent ||
+    fallbackFontSize * 0.8;
+
+  const descent =
+    metrics.actualBoundingBoxDescent ||
+    fallbackFontSize * 0.2;
+
+  const glyphHeight =
+    ascent + descent;
+
+  /**
+   * CSS 行盒上下各分一半 leading。
+   */
+  const leading =
+    Math.max(
+      0,
+      lineHeight - glyphHeight,
+    );
+
+  return (
+    lineTop +
+    leading / 2 +
+    ascent
+  );
+}
+
+
+/**
+ * Canvas 原生 fillText 对 letter-spacing 支持不一致，
+ * 所以这里手动逐字符绘制。
+ */
+function measureTextWithLetterSpacing(
+  context,
+  text,
+  letterSpacing,
+) {
+  if (!text) {
+    return 0;
+  }
+
+  let width = 0;
+
+  Array.from(text).forEach(
+    (character, index, characters) => {
+      width +=
+        context.measureText(
+          character,
+        ).width;
+
+      if (
+        index <
+        characters.length - 1
+      ) {
+        width += letterSpacing;
+      }
+    },
+  );
+
+  return width;
+}
+
+
+/**
+ * 带 letter-spacing 的文本绘制
+ */
+function drawTextWithLetterSpacing(
+  context,
+  text,
+  x,
+  y,
+  letterSpacing,
+  align = 'left',
+) {
+  const characters =
+    Array.from(text || '');
+
+  const totalWidth =
+    measureTextWithLetterSpacing(
+      context,
+      text,
+      letterSpacing,
+    );
+
+  let currentX = x;
+
+  if (
+    align === 'center'
+  ) {
+    currentX -=
+      totalWidth / 2;
+  } else if (
+    align === 'right'
+  ) {
+    currentX -= totalWidth;
+  }
+
+  characters.forEach(
+    (character, index) => {
+      context.fillText(
+        character,
+        currentX,
+        y,
+      );
+
+      currentX +=
+        context.measureText(
+          character,
+        ).width;
+
+      if (
+        index <
+        characters.length - 1
+      ) {
+        currentX +=
+          letterSpacing;
+      }
+    },
+  );
+
+  return totalWidth;
+}
+
+
+/**
+ * 按 Canvas 实际字体宽度进行正文换行。
+ *
+ * 不再使用 Range.getBoundingClientRect() 逐字符判断行号。
+ * Safari 对很小字号 / 自定义字体的 Range rect 会有明显抖动，
+ * 容易把同一行误判成多行，最终就会出现评论内容挤成一小列。
+ *
+ * 这里完全按照：
+ *   - 当前 computed font
+ *   - 当前 letter-spacing
+ *   - comment 元素实际可用宽度
+ * 来执行和 CSS word-wrap: break-word 接近的换行。
+ */
+function wrapCanvasText(
+  context,
+  text,
+  maxWidth,
+  letterSpacing,
+) {
+  const source = String(text || '')
+    .replace(/\r\n?/g, '\n');
+
+  if (!source) {
+    return [];
+  }
+
+  const lines = [];
+
+  const pushBrokenWord = (
+    word,
+    prefix = '',
+  ) => {
+    let current = prefix;
+
+    Array.from(word).forEach(
+      (character) => {
+        const candidate =
+          `${current}${character}`;
+
+        if (
+          current &&
+          measureTextWithLetterSpacing(
+            context,
+            candidate,
+            letterSpacing,
+          ) > maxWidth
+        ) {
+          lines.push(current);
+          current = character;
+        } else {
+          current = candidate;
+        }
+      },
+    );
+
+    return current;
+  };
+
+  source.split('\n').forEach(
+    (paragraph, paragraphIndex, paragraphs) => {
+      if (!paragraph) {
+        lines.push('');
+        return;
+      }
+
+      // 保留单词之间的空格，但避免把行首空格画出来。
+      const words =
+        paragraph.split(/\s+/).filter(Boolean);
+
+      let currentLine = '';
+
+      words.forEach(
+        (word) => {
+          const candidate =
+            currentLine
+              ? `${currentLine} ${word}`
+              : word;
+
+          const candidateWidth =
+            measureTextWithLetterSpacing(
+              context,
+              candidate,
+              letterSpacing,
+            );
+
+          if (candidateWidth <= maxWidth) {
+            currentLine = candidate;
+            return;
+          }
+
+          if (currentLine) {
+            lines.push(currentLine);
+            currentLine = '';
+          }
+
+          // 单个长单词也超过宽度时，按字符 break-word。
+          if (
+            measureTextWithLetterSpacing(
+              context,
+              word,
+              letterSpacing,
+            ) > maxWidth
+          ) {
+            currentLine =
+              pushBrokenWord(word);
+          } else {
+            currentLine = word;
+          }
+        },
+      );
+
+      if (currentLine) {
+        lines.push(currentLine);
+      }
+
+      // 显式换行保留一个空行。
+      if (
+        paragraphIndex < paragraphs.length - 1 &&
+        paragraphs[paragraphIndex + 1] === ''
+      ) {
+        lines.push('');
+      }
+    },
+  );
+
+  return lines;
+}
+
+
+/**
+ * 确认 Receipt 使用的字体已经真的加载。
+ *
+ * 如果字体没加载，不生成 fallback 字体图片。
+ */
+async function ensureReceiptFonts(
+  receiptElement,
+) {
+  if (!document.fonts) {
+    return;
+  }
+
+  await document.fonts.ready;
+
+  const fontElements = [
+    receiptElement.querySelector(
+      '.story-receipt__story__span1',
+    ),
+    receiptElement.querySelector(
+      '.story-receipt__story__span2',
+    ),
+    receiptElement.querySelector(
+      '.story-receipt__name',
+    ),
+    receiptElement.querySelector(
+      '.story-receipt__country',
+    ),
+  ].filter(Boolean);
+
+  await Promise.all(
+    fontElements.map(
+      async (element) => {
+        const style =
+          window.getComputedStyle(
+            element,
+          );
+
+        const descriptor =
+          `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+
+        const sampleText =
+          element.textContent?.trim() ||
+          'Story';
+
+        await document.fonts.load(
+          descriptor,
+          sampleText,
+        );
+      },
+    ),
+  );
+
+  const missingFonts =
+    fontElements.filter(
+      (element) => {
+        const style =
+          window.getComputedStyle(
+            element,
+          );
+
+        const descriptor =
+          `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+
+        return !document.fonts.check(
+          descriptor,
+          element.textContent?.trim() ||
+            'Story',
+        );
+      },
+    );
+
+  if (
+    missingFonts.length
+  ) {
+    throw new Error(
+      'Receipt fonts are not fully loaded on this device.',
+    );
+  }
+}
+
+
+/**
+ * 直接用 Canvas 生成 Receipt。
+ *
+ * 重要：
+ * - 不截图 DOM
+ * - 不读取 stylesheet.cssRules
+ * - 不使用 html-to-image
+ * - 不使用 html2canvas
+ * - 字体样式直接读取当前页面 CSS 的 computed style
+ */
+async function createReceiptBlob(
+  receiptElement,
+  selectedReceipt,
+) {
+  if (!receiptElement) {
+    throw new Error(
+      'Receipt element not found.',
+    );
+  }
+
+  await ensureReceiptFonts(
+    receiptElement,
+  );
+
+  const backgroundElement =
+    receiptElement.querySelector(
+      '.story-receipt__background',
+    );
+
+  const storyElement =
+    receiptElement.querySelector(
+      '.story-receipt__story__span1',
+    );
+
+  const receiptTextElement =
+    receiptElement.querySelector(
+      '.story-receipt__story__span2',
+    );
+
+  const commentElement =
+    receiptElement.querySelector(
+      '.story-receipt__name',
+    );
+
+  const nameElement =
+    receiptElement.querySelector(
+      '.story-receipt__country',
+    );
+
+  if (
+    !backgroundElement ||
+    !storyElement ||
+    !receiptTextElement ||
+    !commentElement ||
+    !nameElement
+  ) {
+    throw new Error(
+      'Receipt content is incomplete.',
+    );
+  }
+
+  if (
+    !backgroundElement.complete
+  ) {
+    await new Promise(
+      (resolve) => {
+        backgroundElement.addEventListener(
+          'load',
+          resolve,
+          {once: true},
+        );
+
+        backgroundElement.addEventListener(
+          'error',
+          resolve,
+          {once: true},
+        );
+      },
+    );
+  }
+
+  try {
+    await backgroundElement.decode?.();
+  } catch {
+    /** ignore */
+  }
+
+  const receiptRect =
+    receiptElement.getBoundingClientRect();
+
+  if (
+    !receiptRect.width ||
+    !receiptRect.height
+  ) {
+    throw new Error(
+      'Receipt has invalid dimensions.',
+    );
+  }
+
+  const scaleX =
+    RECEIPT_CANVAS_WIDTH /
+    receiptRect.width;
+
+  const scaleY =
+    RECEIPT_CANVAS_HEIGHT /
+    receiptRect.height;
+
+  const fontScale =
+    scaleX;
+
+  const canvas =
+    document.createElement(
+      'canvas',
+    );
+
+  canvas.width =
+    RECEIPT_CANVAS_WIDTH;
+
+  canvas.height =
+    RECEIPT_CANVAS_HEIGHT;
+
+  const context =
+    canvas.getContext(
+      '2d',
+      {
+        alpha: false,
+      },
+    );
+
+  if (!context) {
+    throw new Error(
+      'Canvas context is unavailable.',
+    );
+  }
+
+  /**
+   * 先铺底色，避免 Safari 导出黑色透明底。
+   */
+  context.fillStyle =
+    '#000';
+
+  context.fillRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height,
+  );
+
+  /**
+   * 背景
+   */
+  drawImageCover(
+    context,
+    backgroundElement,
+    canvas.width,
+    canvas.height,
+  );
+
+  /**
+   * Story
+   */
+  const storyRect =
+    convertRectToCanvas(
+      storyElement.getBoundingClientRect(),
+      receiptRect,
+      scaleX,
+      scaleY,
+    );
+
+  const storyStyle =
+    window.getComputedStyle(
+      storyElement,
+    );
+
+  const storyFont =
+    applyComputedFont(
+      context,
+      storyStyle,
+      fontScale,
+    );
+
+  context.fillStyle =
+    storyStyle.color || '#fff';
+
+  const storyText =
+    storyElement.textContent || 'Story';
+
+  const storyBaseline =
+    getBaselineForLineBox(
+      context,
+      storyText,
+      storyRect.y,
+      storyRect.height ||
+        storyFont.lineHeight,
+      storyFont.fontSize,
+    );
+
+  /**
+   * 保存 Story 字形的真实视觉中心。
+   * 后面的 Receipt 不再按它自己的超大 line-height 居中，
+   * 而是直接和 Story 的字形中心对齐。
+   */
+  const storyMetrics =
+    context.measureText(
+      storyText || 'Story',
+    );
+
+  const storyAscent =
+    storyMetrics.actualBoundingBoxAscent ||
+    storyFont.fontSize * 0.8;
+
+  const storyDescent =
+    storyMetrics.actualBoundingBoxDescent ||
+    storyFont.fontSize * 0.2;
+
+  const storyVisualCenter =
+    storyBaseline +
+    (storyDescent - storyAscent) / 2;
+
+  drawTextWithLetterSpacing(
+    context,
+    storyText,
+    storyRect.x + storyRect.width / 2,
+    storyBaseline,
+    storyFont.letterSpacing,
+    'center',
+  );
+
+  /**
+   * Receipt 渐变文字
+   */
+  const receiptTextRect =
+    convertRectToCanvas(
+      receiptTextElement.getBoundingClientRect(),
+      receiptRect,
+      scaleX,
+      scaleY,
+    );
+
+  const receiptTextStyle =
+    window.getComputedStyle(
+      receiptTextElement,
+    );
+
+  const receiptTextFont =
+    applyComputedFont(
+      context,
+      receiptTextStyle,
+      fontScale,
+    );
+
+  const gradient =
+    context.createLinearGradient(
+      receiptTextRect.x,
+      0,
+      receiptTextRect.x +
+        receiptTextRect.width,
+      0,
+    );
+
+  if (
+    selectedReceipt.id ===
+    'pink-black'
+  ) {
+    gradient.addColorStop(
+      0.06,
+      '#F189FF',
+    );
+
+    gradient.addColorStop(
+      1,
+      '#FF008E',
+    );
+  } else {
+    gradient.addColorStop(
+      0.0067,
+      '#D2FF64',
+    );
+
+    gradient.addColorStop(
+      0.4908,
+      '#00FF00',
+    );
+
+    gradient.addColorStop(
+      0.9843,
+      '#00E526',
+    );
+  }
+
+  context.fillStyle =
+    gradient;
+
+  const receiptText =
+    receiptTextElement.textContent ||
+    'Receipt';
+
+  /**
+   * Receipt 的 CSS line-height 是 2.3，行盒高度远大于字形本身。
+   * 如果按行盒居中，PlaywriteCU 会视觉上偏高。
+   *
+   * 这里改成：
+   * 1. 读取 Receipt 自己的真实 glyph metrics
+   * 2. 让它的“字形视觉中心”与 Story 的视觉中心重合
+   * 3. 再额外下移一点点，符合当前设计稿的视觉效果
+   */
+  const receiptMetrics =
+    context.measureText(
+      receiptText || 'Receipt',
+    );
+
+  const receiptAscent =
+    receiptMetrics.actualBoundingBoxAscent ||
+    receiptTextFont.fontSize * 0.8;
+
+  const receiptDescent =
+    receiptMetrics.actualBoundingBoxDescent ||
+    receiptTextFont.fontSize * 0.2;
+
+  const receiptVisualOffset =
+    RECEIPT_VISUAL_OFFSET_PX *
+    scaleY;
+
+  const receiptTextBaseline =
+    storyVisualCenter -
+    (receiptDescent - receiptAscent) / 2 +
+    receiptVisualOffset;
+
+  drawTextWithLetterSpacing(
+    context,
+    receiptText,
+    receiptTextRect.x +
+      receiptTextRect.width / 2,
+    receiptTextBaseline,
+    receiptTextFont.letterSpacing,
+    'center',
+  );
+
+  /**
+   * Story 正文。
+   *
+   * 不再读取 Range rect 来判断浏览器换行。
+   * Safari 在自定义小字号字体下，Range 的 top/height 会抖动，
+   * 会把同一行文字错误拆成很多行（截图里评论挤成一小列就是这里）。
+   *
+   * 改为使用当前 Canvas font + CSS letter-spacing + 元素实际宽度
+   * 自己执行 word-wrap: break-word。
+   */
+  const commentRect =
+    convertRectToCanvas(
+      commentElement.getBoundingClientRect(),
+      receiptRect,
+      scaleX,
+      scaleY,
+    );
+
+  const commentStyle =
+    window.getComputedStyle(
+      commentElement,
+    );
+
+  const commentFont =
+    applyComputedFont(
+      context,
+      commentStyle,
+      fontScale,
+    );
+
+  context.fillStyle =
+    commentStyle.color || '#fff';
+
+  const commentText =
+    commentElement.textContent || '';
+
+  const commentLineHeight =
+    commentFont.lineHeight ||
+    commentFont.fontSize * 1.5;
+
+  /**
+   * 评论文字和上面的 Story / Receipt 再拉开一点距离。
+   * 这里用 CSS px 定义，再按当前 Receipt 比例放大。
+   */
+  const commentStartY =
+    commentRect.y +
+    COMMENT_EXTRA_TOP_GAP_PX *
+      scaleY;
+
+  const commentLines =
+    wrapCanvasText(
+      context,
+      commentText,
+      commentRect.width,
+      commentFont.letterSpacing,
+    );
+
+  commentLines.forEach(
+    (line, lineIndex) => {
+      const lineTop =
+        commentStartY +
+        lineIndex * commentLineHeight;
+
+      if (!line) {
+        return;
+      }
+
+      const baseline =
+        getBaselineForLineBox(
+          context,
+          line,
+          lineTop,
+          commentLineHeight,
+          commentFont.fontSize,
+        );
+
+      drawTextWithLetterSpacing(
+        context,
+        line,
+        commentRect.x +
+          commentRect.width / 2,
+        baseline,
+        commentFont.letterSpacing,
+        'center',
+      );
+    },
+  );
+
+  /**
+   * 用户名字
+   */
+  const nameRect =
+    convertRectToCanvas(
+      nameElement.getBoundingClientRect(),
+      receiptRect,
+      scaleX,
+      scaleY,
+    );
+
+  const nameStyle =
+    window.getComputedStyle(
+      nameElement,
+    );
+
+  const nameFont =
+    applyComputedFont(
+      context,
+      nameStyle,
+      fontScale,
+    );
+
+  context.fillStyle =
+    nameStyle.color || '#fff';
+
+  const nameText =
+    nameElement.textContent || '';
+
+  const nameBaseline =
+    getBaselineForLineBox(
+      context,
+      nameText,
+      nameRect.y,
+      nameRect.height ||
+        nameFont.lineHeight,
+      nameFont.fontSize,
+    );
+
+  const nameTextWidth =
+    drawTextWithLetterSpacing(
+      context,
+      nameText,
+      nameRect.x +
+        nameRect.width / 2,
+      nameBaseline,
+      nameFont.letterSpacing,
+      'center',
+    );
+
+  /**
+   * text-decoration: underline
+   */
+  if (
+    nameStyle.textDecorationLine.includes(
+      'underline',
+    )
+  ) {
+    const underlineY =
+      nameBaseline +
+      Math.max(
+        1,
+        nameFont.fontSize * 0.08,
+      );
+
+    context.strokeStyle =
+      nameStyle.color || '#fff';
+
+    context.lineWidth =
+      Math.max(
+        1,
+        scaleX * 0.5,
+      );
+
+    context.beginPath();
+
+    context.moveTo(
+      nameRect.x +
+        nameRect.width / 2 -
+        nameTextWidth / 2,
+      underlineY,
+    );
+
+    context.lineTo(
+      nameRect.x +
+        nameRect.width / 2 +
+        nameTextWidth / 2,
+      underlineY,
+    );
+
+    context.stroke();
+  }
+
+  return canvasToBlob(
+    canvas,
   );
 }
 
@@ -880,10 +1968,15 @@ export default function StoryShareModal() {
         null;
     };
 
+  /**
+   * 预生成最终分享 PNG。
+   *
+   * 不再进行 DOM Screenshot。
+   * 直接使用原生 Canvas 绘制。
+   */
   useEffect(() => {
     if (
-      step !==
-        'complete' ||
+      step !== 'complete' ||
       !selectedReceipt
     ) {
       exportBlobRef.current =
@@ -896,8 +1989,7 @@ export default function StoryShareModal() {
       return undefined;
     }
 
-    let cancelled =
-      false;
+    let cancelled = false;
 
 
     const prepareExportImage =
@@ -911,7 +2003,7 @@ export default function StoryShareModal() {
 
         try {
           /**
-           * 等 React Render
+           * 等 React 和 CSS 完全布局。
            */
           await waitForRender();
 
@@ -926,152 +2018,51 @@ export default function StoryShareModal() {
           }
 
           /**
-           * 等待字体、图片
+           * 等背景图和当前页面字体。
            */
           await waitForReceiptAssets(
             receiptElement,
           );
 
-          await wait(
-            300,
-          );
+          await wait(200);
 
-          if (
-            cancelled
-          ) {
+          if (cancelled) {
             return;
           }
 
           /**
-           * -------------------------
-           * Web Font
-           * -------------------------
-           *
-           * 显式生成 Font Embed CSS。
-           *
-           * 如果获取失败，
-           * 不传 fontEmbedCSS，
-           * 让 html-to-image 自己处理。
-           */
-          let fontEmbedCSS;
-
-          try {
-            fontEmbedCSS =
-              await getFontEmbedCSS(
-                receiptElement,
-                {
-                  preferredFontFormat:
-                    'woff2',
-                },
-              );
-          } catch (
-            fontError
-          ) {
-            console.warn(
-              '[StoryShareModal] Font embed warning:',
-              fontError,
-            );
-          }
-
-          if (
-            cancelled
-          ) {
-            return;
-          }
-
-          /**
-           * html-to-image options
-           */
-          const exportOptions = {
-            /**
-             * 外部图片加 cache bust
-             */
-            cacheBust:
-              true,
-
-            /**
-             * 手机 Safari
-             * 不建议使用 3。
-             *
-             * 2 已经足够清晰，
-             * 同时 Canvas 内存压力更小。
-             */
-            pixelRatio:
-              2,
-
-            preferredFontFormat:
-              'woff2',
-
-            style: {
-              transform:
-                'none',
-            },
-          };
-
-
-          /**
-           * 只有真正获取到字体 CSS
-           * 才传给 html-to-image。
-           */
-          if (
-            fontEmbedCSS
-          ) {
-            exportOptions.fontEmbedCSS =
-              fontEmbedCSS;
-          }
-
-
-          /**
-           * 生成 PNG Blob
+           * Canvas 直接生成最终 PNG。
            */
           const blob =
-            await toBlob(
+            await createReceiptBlob(
               receiptElement,
-              exportOptions,
+              selectedReceipt,
             );
 
-
-          if (
-            !blob
-          ) {
-            throw new Error(
-              'Image blob generation failed.',
-            );
-          }
-
-
-          if (
-            cancelled
-          ) {
+          if (cancelled) {
             return;
           }
 
-
-          /**
-           * 缓存 Blob。
-           *
-           * 用户点击按钮时直接下载。
-           */
           exportBlobRef.current =
             blob;
-
 
           setIsExportReady(
             true,
           );
-        } catch (
-          error
-        ) {
+        } catch (error) {
           console.error(
-            '[StoryShareModal] Prepare export failed:',
+            '[StoryShareModal] Canvas export failed:',
             error,
           );
 
-          if (
-            !cancelled
-          ) {
+          if (!cancelled) {
             setErrorMessage(
-              'The image could not be generated. Please try again.',
+              error instanceof Error &&
+              error.message.includes(
+                'fonts',
+              )
+                ? 'The receipt fonts are not loaded correctly on this device.'
+                : 'The image could not be generated. Please try again.',
             );
           }
         }
@@ -1082,8 +2073,7 @@ export default function StoryShareModal() {
 
 
     return () => {
-      cancelled =
-        true;
+      cancelled = true;
 
       exportBlobRef.current =
         null;
