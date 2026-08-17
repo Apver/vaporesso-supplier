@@ -136,7 +136,9 @@ const RECEIPT_CANVAS_HEIGHT = 1736;
 const RECEIPT_VISUAL_OFFSET_PX = 2.5;
 const COMMENT_EXTRA_TOP_GAP_PX = 6;
 
-
+const RECEIPT_TEXT_SCALE = 1.2;
+const RECEIPT_TEXT_OFFSET_X_RATIO_DESKTOP = 0.035;
+const RECEIPT_TEXT_OFFSET_X_RATIO_MOBILE = -0.015;
 /**
  * 将 Canvas 转为 PNG Blob
  */
@@ -279,11 +281,12 @@ function applyComputedFont(
   context,
   computedStyle,
   scale,
+  textScale = 1,
 ) {
   const fontSize =
     parseCssPixel(
       computedStyle.fontSize,
-    ) * scale;
+    ) * scale * textScale;
 
   const fontStyle =
     computedStyle.fontStyle ||
@@ -303,7 +306,7 @@ function applyComputedFont(
   let lineHeight =
     parseCssPixel(
       rawLineHeight,
-    ) * scale;
+    ) * scale * textScale;
 
   if (!lineHeight) {
     lineHeight =
@@ -322,7 +325,7 @@ function applyComputedFont(
     letterSpacing:
       parseCssPixel(
         computedStyle.letterSpacing,
-      ) * scale,
+      ) * scale * textScale,
   };
 }
 
@@ -765,6 +768,9 @@ async function createReceiptBlob(
     RECEIPT_CANVAS_HEIGHT /
     receiptRect.height;
 
+
+    const receiptTextOffsetX = RECEIPT_CANVAS_WIDTH * (  window.innerWidth <= 1023  ? RECEIPT_TEXT_OFFSET_X_RATIO_MOBILE : RECEIPT_TEXT_OFFSET_X_RATIO_DESKTOP);
+
   const fontScale =
     scaleX;
 
@@ -878,7 +884,7 @@ async function createReceiptBlob(
   drawTextWithLetterSpacing(
     context,
     storyText,
-    storyRect.x + storyRect.width / 2,
+    storyRect.x + storyRect.width / 2  + receiptTextOffsetX,
     storyBaseline,
     storyFont.letterSpacing,
     'center',
@@ -977,8 +983,7 @@ async function createReceiptBlob(
   drawTextWithLetterSpacing(
     context,
     receiptText,
-    receiptTextRect.x +
-      receiptTextRect.width / 2,
+    receiptTextRect.x + receiptTextRect.width / 2 + receiptTextOffsetX,
     receiptTextBaseline,
     receiptTextFont.letterSpacing,
     'center',
@@ -1007,6 +1012,7 @@ async function createReceiptBlob(
       context,
       commentStyle,
       fontScale,
+      RECEIPT_TEXT_SCALE
     );
 
   context.fillStyle =
@@ -1058,8 +1064,7 @@ async function createReceiptBlob(
       drawTextWithLetterSpacing(
         context,
         line,
-        commentRect.x +
-          commentRect.width / 2,
+        commentRect.x + commentRect.width / 2 + receiptTextOffsetX,
         baseline,
         commentFont.letterSpacing,
         'center',
@@ -1088,6 +1093,7 @@ async function createReceiptBlob(
       context,
       nameStyle,
       fontScale,
+      RECEIPT_TEXT_SCALE
     );
 
   context.fillStyle =
@@ -1100,7 +1106,7 @@ async function createReceiptBlob(
     getBaselineForLineBox(
       context,
       nameText,
-      nameRect.y,
+      nameRect.y + 8 * scaleY,
       nameRect.height ||
         nameFont.lineHeight,
       nameFont.fontSize,
@@ -1110,8 +1116,7 @@ async function createReceiptBlob(
     drawTextWithLetterSpacing(
       context,
       nameText,
-      nameRect.x +
-        nameRect.width / 2,
+      nameRect.x + nameRect.width / 2 + receiptTextOffsetX,
       nameBaseline,
       nameFont.letterSpacing,
       'center',
@@ -1145,7 +1150,8 @@ async function createReceiptBlob(
 
     context.moveTo(
       nameRect.x +
-        nameRect.width / 2 -
+        nameRect.width / 2 +
+    receiptTextOffsetX - 
         nameTextWidth / 2,
       underlineY,
     );
@@ -1153,6 +1159,7 @@ async function createReceiptBlob(
     context.lineTo(
       nameRect.x +
         nameRect.width / 2 +
+    receiptTextOffsetX +
         nameTextWidth / 2,
       underlineY,
     );
