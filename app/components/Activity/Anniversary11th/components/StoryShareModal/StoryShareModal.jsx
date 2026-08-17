@@ -812,7 +812,7 @@ async function createReceiptBlob(
     canvas.getContext(
       '2d',
       {
-        alpha: false,
+        alpha: true,
       },
     );
 
@@ -823,12 +823,10 @@ async function createReceiptBlob(
   }
 
   /**
-   * 先铺底色，避免 Safari 导出黑色透明底。
+   * 不铺任何底色。
+   * Canvas 默认保持透明，PNG 导出时保留 alpha。
    */
-  context.fillStyle =
-    '#000';
-
-  context.fillRect(
+  context.clearRect(
     0,
     0,
     canvas.width,
