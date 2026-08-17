@@ -4,8 +4,15 @@ import {
   useRef,
   useState,
 } from 'react';
-import {createPortal} from 'react-dom';
-import {toBlob} from 'html-to-image';
+
+import {
+  createPortal,
+} from 'react-dom';
+
+import {
+  getFontEmbedCSS,
+  toBlob,
+} from 'html-to-image';
 
 import {
   STORY_SHARE_MODAL_OPEN_EVENT,
@@ -31,19 +38,22 @@ const INITIAL_FORM_DATA = {
 const RECEIPT_TYPES = [
   {
     id: 'black-green',
-    className: 'story-receipt--black-green',
+    className:
+      'story-receipt--black-green',
     image:
       'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-13.webp',
   },
   {
     id: 'pink-black',
-    className: 'story-receipt--pink-black',
+    className:
+      'story-receipt--pink-black',
     image:
       'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-14.webp',
   },
   {
     id: 'purple-color',
-    className: 'story-receipt--purple-color',
+    className:
+      'story-receipt--purple-color',
     image:
       'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-15.webp',
   },
@@ -67,11 +77,15 @@ const FOCUSABLE_SELECTOR = [
  * 随机选择 Receipt
  */
 function getRandomReceipt() {
-  const randomIndex = Math.floor(
-    Math.random() * RECEIPT_TYPES.length,
-  );
+  const randomIndex =
+    Math.floor(
+      Math.random() *
+        RECEIPT_TYPES.length,
+    );
 
-  return RECEIPT_TYPES[randomIndex];
+  return RECEIPT_TYPES[
+    randomIndex
+  ];
 }
 
 
@@ -79,24 +93,49 @@ function getRandomReceipt() {
  * 等待浏览器完成两帧渲染
  */
 function waitForRender() {
-  return new Promise((resolve) => {
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(resolve);
-    });
-  });
+  return new Promise(
+    (resolve) => {
+      window.requestAnimationFrame(
+        () => {
+          window.requestAnimationFrame(
+            resolve,
+          );
+        },
+      );
+    },
+  );
+}
+
+
+/**
+ * 等待指定时间
+ */
+function wait(
+  delay,
+) {
+  return new Promise(
+    (resolve) => {
+      window.setTimeout(
+        resolve,
+        delay,
+      );
+    },
+  );
 }
 
 
 /**
  * 等待 Receipt 中字体 / 图片加载完成
  */
-async function waitForReceiptAssets(element) {
+async function waitForReceiptAssets(
+  element,
+) {
   if (!element) {
     return;
   }
 
   /**
-   * 等待字体
+   * 等待 Web Font
    */
   if (document.fonts?.ready) {
     try {
@@ -112,106 +151,136 @@ async function waitForReceiptAssets(element) {
   /**
    * 等待所有图片
    */
-  const images = Array.from(
-    element.querySelectorAll('img'),
-  );
+  const images =
+    Array.from(
+      element.querySelectorAll(
+        'img',
+      ),
+    );
 
   await Promise.all(
-    images.map(async (image) => {
-      /**
-       * 图片还没有加载完成
-       */
-      if (!image.complete) {
-        await new Promise((resolve) => {
-          const handleDone = () => {
-            image.removeEventListener(
-              'load',
-              handleDone,
-            );
+    images.map(
+      async (image) => {
+        /**
+         * 图片还没有加载完成
+         */
+        if (!image.complete) {
+          await new Promise(
+            (resolve) => {
+              const handleDone =
+                () => {
+                  image.removeEventListener(
+                    'load',
+                    handleDone,
+                  );
 
-            image.removeEventListener(
-              'error',
-              handleDone,
-            );
+                  image.removeEventListener(
+                    'error',
+                    handleDone,
+                  );
 
-            resolve();
-          };
+                  resolve();
+                };
 
-          image.addEventListener(
-            'load',
-            handleDone,
-            {
-              once: true,
+              image.addEventListener(
+                'load',
+                handleDone,
+                {
+                  once: true,
+                },
+              );
+
+              image.addEventListener(
+                'error',
+                handleDone,
+                {
+                  once: true,
+                },
+              );
             },
           );
-
-          image.addEventListener(
-            'error',
-            handleDone,
-            {
-              once: true,
-            },
-          );
-        });
-      }
-
-      /**
-       * 等待图片解码
-       */
-      if (
-        typeof image.decode === 'function'
-      ) {
-        try {
-          await image.decode();
-        } catch {
-          /**
-           * Safari / WebView 某些情况下
-           * decode 会 reject。
-           *
-           * 不阻塞导出。
-           */
         }
-      }
-    }),
+
+        /**
+         * Safari / WebView
+         * 等待图片解码
+         */
+        if (
+          typeof image.decode ===
+          'function'
+        ) {
+          try {
+            await image.decode();
+          } catch {
+            /**
+             * Safari 某些情况下
+             * decode() 会 reject。
+             *
+             * 不阻塞导出。
+             */
+          }
+        }
+      },
+    ),
   );
 
   /**
-   * 等布局稳定
+   * 再等待布局稳定
    */
   await waitForRender();
 }
 
 
 /**
- * Blob 下载
+ * 下载 Blob
  */
 function downloadBlob(
   blob,
   fileName,
 ) {
   const url =
-    URL.createObjectURL(blob);
+    URL.createObjectURL(
+      blob,
+    );
 
   const link =
-    document.createElement('a');
+    document.createElement(
+      'a',
+    );
 
   link.href = url;
-  link.download = fileName;
-  link.rel = 'noopener';
-  link.style.display = 'none';
 
-  document.body.appendChild(link);
+  link.download =
+    fileName;
 
-  link.click();
+  link.rel =
+    'noopener';
 
-  link.remove();
+  link.style.display =
+    'none';
+
+  document.body.appendChild(
+    link,
+  );
 
   /**
-   * Safari / WebView 下不要过早 revoke
+   * 触发下载
    */
-  window.setTimeout(() => {
-    URL.revokeObjectURL(url);
-  }, 5000);
+  link.click();
+
+  /**
+   * 清理 DOM
+   */
+  link.remove();
+
+  window.setTimeout(
+    () => {
+      URL.revokeObjectURL(
+        url,
+      );
+    },
+    10000,
+  );
 }
 
 
@@ -237,20 +306,26 @@ export default function StoryShareModal() {
   const exportBlobRef =
     useRef(null);
 
+
   const [
     portalElement,
     setPortalElement,
   ] = useState(null);
+
 
   const [
     isOpen,
     setIsOpen,
   ] = useState(false);
 
+
   const [
     step,
     setStep,
-  ] = useState('form');
+  ] = useState(
+    'form',
+  );
+
 
   const [
     formData,
@@ -259,25 +334,30 @@ export default function StoryShareModal() {
     INITIAL_FORM_DATA,
   );
 
+
   const [
     selectedReceipt,
     setSelectedReceipt,
   ] = useState(null);
+
 
   const [
     isSubmitting,
     setIsSubmitting,
   ] = useState(false);
 
+
   const [
     isExporting,
     setIsExporting,
   ] = useState(false);
 
+
   const [
     isExportReady,
     setIsExportReady,
   ] = useState(false);
+
 
   const [
     errorMessage,
@@ -300,21 +380,33 @@ export default function StoryShareModal() {
    */
   const resetModal =
     useCallback(() => {
-      setStep('form');
+      setStep(
+        'form',
+      );
 
       setFormData(
         INITIAL_FORM_DATA,
       );
 
-      setSelectedReceipt(null);
+      setSelectedReceipt(
+        null,
+      );
 
-      setIsSubmitting(false);
+      setIsSubmitting(
+        false,
+      );
 
-      setIsExporting(false);
+      setIsExporting(
+        false,
+      );
 
-      setIsExportReady(false);
+      setIsExportReady(
+        false,
+      );
 
-      setErrorMessage('');
+      setErrorMessage(
+        '',
+      );
 
       exportBlobRef.current =
         null;
@@ -331,7 +423,9 @@ export default function StoryShareModal() {
 
       resetModal();
 
-      setIsOpen(true);
+      setIsOpen(
+        true,
+      );
     }, [
       resetModal,
     ]);
@@ -342,7 +436,9 @@ export default function StoryShareModal() {
    */
   const handleClose =
     useCallback(() => {
-      setIsOpen(false);
+      setIsOpen(
+        false,
+      );
 
       window.requestAnimationFrame(
         () => {
@@ -394,13 +490,16 @@ export default function StoryShareModal() {
       document.body;
 
     const previousHtmlOverflow =
-      htmlElement.style.overflow;
+      htmlElement.style
+        .overflow;
 
     const previousBodyOverflow =
-      bodyElement.style.overflow;
+      bodyElement.style
+        .overflow;
 
     const previousBodyPaddingRight =
-      bodyElement.style.paddingRight;
+      bodyElement.style
+        .paddingRight;
 
     const scrollbarWidth =
       window.innerWidth -
@@ -412,7 +511,9 @@ export default function StoryShareModal() {
     bodyElement.style.overflow =
       'hidden';
 
-    if (scrollbarWidth > 0) {
+    if (
+      scrollbarWidth > 0
+    ) {
       bodyElement.style.paddingRight =
         `${scrollbarWidth}px`;
     }
@@ -420,13 +521,21 @@ export default function StoryShareModal() {
     window.lenis?.stop?.();
 
     const focusTimer =
-      window.setTimeout(() => {
-        closeButtonRef.current
-          ?.focus();
-      }, 0);
+      window.setTimeout(
+        () => {
+          closeButtonRef
+            .current
+            ?.focus();
+        },
+        0,
+      );
+
 
     const handleKeyDown =
       (event) => {
+        /**
+         * ESC
+         */
         if (
           event.key ===
           'Escape'
@@ -436,8 +545,12 @@ export default function StoryShareModal() {
           return;
         }
 
+        /**
+         * Tab Focus Trap
+         */
         if (
-          event.key !== 'Tab' ||
+          event.key !==
+            'Tab' ||
           !dialogRef.current
         ) {
           return;
@@ -464,7 +577,8 @@ export default function StoryShareModal() {
 
         const lastElement =
           focusableElements[
-            focusableElements.length - 1
+            focusableElements.length -
+              1
           ];
 
         if (
@@ -490,10 +604,12 @@ export default function StoryShareModal() {
         }
       };
 
+
     window.addEventListener(
       'keydown',
       handleKeyDown,
     );
+
 
     return () => {
       window.clearTimeout(
@@ -538,12 +654,17 @@ export default function StoryShareModal() {
         ) => ({
           ...currentFormData,
 
-          [name]: value,
+          [name]:
+            value,
         }),
       );
 
-      if (errorMessage) {
-        setErrorMessage('');
+      if (
+        errorMessage
+      ) {
+        setErrorMessage(
+          '',
+        );
       }
     };
 
@@ -551,61 +672,64 @@ export default function StoryShareModal() {
   /**
    * 表单校验
    */
-  const validateForm = () => {
-    const emailRegExp =
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const validateForm =
+    () => {
+      const emailRegExp =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (
-      !formData.name.trim()
-    ) {
-      return (
-        'Please enter your full name.'
-      );
-    }
+      if (
+        !formData.name.trim()
+      ) {
+        return (
+          'Please enter your full name.'
+        );
+      }
 
-    if (
-      !formData.email.trim()
-    ) {
-      return (
-        'Please enter your email address.'
-      );
-    }
+      if (
+        !formData.email.trim()
+      ) {
+        return (
+          'Please enter your email address.'
+        );
+      }
 
-    if (
-      !emailRegExp.test(
-        formData.email.trim(),
-      )
-    ) {
-      return (
-        'Please enter a valid email address.'
-      );
-    }
+      if (
+        !emailRegExp.test(
+          formData.email.trim(),
+        )
+      ) {
+        return (
+          'Please enter a valid email address.'
+        );
+      }
 
-    if (
-      !formData.country.trim()
-    ) {
-      return (
-        'Please enter your country.'
-      );
-    }
+      if (
+        !formData.country.trim()
+      ) {
+        return (
+          'Please enter your country.'
+        );
+      }
 
-    if (
-      !formData.comment.trim()
-    ) {
-      return (
-        'Please share your story.'
-      );
-    }
+      if (
+        !formData.comment.trim()
+      ) {
+        return (
+          'Please share your story.'
+        );
+      }
 
-    return '';
-  };
+      return '';
+    };
 
 
   /**
    * 提交 Story
    */
   const submitStory =
-    async (submitData) => {
+    async (
+      submitData,
+    ) => {
       console.log(
         'Story submit data:',
         submitData,
@@ -615,7 +739,8 @@ export default function StoryShareModal() {
         await fetch(
           'https://brand.vaporesso.com/vaporesso/java/data/comment/addComment',
           {
-            method: 'POST',
+            method:
+              'POST',
 
             headers: {
               'Content-Type':
@@ -629,7 +754,9 @@ export default function StoryShareModal() {
           },
         );
 
-      if (!response.ok) {
+      if (
+        !response.ok
+      ) {
         throw new Error(
           'Story submission failed.',
         );
@@ -643,17 +770,23 @@ export default function StoryShareModal() {
    * Submit
    */
   const handleSubmit =
-    async (event) => {
+    async (
+      event,
+    ) => {
       event.preventDefault();
 
-      if (isSubmitting) {
+      if (
+        isSubmitting
+      ) {
         return;
       }
 
       const validationMessage =
         validateForm();
 
-      if (validationMessage) {
+      if (
+        validationMessage
+      ) {
         setErrorMessage(
           validationMessage,
         );
@@ -687,9 +820,13 @@ export default function StoryShareModal() {
           '20260818',
       };
 
-      setIsSubmitting(true);
+      setIsSubmitting(
+        true,
+      );
 
-      setErrorMessage('');
+      setErrorMessage(
+        '',
+      );
 
       try {
         await submitStory(
@@ -703,65 +840,79 @@ export default function StoryShareModal() {
         setStep(
           'complete',
         );
-      } catch (error) {
+      } catch (
+        error
+      ) {
         console.error(
           '[StoryShareModal] Submit failed:',
           error,
         );
 
         setErrorMessage(
-          error instanceof Error
+          error instanceof
+          Error
             ? error.message
             : 'Submission failed. Please try again.',
         );
       } finally {
-        setIsSubmitting(false);
+        setIsSubmitting(
+          false,
+        );
       }
     };
 
 
-  /**
-   * Previous Step
-   */
   const handlePreviousStep =
     () => {
-      setStep('form');
+      setStep(
+        'form',
+      );
 
-      setErrorMessage('');
+      setErrorMessage(
+        '',
+      );
 
-      setIsExportReady(false);
+      setIsExportReady(
+        false,
+      );
 
       exportBlobRef.current =
         null;
     };
 
-
-  /**
-   * 预生成下载图片
-   */
   useEffect(() => {
     if (
-      step !== 'complete' ||
+      step !==
+        'complete' ||
       !selectedReceipt
     ) {
       exportBlobRef.current =
         null;
 
-      setIsExportReady(false);
+      setIsExportReady(
+        false,
+      );
 
       return undefined;
     }
 
-    let cancelled = false;
+    let cancelled =
+      false;
+
 
     const prepareExportImage =
       async () => {
         exportBlobRef.current =
           null;
 
-        setIsExportReady(false);
+        setIsExportReady(
+          false,
+        );
 
         try {
+          /**
+           * 等 React Render
+           */
           await waitForRender();
 
           const receiptElement =
@@ -774,56 +925,151 @@ export default function StoryShareModal() {
             return;
           }
 
+          /**
+           * 等待字体、图片
+           */
           await waitForReceiptAssets(
             receiptElement,
           );
 
-          await new Promise(
-            (resolve) => {
-              setTimeout(
-                resolve,
-                300,
-              );
-            },
+          await wait(
+            300,
           );
 
-          if (cancelled) {
+          if (
+            cancelled
+          ) {
             return;
           }
 
+          /**
+           * -------------------------
+           * Web Font
+           * -------------------------
+           *
+           * 显式生成 Font Embed CSS。
+           *
+           * 如果获取失败，
+           * 不传 fontEmbedCSS，
+           * 让 html-to-image 自己处理。
+           */
+          let fontEmbedCSS;
+
+          try {
+            fontEmbedCSS =
+              await getFontEmbedCSS(
+                receiptElement,
+                {
+                  preferredFontFormat:
+                    'woff2',
+                },
+              );
+          } catch (
+            fontError
+          ) {
+            console.warn(
+              '[StoryShareModal] Font embed warning:',
+              fontError,
+            );
+          }
+
+          if (
+            cancelled
+          ) {
+            return;
+          }
+
+          /**
+           * html-to-image options
+           */
+          const exportOptions = {
+            /**
+             * 外部图片加 cache bust
+             */
+            cacheBust:
+              true,
+
+            /**
+             * 手机 Safari
+             * 不建议使用 3。
+             *
+             * 2 已经足够清晰，
+             * 同时 Canvas 内存压力更小。
+             */
+            pixelRatio:
+              2,
+
+            preferredFontFormat:
+              'woff2',
+
+            style: {
+              transform:
+                'none',
+            },
+          };
+
+
+          /**
+           * 只有真正获取到字体 CSS
+           * 才传给 html-to-image。
+           */
+          if (
+            fontEmbedCSS
+          ) {
+            exportOptions.fontEmbedCSS =
+              fontEmbedCSS;
+          }
+
+
+          /**
+           * 生成 PNG Blob
+           */
           const blob =
             await toBlob(
               receiptElement,
-              {
-                cacheBust: true,
-                pixelRatio: 3,
-                style: {
-                  transform: 'none',
-                },
-              },
+              exportOptions,
             );
 
-          if (!blob) {
+
+          if (
+            !blob
+          ) {
             throw new Error(
               'Image blob generation failed.',
             );
           }
 
-          if (cancelled) {
+
+          if (
+            cancelled
+          ) {
             return;
           }
 
+
+          /**
+           * 缓存 Blob。
+           *
+           * 用户点击按钮时直接下载。
+           */
           exportBlobRef.current =
             blob;
 
-          setIsExportReady(true);
-        } catch (error) {
+
+          setIsExportReady(
+            true,
+          );
+        } catch (
+          error
+        ) {
           console.error(
             '[StoryShareModal] Prepare export failed:',
             error,
           );
 
-          if (!cancelled) {
+          if (
+            !cancelled
+          ) {
             setErrorMessage(
               'The image could not be generated. Please try again.',
             );
@@ -831,10 +1077,13 @@ export default function StoryShareModal() {
         }
       };
 
+
     prepareExportImage();
 
+
     return () => {
-      cancelled = true;
+      cancelled =
+        true;
 
       exportBlobRef.current =
         null;
@@ -846,18 +1095,31 @@ export default function StoryShareModal() {
 
 
   /**
-   * 下载图片，然后跳转 Instagram
+   * Download & Share
+   *
+   * 流程：
+   *
+   * 1. 用户点击按钮
+   * 2. 同步创建一个新窗口
+   * 3. 下载 PNG
+   * 4. 新窗口跳 Instagram
    */
   const handleDownloadAndShare =
-    async () => {
-      if (isExporting) {
+    () => {
+      if (
+        isExporting
+      ) {
         return;
       }
+
 
       const blob =
         exportBlobRef.current;
 
-      if (!blob) {
+
+      if (
+        !blob
+      ) {
         setErrorMessage(
           'The image is still being prepared. Please try again.',
         );
@@ -865,35 +1127,129 @@ export default function StoryShareModal() {
         return;
       }
 
-      setIsExporting(true);
 
-      setErrorMessage('');
+      setIsExporting(
+        true,
+      );
+
+      setErrorMessage(
+        '',
+      );
+
 
       const fileName =
         `extraordinary-story-${Date.now()}.png`;
 
+
+      /**
+       * -----------------------------
+       * 非常重要：
+       * -----------------------------
+       *
+       * window.open 必须直接发生在
+       * 用户 click 的同步调用栈中。
+       */
+      const instagramWindow =
+        window.open(
+          'about:blank',
+          '_blank',
+        );
+
+
+      /**
+       * 防止新页面通过 opener
+       * 操作当前页面。
+       */
+      if (
+        instagramWindow
+      ) {
+        try {
+          instagramWindow.opener =
+            null;
+        } catch {
+          /**
+           * ignore
+           */
+        }
+      }
+
+
       try {
+        /**
+         * -------------------------
+         * 1. 下载 PNG
+         * -------------------------
+         */
         downloadBlob(
           blob,
           fileName,
         );
 
-      window.open(
-        'https://www.instagram.com/',
-        '_blank',
-        'noopener,noreferrer',
-      );
-      } catch (error) {
+
+        /**
+         * -------------------------
+         * 2. 打开 Instagram
+         * -------------------------
+         *
+         * 新窗口已经在 click 阶段创建，
+         * 所以这里可以稍微延迟。
+         */
+        window.setTimeout(
+          () => {
+            if (
+              instagramWindow &&
+              !instagramWindow.closed
+            ) {
+              instagramWindow.location.href =
+                'https://www.instagram.com/';
+            }
+          },
+          500,
+        );
+
+
+        /**
+         * 恢复按钮状态
+         */
+        window.setTimeout(
+          () => {
+            setIsExporting(
+              false,
+            );
+          },
+          800,
+        );
+      } catch (
+        error
+      ) {
         console.error(
           '[StoryShareModal] Download failed:',
           error,
         );
 
+
+        /**
+         * 下载失败，
+         * 关闭之前创建的空白窗口。
+         */
+        try {
+          instagramWindow
+            ?.close();
+        } catch {
+          /**
+           * ignore
+           */
+        }
+
+
         setErrorMessage(
           'The image could not be downloaded. Please try again.',
         );
 
-        setIsExporting(false);
+
+        setIsExporting(
+          false,
+        );
       }
     };
 
@@ -914,22 +1270,31 @@ export default function StoryShareModal() {
         type="button"
         className="story-share-modal__backdrop"
         aria-label="Close modal"
-        onClick={handleClose}
+        onClick={
+          handleClose
+        }
       />
 
+
       <div
-        ref={dialogRef}
+        ref={
+          dialogRef
+        }
         className="story-share-modal__dialog"
         role="dialog"
         aria-modal="true"
         aria-labelledby="story-share-modal-title"
       >
         <button
-          ref={closeButtonRef}
+          ref={
+            closeButtonRef
+          }
           type="button"
           className="story-share-modal__close"
           aria-label="Close modal"
-          onClick={handleClose}
+          onClick={
+            handleClose
+          }
         >
           <img
             src="https://cdn.shopify.com/s/files/1/0999/4249/8609/files/anniversary-11th-06-12.webp"
@@ -938,10 +1303,14 @@ export default function StoryShareModal() {
           />
         </button>
 
-        {step === 'form' && (
+
+        {step ===
+          'form' && (
           <form
             className="story-share-modal__form"
-            onSubmit={handleSubmit}
+            onSubmit={
+              handleSubmit
+            }
           >
             <div
               className="story-share-modal__intro"
@@ -965,6 +1334,7 @@ export default function StoryShareModal() {
                 Story
               </h2>
 
+
               <p
                 className="story-share-modal__description"
               >
@@ -972,15 +1342,19 @@ export default function StoryShareModal() {
                 anniversary lucky draw.
               </p>
 
+
               <button
                 type="submit"
                 className="story-share-modal__button story-share-modal__button--desktop"
-                disabled={isSubmitting}
+                disabled={
+                  isSubmitting
+                }
               >
                 {isSubmitting
                   ? 'Submitting...'
                   : 'Submit'}
               </button>
+
 
               {errorMessage && (
                 <p
@@ -991,6 +1365,7 @@ export default function StoryShareModal() {
                 </p>
               )}
             </div>
+
 
             <div
               className="story-share-modal__fields"
@@ -1004,6 +1379,7 @@ export default function StoryShareModal() {
                 >
                   Full Name
                 </label>
+
 
                 <input
                   id="story-name"
@@ -1020,6 +1396,7 @@ export default function StoryShareModal() {
                 />
               </div>
 
+
               <div
                 className="story-share-modal__field"
               >
@@ -1029,6 +1406,7 @@ export default function StoryShareModal() {
                 >
                   Email Address
                 </label>
+
 
                 <input
                   id="story-email"
@@ -1045,6 +1423,7 @@ export default function StoryShareModal() {
                 />
               </div>
 
+
               <div
                 className="story-share-modal__field"
               >
@@ -1054,6 +1433,7 @@ export default function StoryShareModal() {
                 >
                   Country
                 </label>
+
 
                 <input
                   id="story-country"
@@ -1070,6 +1450,7 @@ export default function StoryShareModal() {
                 />
               </div>
 
+
               <div
                 className="story-share-modal__field story-share-modal__field--story"
               >
@@ -1080,6 +1461,7 @@ export default function StoryShareModal() {
                   Share Your Story
                 </label>
 
+
                 <textarea
                   id="story-comment"
                   name="comment"
@@ -1087,22 +1469,28 @@ export default function StoryShareModal() {
                     formData.comment
                   }
                   placeholder="Share Your Story"
-                  maxLength={400}
+                  maxLength={
+                    400
+                  }
                   onChange={
                     handleInputChange
                   }
                 />
               </div>
 
+
               <button
                 type="submit"
                 className="story-share-modal__button story-share-modal__button--mobile"
-                disabled={isSubmitting}
+                disabled={
+                  isSubmitting
+                }
               >
                 {isSubmitting
                   ? 'Submitting...'
                   : 'Submit'}
               </button>
+
 
               {errorMessage && (
                 <p
@@ -1116,143 +1504,48 @@ export default function StoryShareModal() {
           </form>
         )}
 
-        {step === 'complete' &&
+
+        {step ===
+          'complete' &&
           selectedReceipt && (
+          <div
+            className="story-share-modal__complete"
+          >
             <div
-              className="story-share-modal__complete"
+              className="story-share-modal__complete-content"
             >
-              <div
-                className="story-share-modal__complete-content"
+              <h2
+                id="story-share-modal-title"
+                className="story-share-modal__complete-title"
               >
-                <h2
-                  id="story-share-modal-title"
-                  className="story-share-modal__complete-title"
-                >
-                  <span>
-                    Thank you
-                  </span>
+                <span>
+                  Thank you
+                </span>
 
-                  <strong>
-                    for sharing your
 
-                    <br />
-
-                    extraordinary journey.
-                  </strong>
-                </h2>
-
-                <p
-                  className="story-share-modal__complete-description"
-                >
-                  Your story may inspire others to
+                <strong>
+                  for sharing your
 
                   <br />
 
-                  move beyond ordinary.
-                </p>
+                  extraordinary journey.
+                </strong>
+              </h2>
 
-                <div
-                  className="story-share-modal__actions"
-                >
-                  <button
-                    type="button"
-                    className="story-share-modal__button story-share-modal__button--secondary"
-                    onClick={
-                      handlePreviousStep
-                    }
-                  >
-                    Previous Step
-                  </button>
 
-                  <button
-                    type="button"
-                    className="story-share-modal__button"
-                    disabled={
-                      isExporting ||
-                      !isExportReady
-                    }
-                    onClick={
-                      handleDownloadAndShare
-                    }
-                  >
-                    {!isExportReady
-                      ? 'Preparing...'
-                      : isExporting
-                        ? 'Opening Instagram...'
-                        : 'Download & Share'}
-                  </button>
-                </div>
-
-                {errorMessage && (
-                  <p
-                    className="story-share-modal__error"
-                    role="alert"
-                  >
-                    {errorMessage}
-                  </p>
-                )}
-              </div>
-
-              <div
-                className="story-share-modal__receipt-preview"
+              <p
+                className="story-share-modal__complete-description"
               >
-                <div
-                  className={[
-                    'story-share-modal__receipt-rotate',
-                    `story-share-modal__receipt-rotate--${selectedReceipt.id}`,
-                  ].join(' ')}
-                >
-                  <div
-                    ref={receiptRef}
-                    className={[
-                      'story-receipt',
-                      selectedReceipt.className,
-                    ].join(' ')}
-                  >
-                    <img
-                      className="story-receipt__background"
-                      src={`${selectedReceipt.image}?v=${Date.now()}`}
-                      alt=""
-                      crossOrigin="anonymous"
-                    />
+                Your story may inspire others to
 
-                    <div
-                      className="story-receipt__overlay"
-                    >
-                      <div
-                        className="story-receipt__story"
-                      >
-                        <span
-                          className="story-receipt__story__span1"
-                        >
-                          Story
-                        </span>
+                <br />
 
-                        <span
-                          className="story-receipt__story__span2"
-                        >
-                          Receipt
-                        </span>
-                      </div>
+                move beyond ordinary.
+              </p>
 
-                      <p
-                        className="story-receipt__name"
-                      >
-                        {formData.comment}
-                      </p>
-
-                      <p
-                        className="story-receipt__country"
-                      >
-                        {formData.name}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
               <div
-                className="story-share-modal__mobile-actions"
+                className="story-share-modal__actions"
               >
                 <button
                   type="button"
@@ -1263,6 +1556,7 @@ export default function StoryShareModal() {
                 >
                   Previous Step
                 </button>
+
 
                 <button
                   type="button"
@@ -1282,8 +1576,130 @@ export default function StoryShareModal() {
                       : 'Download & Share'}
                 </button>
               </div>
+
+
+              {errorMessage && (
+                <p
+                  className="story-share-modal__error"
+                  role="alert"
+                >
+                  {errorMessage}
+                </p>
+              )}
             </div>
-          )}
+
+
+            <div
+              className="story-share-modal__receipt-preview"
+            >
+              <div
+                className={[
+                  'story-share-modal__receipt-rotate',
+
+                  `story-share-modal__receipt-rotate--${selectedReceipt.id}`,
+                ].join(
+                  ' ',
+                )}
+              >
+                <div
+                  ref={
+                    receiptRef
+                  }
+                  className={[
+                    'story-receipt',
+
+                    selectedReceipt.className,
+                  ].join(
+                    ' ',
+                  )}
+                >
+                  <img
+                    className="story-receipt__background"
+                    src={
+                      selectedReceipt.image
+                    }
+                    alt=""
+                    crossOrigin="anonymous"
+                  />
+
+
+                  <div
+                    className="story-receipt__overlay"
+                  >
+                    <div
+                      className="story-receipt__story"
+                    >
+                      <span
+                        className="story-receipt__story__span1"
+                      >
+                        Story
+                      </span>
+
+
+                      <span
+                        className="story-receipt__story__span2"
+                      >
+                        Receipt
+                      </span>
+                    </div>
+
+
+                    <p
+                      className="story-receipt__name"
+                    >
+                      {
+                        formData.comment
+                      }
+                    </p>
+
+
+                    <p
+                      className="story-receipt__country"
+                    >
+                      {
+                        formData.name
+                      }
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div
+              className="story-share-modal__mobile-actions"
+            >
+              <button
+                type="button"
+                className="story-share-modal__button story-share-modal__button--secondary"
+                onClick={
+                  handlePreviousStep
+                }
+              >
+                Previous Step
+              </button>
+
+
+              <button
+                type="button"
+                className="story-share-modal__button"
+                disabled={
+                  isExporting ||
+                  !isExportReady
+                }
+                onClick={
+                  handleDownloadAndShare
+                }
+              >
+                {!isExportReady
+                  ? 'Preparing...'
+                  : isExporting
+                    ? 'Opening Instagram...'
+                    : 'Download & Share'}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>,
 
