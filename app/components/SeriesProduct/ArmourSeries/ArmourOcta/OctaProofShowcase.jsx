@@ -18,331 +18,466 @@ export const OctaProofShowcase = ({ data }) => {
     slides = [],
   } = data;
 
-useLayoutEffect(() => {
-  const section = sectionRef.current;
-  const box = boxRef.current;
-  const inner = innerRef.current;
-  const stage = stageRef.current;
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const box = boxRef.current;
+    const inner = innerRef.current;
+    const stage = stageRef.current;
 
-  if (
-    !section ||
-    !box ||
-    !inner ||
-    !stage ||
-    slides.length <= 1
-  ) {
-    return;
-  }
+    if (
+      !section ||
+      !box ||
+      !inner ||
+      !stage ||
+      slides.length <= 1
+    ) {
+      return;
+    }
 
-  const ctx = gsap.context(() => {
-    const slideEls = gsap.utils.toArray(
-      '.octa-proof-showcase__slide',
-      section
-    );
+    const ctx = gsap.context(() => {
+      const slideEls = gsap.utils.toArray(
+        '.octa-proof-showcase__slide',
+        section
+      );
 
-    const dotEls = gsap.utils.toArray(
-      '.octa-proof-showcase__dot',
-      section
-    );
+      const dotEls = gsap.utils.toArray(
+        '.octa-proof-showcase__dot',
+        section
+      );
 
-    const HOLD = 0.2;
-    const OUT_DURATION = 0.7;
-    const IN_DURATION = 0.75;
-    const IN_DELAY = 0.03;
+      const header = section.querySelector(
+        '.octa-proof-showcase__header'
+      );
 
-    const MOBILE_MOVE_DURATION = 1;
+      const HOLD = 0.2;
 
-    const setActiveDot = (index) => {
-      dotEls.forEach((dot, dotIndex) => {
-        dot.classList.toggle(
-          'is-active',
-          dotIndex === index
-        );
-      });
-    };
+      const OUT_DURATION = 0.4;
+      const IN_DURATION = 0.45;
+      const IN_DELAY = 0.01;
 
-    const resetSlides = () => {
-      gsap.set(slideEls, {
-        autoAlpha: 0,
-        yPercent: 105,
-        rotationX: -72,
-        z: -40,
-        opacity: 0.75,
-        transformOrigin: '50% 0%',
-        transformPerspective: 1800,
-        transformStyle: 'preserve-3d',
-      });
+      /*
+       * 定住后整体移动的时间
+       */
+      const MOVE_DURATION = 0.5;
 
-      gsap.set(slideEls[0], {
-        autoAlpha: 1,
-        yPercent: 0,
-        rotationX: 0,
-        z: 0,
-        opacity: 1,
-      });
-
-      slideEls.forEach((slide, index) => {
-        gsap.set(slide, {
-          zIndex: slides.length - index,
+      const setActiveDot = (index) => {
+        dotEls.forEach((dot, dotIndex) => {
+          dot.classList.toggle(
+            'is-active',
+            dotIndex === index
+          );
         });
-      });
+      };
 
-      setActiveDot(0);
-    };
+      const resetSlides = () => {
+        gsap.set(slideEls, {
+          autoAlpha: 0,
+          yPercent: 105,
+          rotationX: -72,
+          z: -40,
+          opacity: 0.75,
+          transformOrigin: '50% 0%',
+          transformPerspective: 1800,
+          transformStyle: 'preserve-3d',
+        });
 
-    const createTimeline = (isMobile) => {
-      resetSlides();
-      gsap.set(inner, {
-        y: 0,
-      });
+        gsap.set(slideEls[0], {
+          autoAlpha: 1,
+          yPercent: 0,
+          rotationX: 0,
+          z: 0,
+          opacity: 1,
+        });
 
-      const tl = gsap.timeline({
-        paused: true,
-      });
+        slideEls.forEach((slide, index) => {
+          gsap.set(slide, {
+            zIndex: slides.length - index,
+          });
+        });
 
-      if (isMobile) {
+        setActiveDot(0);
+      };
+
+      const createTimeline = (isMobile) => {
+        resetSlides();
+
+        /*
+         * 每次重新创建 timeline 时
+         * 恢复 inner 初始位置。
+         */
+        gsap.set(inner, {
+          y: 0,
+        });
+
+        /*
+         * 标题初始透明度始终为 1。
+         */
+        if (header) {
+          gsap.set(header, {
+            opacity: 1,
+          });
+        }
+
+        const tl = gsap.timeline({
+          paused: true,
+        });
+
+        /*
+         * =====================================
+         * PC / Mobile
+         *
+         * section 定住后，
+         * 整个内容先往上移动。
+         * =====================================
+         */
         tl.to(inner, {
-y: () => {
-  const stageRect =
-    stage.getBoundingClientRect();
+          y: () => {
+            const stageRect =
+              stage.getBoundingClientRect();
 
-  const currentY =
-    Number(
-      gsap.getProperty(inner, 'y')
-    ) || 0;
-  const originalStageTop =
-    stageRect.top - currentY;
+            const currentY =
+              Number(
+                gsap.getProperty(
+                  inner,
+                  'y'
+                )
+              ) || 0;
+            const originalStageTop =
+              stageRect.top - currentY;
 
-  const stageCenter =
-    originalStageTop +
-    stageRect.height / 2;
+            const stageCenter =
+              originalStageTop +
+              stageRect.height / 2;
 
-  const STICKY_TOP = 44;
+            /*
+             * sticky top。
+             */
+            const STICKY_TOP = 44;
 
-  const viewportHeight =
-    window.innerHeight;
+            const viewportHeight =
+              window.innerHeight;
 
-  const visibleCenter =
-    STICKY_TOP +
-    (viewportHeight - STICKY_TOP) / 2;
+            /*
+             * sticky 区域真正的视觉中心。
+             */
+            const visibleCenter =
+              STICKY_TOP +
+              (viewportHeight -
+                STICKY_TOP) /
+                2;
 
-  return visibleCenter - stageCenter;
-},
+            /*
+             * stage 中心移动到视觉中心。
+             */
+            return (
+              visibleCenter -
+              stageCenter
+            );
+          },
 
-          duration: MOBILE_MOVE_DURATION,
+          duration: MOVE_DURATION,
           ease: 'power2.inOut',
         });
 
-        tl.to({}, {
-          duration: HOLD,
-        });
-      } else {
         /*
-         * PC 不移动
+         * =====================================
+         * 仅 PC
+         *
+         * 标题不移动，
+         * 透明度从 1 -> 0。
+         *
+         * 第二个参数 0：
+         * 表示和 inner 上移动画同时开始。
+         * =====================================
+         */
+        if (!isMobile && header) {
+          tl.to(
+            header,
+            {
+              opacity: 0,
+              duration: MOVE_DURATION,
+              ease: 'power2.inOut',
+            },
+            0
+          );
+        }
+
+        /*
+         * 整体移动结束后稍微停顿。
          */
         tl.to({}, {
           duration: HOLD,
         });
-      }
 
-      const activeTimes = [
+        /*
+         * 第一张卡片仍然保持 active。
+         */
+        const activeTimes = [
+          MOVE_DURATION + HOLD,
+        ];
+
+        /*
+         * =====================================
+         * 卡片切换
+         * =====================================
+         */
+        for (
+          let i = 1;
+          i < slideEls.length;
+          i += 1
+        ) {
+          const current =
+            slideEls[i - 1];
+
+          const next =
+            slideEls[i];
+
+          const transitionStart =
+            tl.duration();
+
+          /*
+           * 下一张先放到下面。
+           */
+          tl.set(
+            next,
+            {
+              autoAlpha: 1,
+              yPercent: 97,
+              rotationX: -72,
+              z: -40,
+              opacity: 0.75,
+              transformOrigin:
+                '50% 0%',
+              zIndex:
+                slides.length + i,
+            },
+            transitionStart
+          );
+
+          /*
+           * 当前卡片往上翻出去。
+           */
+          tl.to(
+            current,
+            {
+              yPercent: -97,
+              rotationX: 72,
+              z: -40,
+              opacity: 0.75,
+              transformOrigin:
+                '50% 100%',
+              duration:
+                OUT_DURATION,
+              ease: 'none',
+            },
+            transitionStart
+          );
+
+          /*
+           * 下一张从下面进入。
+           */
+          tl.to(
+            next,
+            {
+              yPercent: 0,
+              rotationX: 0,
+              z: 0,
+              opacity: 1,
+              duration:
+                IN_DURATION,
+              ease: 'none',
+            },
+            transitionStart +
+              IN_DELAY
+          );
+
+          /*
+           * 当前卡片退出后隐藏。
+           */
+          tl.set(
+            current,
+            {
+              autoAlpha: 0,
+            },
+            transitionStart +
+              OUT_DURATION
+          );
+
+          /*
+           * 强制下一张最终状态。
+           */
+          tl.set(
+            next,
+            {
+              autoAlpha: 1,
+              yPercent: 0,
+              rotationX: 0,
+              z: 0,
+              opacity: 1,
+            },
+            transitionStart +
+              IN_DELAY +
+              IN_DURATION
+          );
+
+          /*
+           * dots active 切换时间。
+           */
+          activeTimes.push(
+            transitionStart +
+              IN_DELAY +
+              IN_DURATION * 0.5
+          );
+
+          /*
+           * 每张切换完稍微停顿。
+           */
+          tl.to({}, {
+            duration: HOLD,
+          });
+        }
+
+        return {
+          tl,
+          activeTimes,
+        };
+      };
+
+      const createScrollAnimation = (
         isMobile
-          ? MOBILE_MOVE_DURATION + HOLD
-          : 0,
-      ];
+      ) => {
+        const {
+          tl,
+          activeTimes,
+        } = createTimeline(
+          isMobile
+        );
 
-      for (
-        let i = 1;
-        i < slideEls.length;
-        i += 1
-      ) {
-        const current = slideEls[i - 1];
-        const next = slideEls[i];
-
-        const transitionStart =
+        const totalDuration =
           tl.duration();
 
-        tl.set(
-          next,
-          {
-            autoAlpha: 1,
-            yPercent: 100,
-            rotationX: -72,
-            z: -40,
-            opacity: 0.75,
-            transformOrigin: '50% 0%',
-            zIndex: slides.length + i,
-          },
-          transitionStart
-        );
+        const scrollTrigger =
+          ScrollTrigger.create({
+            trigger: section,
+            start: 'top top',
+            endTrigger: section,
+            end: 'bottom bottom',
+            scrub: 0.7,
+            animation: tl,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              const currentTime =
+                self.progress *
+                totalDuration;
 
-        tl.to(
-          current,
-          {
-            yPercent: -100,
-            rotationX: 72,
-            z: -40,
-            opacity: 0.75,
-            transformOrigin: '50% 100%',
-            duration: OUT_DURATION,
-            ease: 'none',
-          },
-          transitionStart
-        );
+              let activeIndex = 0;
 
-        tl.to(
-          next,
-          {
-            yPercent: 0,
-            rotationX: 0,
-            z: 0,
-            opacity: 1,
-            duration: IN_DURATION,
-            ease: 'none',
-          },
-          transitionStart + IN_DELAY
-        );
-
-        tl.set(
-          current,
-          {
-            autoAlpha: 0,
-          },
-          transitionStart + OUT_DURATION
-        );
-
-        tl.set(
-          next,
-          {
-            autoAlpha: 1,
-            yPercent: 0,
-            rotationX: 0,
-            z: 0,
-            opacity: 1,
-          },
-          transitionStart +
-            IN_DELAY +
-            IN_DURATION
-        );
-
-        activeTimes.push(
-          transitionStart +
-            IN_DELAY +
-            IN_DURATION * 0.5
-        );
-
-        tl.to({}, {
-          duration: HOLD,
-        });
-      }
-
-      return {
-        tl,
-        activeTimes,
-      };
-    };
-
-    const createScrollAnimation = (
-      isMobile
-    ) => {
-      const { tl, activeTimes } =
-        createTimeline(isMobile);
-
-      const totalDuration =
-        tl.duration();
-
-      const scrollTrigger =
-        ScrollTrigger.create({
-          trigger: section,
-          start: 'top top',
-          endTrigger: section,
-          end: 'bottom bottom',
-
-          scrub: 0.7,
-
-          animation: tl,
-
-          invalidateOnRefresh: true,
-
-          onUpdate: (self) => {
-            const currentTime =
-              self.progress *
-              totalDuration;
-
-            let activeIndex = 0;
-
-            for (
-              let i = 1;
-              i < activeTimes.length;
-              i += 1
-            ) {
-              if (
-                currentTime >=
-                activeTimes[i]
+              for (
+                let i = 1;
+                i <
+                activeTimes.length;
+                i += 1
               ) {
-                activeIndex = i;
-              } else {
-                break;
+                if (
+                  currentTime >=
+                  activeTimes[i]
+                ) {
+                  activeIndex = i;
+                } else {
+                  break;
+                }
               }
-            }
 
-            activeIndex = Math.max(
-              0,
-              Math.min(
-                slideEls.length - 1,
+              activeIndex =
+                Math.max(
+                  0,
+                  Math.min(
+                    slideEls.length -
+                      1,
+                    activeIndex
+                  )
+                );
+
+              setActiveDot(
                 activeIndex
-              )
-            );
+              );
+            },
 
-            setActiveDot(
-              activeIndex
-            );
-          },
+            onLeaveBack: () => {
+              setActiveDot(0);
+            },
+          });
 
-          onLeaveBack: () => {
-            setActiveDot(0);
-          },
-        });
+        return () => {
+          scrollTrigger.kill();
+          tl.kill();
+
+          gsap.set(inner, {
+            clearProps:
+              'transform',
+          });
+
+          if (header) {
+            gsap.set(header, {
+              clearProps:
+                'opacity',
+            });
+          }
+        };
+      };
+
+      const mm =
+        gsap.matchMedia();
+
+      /*
+       * =====================================
+       * PC
+       *
+       * inner 上移
+       * +
+       * header opacity 1 -> 0
+       * =====================================
+       */
+      mm.add(
+        '(min-width: 1024px)',
+        () => {
+          return createScrollAnimation(
+            false
+          );
+        }
+      );
+
+      /*
+       * =====================================
+       * Mobile / Tablet
+       *
+       * inner 上移
+       * 标题保持 opacity 1
+       * =====================================
+       */
+      mm.add(
+        '(max-width: 1023px)',
+        () => {
+          return createScrollAnimation(
+            true
+          );
+        }
+      );
 
       return () => {
-        scrollTrigger.kill();
-        tl.kill();
-
-        gsap.set(inner, {
-          clearProps: 'transform',
-        });
+        mm.revert();
       };
-    };
-
-    const mm = gsap.matchMedia();
-
-    mm.add(
-      '(min-width: 1024px)',
-      () => {
-        return createScrollAnimation(
-          false
-        );
-      }
-    );
-    mm.add(
-      '(max-width: 1023px)',
-      () => {
-        return createScrollAnimation(
-          true
-        );
-      }
-    );
+    }, section);
 
     return () => {
-      mm.revert();
+      ctx.revert();
     };
-  }, section);
+  }, [slides]);
 
-  return () => {
-    ctx.revert();
-  };
-}, [slides]);
-
+  /*
+   * 根据卡片数量增加 section 高度，
+   * 给 ScrollTrigger 足够的滚动空间。
+   */
   const scrollHeight =
     slides.length > 1
       ? `${100 + (slides.length - 1) * 115}svh`
@@ -353,7 +488,8 @@ y: () => {
       ref={sectionRef}
       className="octa-proof-showcase-section"
       style={{
-        '--octa-proof-scroll-height': scrollHeight,
+        '--octa-proof-scroll-height':
+          scrollHeight,
       }}
     >
       <div
@@ -372,7 +508,9 @@ y: () => {
                 <>
                   {' '}
                   <span>
-                    {title.highlight}
+                    {
+                      title.highlight
+                    }
                   </span>
                 </>
               )}
@@ -391,6 +529,7 @@ y: () => {
               </p>
             )}
           </div>
+
           <div
             ref={bodyRef}
             className="octa-proof-showcase__body"
@@ -399,88 +538,104 @@ y: () => {
               ref={stageRef}
               className="octa-proof-showcase__stage"
             >
-              {slides.map((item, index) => (
-                <div
-                  key={item.key}
-                  className="octa-proof-showcase__slide"
-                >
-                  <picture className="octa-proof-showcase__picture">
-                    <source
-                      media="(max-width: 1023px)"
-                      srcSet={item.image.mobile}
-                    />
+              {slides.map(
+                (item, index) => (
+                  <div
+                    key={item.key}
+                    className="octa-proof-showcase__slide"
+                  >
+                    <picture className="octa-proof-showcase__picture">
+                      <source
+                        media="(max-width: 1023px)"
+                        srcSet={
+                          item.image
+                            .mobile
+                        }
+                      />
 
-                    <img
-                      className="octa-proof-showcase__image"
-                      src={item.image.pc}
-                      alt={item.alt || ''}
-                      loading={
-                        index === 0
-                          ? 'eager'
-                          : 'lazy'
-                      }
-                    />
-                  </picture>
+                      <img
+                        className="octa-proof-showcase__image"
+                        src={
+                          item.image.pc
+                        }
+                        alt={
+                          item.alt || ''
+                        }
+                        loading={
+                          index === 0
+                            ? 'eager'
+                            : 'lazy'
+                        }
+                      />
+                    </picture>
 
-                  <div className="octa-proof-showcase__slide-content">
-                    <h3 className="octa-proof-showcase__slide-title">
-                      {item.title?.highlight && (
-                        <span>
+                    <div className="octa-proof-showcase__slide-content">
+                      <h3 className="octa-proof-showcase__slide-title">
+                        {item.title
+                          ?.highlight && (
+                          <span>
+                            {
+                              item.title
+                                .highlight
+                            }
+                          </span>
+                        )}
+
+                        {
+                          item.title
+                            ?.text
+                        }
+                      </h3>
+
+                      {item.desc && (
+                        <p className="octa-proof-showcase__slide-desc">
                           {
-                            item.title
-                              .highlight
+                            item.desc
                           }
-                        </span>
+                        </p>
                       )}
 
-                      {item.title?.text}
-                    </h3>
+                      {item.metrics
+                        ?.length >
+                        0 && (
+                        <div className="octa-proof-showcase__metrics">
+                          {item.metrics.map(
+                            (
+                              metric,
+                              metricIndex
+                            ) => (
+                              <div
+                                key={`${item.key}-${metricIndex}`}
+                                className="octa-proof-showcase__metric"
+                              >
+                                <div className="octa-proof-showcase__metric-value">
+                                  {
+                                    metric.value
+                                  }
 
-                    {item.desc && (
-                      <p className="octa-proof-showcase__slide-desc">
-                        {item.desc}
-                      </p>
-                    )}
+                                  {metric.suffix && (
+                                    <span>
+                                      {
+                                        metric.suffix
+                                      }
+                                    </span>
+                                  )}
+                                </div>
 
-                    {item.metrics?.length >
-                      0 && (
-                      <div className="octa-proof-showcase__metrics">
-                        {item.metrics.map(
-                          (
-                            metric,
-                            metricIndex
-                          ) => (
-                            <div
-                              key={`${item.key}-${metricIndex}`}
-                              className="octa-proof-showcase__metric"
-                            >
-                              <div className="octa-proof-showcase__metric-value">
-                                {
-                                  metric.value
-                                }
-
-                                {metric.suffix && (
-                                  <span>
-                                    {
-                                      metric.suffix
-                                    }
-                                  </span>
-                                )}
+                                <div className="octa-proof-showcase__metric-label">
+                                  {
+                                    metric.label
+                                  }
+                                </div>
                               </div>
-
-                              <div className="octa-proof-showcase__metric-label">
-                                {
-                                  metric.label
-                                }
-                              </div>
-                            </div>
-                          )
-                        )}
-                      </div>
-                    )}
+                            )
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              )}
 
               <div className="octa-proof-showcase__dots">
                 {slides.map(
@@ -493,14 +648,15 @@ y: () => {
                           ? 'is-active'
                           : '',
                       ]
-                        .filter(Boolean)
+                        .filter(
+                          Boolean
+                        )
                         .join(' ')}
                     />
                   )
                 )}
               </div>
             </div>
-
             {note && (
               <p className="octa-proof-showcase__note">
                 {note}
