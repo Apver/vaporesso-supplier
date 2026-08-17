@@ -305,10 +305,6 @@ function applyComputedFont(
       rawLineHeight,
     ) * scale;
 
-  /**
-   * getComputedStyle() 正常情况下会把百分比 / 倍数 line-height
-   * 计算成 px。这里再做一层 fallback。
-   */
   if (!lineHeight) {
     lineHeight =
       fontSize * 1.2;
@@ -317,11 +313,6 @@ function applyComputedFont(
   context.font =
     `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;
 
-  /**
-   * 不再使用 top baseline。
-   * CSS 的 line-height 是“行盒”，glyph 会在行盒中按 baseline 排版；
-   * Canvas 用 alphabetic baseline 后可以用字体 metrics 还原这个关系。
-   */
   context.textBaseline =
     'alphabetic';
 
@@ -476,20 +467,6 @@ function drawTextWithLetterSpacing(
   return totalWidth;
 }
 
-
-/**
- * 按 Canvas 实际字体宽度进行正文换行。
- *
- * 不再使用 Range.getBoundingClientRect() 逐字符判断行号。
- * Safari 对很小字号 / 自定义字体的 Range rect 会有明显抖动，
- * 容易把同一行误判成多行，最终就会出现评论内容挤成一小列。
- *
- * 这里完全按照：
- *   - 当前 computed font
- *   - 当前 letter-spacing
- *   - comment 元素实际可用宽度
- * 来执行和 CSS word-wrap: break-word 接近的换行。
- */
 function wrapCanvasText(
   context,
   text,
@@ -689,12 +666,6 @@ async function ensureReceiptFonts(
 
 /**
  * 直接用 Canvas 生成 Receipt。
- *
- * 重要：
- * - 不截图 DOM
- * - 不读取 stylesheet.cssRules
- * - 不使用 html-to-image
- * - 不使用 html2canvas
  * - 字体样式直接读取当前页面 CSS 的 computed style
  */
 async function createReceiptBlob(
@@ -981,16 +952,6 @@ async function createReceiptBlob(
   const receiptText =
     receiptTextElement.textContent ||
     'Receipt';
-
-  /**
-   * Receipt 的 CSS line-height 是 2.3，行盒高度远大于字形本身。
-   * 如果按行盒居中，PlaywriteCU 会视觉上偏高。
-   *
-   * 这里改成：
-   * 1. 读取 Receipt 自己的真实 glyph metrics
-   * 2. 让它的“字形视觉中心”与 Story 的视觉中心重合
-   * 3. 再额外下移一点点，符合当前设计稿的视觉效果
-   */
   const receiptMetrics =
     context.measureText(
       receiptText || 'Receipt',
@@ -1025,11 +986,6 @@ async function createReceiptBlob(
 
   /**
    * Story 正文。
-   *
-   * 不再读取 Range rect 来判断浏览器换行。
-   * Safari 在自定义小字号字体下，Range 的 top/height 会抖动，
-   * 会把同一行文字错误拆成很多行（截图里评论挤成一小列就是这里）。
-   *
    * 改为使用当前 Canvas font + CSS letter-spacing + 元素实际宽度
    * 自己执行 word-wrap: break-word。
    */
@@ -2081,61 +2037,138 @@ export default function StoryShareModal() {
     selectedReceipt,
   ]);
 
+function isMobileDevice() {
+  /**
+   * Chrome / Edge 新 API
+   */
+  if (
+    navigator.userAgentData?.mobile
+  ) {
+    return true;
+  }
 
   /**
-   * Download & Share
-   *
-   * 流程：
-   *
-   * 1. 用户点击按钮
-   * 2. 同步创建一个新窗口
-   * 3. 下载 PNG
-   * 4. 新窗口跳 Instagram
+   * 常规手机
    */
-  const handleDownloadAndShare =
-    () => {
-      if (
-        isExporting
-      ) {
-        return;
-      }
+  if (
+    /Android|iPhone|iPod/i.test(
+      navigator.userAgent,
+    )
+  ) {
+    return true;
+  }
 
+  /**
+   * iPadOS 有时会伪装成 Mac
+   */
+  if (
+    navigator.platform === 'MacIntel' &&
+    navigator.maxTouchPoints > 1
+  ) {
+    return true;
+  }
 
-      const blob =
-        exportBlobRef.current;
+  return false;
+}
 
+const handleDownloadAndShare =
+  async () => {
+    if (isExporting) {
+      return;
+    }
 
-      if (
-        !blob
-      ) {
-        setErrorMessage(
-          'The image is still being prepared. Please try again.',
+    const blob =
+      exportBlobRef.current;
+
+    if (!blob) {
+      setErrorMessage(
+        'The image is still being prepared. Please try again.',
+      );
+
+      return;
+    }
+
+    setIsExporting(true);
+    setErrorMessage('');
+
+    const fileName =
+      `extraordinary-story-${Date.now()}.png`;
+
+    try {
+      /**
+       * =========================================
+       * 手机
+       * =========================================
+       */
+      if (isMobileDevice()) {
+        const file =
+          new File(
+            [blob],
+            fileName,
+            {
+              type:
+                blob.type ||
+                'image/png',
+            },
+          );
+
+        const shareData = {
+          title:
+            'My Extraordinary Story',
+
+          files: [
+            file,
+          ],
+        };
+
+        /**
+         * iPhone / Android
+         * 支持文件分享时直接调用系统 Share Sheet
+         */
+        if (
+          typeof navigator.share ===
+            'function' &&
+          typeof navigator.canShare ===
+            'function' &&
+          navigator.canShare(
+            shareData,
+          )
+        ) {
+          await navigator.share(
+            shareData,
+          );
+
+          return;
+        }
+
+        /**
+         * 手机不支持 Web Share
+         * fallback 下载
+         */
+        downloadBlob(
+          blob,
+          fileName,
         );
 
         return;
       }
 
 
-      setIsExporting(
-        true,
-      );
-
-      setErrorMessage(
-        '',
-      );
-
-
-      const fileName =
-        `extraordinary-story-${Date.now()}.png`;
-
+      /**
+       * =========================================
+       * PC
+       * =========================================
+       *
+       * 保持你的原需求：
+       *
+       * 下载图片
+       * +
+       * 新窗口打开 Instagram
+       */
 
       /**
-       * -----------------------------
-       * 非常重要：
-       * -----------------------------
-       *
-       * window.open 必须直接发生在
-       * 用户 click 的同步调用栈中。
+       * 先同步创建窗口，
+       * 避免 popup blocker。
        */
       const instagramWindow =
         window.open(
@@ -2145,101 +2178,53 @@ export default function StoryShareModal() {
 
 
       /**
-       * 防止新页面通过 opener
-       * 操作当前页面。
+       * 先下载 PNG
+       */
+      downloadBlob(
+        blob,
+        fileName,
+      );
+
+
+      /**
+       * 再让新窗口进入 Instagram
+       */
+      window.setTimeout(
+        () => {
+          if (
+            instagramWindow &&
+            !instagramWindow.closed
+          ) {
+            instagramWindow.location.href =
+              'https://www.instagram.com/';
+          }
+        },
+        500,
+      );
+    } catch (error) {
+      /**
+       * 用户主动关闭手机 Share Sheet
        */
       if (
-        instagramWindow
+        error instanceof Error &&
+        error.name ===
+          'AbortError'
       ) {
-        try {
-          instagramWindow.opener =
-            null;
-        } catch {
-          /**
-           * ignore
-           */
-        }
+        return;
       }
 
+      console.error(
+        '[StoryShareModal] Download / Share failed:',
+        error,
+      );
 
-      try {
-        /**
-         * -------------------------
-         * 1. 下载 PNG
-         * -------------------------
-         */
-        downloadBlob(
-          blob,
-          fileName,
-        );
-
-
-        /**
-         * -------------------------
-         * 2. 打开 Instagram
-         * -------------------------
-         *
-         * 新窗口已经在 click 阶段创建，
-         * 所以这里可以稍微延迟。
-         */
-        window.setTimeout(
-          () => {
-            if (
-              instagramWindow &&
-              !instagramWindow.closed
-            ) {
-              instagramWindow.location.href =
-                'https://www.instagram.com/';
-            }
-          },
-          500,
-        );
-
-
-        /**
-         * 恢复按钮状态
-         */
-        window.setTimeout(
-          () => {
-            setIsExporting(
-              false,
-            );
-          },
-          800,
-        );
-      } catch (
-        error
-      ) {
-        console.error(
-          '[StoryShareModal] Download failed:',
-          error,
-        );
-
-
-        /**
-         * 下载失败，
-         * 关闭之前创建的空白窗口。
-         */
-        try {
-          instagramWindow
-            ?.close();
-        } catch {
-          /**
-           * ignore
-           */
-        }
-
-
-        setErrorMessage(
-          'The image could not be downloaded. Please try again.',
-        );
-
-
-        setIsExporting(
-          false,
-        );
-      }
-    };
+      setErrorMessage(
+        'The image could not be shared. Please try again.',
+      );
+    } finally {
+      setIsExporting(false);
+    }
+  };
 
 
   if (
