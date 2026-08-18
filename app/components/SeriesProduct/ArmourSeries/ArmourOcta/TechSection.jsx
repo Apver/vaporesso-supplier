@@ -72,7 +72,7 @@ export function TechSection() {
               alt=""
             />
             <h3 className="apv_title">
-              Upgraded BOOST Mode Optimized for Richer Flavor
+              Upgraded BOOST Mode, Optimized for Richer Flavor
             </h3>
             <p className="apv_desc">
              Boost mode enhances the stability of continuous power output for consistent optimal flavor
@@ -87,7 +87,7 @@ export function TechSection() {
               alt=""
             />
             <h3 className="apv_title">
-           Dual Widened Airflow Massive Clouds
+           Dual Widened Airflow, Massive Clouds
             </h3>
             <p className="apv_desc">
            The iTank T features a dual widened airflow system: it delivers richer, sweeter flavor with an ultra-smooth draw, supports higher air intake volume, and operates significantly quieter with every puff.

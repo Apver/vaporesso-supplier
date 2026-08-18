@@ -476,7 +476,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
     rows: [
       {
         key: 'waterproof',
-        label: 'Water-proof',
+        label: 'Dust & Water Resistant',
         values: {
           octa: {
             title: 'IP69K+IP68',
@@ -489,7 +489,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
       },
       {
         key: 'drop',
-        label: 'Drop resistance',
+        label: 'Drop Resistant',
         values: {
           octa: {
             title: 'MIL-STD-810H',
@@ -671,7 +671,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
   items: [
     {
       key: 'green',
-      name: 'Titanium Grey',
+      name: 'Vintage Green',
       color: '#4EBFAB',
       image: {
         pc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-new-octa-14-1-2x.webp',

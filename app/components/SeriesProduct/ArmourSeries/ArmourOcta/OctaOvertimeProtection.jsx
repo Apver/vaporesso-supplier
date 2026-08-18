@@ -138,7 +138,7 @@ export const OctaOvertimeProtection = ({ data }) => {
 
         if (l1Accent) {
           gsap.set(l1Accent, {
-            color: '#FE5A11',
+            color: '#FFFFFF',
           });
         }
 
