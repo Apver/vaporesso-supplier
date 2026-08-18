@@ -125,5 +125,14 @@ export const SERIES_PRODUCT_LAYOUT_ENTRIES = {
   'armour-octa': {
     Layout: ArmourOctaLayout,
     specElementId: 'check-specs-armour-octa',
+    productNavTheme: {
+      nav: 'white',
+      cnt: 'white',
+      spec: {
+        nav: 'white',
+        cnt: 'black',
+      },
+      bannerThemeSwitch: true,
+    },
   },
 };

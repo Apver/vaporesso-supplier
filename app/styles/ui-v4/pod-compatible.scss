@@ -99,6 +99,71 @@
       width: 380px;
     }
   }
+  @media screen and (max-width: 1440px) {
+    padding: 96px 0 80px;
+    &-title {
+      font-size: 38px;
+      line-height: 38px;
+    }
+    &-description {
+      width: 626px;
+      margin-top: 13px;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    &-list {
+      width: 774px;
+      margin: 32px auto 0;
+      row-gap: 12px;
+      column-gap: 2px;
+    }
+    &-item {
+      width: 192px;
+      height: 280px;
+      padding-top: 12px;
+      &-version {
+        padding: 4px 0 11px;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      &-version-with-tag {
+        padding-bottom: 4px;
+        line-height: 14px;
+      }
+      &-line {
+        width: 112px;
+        top: 47px;
+      }
+      &-img {
+        width: 128px;
+        height: 160px;
+        top: 36px;
+      }
+      &-ohm {
+        margin-top: 148px;
+        font-size: 15px;
+        line-height: 22px;
+      }
+      &-type {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      &-tag {
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+    &-double_item {
+      width: 384px;
+      .ui_v3-pod_compatible-item-version {
+        width: 304px;
+      }
+      .ui_v3-pod_compatible-item-img,
+      .ui_v3-pod_compatible-item-line {
+        width: 304px;
+      }
+    }
+  }
   @media screen and (max-width: 1023px) {
     padding: 1.4rem 0 0.8rem;
     text-align: left;
