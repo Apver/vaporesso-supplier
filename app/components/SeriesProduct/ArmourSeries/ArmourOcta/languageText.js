@@ -22,8 +22,8 @@ export const ArmourOctaProductSpecData = {
         ],
       ],
       primaryColorImagesMobile: [
-        `${SPEC_IMG}/armour-octa-Mob-colors-1.webp`,
-        `${SPEC_IMG}/armour-octa-Mob-colors-2.webp`,
+        `${SPEC_IMG}/armour-octa-Mob-colors-1.webp?v=1787043433`,
+        `${SPEC_IMG}/armour-octa-Mob-colors-2.webp?v=1787043442`,
       ],
       primaryColorTitleMobile: [
         ['Dark Black', 'Titanium Grey', 'Vintage Green'],
@@ -96,8 +96,8 @@ export const ArmourOctaProductSpecData = {
         '1 x User Manual & Warranty Card',
         '1 x Safety Manual',
         specImg(
-          `${SPEC_IMG}/armour-octa-package.webp`,
-          `${SPEC_IMG}/armour-octa-Mob-package.webp`,
+          `${SPEC_IMG}/armour-octa-TPD-package.webp`,
+          `${SPEC_IMG}/armour-octa-Mob-TPD-package.webp`,
         ),
       ],
     },
