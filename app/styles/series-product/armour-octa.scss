@@ -953,174 +953,206 @@
 
   // OctaProtection.jsx css end
 
-  // MilitaryProof.jsx css start
-  .military-proof {
+// MilitaryProof.jsx css start
+
+.military-proof {
+  position: relative;
+  width: 100%;
+  height: 1072px;
+  aspect-ratio: 224 / 125;
+  overflow: hidden;
+  background: #000;
+  &__background {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  &__mark {
+    position: absolute;
+    top: 76px;
+    left: 50%;
+    z-index: 2;
+    background:linear-gradient(180deg,#fff 25.3%,rgba(255, 255, 255, 0.75) 65%,rgba(255, 255, 255, 0.1) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'DinExp-Bold';
+    font-size: 550px;
+    font-weight: 400;
+    line-height: 54.545%;
+    transform:translateX(-50%);
+    transform-origin:center bottom;
+    white-space: nowrap;
+    will-change:transform,opacity;
+  }
+  &__foreground {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+  }
+  &__copy {
+    position: absolute;
+    right: 40px;
+    bottom: 100px;
+    left: 40px;
+    z-index: 4;
+    color: #fff;
+    text-align: center;
+    will-change:
+      transform,
+      opacity;
+  }
+  &__title {
+    margin: 0;
+    font-family: 'DinExp-Bold';
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1;
+    span {
+      color: #fe5a11;
+    }
+  }
+  &__subtitle {
+    margin: 0;
+    font-family: 'DinExp-Bold';
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1;
+  }
+  &.military-proof1 {
+    .military-proof__mark {
+      top: 117px;
+      line-height: 0.7;
+    }
+  }
+
+  &.military-proof2 {
+    .military-proof__mark {
+      line-height: 0.7;
+    }
+  }
+  &--boundary-text {
+    overflow: visible;
+    z-index: 2;
+  }
+  &__copy--boundary {
+    --proof-split: 100%;
+    pointer-events: none;
+    will-change: auto;
+  }
+  &__copy-pin {
     position: relative;
     width: 100%;
-    height: 1072px;
-    aspect-ratio: 224/125;
-    overflow: hidden;
-    background: #000;
+  }
+  &__copy-motion {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    will-change:
+      transform,
+      opacity;
+  }
+  &__copy-stack {
+    position: relative;
+    display: grid;
+    width: 100%;
+    text-align: center;
+  }
 
-    &__background {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
+  &__copy-layer {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    text-align: center;
+    will-change:
+      clip-path;
+  }
+  &__copy-layer--black {
+    color: #000;
+    clip-path:inset(var(--proof-split) 0 0 0);
+    -webkit-clip-path:inset(var(--proof-split) 0 0 0);
+  }
+  &__copy-layer--white {
+    color: #fff;
+    clip-path:inset(0 0 calc(100% - var(--proof-split)) 0);
+    -webkit-clip-path:inset(0 0 calc(100% - var(--proof-split)) 0);
+  }
+}
 
+@media screen and (max-width: 1450px) {
+  .military-proof {
+    height: 858px;
     &__mark {
-      position: absolute;
-      top: 76px;
-      left: 50%;
-      z-index: 2;
-      background: linear-gradient(
-        180deg,
-        #fff 25.3%,
-        rgba(255, 255, 255, 0.75) 65%,
-        rgba(255, 255, 255, 0.1) 100%
-      );
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-family: 'DinExp-Bold';
-      font-size: 550px;
-      font-weight: 400;
-      line-height: 54.545%;
-      transform: translateX(-50%);
-      transform-origin: center bottom;
-      white-space: nowrap;
-      will-change: transform, opacity;
+      top: 61px;
+      font-size: 440px;
     }
-
-    &__foreground {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      pointer-events: none;
-    }
-
     &__copy {
-      position: absolute;
-      right: 40px;
-      bottom: 100px;
-      left: 40px;
-      z-index: 4;
-      color: #fff;
-      text-align: center;
-      will-change: transform, opacity;
+      right: 32px;
+      bottom: 80px;
+      left: 32px;
     }
-
     &__title {
-      font-family: 'DinExp-Bold';
-      font-size: 48px;
-      font-weight: 400;
-      line-height: 1;
-
-      span {
-        color: #fe5a11;
-      }
+      font-size: 38px;
     }
-
     &__subtitle {
-      font-family: 'DinExp-Bold';
-      font-size: 48px;
-      font-weight: 400;
-      line-height: 1;
+      font-size: 38px;
     }
     &.military-proof1 {
       .military-proof__mark {
+        top: 94px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .military-proof {
+    height: auto;
+    aspect-ratio: 375 / 600;
+    &__mark {
+      top: 1.92rem;
+      font-size: 4.8rem;
+      line-height:104.167%;
+    }
+    &__copy {
+      right: 0.4rem;
+      bottom: 0.82rem;
+      left: 0.4rem;
+    }
+    &__title {
+      font-size: 0.6rem;
+    }
+    &__subtitle {
+      margin-top: 0;
+      font-size: 0.6rem;
+    }
+
+    &.military-proof1 {
+      .military-proof__mark {
+        top: 2.62rem;
         line-height: 0.7;
-        top: 117px;
       }
     }
     &.military-proof2 {
-      .military-proof__mark {
-        line-height: 0.7;
+      .military-proof__copy {
+        width: 4.5rem;
+        margin: 0 auto;
       }
     }
   }
-
-  @media screen and (max-width: 1450px) {
-    .military-proof {
-      height: 858px;
-      &__mark {
-        top: 61px;
-        font-size: 440px;
-      }
-
-      &__copy {
-        right: 32px;
-        bottom: 80px;
-        left: 32px;
-      }
-
-      &__title {
-        font-size: 38px;
-      }
-
-      &__subtitle {
-        font-size: 38px;
-      }
-      &.military-proof1 {
-        .military-proof__mark {
-          top: 94px;
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: 1023px) {
-    .military-proof {
-      height: auto;
-      aspect-ratio: 375/600;
-
-      &__mark {
-        top: 1.92rem;
-        font-size: 4.8rem;
-        line-height: 104.167%;
-      }
-
-      &__copy {
-        right: 0.4rem;
-        bottom: 0.82rem;
-        left: 0.4rem;
-      }
-
-      &__title {
-        font-size: 0.6rem;
-      }
-
-      &__subtitle {
-        margin-top: 0rem;
-        font-size: 0.6rem;
-      }
-      &.military-proof1 {
-        .military-proof__mark {
-          line-height: 0.7;
-          top: 2.62rem;
-        }
-      }
-
-      &.military-proof2 {
-        .military-proof__copy {
-          width: 4.5rem;
-          margin: 0 auto;
-        }
-      }
-    }
-  }
-
-  // MilitaryProof.jsx css end
+}
+// MilitaryProof.jsx css end
 
   // OctaProofShowcase.jsx css start
   .octa-proof-showcase-section {
@@ -1335,7 +1367,7 @@
 
   @media screen and (max-width: 1450px) {
     .octa-proof-showcase {
-      padding: 64px 0;
+      padding: 128px 0 64px 0;
       &__slide {
         &:first-child {
           .octa-proof-showcase__slide-title {

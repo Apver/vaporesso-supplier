@@ -58,7 +58,7 @@ export const OctaProofShowcase = ({ data }) => {
       /*
        * 定住后整体移动的时间
        */
-      const MOVE_DURATION = 0.5;
+      const MOVE_DURATION = 0.2;
 
       const setActiveDot = (index) => {
         dotEls.forEach((dot, dotIndex) => {
@@ -500,7 +500,7 @@ export const OctaProofShowcase = ({ data }) => {
           ref={innerRef}
           className="octa-proof-showcase__inner"
         >
-          <div className="octa-proof-showcase__header">
+          <div className="octa-proof-showcase__header"  style={{ visibility: 'hidden',pointerEvents: 'none',}}>
             <h2 className="octa-proof-showcase__title">
               {title?.before}
 

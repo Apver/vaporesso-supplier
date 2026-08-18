@@ -719,7 +719,7 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
         data={BriefSectionData}
       />
       <OctaProtection />
-      <MilitaryProof data={militaryProofData} />
+      <MilitaryProof data={militaryProofData} enableBoundaryTextEffect />
       <OctaProofShowcase data={proofShowcaseData} />
       <MilitaryProof data={militaryProofData1}  className="military-proof1" />
       <OctaVoltageSurge data={voltageSurgeData} />
