@@ -554,8 +554,15 @@
 
         &-ohm {
           margin-top: 178px;
+          font-weight: "DinExp-Bold";
           @media screen and (max-width: 1440px) {
             margin-top: 138px;
+          }
+            @media screen and (max-width: 1023px) {
+            margin-top: 3.4rem;
+                    font-size: 0.36rem;
+                    line-height:  144.444%;
+
           }
         }
       }
