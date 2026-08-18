@@ -562,7 +562,7 @@
     }
   }
 
-  &-end-product {
+  .ui-v4-end-product {
     padding: 150px 0;
 
     @media screen and (max-width: 1450px) {
@@ -570,8 +570,18 @@
     }
 
     @media screen and (max-width: 1023px) {
-      padding: 1.2rem 0 1.6rem;
+      padding: 1.6rem 0.24rem;
     }
+  }
+  .ui-v4-end-product-btn{
+     @media screen and (max-width: 1023px) {
+      margin-top: 0.6rem;
+     }
+  }
+  .ui-v4-end-product-sales-item{
+     @media screen and (max-width: 1023px) {
+              font-size: 0.3rem;
+     }
   }
 
   // OctaProtection.jsx css start
@@ -1452,7 +1462,7 @@
 
   @media screen and (max-width: 1023px) {
     .octa-proof-showcase {
-      min-height: 710px;
+      min-height: 770px;
       padding: 1.6rem 0.47rem;
       overflow: visible;
       top: 44px;
@@ -2816,7 +2826,7 @@
 
   @media screen and (max-width: 1023px) {
     .octa-comparison {
-      padding: 1.6rem 0;
+      padding: 1.6rem 0 0.88rem;
 
       &__container {
         width: 100%;
@@ -2838,7 +2848,7 @@
       &__scroll {
         width: 100%;
         padding-left: 0.4rem;
-        padding-bottom: 0rem;
+        padding-bottom: 0.72rem;
         padding-right: 0.5rem;
         overflow-x: auto;
         overflow-y: hidden;
