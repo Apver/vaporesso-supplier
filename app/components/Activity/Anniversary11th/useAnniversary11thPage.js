@@ -289,268 +289,268 @@ function initYearHighlightAnimation(root) {
   //   };
   // });
 
-// =========================
-// PC 端：header + content 先上移，再从右向左平移
-// =========================
-media.add('(min-width: 1024px)', () => {
-  const header = section.querySelector('.year-highlight__header');
+  // =========================
+  // PC 端：header + content 先上移，再从右向左平移
+  // =========================
+  media.add('(min-width: 1024px)', () => {
+    const header = section.querySelector('.year-highlight__header');
 
-  if (!header) {
-    return () => {};
-  }
+    if (!header) {
+      return () => { };
+    }
 
-  const state = {
-    headerProgress: 0,
-    offset: 0
-  };
+    const state = {
+      headerProgress: 0,
+      offset: 0
+    };
 
-  const lastIndex = cards.length - 1;
+    const lastIndex = cards.length - 1;
 
-  let viewportWidth = 0;
-  let viewportHeight = 0;
+    let viewportWidth = 0;
+    let viewportHeight = 0;
 
-  let cardWidth = 0;
-  let cardHeight = 0;
-  let spacing = 0;
+    let cardWidth = 0;
+    let cardHeight = 0;
+    let spacing = 0;
 
-  let leftBound = 0;
-  let rightBound = 0;
-  let visibleWidth = 0;
+    let leftBound = 0;
+    let rightBound = 0;
+    let visibleWidth = 0;
 
-  let startOffset = 0;
-  let endOffset = 0;
+    let startOffset = 0;
+    let endOffset = 0;
 
-  let headerMoveY = 0;
-  let contentMoveY = 0;
+    let headerMoveY = 0;
+    let contentMoveY = 0;
 
-  const resize = () => {
-    viewportWidth = window.innerWidth;
-    viewportHeight = window.innerHeight;
+    const resize = () => {
+      viewportWidth = window.innerWidth;
+      viewportHeight = window.innerHeight;
 
-    cardWidth = cards[0].offsetWidth || 480;
-    cardHeight = cards[0].offsetHeight || 620;
+      cardWidth = cards[0].offsetWidth || 480;
+      cardHeight = cards[0].offsetHeight || 620;
 
-    const rootFontSize =
-      parseFloat(
-        getComputedStyle(document.documentElement).fontSize
-      ) || 10;
+      const rootFontSize =
+        parseFloat(
+          getComputedStyle(document.documentElement).fontSize
+        ) || 10;
 
-    const headerStyle = getComputedStyle(header);
-    const headerMarginBottom =
-      parseFloat(headerStyle.marginBottom) || 0;
+      const headerStyle = getComputedStyle(header);
+      const headerMarginBottom =
+        parseFloat(headerStyle.marginBottom) || 0;
 
-    // 卡片之间的间距
-    spacing = cardWidth + 4 * rootFontSize;
+      // 卡片之间的间距
+      spacing = cardWidth + 4 * rootFontSize;
 
-    // 左右可视边界
-    leftBound = -cardWidth * 0.5;
+      // 左右可视边界
+      leftBound = -cardWidth * 0.5;
 
-    rightBound = viewportWidth + cardWidth * 0.5;
+      rightBound = viewportWidth + cardWidth * 0.5;
 
-    visibleWidth = rightBound - leftBound;
+      visibleWidth = rightBound - leftBound;
 
-    /*
-     * 第一张初始已经露出约 75%。
-     * 数值越大，初始露出的部分越多。
-     */
-    startOffset = viewportWidth - cardWidth * 3.1;
-
-    /*
-     * 最后一张卡片最终停在屏幕中间。
-     */
-    endOffset = viewportWidth * 0.75 - lastIndex * spacing;
-
-    /*
-     * header 向上移出屏幕。
-     */
-    headerMoveY = -(
-      header.offsetTop +
-      header.offsetHeight +
-      2 * rootFontSize
-    );
-
-    /*
-     * content 向上补掉 header + margin-bottom 的空间。
-     * 想上移更多/更少。
-     */
-    contentMoveY = -(
-      header.offsetHeight +
-      headerMarginBottom
-    );
-  };
-
-  const render = () => {
-    const headerProgress = state.headerProgress;
-
-    const headerOpacity =
-      1 - smoothstep(0.7, 1, headerProgress);
-
-    // header 上移并淡出
-    gsap.set(header, {
-      y: headerMoveY * headerProgress,
-      opacity: headerOpacity,
-      visibility: headerOpacity > 0.001 ? 'visible' : 'hidden',
-      force3D: true
-    });
-
-    // year-highlight__content 同步向上移动
-    gsap.set(content, {
-      y: contentMoveY * headerProgress,
-      force3D: true
-    });
-
-    // content 自己已经被整体上移，所以卡片内部 y 保持为 0
-    const cardY = 0;
-
-    cards.forEach((card, index) => {
       /*
-       * 每一张卡片依次排列在右侧。
-       * offset 减小时，整组从右向左移动。
+       * 第一张初始已经露出约 75%。
+       * 数值越大，初始露出的部分越多。
        */
-      const cardCenterX =
-        state.offset +
-        index * spacing;
+      startOffset = viewportWidth - cardWidth * 3.1;
 
-      const progress = clamp(
-        0,
-        1,
-        (
-          rightBound -
-          cardCenterX
-        ) / visibleWidth
+      /*
+       * 最后一张卡片最终停在屏幕中间。
+       */
+      endOffset = viewportWidth * 0.75 - lastIndex * spacing;
+
+      /*
+       * header 向上移出屏幕。
+       */
+      headerMoveY = -(
+        header.offsetTop +
+        header.offsetHeight +
+        2 * rootFontSize
       );
 
       /*
-       * 右侧进入时渐显，
-       * 左侧离开时渐隐。
+       * content 向上补掉 header + margin-bottom 的空间。
+       * 想上移更多/更少。
        */
-      const opacity =
-        smoothstep(
-          0.001,
-          0.025,
-          progress
-        ) *
-        (
-          1 -
-          smoothstep(
-            0.975,
-            0.999,
-            progress
-          )
-        );
+      contentMoveY = -(
+        header.offsetHeight +
+        headerMarginBottom
+      );
+    };
 
-      gsap.set(card, {
-        x: cardCenterX - cardWidth * 0.5,
-        y: cardY,
-        z: 0,
+    const render = () => {
+      const headerProgress = state.headerProgress;
 
-        rotationX: 0,
-        rotationY: 0,
-        rotationZ: 0,
+      const headerOpacity =
+        1 - smoothstep(0.7, 1, headerProgress);
 
-        scale: 1,
-
-        opacity,
-
-        visibility:
-          opacity > 0.001
-            ? 'visible'
-            : 'hidden',
-
-        zIndex: cards.length - index,
-
-        transformOrigin: '50% 50%',
+      // header 上移并淡出
+      gsap.set(header, {
+        y: headerMoveY * headerProgress,
+        opacity: headerOpacity,
+        visibility: headerOpacity > 0.001 ? 'visible' : 'hidden',
         force3D: true
       });
-    });
-  };
 
-  resize();
+      // year-highlight__content 同步向上移动
+      gsap.set(content, {
+        y: contentMoveY * headerProgress,
+        force3D: true
+      });
 
-  state.headerProgress = 0;
-  state.offset = startOffset;
+      // content 自己已经被整体上移，所以卡片内部 y 保持为 0
+      const cardY = 0;
 
-  render();
+      cards.forEach((card, index) => {
+        /*
+         * 每一张卡片依次排列在右侧。
+         * offset 减小时，整组从右向左移动。
+         */
+        const cardCenterX =
+          state.offset +
+          index * spacing;
 
-  const timeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
+        const progress = clamp(
+          0,
+          1,
+          (
+            rightBound -
+            cardCenterX
+          ) / visibleWidth
+        );
 
-      // 和移动端一样：进入 sticky 后开始动画
-      start: 'top top',
-      end: 'bottom bottom',
+        /*
+         * 右侧进入时渐显，
+         * 左侧离开时渐隐。
+         */
+        const opacity =
+          smoothstep(
+            0.001,
+            0.025,
+            progress
+          ) *
+          (
+            1 -
+            smoothstep(
+              0.975,
+              0.999,
+              progress
+            )
+          );
 
-      scrub: true,
-      invalidateOnRefresh: true,
+        gsap.set(card, {
+          x: cardCenterX - cardWidth * 0.5,
+          y: cardY,
+          z: 0,
 
-      onRefreshInit: resize,
+          rotationX: 0,
+          rotationY: 0,
+          rotationZ: 0,
 
-      onRefresh: () => {
-        resize();
-        render();
-      },
+          scale: 1,
 
-      onUpdate: render
-    }
-  });
+          opacity,
 
-  // 第一段：header 和 content 一起往上移
-  timeline.to(state, {
-    headerProgress: 1,
-    duration: 1,
-    ease: 'none',
-    onUpdate: render
-  });
+          visibility:
+            opacity > 0.001
+              ? 'visible'
+              : 'hidden',
 
-  // 第二段：PC 卡片从右往左移动
-  timeline.fromTo(
-    state,
-    {
-      offset: () => startOffset
-    },
-    {
-      offset: () => endOffset,
-      duration: Math.max(lastIndex, 1),
-      ease: 'none',
-      immediateRender: false,
-      onUpdate: render
-    }
-  );
+          zIndex: cards.length - index,
 
-  const handleResize = () => {
+          transformOrigin: '50% 50%',
+          force3D: true
+        });
+      });
+    };
+
     resize();
+
+    state.headerProgress = 0;
+    state.offset = startOffset;
+
     render();
-    timeline.scrollTrigger?.refresh();
-  };
 
-  window.addEventListener(
-    'resize',
-    handleResize
-  );
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
 
-  return () => {
-    window.removeEventListener(
+        // 和移动端一样：进入 sticky 后开始动画
+        start: 'top top',
+        end: 'bottom bottom',
+
+        scrub: true,
+        invalidateOnRefresh: true,
+
+        onRefreshInit: resize,
+
+        onRefresh: () => {
+          resize();
+          render();
+        },
+
+        onUpdate: render
+      }
+    });
+
+    // 第一段：header 和 content 一起往上移
+    timeline.to(state, {
+      headerProgress: 1,
+      duration: 1,
+      ease: 'none',
+      onUpdate: render
+    });
+
+    // 第二段：PC 卡片从右往左移动
+    timeline.fromTo(
+      state,
+      {
+        offset: () => startOffset
+      },
+      {
+        offset: () => endOffset,
+        duration: Math.max(lastIndex, 1),
+        ease: 'none',
+        immediateRender: false,
+        onUpdate: render
+      }
+    );
+
+    const handleResize = () => {
+      resize();
+      render();
+      timeline.scrollTrigger?.refresh();
+    };
+
+    window.addEventListener(
       'resize',
       handleResize
     );
 
-    timeline.scrollTrigger?.kill();
-    timeline.kill();
+    return () => {
+      window.removeEventListener(
+        'resize',
+        handleResize
+      );
 
-    gsap.set(header, {
-      clearProps: 'transform,opacity,visibility'
-    });
+      timeline.scrollTrigger?.kill();
+      timeline.kill();
 
-    gsap.set(content, {
-      clearProps: 'transform'
-    });
+      gsap.set(header, {
+        clearProps: 'transform,opacity,visibility'
+      });
 
-    gsap.set(cards, {
-      clearProps:
-        'transform,opacity,visibility,zIndex,transformOrigin'
-    });
-  };
-});
+      gsap.set(content, {
+        clearProps: 'transform'
+      });
+
+      gsap.set(cards, {
+        clearProps:
+          'transform,opacity,visibility,zIndex,transformOrigin'
+      });
+    };
+  });
 
   media.add('(max-width: 1023px)', () => {
     const header = section.querySelector(
@@ -827,12 +827,12 @@ function initializeAnimation(root) {
 
   const cards = section
     ? Array.from(
-        section.querySelectorAll('.reward-list__card')
-      )
+      section.querySelectorAll('.reward-list__card')
+    )
     : [];
 
   if (!section || !cardWrapper || cards.length < 2) {
-    return () => {};
+    return () => { };
   }
 
   const media = gsap.matchMedia();
@@ -847,7 +847,7 @@ function initializeAnimation(root) {
       isDesktop: '(min-width: 1024px)',
     },
     (context) => {
-      const {isMobile} = context.conditions;
+      const { isMobile } = context.conditions;
 
       const headers = cards.map((card) =>
         card.querySelector('.reward-card__header')
@@ -905,15 +905,15 @@ function initializeAnimation(root) {
             moveUpDistance = Math.max(
               0,
               wrapperRect.top -
-                sectionRect.top -
-                safePadding
+              sectionRect.top -
+              safePadding
             );
           } else {
             moveUpDistance = Math.max(
               0,
               mainHeaderHeight -
-                safePadding -
-                extraOffset
+              safePadding -
+              extraOffset
             );
           }
 
@@ -937,8 +937,8 @@ function initializeAnimation(root) {
 
         const paddingTop = firstCard
           ? parseFloat(
-              window.getComputedStyle(firstCard).paddingTop
-            ) || 0
+            window.getComputedStyle(firstCard).paddingTop
+          ) || 0
           : 0;
 
         const stackOffset =
@@ -978,7 +978,7 @@ function initializeAnimation(root) {
 
           const extraY = index === 2 ? 25 : 0;
 
-         const extraY1 = isMobile && index === 1 ? 16 : 0;
+          const extraY1 = isMobile && index === 1 ? 16 : 0;
 
           // const mobileCardUpOffset = isMobile
           //   ? 0.1 * index * rootFontSize
@@ -1072,10 +1072,10 @@ function initializeAnimation(root) {
         );
       });
 
-      timeline.to({}, {duration: 0.15});
+      timeline.to({}, { duration: 0.15 });
 
       return () => {
-          const scrollTrigger = timeline?.scrollTrigger;
+        const scrollTrigger = timeline?.scrollTrigger;
         timeline?.scrollTrigger?.kill();
         timeline?.kill();
 
@@ -1183,7 +1183,7 @@ function initAppreciationRewardsAnimation(root) {
       '[AppreciationRewards] 未找到 .appreciation-reward'
     );
 
-    return () => {};
+    return () => { };
   }
 
   const stick = section.querySelector(
@@ -1213,7 +1213,7 @@ function initAppreciationRewardsAnimation(root) {
       '[AppreciationRewards] 缺少动画所需元素'
     );
 
-    return () => {};
+    return () => { };
   }
 
   const originalTitleHTML = title.innerHTML;
@@ -1579,13 +1579,13 @@ function initAppreciationRewardsAnimation(root) {
      * 始终保持最上层。
      */
     const getCardZIndex = index => {
-       if (isMobile()) {
-    return index + 1;
-  }
+      if (isMobile()) {
+        return index + 1;
+      }
       if (index === 2) {
         return totalCards + 100;
       }
-      
+
       if (index === totalCards - 1) {
         return Math.max(1, index - 1);
       }
@@ -1652,10 +1652,10 @@ function initAppreciationRewardsAnimation(root) {
 
         const state =
           stackStates[
-            Math.min(
-              Math.max(depth, 0),
-              stackStates.length - 1
-            )
+          Math.min(
+            Math.max(depth, 0),
+            stackStates.length - 1
+          )
           ];
 
         return {
@@ -2497,7 +2497,7 @@ function initAppreciationRewardsAnimation(root) {
         while (
           nextStep < totalCards &&
           rawStep >=
-            nextStep + 0.62
+          nextStep + 0.62
         ) {
           nextStep += 1;
         }
@@ -2507,7 +2507,7 @@ function initAppreciationRewardsAnimation(root) {
         while (
           nextStep > 0 &&
           rawStep <=
-            nextStep - 0.62
+          nextStep - 0.62
         ) {
           nextStep -= 1;
         }
@@ -2584,27 +2584,27 @@ function initAppreciationRewardsAnimation(root) {
         //   );
         // }
         onRefresh(self) {
-            clearLayoutCache();
-            measureLayout();
+          clearLayoutCache();
+          measureLayout();
 
-            scatterStates = createScatterStates();
+          scatterStates = createScatterStates();
 
-            cardTimeline.invalidate();
-            impactTimeline.invalidate();
+          cardTimeline.invalidate();
+          impactTimeline.invalidate();
 
-            cards.forEach((card, index) => {
-              gsap.set(card, {
-                zIndex: getCardZIndex(index),
-              });
+          cards.forEach((card, index) => {
+            gsap.set(card, {
+              zIndex: getCardZIndex(index),
             });
+          });
 
-            const refreshStep =
-              currentStep >= 0
-                ? currentStep
-                : Math.round(self.progress * totalCards);
+          const refreshStep =
+            currentStep >= 0
+              ? currentStep
+              : Math.round(self.progress * totalCards);
 
-            goToStep(refreshStep, true);
-          }
+          goToStep(refreshStep, true);
+        }
       });
 
     const initialStep =
@@ -2627,7 +2627,7 @@ function initAppreciationRewardsAnimation(root) {
         clearLayoutCache();
         ScrollTrigger.refresh();
       })
-      .catch(() => {});
+      .catch(() => { });
   }, section);
 
   return () => {
@@ -2801,7 +2801,7 @@ function initStoriesBeyondOrdinary(root) {
 
   cards.forEach((card) => {
     resizeObserver?.observe(card);
-    measureCard(card); 
+    measureCard(card);
   });
 
   // 字体加载完成后重新测量
@@ -3284,6 +3284,8 @@ export function useAnniversary11thPage(rootRef) {
     };
   }, [rootRef]);
 }
+
+
 export function useAnniversary11thLenis() {
   useEffect(() => {
     const html = document.documentElement;
@@ -3294,6 +3296,21 @@ export function useAnniversary11thLenis() {
       ignoreMobileResize: true,
       limitCallbacks: true,
     });
+
+    const isMobile = ScrollTrigger.isTouch === 1;
+
+    // 手机直接使用原生滚动
+    if (isMobile) {
+      const refreshFrame = requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+      });
+
+      return () => {
+        cancelAnimationFrame(refreshFrame);
+
+        html.classList.remove('anniversary-11th-page');
+      };
+    }
 
     const lenis = new Lenis({
       autoRaf: false,
@@ -3313,7 +3330,8 @@ export function useAnniversary11thLenis() {
     lenis.on('scroll', handleLenisScroll);
 
     gsap.ticker.add(handleGsapTick);
-    gsap.ticker.lagSmoothing(0);
+
+    // gsap.ticker.lagSmoothing(0);
 
     let refreshFrame = requestAnimationFrame(() => {
       refreshFrame = null;
@@ -3332,13 +3350,9 @@ export function useAnniversary11thLenis() {
     return () => {
       if (refreshFrame) {
         cancelAnimationFrame(refreshFrame);
-        refreshFrame = null;
       }
 
-      window.removeEventListener(
-        'pageshow',
-        handlePageShow
-      );
+      window.removeEventListener('pageshow', handlePageShow);
 
       lenis.off?.('scroll', handleLenisScroll);
 
@@ -3346,9 +3360,7 @@ export function useAnniversary11thLenis() {
 
       lenis.destroy();
 
-      html.classList.remove(
-        'anniversary-11th-page'
-      );
+      html.classList.remove('anniversary-11th-page');
     };
   }, []);
 }
