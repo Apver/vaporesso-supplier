@@ -85,7 +85,7 @@ export const ArmourOctaProductSpecData = {
         ),
         '<TPD Ver.   KIT INCLUDES>',
         '1 x VAPORESSO ARMOUR OCTA MOD',
-        '1 x VAPORESSO ITANK T 6ml(Dual Mesh Version)',
+        '1 x VAPORESSO ITANK T 2ml(Dual Mesh Version)',
         '1 x VAPORESSO GTi 0.2Ω DUAL MESH Coil(Pre-installed)',
         '1 x VAPORESSO GTi 0.4Ω DUAL MESH Coil(In-box)',
         '1 x TYPE-C Charging Cable',
