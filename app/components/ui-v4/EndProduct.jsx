@@ -2,9 +2,6 @@ import '~/styles/ui-v4/end-product.scss';
 export function EndProduct({data, className, onCheckSpecs}) {
   const {title, subtitle, imgUrl, imgUrlMob, salesList, btnText} = data;
   const handleCheckSpecs = () => {
-    if (typeof window !== 'undefined') {
-      window.scrollTo({top: 0, behavior: 'smooth'});
-    }
     if (onCheckSpecs) {
       onCheckSpecs();
     }

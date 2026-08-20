@@ -96,8 +96,8 @@ export const ArmourOctaProductSpecData = {
         '1 x User Manual & Warranty Card',
         '1 x Safety Manual',
         specImg(
-          `${SPEC_IMG}/armour-octa-TPD-package.webp`,
-          `${SPEC_IMG}/armour-octa-Mob-TPD-package.webp`,
+          `${SPEC_IMG}/armour-octa-TPD-package.webp?v=1787187792`,
+          `${SPEC_IMG}/armour-octa-Mob-TPD-package.webp?v=1787187798`,
         ),
       ],
     },

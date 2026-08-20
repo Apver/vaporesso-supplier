@@ -226,12 +226,6 @@ export const ProductNav = forwardRef(function ProductNav(
                       if (isMobile && isExpanded) {
                         setIsExpanded(false);
                       }
-                      if (
-                        (tab.id === 'spec' || tab.id === 'overview') &&
-                        typeof window !== 'undefined'
-                      ) {
-                        window.scrollTo({top: 0, behavior: 'smooth'});
-                      }
                       if (onSectionChange) {
                         onSectionChange(tab.id);
                       }

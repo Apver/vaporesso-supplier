@@ -1,5 +1,6 @@
 import {redirect, useLoaderData} from 'react-router';
 import {useEffect, useMemo, useRef, useState} from 'react';
+import {flushSync} from 'react-dom';
 import {Analytics} from '@shopify/hydrogen';
 import {ProductNav} from '~/components/SeriesProduct/ArmourSeries/ProductNav';
 import {SpecSection} from '~/components/SeriesProduct/ArmourSeries/SpecSection';
@@ -332,8 +333,22 @@ export default function Product() {
 
     // Overview / Specs：切换导航高亮 + 内容显隐，并关闭 3D 弹层
     setIs3DOpen(false);
-    setActiveNavId(id);
-    setActiveContentId(id);
+    // 先提交显隐再滚顶。若在长 Overview 底部切到 Specs，页面高度会骤降，
+    // 浏览器会把 scrollY 钳到新文档底部；smooth scroll 也会被布局变化打断。
+    flushSync(() => {
+      setActiveNavId(id);
+      setActiveContentId(id);
+    });
+
+    if (typeof window === 'undefined') return;
+    const activeEl = document.activeElement;
+    if (activeEl instanceof HTMLElement) {
+      activeEl.blur();
+    }
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+    });
   };
 
   useEffect(() => {
