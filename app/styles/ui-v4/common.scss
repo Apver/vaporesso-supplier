@@ -4,69 +4,81 @@
     align-items: center;
     justify-content: center;
   }
+
   &-subtitle {
-    font-size: 20px;
-    line-height: 25px;
-    font-family: 'DinExp-Bold';
     margin-bottom: 12px;
+    font-size: 20px;
+    font-family: 'DinExp-Bold';
+    line-height: 25px;
   }
+
   &-title {
     font-size: 48px;
-    line-height: 1;
     font-family: 'DinExp-Bold';
+    line-height: 1;
     white-space: pre-line;
+
     @media screen and (max-width: 1023px) {
       width: 6.1rem;
       font-size: 0.6rem;
       text-align: left;
     }
   }
+
   &-description {
     max-width: 728px;
-    font-size: 16px;
-    line-height: 21px;
-    font-family: 'DinExp';
     margin-top: 20px;
+    font-size: 16px;
+    font-family: 'DinExp';
+    line-height: 21px;
     text-align: center;
+
     @media screen and (max-width: 1023px) {
       width: 6.1rem;
+      margin-top: 0.24rem;
       font-size: 0.3rem;
       line-height: 0.42rem;
       text-align: left;
-      margin-top: 0.24rem;
     }
   }
+
   &-tips {
-    font-size: 16px;
-    line-height: 23px;
-    font-family: 'DinExp';
     margin-top: 20px;
-    opacity: 0.6;
+    color: rgb(0 0 0 / 60%);
+    font-size: 16px;
+    font-family: 'DinExp';
+    line-height: 23px;
+
     @media screen and (max-width: 1023px) {
       width: 6.1rem;
+      margin-top: 0.4rem;
       font-size: 0.28rem;
       line-height: 0.36rem;
       text-align: left;
-      margin-top: 0.4rem;
     }
   }
 }
+
 .ui_v3 {
   &-no_max_width_finish.f {
     img {
       max-width: none;
     }
+
     .colors {
       max-width: none;
     }
   }
+
   &-spec-content {
     .colors .item {
       white-space: pre-line;
     }
+
     ul:last-child {
       border-bottom: none !important;
     }
+
     .package-list {
       img {
         margin-bottom: 80px;
@@ -82,10 +94,10 @@
 
 .to-top {
   opacity: 0;
-  transform: translateY(20%);
   transition:
     transform 0.7s,
     opacity 0.7s ease-in-out;
+  transform: translateY(20%);
 }
 
 .to-top.appear {
@@ -95,11 +107,12 @@
 
 .to-right {
   opacity: 0;
-  /* 用固定像素，避免宽元素 translateX(±20%) 在刷新时整块移出视口判定 */
-  transform: translateX(-40px);
   transition:
     transform 0.7s,
     opacity 0.7s ease-in-out;
+
+  /* 用固定像素，避免宽元素 translateX(±20%) 在刷新时整块移出视口判定 */
+  transform: translateX(-40px);
 }
 
 .to-right.appear {
@@ -109,10 +122,10 @@
 
 .to-left {
   opacity: 0;
-  transform: translateX(40px);
   transition:
     transform 0.7s,
     opacity 0.7s ease-in-out;
+  transform: translateX(40px);
 }
 
 .to-left.appear {

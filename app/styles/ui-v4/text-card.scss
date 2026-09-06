@@ -1,0 +1,94 @@
+.ui-v4-text-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 150px 0;
+
+  &__card-list {
+    display: flex;
+    margin: 48px 0 0;
+    column-gap: 20px;
+  }
+
+  &__card-item {
+    position: relative;
+
+    &-content {
+      margin: 24px 0 0;
+    }
+
+    &-content-pos {
+      position: absolute;
+      top: 30px;
+      left: 50px;
+      margin: 0;
+    }
+
+    &-title {
+      font-size: 20px;
+      font-family: 'DinExp-Bold';
+      line-height: 1.35;
+    }
+
+    &-description {
+      font-size: 16px;
+      font-family: 'DinExp';
+      line-height: 1.3;
+    }
+
+    &-data-list {
+      display: flex;
+    }
+
+    &-data-text {
+      height: 14px;
+      margin-right: 10px;
+      padding-right: 10px;
+      border-right: 1px solid rgb(0 0 0 / 30%);
+      font-size: 16px;
+      font-family: 'DinExp';
+      line-height: 14px;
+    }
+
+    &-data-text:last-child {
+      border-right: none;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    padding: 1.6rem 0;
+
+    &__card-list {
+      flex-direction: column;
+      row-gap: 0.9rem;
+      margin: 0.8rem 0 0;
+    }
+
+    &__card-item {
+      &-content {
+        margin: 0.4rem 0.4rem 0;
+      }
+
+      &-content-pos {
+        top: 0.4rem;
+        left: 0.4rem;
+      }
+
+      &-title {
+        font-size: 0.4rem;
+      }
+
+      &-description {
+        font-size: 0.3rem;
+      }
+
+      &-data-text {
+        height: 0.28rem;
+        margin-right: 0.2rem;
+        padding-right: 0.2rem;
+        font-size: 0.32rem;
+        line-height: 0.28rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.product-armour-g2 {
+  &-compact {
+    .ui-v4-media-overlay__media {
+      height: 100vh;
+    }
+  }
+
+  &-dual-mesh {
+    .ui-v4-media-overlay__media {
+      height: 960px;
+    }
+  }
+
+  &-sss {
+    background: #f5f5f5;
+
+    .ui-v4-text-card__media {
+      width: 360px;
+    }
+
+    .ui-v4-text-card__card-item-content-pos {
+      left: 0;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  &-charging {
+    background: #f5f5f5;
+
+    .ui-v4-description {
+      text-align: left;
+    }
+
+    .ui-v4-text-media__media {
+      height: 640px;
+    }
+  }
+}

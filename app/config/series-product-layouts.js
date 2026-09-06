@@ -23,6 +23,10 @@ import {
   ArmourOctaLayout,
   ArmourOctaProductSpecData,
 } from '~/components/SeriesProduct/ArmourSeries/ArmourOcta';
+import {
+  ArmourG2Layout,
+  ArmourG2ProductSpecData,
+} from '~/components/SeriesProduct/ArmourSeries/ArmourG2';
 
 /** 不展示 ProductNav / SpecSection / Product3DViewer 的 template 值 */
 export const SERIES_PRODUCT_NO_NAV_TEMPLATES = [];
@@ -81,6 +85,7 @@ export const SERIES_PRODUCT_SPEC_DATA_IN_JS = [
   'xros-se',
   'prix',
   'armour-octa',
+  'armour-g2',
 ];
 
 /** template → 硬编码 Spec 数据（见各产品目录 languageText.js） */
@@ -91,6 +96,7 @@ export const SERIES_PRODUCT_SPEC_DATA_BY_TEMPLATE = {
   'xros-se': XrosSeProductSpecData,
   prix: PrixProductSpecData,
   'armour-octa': ArmourOctaProductSpecData,
+  'armour-g2': ArmourG2ProductSpecData,
 };
 
 /**
@@ -134,5 +140,9 @@ export const SERIES_PRODUCT_LAYOUT_ENTRIES = {
       },
       bannerThemeSwitch: true,
     },
+  },
+  'armour-g2': {
+    Layout: ArmourG2Layout,
+    specElementId: 'check-specs-armour-g2',
   },
 };
