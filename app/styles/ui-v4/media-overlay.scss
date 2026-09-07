@@ -66,6 +66,40 @@
     text-align: left;
   }
 
+  @media screen and (max-width: 1450px) {
+    &__content {
+      width: 896px;
+      padding-right: 536px;
+    }
+
+    &__tech-icon {
+      width: 108px;
+      margin-bottom: 24px;
+    }
+
+    &__data {
+      margin-top: 64px;
+      column-gap: 48px;
+    }
+
+    &__data-item-num {
+      font-size: 48px;
+    }
+
+    &__data-item-unit {
+      font-size: 24px;
+    }
+
+    &__data-item-icon {
+      width: 14px;
+      margin-left: 8px;
+    }
+
+    &__data-item-description {
+      font-size: 10px;
+    }
+  }
+
   @media screen and (max-width: 1023px) {
     padding: 1.6rem 0;
 

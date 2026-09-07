@@ -1,4 +1,44 @@
+import {useEffect, useRef} from 'react';
+import {CountUp} from 'countup.js';
 import '~/styles/ui-v4/media-overlay.scss';
+
+function CountUpNum({value}) {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+
+    const endVal = Number(value);
+    if (Number.isNaN(endVal)) {
+      el.textContent = String(value ?? '');
+      return undefined;
+    }
+
+    const decimalPlaces = String(value).includes('.')
+      ? String(value).split('.')[1].length
+      : 0;
+
+    const instance = new CountUp(el, endVal, {
+      useEasing: true,
+      useGrouping: true,
+      startVal: 0,
+      duration: 0.8,
+      decimalPlaces,
+      enableScrollSpy: true,
+      scrollSpyOnce: true,
+    });
+
+    return () => instance.reset();
+  }, [value]);
+
+  return (
+    <span ref={ref} className="ui-v4-media-overlay__data-item-num">
+      {value}
+    </span>
+  );
+}
+
 export function MediaOverlaySection({
   techIcon,
   subtitle,
@@ -40,9 +80,7 @@ export function MediaOverlaySection({
                 className="ui-v4-media-overlay__data-item to-top"
               >
                 <div className="ui-v4-media-overlay__data-item-top">
-                  <span className="ui-v4-media-overlay__data-item-num">
-                    {item.num}
-                  </span>
+                  <CountUpNum value={item.num} />
                   {item.unit && (
                     <span className="ui-v4-media-overlay__data-item-unit">
                       {item.unit}

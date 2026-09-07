@@ -8,10 +8,11 @@ import {
   BriefSectionV4,
   MediaOverlaySection,
   TextMediaSection,
+  MediaShrinkRevealSection,
   TextCardSection,
-  PodCompatible,
   EndProduct,
 } from '~/components/ui-v4';
+import {PodCompatible} from '~/components/SeriesProduct/ArmourSeries/ArmourG2';
 
 export function ArmourG2Layout({children, onCheckSpecs}) {
   const layoutRef = useRef(null);
@@ -73,6 +74,20 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
       'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
     imgBgMob:
       'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
+  };
+  const FlavorSectionData = {
+    imgPc:
+      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-02-1.webp',
+    imgMob:
+      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-02.webp',
+    title: 'Full Flavor, Even At 20% Battery',
+    description:
+      'Pulse Mode on ARMOUR G2&GS2 delivers stable power output, keeping the flavor at its best from the first puff to the last',
+    tips: '*The data is based on testing results from VAPORESSO LAB',
+    chartImgMob:
+      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-02.webp',
+    chartImgPc:
+      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-02-1.webp',
   };
   const SssSectionData = {
     title: 'Double Top | Triple S 2.0 | Quadra Leakproof',
@@ -178,64 +193,209 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
     ],
   };
   const PodCompatibleData = {
-    title: 'All LUXE Q Pods Compatible',
-    description: 'Perfect for nic salts and freebase.',
+    title: 'Compatible With Multiple GTX Coils',
     podList: [
       {
         id: 'pod1',
-        version: '3ml Version',
-        imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_q3-10_1.webp',
-        ohm: '0.6Ω',
-        type: 'Mesh Pod',
+        podName: 'ARMOUR G Series DTL Pod',
+        podImgPc:
+          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-1.webp',
+        podImgMob:
+          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-1.webp',
+        coilList: [
+          {
+            id: 'coil1',
+            data: [
+              {
+                id: 'data1',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.15Ω',
+                coilTech: 'Mesh',
+              },
+              {
+                id: 'data2',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.15Ω',
+                coilTech: 'Dual Mesh',
+              },
+            ],
+            watt: '60-75W',
+          },
+          {
+            id: 'coil2',
+            data: [
+              {
+                id: 'data1',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.2Ω',
+                coilTech: 'Mesh',
+              },
+              {
+                id: 'data2',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.2Ω',
+                coilTech: 'Dual Mesh',
+              },
+            ],
+            watt: '45-60W',
+          },
+          {
+            id: 'coil3',
+            data: [
+              {
+                id: 'data1',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.3Ω',
+                coilTech: 'Mesh',
+              },
+              {
+                id: 'data2',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.3Ω',
+                coilTech: 'Dual Mesh',
+              },
+            ],
+            watt: '32-45W',
+          },
+          {
+            id: 'coil4',
+            data: [
+              {
+                id: 'data1',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.4Ω',
+                coilTech: 'Mesh',
+              },
+              {
+                id: 'data2',
+                coilTag: 'NEW!',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.4Ω',
+                coilTech: 'Dual Mesh',
+              },
+            ],
+            watt: '26-32W',
+          },
+          {
+            id: 'coil5',
+            data: [
+              {
+                id: 'data1',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.6Ω',
+                coilTech: 'Mesh',
+              },
+            ],
+            watt: '20-26W',
+          },
+        ],
       },
       {
         id: 'pod2',
-        version: '3ml Version',
-        imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_q3-10_2.webp',
-        ohm: '0.8Ω',
-        type: 'Mesh Pod',
-      },
-      {
-        id: 'pod3',
-        version: '3ml Version',
-        imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_q3-10_3.webp',
-        ohm: '1.0Ω',
-        type: 'Mesh Pod',
-      },
-      {
-        id: 'pod4',
-        version: '2ml Version',
-        imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_q3-10_4.webp',
-        ohm: '0.6Ω',
-        type: 'Mesh Pod',
-      },
-      {
-        id: 'pod5',
-        version: '2ml Version',
-        imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_q3-10_5.webp',
-        ohm: '0.8Ω',
-        type: 'Mesh Pod',
-      },
-      {
-        id: 'pod6',
-        version: '2ml Version',
-        imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_q3-10_6.webp',
-        ohm: '1.0Ω',
-        type: 'Mesh Pod',
-      },
-      {
-        id: 'pod7',
-        version: '2ml Version',
-        imgUrl:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_q3-10_7.webp',
-        ohm: '1.2Ω',
-        type: 'Mesh Pod',
+        podName: 'ARMOUR G Series MTL Pod',
+        podImgPc:
+          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-1.webp',
+        podImgMob:
+          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-1.webp',
+        coilList: [
+          {
+            id: 'coil1',
+            data: [
+              {
+                id: 'data1',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.4Ω',
+                coilTech: 'Mesh',
+              },
+              {
+                id: 'data2',
+                coilTag: 'NEW!',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.4Ω',
+                coilTech: 'Dual Mesh',
+              },
+            ],
+            watt: '26-32W',
+          },
+          {
+            id: 'coil2',
+            data: [
+              {
+                id: 'data1',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.6Ω',
+                coilTech: 'Mesh',
+              },
+            ],
+            watt: '20-26W',
+          },
+          {
+            id: 'coil3',
+            data: [
+              {
+                id: 'data1',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '0.8Ω',
+                coilTech: 'Mesh',
+              },
+            ],
+            watt: '12-16W',
+          },
+          {
+            id: 'coil4',
+            data: [
+              {
+                id: 'data1',
+                coilImgPc:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilImgMob:
+                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
+                coilOhm: '1.2Ω',
+                coilTech: 'Mesh',
+              },
+            ],
+            watt: '8-12W',
+          },
+        ],
       },
     ],
   };
@@ -269,6 +429,10 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
         className="product-armour-g2-charging"
         {...ChargingSectionData}
       />
+      <MediaShrinkRevealSection
+        className="product-armour-g2-flavor"
+        {...FlavorSectionData}
+      />
       <TextCardSection className="product-armour-g2-sss" {...SssSectionData} />
       <TextCardSection
         className="product-armour-g2-lock"
@@ -280,11 +444,11 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
         {...DualMeshSectionData}
       />
       <PodCompatible
-        className="product-luxe-q3-pod-compatible"
+        className="product-armour-g2-pod-compatible"
         {...PodCompatibleData}
       />
       <EndProduct
-        className="product-luxe-q3-end-product"
+        className="product-armour-g2-end-product"
         data={EndProductData}
         onCheckSpecs={onCheckSpecs}
       />

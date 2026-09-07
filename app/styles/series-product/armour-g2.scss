@@ -9,6 +9,12 @@
     .ui-v4-media-overlay__media {
       height: 960px;
     }
+
+    @media screen and (max-width: 1450px) {
+      .ui-v4-media-overlay__media {
+        height: 768px;
+      }
+    }
   }
 
   &-sss {
@@ -23,6 +29,12 @@
       width: 100%;
       text-align: center;
     }
+
+    @media screen and (max-width: 1450px) {
+      .ui-v4-text-card__media {
+        width: 288px;
+      }
+    }
   }
 
   &-charging {
@@ -34,6 +46,220 @@
 
     .ui-v4-text-media__media {
       height: 640px;
+    }
+
+    @media screen and (max-width: 1450px) {
+      .ui-v4-text-media__media {
+        height: 512px;
+      }
+    }
+  }
+
+  &-pod-compatible {
+    padding: 150px 200px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+
+    &-list {
+      width: 1120px;
+      margin: 48px auto;
+    }
+
+    &-item {
+      display: flex;
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 43px 35px;
+      background: #2b2b2b;
+      column-gap: 45px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &-pod {
+      width: 220px;
+      margin-right: 30px;
+      padding: 24px 30px;
+      font-family: 'DinExp-Bold';
+
+      &-img {
+        object-fit: cover;
+        width: 160px;
+        height: 162px;
+      }
+
+      &-title {
+        margin-top: 15px;
+        font-size: 19px;
+        line-height: 1.06;
+      }
+    }
+
+    &-coil-container {
+      padding: 10px 0 19px;
+      text-align: center;
+    }
+
+    &-coil-box {
+      display: flex;
+      column-gap: 2px;
+    }
+
+    &-coil {
+      width: 58px;
+
+      &-tag {
+        color: #ff2121;
+        font-size: 20px;
+        line-height: 1.05;
+      }
+
+      &-img {
+        display: block;
+        object-fit: cover;
+        width: 58px;
+        height: 86px;
+        margin: 6px 0 10px;
+      }
+
+      &-ohm {
+        font-size: 20px;
+        line-height: 28px;
+      }
+
+      &-tech {
+        min-height: 34px;
+        margin-top: 10px;
+        font-size: 16px;
+        font-family: 'DinExp';
+        line-height: 1.05;
+      }
+    }
+
+    &-coil-watt {
+      margin-top: 24px;
+      color: rgb(255 255 255 / 30%);
+      font-size: 14px;
+      line-height: 1.05;
+    }
+
+    @media screen and (max-width: 1450px) {
+      padding: 120px 0 160px;
+
+      &-list {
+        width: 960px;
+        margin: 38px auto 0;
+      }
+
+      &-item {
+        margin-bottom: 13px;
+        padding: 21px 28px;
+        column-gap: 36px;
+      }
+
+      &-pod {
+        width: 176px;
+        margin-right: 24px;
+        padding: 19px 24px;
+
+        &-img {
+          width: 128px;
+          height: 129px;
+        }
+
+        &-title {
+          margin-top: 12px;
+          font-size: 15px;
+        }
+      }
+
+      &-coil-container {
+        padding: 8px 0 15px;
+      }
+
+      &-coil {
+        width: 46px;
+
+        &-tag {
+          font-size: 16px;
+        }
+
+        &-img {
+          width: 46px;
+          height: 68px;
+          margin: 5px 0 8px;
+        }
+
+        &-ohm {
+          font-size: 16px;
+          line-height: 22px;
+        }
+
+        &-tech {
+          min-height: 28px;
+          margin-top: 8px;
+          font-size: 14px;
+        }
+      }
+
+      &-coil-watt {
+        margin-top: 19px;
+        font-size: 12px;
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      padding: 1rem 0 0;
+
+      .ui-v4-title {
+        &-pod-img {
+          width: 128px;
+          height: 129px;
+        }
+
+        &-pod-title {
+          font-size: 16px;
+        }
+
+        margin-left: 0.7rem;
+      }
+
+      &-list {
+        width: 100vw;
+      }
+
+      &-item {
+        flex-wrap: wrap;
+        width: 100%;
+      }
+    }
+  }
+
+  // Spec：ul.f > li.d(primary) + li.d(secondary)
+  // 每个色块：div > img + .colors；PC=.s-hide，Mobile=.x-hide
+  .spec-content .f .d:nth-child(2) .colors.s-hide {
+    width: 102%;
+  }
+
+  .spec-content .f .d:nth-child(3) .colors.s-hide {
+    width: 108.6%;
+    margin-left: -3.6%;
+  }
+
+  @media screen and (max-width: 1023px) {
+    // primaryColorTitleMobile（两行各 4 色）
+    .spec-content .f .d:nth-child(2) .colors.x-hide {
+      width: 116%;
+      margin-left: -8%;
+    }
+
+    // secondaryColorTitleMobile（两行各 3 色）
+    .spec-content .f .d:nth-child(3) .colors.x-hide {
+      width: 131.6%;
+      margin-left: -16%;
     }
   }
 }

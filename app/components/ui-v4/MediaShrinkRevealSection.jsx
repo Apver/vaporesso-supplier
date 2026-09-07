@@ -29,8 +29,7 @@ export function MediaShrinkRevealSection({
     const root = wrapRef.current;
     if (!root) return;
 
-    const objectPosition =
-      BG_POSITION_MAP[bgPosition] || BG_POSITION_MAP.left;
+    const objectPosition = BG_POSITION_MAP[bgPosition] || BG_POSITION_MAP.left;
 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
@@ -41,24 +40,22 @@ export function MediaShrinkRevealSection({
         );
         const img = root.querySelector('.ui-v4-media-shrink-reveal__img');
         const media = img?.closest('picture');
+        const box = root.querySelector('.ui-v4-media-shrink-reveal__box');
         const content = root.querySelector(
           '.ui-v4-media-shrink-reveal__content',
         );
-        const contentItems = content
-          ? Array.from(content.children)
-          : [];
 
-        if (!container || !media || !img || !content) return;
+        if (!container || !media || !img || !box || !content) return;
 
-        gsap.set(media, {width: '100%'});
+        gsap.set(media, {width: '100%', flexShrink: 0});
         gsap.set(img, {
           width: '100%',
           height: '100%',
           objectFit: 'cover',
           objectPosition,
         });
-        gsap.set(content, {width: 0, paddingLeft: 0, opacity: 1});
-        gsap.set(contentItems, {opacity: 0, x: 60});
+        gsap.set(box, {opacity: 0, x: 40, flexShrink: 0});
+        gsap.set(content, {opacity: 0, x: 60});
 
         const timeline = gsap.timeline({
           defaults: {ease: 'power2.inOut'},
@@ -74,23 +71,17 @@ export function MediaShrinkRevealSection({
           },
         });
 
-        timeline.addLabel('shrink');
-        timeline.to(media, {width: '50vw', duration: 1}, 'shrink');
+        timeline.addLabel('showBox');
+        timeline.to(media, {width: '50vw', duration: 1}, 'showBox');
         timeline.to(
-          content,
-          {width: '50vw', paddingLeft: 117, duration: 1},
-          'shrink',
+          box,
+          {opacity: 1, x: 0, duration: 0.9, ease: 'power2.out'},
+          'showBox',
         );
         timeline.to(
-          contentItems,
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.8,
-            stagger: 0.06,
-            ease: 'power2.out',
-          },
-          'shrink+=0.55',
+          content,
+          {opacity: 1, x: 0, duration: 0.8, ease: 'power2.out'},
+          'showBox+=0.7',
         );
         timeline.to({}, {duration: 0.4});
 
@@ -154,28 +145,30 @@ export function MediaShrinkRevealSection({
           <source media="(min-width: 1024px)" srcSet={imgPc} />
           <img className="ui-v4-media-shrink-reveal__img" src={imgPc} alt="" />
         </picture>
-        <div className="ui-v4-media-shrink-reveal__content">
-          {subtitle && <h4 className="ui-v4-subtitle">{subtitle}</h4>}
-          {title && <h3 className="ui-v4-title">{title}</h3>}
-          {description && (
-            <p className="ui-v4-description s-hide">{description}</p>
-          )}
-          {(chartImgMob || chartImgPc) && (
-            <picture>
-              <source media="(max-width: 1023px)" srcSet={chartImgMob} />
-              <source media="(min-width: 1024px)" srcSet={chartImgPc} />
-              <img
-                className="ui-v4-media-shrink-reveal__chart"
-                src={chartImgPc}
-                alt=""
-              />
-            </picture>
-          )}
+        <div className="ui-v4-media-shrink-reveal__box">
+          <div className="ui-v4-media-shrink-reveal__content">
+            {subtitle && <h4 className="ui-v4-subtitle">{subtitle}</h4>}
+            {title && <h3 className="ui-v4-title">{title}</h3>}
+            {description && (
+              <p className="ui-v4-description s-hide">{description}</p>
+            )}
+            {(chartImgMob || chartImgPc) && (
+              <picture>
+                <source media="(max-width: 1023px)" srcSet={chartImgMob} />
+                <source media="(min-width: 1024px)" srcSet={chartImgPc} />
+                <img
+                  className="ui-v4-media-shrink-reveal__chart"
+                  src={chartImgPc}
+                  alt=""
+                />
+              </picture>
+            )}
 
-          {description && (
-            <p className="ui-v4-description x-hide">{description}</p>
-          )}
-          {tips && <p className="ui-v4-tips">{tips}</p>}
+            {description && (
+              <p className="ui-v4-description x-hide">{description}</p>
+            )}
+            {tips && <p className="ui-v4-tips">{tips}</p>}
+          </div>
         </div>
       </section>
     </media-shrink-reveal-animation>
