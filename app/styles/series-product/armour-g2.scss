@@ -238,28 +238,41 @@
     }
   }
 
-  // Spec：ul.f > li.d(primary) + li.d(secondary)
-  // 每个色块：div > img + .colors；PC=.s-hide，Mobile=.x-hide
-  .spec-content .f .d:nth-child(2) .colors.s-hide {
-    width: 102%;
+  .spec-content .f li:nth-child(2) {
+    margin-right: 60px;
   }
 
-  .spec-content .f .d:nth-child(3) .colors.s-hide {
-    width: 108.6%;
-    margin-left: -3.6%;
+  .spec-content .f > .d:nth-child(2) {
+    .colors.s-hide {
+      width: 108%;
+      margin-left: -4%;
+    }
+  }
+
+  .spec-content .f > .d:nth-child(3) {
+    .colors.s-hide {
+      width: 108.6%;
+      margin-left: -3.6%;
+    }
+  }
+
+  .spec-content .l img {
+    margin-bottom: 10px;
   }
 
   @media screen and (max-width: 1023px) {
-    // primaryColorTitleMobile（两行各 4 色）
-    .spec-content .f .d:nth-child(2) .colors.x-hide {
-      width: 116%;
-      margin-left: -8%;
+    .spec-content .f > .d:nth-child(2) {
+      .colors.x-hide {
+        width: 116%;
+        margin-left: -8%;
+      }
     }
 
-    // secondaryColorTitleMobile（两行各 3 色）
-    .spec-content .f .d:nth-child(3) .colors.x-hide {
-      width: 131.6%;
-      margin-left: -16%;
+    .spec-content .f > .d:nth-child(3) {
+      .colors.x-hide {
+        width: 131.6%;
+        margin-left: -16%;
+      }
     }
   }
 }

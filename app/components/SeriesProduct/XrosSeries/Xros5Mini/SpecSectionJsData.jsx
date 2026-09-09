@@ -7,6 +7,37 @@ const toList = (value) => {
 /** @param {string[][] | undefined} value */
 const toColorGroups = (value) => (Array.isArray(value) ? value : []);
 
+/** 行内 [text] → 加粗；整行 [text] 仍走原有 class 逻辑 */
+const renderInlineBracketBold = (text, keyBase) => {
+  if (!/\[[^\[\]]+\]/.test(text) || /^\[([^\[\]]+)\]$/.test(text)) {
+    return text;
+  }
+
+  const parts = [];
+  const re = /\[([^\[\]]+)\]/g;
+  let lastIndex = 0;
+  let match;
+  let partIndex = 0;
+
+  while ((match = re.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    parts.push(
+      <span key={`${keyBase}-b${partIndex++}`} className="f-d-bold">
+        {match[1]}
+      </span>,
+    );
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts;
+};
+
 const IMAGE_URL_RE = /\.(jpg|jpeg|png|webp|gif|svg)\b/i;
 
 /**
@@ -131,7 +162,7 @@ export function TextWithImageSpec({
 
       return (
         <p key={keyBase} className={className}>
-          {content}
+          {renderInlineBracketBold(content, keyBase)}
         </p>
       );
     });
