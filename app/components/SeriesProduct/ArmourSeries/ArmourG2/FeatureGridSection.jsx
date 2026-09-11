@@ -2,6 +2,7 @@
  * ARMOUR G2 — 卖点合集（6 张卡片网格）
  * 设计稿：PC 1:190（内容宽 980，3 列 Grid）／MOB 1:957（宽 345，2 列 Grid）
  * 两端卡片顺序不同，由 CSS 的 grid-row/column 显式排布，DOM 保持单套。
+ * 标题只按数据里的 \n 断行、不自动折行；两端断行不同的卡片用 titleMob 另给移动端标题。
  */
 const CardMedia = ({imgPc, imgMob, className}) => (
   <picture>
@@ -11,7 +12,7 @@ const CardMedia = ({imgPc, imgMob, className}) => (
   </picture>
 );
 
-const Card = ({name, title, subtitle, imgPc, imgMob, children}) => (
+const Card = ({name, title, titleMob, subtitle, imgPc, imgMob, children}) => (
   <div className={`product-armour-g2-grid-card product-armour-g2-grid-${name}`}>
     {imgPc && (
       <CardMedia
@@ -21,7 +22,20 @@ const Card = ({name, title, subtitle, imgPc, imgMob, children}) => (
       />
     )}
     <div className="product-armour-g2-grid-card-text to-top">
-      <p className="product-armour-g2-grid-card-title">{title}</p>
+      <p className="product-armour-g2-grid-card-title">
+        {titleMob ? (
+          <>
+            <span className="product-armour-g2-grid-card-title-pc">
+              {title}
+            </span>
+            <span className="product-armour-g2-grid-card-title-mob">
+              {titleMob}
+            </span>
+          </>
+        ) : (
+          title
+        )}
+      </p>
       {subtitle && (
         <p className="product-armour-g2-grid-card-subtitle">{subtitle}</p>
       )}

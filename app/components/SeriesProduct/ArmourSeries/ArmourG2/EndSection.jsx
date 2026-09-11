@@ -4,11 +4,18 @@
  * 两端的产品图画框与裁切百分比完全一致（340×480），故只出一份素材，
  * 且两台设备已在素材里合成为一张，组件里只有一个 <img>。
  *
- * 注意：设计稿这一版**没有画「Check Specs」按钮**（其他产品页的结尾区都有，
- * 它是页内跳到 Specs 页签的唯一入口）。此处按设计稿实现，暂不渲染按钮，
- * 路由传入的 onCheckSpecs 因此未被使用——待产品/设计确认后再定。
+ * 「Check Specs」按钮设计稿上没有画，但它是产品页的固定按钮（页内跳到
+ * Specs 页签的入口），样式与其他产品页 ui-v4 EndProduct 的按钮一致。
+ * 点击调用路由经 Layout 传入的 onCheckSpecs。
  */
-export function EndSection({title, img, features, className}) {
+export function EndSection({
+  title,
+  img,
+  features,
+  btnText = 'Check Specs',
+  onCheckSpecs,
+  className,
+}) {
   return (
     <section className={`product-armour-g2-end ${className || ''}`}>
       <h2 className="product-armour-g2-end-title to-top">{title}</h2>
@@ -23,6 +30,14 @@ export function EndSection({title, img, features, className}) {
             </span>
           ))}
         </div>
+
+        <button
+          type="button"
+          className="product-armour-g2-end-btn"
+          onClick={onCheckSpecs}
+        >
+          {btnText}
+        </button>
       </div>
     </section>
   );

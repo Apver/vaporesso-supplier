@@ -4,6 +4,8 @@
  * 第 2、4 列底色 #f2f2f2，用 alt 变体标记；升级项右侧带橙色上箭头。
  * 四张设备图两端共用：设计稿里 PC 与移动端的图片裁切百分比一致，
  * 只是画框尺寸不同，PC 锁宽、移动端锁高即可各自得到正确高度。
+ * 特征文字按数据里的 \n 断行（两端都认）；个别格子移动端断行与 PC 不同时，
+ * 用 textMob 另给一份移动端文案，两份按端切换显示。
  */
 export function CompareSection({title, arrow, columns, className}) {
   return (
@@ -34,7 +36,18 @@ export function CompareSection({title, arrow, columns, className}) {
                   key={item.id}
                 >
                   <p className="product-armour-g2-compare-feature-text">
-                    {item.text}
+                    {item.textMob ? (
+                      <>
+                        <span className="product-armour-g2-compare-feature-text-pc">
+                          {item.text}
+                        </span>
+                        <span className="product-armour-g2-compare-feature-text-mob">
+                          {item.textMob}
+                        </span>
+                      </>
+                    ) : (
+                      item.text
+                    )}
                   </p>
                   {item.up && (
                     <img

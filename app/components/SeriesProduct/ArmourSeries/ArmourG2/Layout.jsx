@@ -29,12 +29,7 @@ import {
  */
 const CDN = 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files';
 
-/*
- * 路由仍会传入 onCheckSpecs（跳到 Specs 页签），但本版设计稿的结尾区没有
- * 「Check Specs」按钮，故此处不解构、不使用。页面顶部 ProductNav 的 Specs
- * 页签仍可到达规格页，功能不缺口。若设计后续补回按钮，恢复解构即可。
- */
-export function ArmourG2Layout({children}) {
+export function ArmourG2Layout({children, onCheckSpecs}) {
   const layoutRef = useRef(null);
 
   useEffect(() => {
@@ -77,6 +72,8 @@ export function ArmourG2Layout({children}) {
     },
     batt: {
       title: '3400mAh MEGA BATT',
+      // 设计稿 PC 一行、移动端两行
+      titleMob: '3400mAh MEGA\nBATT',
       imgPc: `${CDN}/armour-g2-03-3-2x.webp`,
       imgMob: `${CDN}/armour-g2-mob-03-3-3x.webp`,
     },
@@ -98,6 +95,8 @@ export function ArmourG2Layout({children}) {
     },
     airflow: {
       title: 'Upgraded Top Airflow\n& Top Filling',
+      // 设计稿两端断行点不同
+      titleMob: 'Upgraded Top\nAirflow & Top Filling',
       imgPc: `${CDN}/armour-g2-03-6-2x.webp`,
       imgMob: `${CDN}/armour-g2-mob-03-6-3x.webp`,
     },
@@ -134,8 +133,9 @@ export function ArmourG2Layout({children}) {
     tips: '*The data is based on testing results from VAPORESSO LAB',
     imgPc: `${CDN}/armour-g2-06-1-2x.webp`,
     imgMob: `${CDN}/armour-g2-mob-06-1-3x.webp`,
-    chartPc: `${CDN}/armour-g2-06-2-2x.webp`,
-    chartMob: `${CDN}/armour-g2-mob-06-2-3x.webp`,
+    // 图表用矢量 SVG：PC 白底、移动端黑底，是两版不同的设计（比例也不同）
+    chartPc: `${CDN}/armour-g2-06-graph.svg`,
+    chartMob: `${CDN}/armour-g2-mob-06-graph.svg`,
   };
   const LeakproofSectionData = {
     title: 'Double Top |\nTriple S 2.0 | Quadra Leakproof',
@@ -166,7 +166,7 @@ export function ArmourG2Layout({children}) {
   const SafetyLockSectionData = {
     title: 'Dual Safety Lock |\nNo Accidental Firing',
     description:
-      'The dual-safety mechanism prevents accidental pocket firing. Beyond standard button locking, users can also enable a 3-minute auto-lock',
+      'Thoughtfully designed dual-safety mechanism eliminates the common pain point of accidental firing when the device is carried in a pocket. Users also have the option to manually enable the 3-minute auto-lock feature, which cuts off output after 3 minutes of inactivity',
     cards: [
       {
         id: 'auto',
@@ -303,23 +303,29 @@ export function ArmourG2Layout({children}) {
   const CompareSectionData = {
     title: "What's New In ARMOUR G2&GS2?",
     arrow: `${CDN}/armour-g2-14-arrow.svg`,
+    // 设备图为透明底（-v2），放在灰底列、移动端 #fafafa 底上都不露白框
     columns: [
       {
         id: 'g',
         name: 'ARMOUR G',
-        img: `${CDN}/armour-g2-14-dev-1-3x.webp`,
+        img: `${CDN}/armour-g2-14-dev-1-v2-3x.webp`,
         features: [
           {id: 'f1', text: '3000 mAh\nBuilt-in Battery'},
           {id: 'f2', text: '2A'},
           {id: 'f3', text: '5-80W'},
           {id: 'f4', text: 'Button Lock'},
-          {id: 'f5', text: 'Basic Battery\nProtection'},
+          // 设计稿 PC 两行、移动端一行
+          {
+            id: 'f5',
+            text: 'Basic Battery\nProtection',
+            textMob: 'Basic Battery Protection',
+          },
         ],
       },
       {
         id: 'g2',
         name: 'ARMOUR G2',
-        img: `${CDN}/armour-g2-14-dev-2-3x.webp`,
+        img: `${CDN}/armour-g2-14-dev-2-v2-3x.webp`,
         alt: true,
         features: [
           {id: 'f1', text: '3400 mAh\nBuilt-in Battery', up: true},
@@ -332,19 +338,23 @@ export function ArmourG2Layout({children}) {
       {
         id: 'gs',
         name: 'ARMOUR GS',
-        img: `${CDN}/armour-g2-14-dev-3-3x.webp`,
+        img: `${CDN}/armour-g2-14-dev-3-v2-3x.webp`,
         features: [
           {id: 'f1', text: 'External 18650\nBattery'},
           {id: 'f2', text: '2A'},
           {id: 'f3', text: '5-80W'},
           {id: 'f4', text: 'Button Lock'},
-          {id: 'f5', text: 'Basic Battery\nProtection'},
+          {
+            id: 'f5',
+            text: 'Basic Battery\nProtection',
+            textMob: 'Basic Battery Protection',
+          },
         ],
       },
       {
         id: 'gs2',
         name: 'ARMOUR GS2',
-        img: `${CDN}/armour-g2-14-dev-4-3x.webp`,
+        img: `${CDN}/armour-g2-14-dev-4-v2-3x.webp`,
         alt: true,
         features: [
           {id: 'f1', text: 'External 18650\nBattery'},
@@ -519,6 +529,7 @@ export function ArmourG2Layout({children}) {
       {id: 'airflow', text: 'Upgraded Top Airflow & Top Filling'},
       {id: 'mesh', text: 'GTX Dual Mesh'},
     ],
+    btnText: 'Check Specs',
   };
 
   return (
@@ -537,7 +548,7 @@ export function ArmourG2Layout({children}) {
       <ThemeSection {...ThemeSectionData} />
       <PodCompatible {...PodCompatibleData} />
       <CompareSection {...CompareSectionData} />
-      <EndSection {...EndSectionData} />
+      <EndSection {...EndSectionData} onCheckSpecs={onCheckSpecs} />
       {children}
     </div>
   );
