@@ -459,9 +459,13 @@ export default function Product() {
 
   const useJsSpecSection =
     templateValue && SERIES_PRODUCT_SPEC_DATA_IN_JS.includes(templateValue);
-  const SpecSectionComponent = useJsSpecSection
-    ? SpecSectionJsData
-    : SpecSection;
+  /**
+   * template 可在 SERIES_PRODUCT_LAYOUT_ENTRIES 里用 SpecComponent 指定自己的
+   * Specs 组件（如 armour-g2）；未指定则沿用原来的两选一，其余产品页不受影响。
+   */
+  const SpecSectionComponent =
+    overviewLayoutEntry?.SpecComponent ??
+    (useJsSpecSection ? SpecSectionJsData : SpecSection);
 
   return (
     <div id="series-product-page" className={rootClassName}>

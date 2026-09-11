@@ -1,20 +1,40 @@
 /**
- * Luxe Q3 Layout Component
+ * ARMOUR G2 & GS2 Layout Component
+ * 区块顺序与 Figma 设计稿一致；各区块数据在本文件内联定义，视觉实现在各 Section 组件。
  */
 import {useEffect, useRef} from 'react';
 import {initToTopAnimate} from '~/utils/to_top_animate';
 import {
-  KvSectionV4,
-  BriefSectionV4,
-  MediaOverlaySection,
-  TextMediaSection,
-  MediaShrinkRevealSection,
-  TextCardSection,
-  EndProduct,
-} from '~/components/ui-v4';
-import {PodCompatible} from '~/components/SeriesProduct/ArmourSeries/ArmourG2';
+  KvSection,
+  VideoSection,
+  FeatureGridSection,
+  BatterySection,
+  ChargingSection,
+  FlavorSection,
+  DualMeshSection,
+  ModeSection,
+  LeakproofSection,
+  SafetyLockSection,
+  GuardSection,
+  ThemeSection,
+  CompareSection,
+  PodCompatible,
+  EndSection,
+} from '~/components/SeriesProduct/ArmourSeries/ArmourG2';
 
-export function ArmourG2Layout({children, onCheckSpecs}) {
+/**
+ * Shopify Files CDN 前缀，本页素材统一以 armour-g2- 开头。
+ * 前缀对应当前店铺 vaporesso-test.myshopify.com；页面里其余 `0703/9873/8521`
+ * 的链接是从生产站复制页面时带过来的遗留素材，不是本页的。
+ */
+const CDN = 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files';
+
+/*
+ * 路由仍会传入 onCheckSpecs（跳到 Specs 页签），但本版设计稿的结尾区没有
+ * 「Check Specs」按钮，故此处不解构、不使用。页面顶部 ProductNav 的 Specs
+ * 页签仍可到达规格页，功能不缺口。若设计后续补回按钮，恢复解构即可。
+ */
+export function ArmourG2Layout({children}) {
   const layoutRef = useRef(null);
 
   useEffect(() => {
@@ -29,40 +49,74 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
   const KvSectionData = {
     name: 'ARMOUR G2&GS2',
     slogan: 'A Truly Compact Pod Mod For All',
-    mobBanner:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
-    pcBanner:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-01-1.webp',
+    bannerPc: `${CDN}/armour-g2-01-1-2x.webp`,
+    bannerMob: `${CDN}/armour-g2-mob-01-1-3x.webp`,
   };
-  const BriefSectionData = {
-    desc: 'ARMOUR G2 & GS2 combine a compact design with a 3400mAh battery and 3A fast charging. Enjoy both MTL and DTL vaping with rich dual-mesh flavor. Dual safety locks and advanced leak protection enhance safety, while the clean, elegant dynamic UI provides an intuitive user experience.',
-    pcImageUrl:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-02-1.webp',
-    mobImageUrl:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-02.webp',
+  const VideoSectionData = {
+    description:
+      'ARMOUR G2 & GS2 combine a compact design with a 3400mAh battery and 3A fast charging. Enjoy both MTL and DTL vaping with rich dual-mesh flavor. Dual safety locks and advanced leak protection enhance safety, while the clean, elegant dynamic UI provides an intuitive user experience.',
+    imgPc: `${CDN}/armour-g2-02-1-2x.webp`,
+    imgMob: `${CDN}/armour-g2-mob-02-1-3x.webp`,
+    btnText: 'Watch the video',
+    // TODO 视频链接待产品/设计确认（跳转外链还是弹窗播放）
+    btnLink: '',
   };
-  const CompactSectionData = {
+  /* 素材编号 PC / MOB 同号同卡：1=MTL 2=GTX 3=BATT 4·5=Safety 6=Airflow 7=Charge */
+  const FeatureGridData = {
+    mtl: {
+      title: 'MTL & DTL\nCompatible',
+      imgPc: `${CDN}/armour-g2-03-1-2x.webp`,
+      imgMob: `${CDN}/armour-g2-mob-03-1-3x.webp`,
+      flowLeft: `${CDN}/armour-g2-03-flow-l.svg`,
+      flowRight: `${CDN}/armour-g2-03-flow-r.svg`,
+    },
+    gtx: {
+      title: 'GTX Dual Mesh',
+      imgPc: `${CDN}/armour-g2-03-2-2x.webp`,
+      imgMob: `${CDN}/armour-g2-mob-03-2-3x.webp`,
+    },
+    batt: {
+      title: '3400mAh MEGA BATT',
+      imgPc: `${CDN}/armour-g2-03-3-2x.webp`,
+      imgMob: `${CDN}/armour-g2-mob-03-3-3x.webp`,
+    },
+    safety: {
+      title: 'Dual Safety',
+      subtitle: 'Auto Lock + Button',
+      images: [
+        {
+          id: 'lock1',
+          imgPc: `${CDN}/armour-g2-03-4-2x.webp`,
+          imgMob: `${CDN}/armour-g2-mob-03-4-3x.webp`,
+        },
+        {
+          id: 'lock2',
+          imgPc: `${CDN}/armour-g2-03-5-2x.webp`,
+          imgMob: `${CDN}/armour-g2-mob-03-5-3x.webp`,
+        },
+      ],
+    },
+    airflow: {
+      title: 'Upgraded Top Airflow\n& Top Filling',
+      imgPc: `${CDN}/armour-g2-03-6-2x.webp`,
+      imgMob: `${CDN}/armour-g2-mob-03-6-3x.webp`,
+    },
+    charge: {
+      title: '3A Fast Charging',
+      imgPc: `${CDN}/armour-g2-03-7-2x.webp`,
+      imgMob: `${CDN}/armour-g2-mob-03-7-3x.webp`,
+    },
+  };
+  const BatterySectionData = {
     title: 'A Truly Compact Pod Mod',
     description:
       'High-density cells deliver 67% longer cycle life (500 vs. 300 cycles), reducing battery drain and charging frequency.',
     tips: '*The data is based on testing results from VAPORESSO LAB',
-    imgBgPc:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
-    imgBgMob:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
-    dataList: [
-      {
-        id: 'data1',
-        num: '48',
-        unit: 'H',
-        description: 'Standby For RDL',
-      },
-      {
-        id: 'data2',
-        num: '67',
-        unit: '%',
-        description: 'Longer Cycle Life',
-      },
+    imgPc: `${CDN}/armour-g2-04-1-2x.webp`,
+    imgMob: `${CDN}/armour-g2-mob-04-1-3x.webp`,
+    highlights: [
+      {id: 'standby', num: '48', unit: 'H', label: 'Standby For RDL'},
+      {id: 'cycle', num: '67', unit: '%', label: 'Longer Cycle Life'},
     ],
   };
   const ChargingSectionData = {
@@ -70,125 +124,235 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
     description:
       'The ARMOUR G2 supports 5V/3A fast charging, fully recharging in just 1 hour.',
     tips: '*The data is based on testing results from VAPORESSO LAB',
-    imgBgPc:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
-    imgBgMob:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
+    imgPc: `${CDN}/armour-g2-05-1-2x.webp`,
+    imgMob: `${CDN}/armour-g2-mob-05-1-3x.webp`,
   };
   const FlavorSectionData = {
-    imgPc:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-02-1.webp',
-    imgMob:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-02.webp',
     title: 'Full Flavor, Even At 20% Battery',
     description:
       'Pulse Mode on ARMOUR G2&GS2 delivers stable power output, keeping the flavor at its best from the first puff to the last',
     tips: '*The data is based on testing results from VAPORESSO LAB',
-    chartImgMob:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-02.webp',
-    chartImgPc:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-02-1.webp',
+    imgPc: `${CDN}/armour-g2-06-1-2x.webp`,
+    imgMob: `${CDN}/armour-g2-mob-06-1-3x.webp`,
+    chartPc: `${CDN}/armour-g2-06-2-2x.webp`,
+    chartMob: `${CDN}/armour-g2-mob-06-2-3x.webp`,
   };
-  const SssSectionData = {
-    title: 'Double Top | Triple S 2.0 | Quadra Leakproof',
+  const LeakproofSectionData = {
+    title: 'Double Top |\nTriple S 2.0 | Quadra Leakproof',
     description:
-      'ARMOUR G2&GS2 feature our proprietary SSS rigorous leakproof technology, designed for top-airflow and top-filling structures to eliminate e-liquid leakage risks',
+      'ARMOUR G2 and GS2 feature Quadra Leakproof protection, powered by our proprietary SSS e-liquid-lock technology. The top-airflow and top-filling designs help eliminate the risk of e-liquid leakage.',
     tips: '*The data is based on testing results from VAPORESSO LAB',
-    isTextOnCard: true,
-    cardList: [
+    cards: [
       {
-        id: 'card1',
-        title: 'Top Airflow',
-        imgPc:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-01-1.webp',
-        imgMob:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
+        id: 'airflow',
+        label: 'Top Airflow',
+        imgPc: `${CDN}/armour-g2-09-1-2x.webp`,
+        imgMob: `${CDN}/armour-g2-mob-09-1-3x.webp`,
       },
       {
-        id: 'card2',
-        title: 'Top Filling',
-        imgPc:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-01-1.webp',
-        imgMob:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
+        id: 'filling',
+        label: 'Top Filling',
+        imgPc: `${CDN}/armour-g2-09-2-2x.webp`,
+        imgMob: `${CDN}/armour-g2-mob-09-2-3x.webp`,
       },
       {
-        id: 'card3',
-        title: 'SSS 2.0',
-        imgPc:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-01-1.webp',
-        imgMob:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
+        id: 'sss',
+        label: 'SSS 2.0',
+        imgPc: `${CDN}/armour-g2-09-3-2x.webp`,
+        imgMob: `${CDN}/armour-g2-mob-09-3-3x.webp`,
       },
     ],
   };
-  const LockSectionData = {
-    title: 'Dual Safety Lock | No Accidental Firing',
+  const SafetyLockSectionData = {
+    title: 'Dual Safety Lock |\nNo Accidental Firing',
     description:
-      'The dual-safety mechanism prevents accidental pocket firing. Beyond standard button locking, users can also enable a 3-minute auto-lock.',
-    cardList: [
+      'The dual-safety mechanism prevents accidental pocket firing. Beyond standard button locking, users can also enable a 3-minute auto-lock',
+    cards: [
       {
-        id: 'card1',
-        title: '3-Minute Auto-Lock',
-        imgPc:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-01-1.webp',
-        imgMob:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
+        id: 'auto',
+        note: '*G2&GS2',
+        label: '3-Minute Auto-Lock',
+        imgPc: `${CDN}/armour-g2-10-1-2x.webp`,
+        imgMob: `${CDN}/armour-g2-mob-10-1-3x.webp`,
+        // 第二帧：LOCKED 态，与第一帧交替轮播
+        altImgPc: `${CDN}/armour-g2-10-2-2x.webp`,
+        altImgMob: `${CDN}/armour-g2-mob-10-2-3x.webp`,
       },
       {
-        id: 'card2',
-        title: 'Button Lock',
-        imgPc:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-01-1.webp',
-        imgMob:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
+        id: 'button',
+        note: '*G2&GS2',
+        label: 'Button Lock',
+        imgPc: `${CDN}/armour-g2-10-3-2x.webp`,
+        imgMob: `${CDN}/armour-g2-mob-10-3-3x.webp`,
       },
     ],
   };
-  const UISectionData = {
-    title: '3+3 UI Dynamic Themes',
-    description: 'Come Alive As You Vape.',
-    cardList: [
+  const GuardSectionData = {
+    title: 'Advanced Battery Guard',
+    tips: '*The data is based on testing results from VAPORESSO LAB',
+    cards: [
       {
-        id: 'card1',
-        title: 'G2',
-        imgPc:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-01-1.webp',
-        imgMob:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
-        dataList: [{text: 'Classic'}, {text: 'Dream'}, {text: 'Motor'}],
+        id: 'surge',
+        icon: `${CDN}/armour-g2-11-icon-1.svg`,
+        title: 'Voltage Surge Protection',
+        desc: '(ARMOUR G2 Only) Output Cuts Off When Voltage Deviation Exceeds 0.9V',
       },
       {
-        id: 'card2',
-        title: 'GS2',
-        imgPc:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-01-1.webp',
-        imgMob:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
-        dataList: [{text: 'Classic'}, {text: 'Meteor'}, {text: 'Engine'}],
+        id: 'overtime',
+        icon: `${CDN}/armour-g2-11-icon-2.svg`,
+        title: 'Overtime 2.0',
+        desc: 'Prevent Accidental 10s Long-Press',
+      },
+      {
+        id: 'overheat',
+        icon: `${CDN}/armour-g2-11-icon-3.svg`,
+        title: 'Overheat Protection',
+        desc: 'Charging Stops Above 75°C',
+      },
+    ],
+    minis: [
+      {
+        id: 'usb',
+        icon: `${CDN}/armour-g2-11-icon-4.svg`,
+        label: 'USB Protection',
+      },
+      {
+        id: 'lowres',
+        icon: `${CDN}/armour-g2-11-icon-5.svg`,
+        label: 'Low Resistance',
+      },
+      {
+        id: 'short',
+        icon: `${CDN}/armour-g2-11-icon-6.svg`,
+        label: 'Short Atomizer',
+      },
+      {
+        id: 'overheat2',
+        icon: `${CDN}/armour-g2-11-icon-7.svg`,
+        label: 'Over Heat',
+      },
+      {
+        id: 'battlow',
+        icon: `${CDN}/armour-g2-11-icon-8.svg`,
+        label: 'Battery Low',
+        tall: true,
+      },
+    ],
+  };
+  const ThemeSectionData = {
+    title: '3+3 UI Dynamic Themes',
+    description: 'Come Alive As You Vape',
+    cards: [
+      {
+        id: 'g2',
+        caption: 'G2  Classic｜Dream｜Motor',
+        imgPc: `${CDN}/armour-g2-12-1-2x.webp`,
+        imgMob: `${CDN}/armour-g2-mob-12-1-3x.webp`,
+      },
+      {
+        id: 'gs2',
+        caption: 'GS2  Classic｜Meteor｜Engine',
+        imgPc: `${CDN}/armour-g2-12-2-2x.webp`,
+        imgMob: `${CDN}/armour-g2-mob-12-2-3x.webp`,
       },
     ],
   };
   const DualMeshSectionData = {
+    logo: `${CDN}/armour-g2-07-logo.svg`,
     title: 'True-To-Life Flavor, Richer Taste',
     description:
       'The upgraded dual-mesh coils in the ARMOUR G2&GS2 works seamlessly with both nic salt and freebase e-liquids, unlocking rich, true-to-life flavor that tastes exactly like the real juice from the first puff.',
-    imgBgPc:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
-    imgBgMob:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/prix-Mob-01-1.webp',
-    dataList: [
+    tips: '*The data is based on testing results from VAPORESSO LAB',
+    imgPc: `${CDN}/armour-g2-07-1-2x.webp`,
+    imgMob: `${CDN}/armour-g2-mob-07-1-3x.webp`,
+    arrowPc: `${CDN}/armour-g2-07-arrow.svg`,
+    arrowMob: `${CDN}/armour-g2-mob-07-arrow.svg`,
+    stats: [
+      {id: 'lifespan', num: '50', unit: '%', label: 'Longer Lifespan'},
+      {id: 'flavor', num: '32', unit: '%', label: 'More Intense Flavor'},
+    ],
+  };
+  const ModeSectionData = {
+    title: 'MTL & DTL Compatible',
+    cards: [
       {
-        id: 'data1',
-        num: '50',
-        unit: '%',
-        description: 'Longer Lifespan',
+        id: 'mtl',
+        name: 'MTL',
+        img: `${CDN}/armour-g2-08-1-2x.webp`,
+        slider: `${CDN}/armour-g2-08-mtl.svg`,
+        features: [
+          {id: 'tip', key: 'Slim', text: 'drip tip'},
+          {id: 'airflow', key: 'Restricted', text: 'airflow'},
+          {id: 'draw', key: 'Tighter', text: 'draw and a stronger throat hit'},
+        ],
       },
       {
-        id: 'data2',
-        num: '32',
-        unit: '%',
-        description: 'More Intense Flavor',
+        id: 'dtl',
+        name: 'DTL',
+        img: `${CDN}/armour-g2-08-2-2x.webp`,
+        slider: `${CDN}/armour-g2-08-dtl.svg`,
+        features: [
+          {id: 'tip', key: 'Wide', text: 'drip tip'},
+          {id: 'airflow', key: 'Open', text: 'airflow'},
+          {id: 'draw', key: 'Smoother', text: 'draw and massive clouds'},
+        ],
+      },
+    ],
+  };
+  /* 两个 Pod 在设计稿里用的是同一张照片（导出文件 md5 一致），故共用一份素材 */
+  const CompareSectionData = {
+    title: "What's New In ARMOUR G2&GS2?",
+    arrow: `${CDN}/armour-g2-14-arrow.svg`,
+    columns: [
+      {
+        id: 'g',
+        name: 'ARMOUR G',
+        img: `${CDN}/armour-g2-14-dev-1-3x.webp`,
+        features: [
+          {id: 'f1', text: '3000 mAh\nBuilt-in Battery'},
+          {id: 'f2', text: '2A'},
+          {id: 'f3', text: '5-80W'},
+          {id: 'f4', text: 'Button Lock'},
+          {id: 'f5', text: 'Basic Battery\nProtection'},
+        ],
+      },
+      {
+        id: 'g2',
+        name: 'ARMOUR G2',
+        img: `${CDN}/armour-g2-14-dev-2-3x.webp`,
+        alt: true,
+        features: [
+          {id: 'f1', text: '3400 mAh\nBuilt-in Battery', up: true},
+          {id: 'f2', text: '3A\nFast Charging', up: true},
+          {id: 'f3', text: '5-60W'},
+          {id: 'f4', text: 'Auto-Lock +\nButton Lock', up: true},
+          {id: 'f5', text: 'Advanced Battery\nProtection', up: true},
+        ],
+      },
+      {
+        id: 'gs',
+        name: 'ARMOUR GS',
+        img: `${CDN}/armour-g2-14-dev-3-3x.webp`,
+        features: [
+          {id: 'f1', text: 'External 18650\nBattery'},
+          {id: 'f2', text: '2A'},
+          {id: 'f3', text: '5-80W'},
+          {id: 'f4', text: 'Button Lock'},
+          {id: 'f5', text: 'Basic Battery\nProtection'},
+        ],
+      },
+      {
+        id: 'gs2',
+        name: 'ARMOUR GS2',
+        img: `${CDN}/armour-g2-14-dev-4-3x.webp`,
+        alt: true,
+        features: [
+          {id: 'f1', text: 'External 18650\nBattery'},
+          {id: 'f2', text: '2A'},
+          {id: 'f3', text: '5-80W'},
+          {id: 'f4', text: 'Auto-Lock +\nButton Lock', up: true},
+          {id: 'f5', text: 'Advanced Battery\nProtection', up: true},
+        ],
       },
     ],
   };
@@ -196,262 +360,184 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
     title: 'Compatible With Multiple GTX Coils',
     podList: [
       {
-        id: 'pod1',
+        id: 'dtl',
         podName: 'ARMOUR G Series DTL Pod',
-        podImgPc:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-1.webp',
-        podImgMob:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-1.webp',
-        coilList: [
+        podImgPc: `${CDN}/armour-g2-13-pod-1-1x.webp`,
+        podImgMob: `${CDN}/armour-g2-mob-13-pod-1-1x.webp`,
+        coilGroups: [
           {
-            id: 'coil1',
-            data: [
+            id: 'g015',
+            items: [
               {
-                id: 'data1',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.15Ω',
-                coilTech: 'Mesh',
+                id: 'mesh-0.15Ω',
+                img: `${CDN}/armour-g2-13-coil-01-3x.webp`,
+                ohm: '0.15Ω',
+                tech: 'Mesh',
               },
               {
-                id: 'data2',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.15Ω',
-                coilTech: 'Dual Mesh',
+                id: 'dual-mesh-0.15Ω',
+                img: `${CDN}/armour-g2-13-coil-02-3x.webp`,
+                ohm: '0.15Ω',
+                tech: 'Dual\nMesh',
               },
             ],
-            watt: '60-75W',
           },
           {
-            id: 'coil2',
-            data: [
+            id: 'g02',
+            items: [
               {
-                id: 'data1',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.2Ω',
-                coilTech: 'Mesh',
+                id: 'mesh-0.2Ω',
+                img: `${CDN}/armour-g2-13-coil-03-3x.webp`,
+                ohm: '0.2Ω',
+                tech: 'Mesh',
               },
               {
-                id: 'data2',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.2Ω',
-                coilTech: 'Dual Mesh',
+                id: 'dual-mesh-0.2Ω',
+                img: `${CDN}/armour-g2-13-coil-04-3x.webp`,
+                ohm: '0.2Ω',
+                tech: 'Dual\nMesh',
               },
             ],
-            watt: '45-60W',
           },
           {
-            id: 'coil3',
-            data: [
+            id: 'g03',
+            items: [
               {
-                id: 'data1',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.3Ω',
-                coilTech: 'Mesh',
+                id: 'mesh-0.3Ω',
+                img: `${CDN}/armour-g2-13-coil-05-3x.webp`,
+                ohm: '0.3Ω',
+                tech: 'Mesh',
               },
               {
-                id: 'data2',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.3Ω',
-                coilTech: 'Dual Mesh',
+                id: 'dual-mesh-0.3Ω',
+                img: `${CDN}/armour-g2-13-coil-06-3x.webp`,
+                ohm: '0.3Ω',
+                tech: 'Dual\nMesh',
               },
             ],
-            watt: '32-45W',
           },
           {
-            id: 'coil4',
-            data: [
+            id: 'g04',
+            items: [
               {
-                id: 'data1',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.4Ω',
-                coilTech: 'Mesh',
+                id: 'mesh-0.4Ω',
+                img: `${CDN}/armour-g2-13-coil-07-3x.webp`,
+                ohm: '0.4Ω',
+                tech: 'Mesh',
               },
               {
-                id: 'data2',
-                coilTag: 'NEW!',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.4Ω',
-                coilTech: 'Dual Mesh',
+                id: 'dual-mesh-0.4Ω',
+                img: `${CDN}/armour-g2-13-coil-08-3x.webp`,
+                ohm: '0.4Ω',
+                tech: 'Dual\nMesh',
+                tag: 'NEW!',
               },
             ],
-            watt: '26-32W',
           },
           {
-            id: 'coil5',
-            data: [
+            id: 'g06',
+            items: [
               {
-                id: 'data1',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.6Ω',
-                coilTech: 'Mesh',
+                id: 'mesh-0.6Ω',
+                img: `${CDN}/armour-g2-13-coil-09-3x.webp`,
+                ohm: '0.6Ω',
+                tech: 'Mesh',
               },
             ],
-            watt: '20-26W',
           },
         ],
       },
       {
-        id: 'pod2',
+        id: 'mtl',
         podName: 'ARMOUR G Series MTL Pod',
-        podImgPc:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-1.webp',
-        podImgMob:
-          'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-1.webp',
-        coilList: [
+        podImgPc: `${CDN}/armour-g2-13-pod-2-1x.webp`,
+        podImgMob: `${CDN}/armour-g2-mob-13-pod-2-1x.webp`,
+        coilGroups: [
           {
-            id: 'coil1',
-            data: [
+            id: 'm04',
+            items: [
               {
-                id: 'data1',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.4Ω',
-                coilTech: 'Mesh',
+                id: 'mesh-0.4Ω',
+                img: `${CDN}/armour-g2-13-coil-07-3x.webp`,
+                ohm: '0.4Ω',
+                tech: 'Mesh',
               },
               {
-                id: 'data2',
-                coilTag: 'NEW!',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.4Ω',
-                coilTech: 'Dual Mesh',
+                id: 'dual-mesh-0.4Ω',
+                img: `${CDN}/armour-g2-13-coil-08-3x.webp`,
+                ohm: '0.4Ω',
+                tech: 'Dual\nMesh',
+                tag: 'NEW!',
               },
             ],
-            watt: '26-32W',
           },
           {
-            id: 'coil2',
-            data: [
+            id: 'm06',
+            items: [
               {
-                id: 'data1',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.6Ω',
-                coilTech: 'Mesh',
+                id: 'mesh-0.6Ω',
+                img: `${CDN}/armour-g2-13-coil-10-3x.webp`,
+                ohm: '0.6Ω',
+                tech: 'Mesh',
               },
             ],
-            watt: '20-26W',
           },
           {
-            id: 'coil3',
-            data: [
+            id: 'm08',
+            items: [
               {
-                id: 'data1',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '0.8Ω',
-                coilTech: 'Mesh',
+                id: 'mesh-0.8Ω',
+                img: `${CDN}/armour-g2-13-coil-11-3x.webp`,
+                ohm: '0.8Ω',
+                tech: 'Mesh',
               },
             ],
-            watt: '12-16W',
           },
           {
-            id: 'coil4',
-            data: [
+            id: 'm12',
+            items: [
               {
-                id: 'data1',
-                coilImgPc:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilImgMob:
-                  'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_xr_max_2-mobile-15-group1-2.webp',
-                coilOhm: '1.2Ω',
-                coilTech: 'Mesh',
+                id: 'mesh-1.2Ω',
+                img: `${CDN}/armour-g2-13-coil-12-3x.webp`,
+                ohm: '1.2Ω',
+                tech: 'Mesh',
               },
             ],
-            watt: '8-12W',
           },
         ],
       },
     ],
   };
-
-  const EndProductData = {
-    title: 'LUXE ',
-    subtitle: 'Q3',
-    imgUrl:
-      'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/luxe_q3-11_1.webp',
-    salesList: [
-      {id: 'sales1', text: '1450 mAh Battery'},
-      {id: 'sales2', text: 'Compact Design'},
-      {id: 'sales3', text: 'Premium Leather'},
-      {id: 'sales4', text: 'AXON CHIP'},
-      {id: 'sales5', text: 'COREX SMOOTH'},
+  const EndSectionData = {
+    title: 'ARMOUR G2&GS2',
+    img: `${CDN}/armour-g2-15-1-3x.webp`,
+    features: [
+      {id: 'batt', text: '3400mAh MEGA BATT'},
+      {id: 'charge', text: '3A Fast Charging'},
+      {id: 'mtl', text: 'MTL & DTL Compatible'},
+      {id: 'safety', text: 'Dual Safety: Button + Auto Lock'},
+      {id: 'airflow', text: 'Upgraded Top Airflow & Top Filling'},
+      {id: 'mesh', text: 'GTX Dual Mesh'},
     ],
   };
 
   return (
     <div ref={layoutRef}>
-      <KvSectionV4 className="product-armour-g2-kv" data={KvSectionData} />
-      <BriefSectionV4
-        className="product-armour-g2-brief"
-        data={BriefSectionData}
-      />
-      <MediaOverlaySection
-        className="product-armour-g2-compact"
-        {...CompactSectionData}
-      />
-      <TextMediaSection
-        className="product-armour-g2-charging"
-        {...ChargingSectionData}
-      />
-      <MediaShrinkRevealSection
-        className="product-armour-g2-flavor"
-        {...FlavorSectionData}
-      />
-      <TextCardSection className="product-armour-g2-sss" {...SssSectionData} />
-      <TextCardSection
-        className="product-armour-g2-lock"
-        {...LockSectionData}
-      />
-      <TextCardSection className="product-armour-g2-ui" {...UISectionData} />
-      <MediaOverlaySection
-        className="product-armour-g2-dual-mesh"
-        {...DualMeshSectionData}
-      />
-      <PodCompatible
-        className="product-armour-g2-pod-compatible"
-        {...PodCompatibleData}
-      />
-      <EndProduct
-        className="product-armour-g2-end-product"
-        data={EndProductData}
-        onCheckSpecs={onCheckSpecs}
-      />
+      <KvSection {...KvSectionData} />
+      <VideoSection {...VideoSectionData} />
+      <FeatureGridSection {...FeatureGridData} />
+      <BatterySection {...BatterySectionData} />
+      <ChargingSection {...ChargingSectionData} />
+      <FlavorSection {...FlavorSectionData} />
+      <DualMeshSection {...DualMeshSectionData} />
+      <ModeSection {...ModeSectionData} />
+      <LeakproofSection {...LeakproofSectionData} />
+      <SafetyLockSection {...SafetyLockSectionData} />
+      <GuardSection {...GuardSectionData} />
+      <ThemeSection {...ThemeSectionData} />
+      <PodCompatible {...PodCompatibleData} />
+      <CompareSection {...CompareSectionData} />
+      <EndSection {...EndSectionData} />
       {children}
     </div>
   );

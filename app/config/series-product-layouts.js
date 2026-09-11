@@ -26,6 +26,7 @@ import {
 import {
   ArmourG2Layout,
   ArmourG2ProductSpecData,
+  ArmourG2SpecSection,
 } from '~/components/SeriesProduct/ArmourSeries/ArmourG2';
 
 /** 不展示 ProductNav / SpecSection / Product3DViewer 的 template 值 */
@@ -144,5 +145,7 @@ export const SERIES_PRODUCT_LAYOUT_ENTRIES = {
   'armour-g2': {
     Layout: ArmourG2Layout,
     specElementId: 'check-specs-armour-g2',
+    /** 本页 Specs 页签用自己的组件，不走共享的 SpecSectionJsData */
+    SpecComponent: ArmourG2SpecSection,
   },
 };

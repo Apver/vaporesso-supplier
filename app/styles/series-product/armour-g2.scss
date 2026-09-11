@@ -1,78 +1,2988 @@
 .product-armour-g2 {
-  &-compact {
-    .ui-v4-media-overlay__media {
-      height: 100vh;
-    }
-  }
+  /* ===== 01 KV 首屏（设计稿 PC 1:173 / MOB 1:939）===== */
+  &-kv {
+    position: relative;
+    width: 100%;
+    height: 720px;
+    color: #000;
 
-  &-dual-mesh {
-    .ui-v4-media-overlay__media {
-      height: 960px;
+    picture {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &-bg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &-content {
+      display: flex;
+      position: absolute;
+      top: 50%;
+      left: 400px;
+      flex-direction: column;
+      gap: 24px;
+      transform: translateY(-50%);
+    }
+
+    &-title {
+      margin: 0;
+      font-size: 68px;
+      font-family: 'DinExp-Bold';
+      line-height: 0.88;
+      letter-spacing: -1px;
+      white-space: nowrap;
+    }
+
+    &-slogan {
+      width: 488px;
+      margin: 0;
+      font-size: 28px;
+      font-family: 'DinExp';
+      line-height: 1.05;
     }
 
     @media screen and (max-width: 1450px) {
-      .ui-v4-media-overlay__media {
-        height: 768px;
+      height: 576px;
+
+      &-content {
+        left: 320px;
+        gap: 19px;
+      }
+
+      &-title {
+        font-size: 54px;
+      }
+
+      &-slogan {
+        width: 390px;
+        font-size: 22px;
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      height: 12rem;
+
+      &-content {
+        top: 1.2rem;
+        left: 0.84rem;
+        gap: 0.12rem;
+        width: 5.82rem;
+        text-align: center;
+        transform: none;
+      }
+
+      &-title {
+        font-size: 0.72rem;
+        line-height: 1.3;
+        letter-spacing: 0;
+      }
+
+      &-slogan {
+        width: 100%;
+        font-size: 0.32rem;
+        line-height: 1.3;
       }
     }
   }
 
-  &-sss {
-    background: #f5f5f5;
+  /* ===== 02 视频区（设计稿 PC 1:179 / MOB 1:947）===== */
+  &-video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 150px 470px;
+    color: #000;
 
-    .ui-v4-text-card__media {
-      width: 360px;
+    &-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      width: 100%;
     }
 
-    .ui-v4-text-card__card-item-content-pos {
-      left: 0;
+    picture {
+      display: block;
+      width: 980px;
+      height: 580px;
+    }
+
+    &-cover {
+      display: block;
       width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &-desc {
+      width: 664px;
+      margin: 0;
+      font-size: 14px;
+      font-family: 'DinExp-Bold';
+      line-height: 1.3;
+      text-align: center;
+      word-break: break-word;
+    }
+
+    &-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      width: 155px;
+      height: 38px;
+      padding: 7px 13px 7px 14px;
+      border: 1px solid #000;
+      border-radius: 23.5px;
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+
+      &-text {
+        font-size: 14px;
+        font-family: 'DinExp-Bold';
+        line-height: 24px;
+        white-space: nowrap;
+      }
+
+      &-icon {
+        display: block;
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    @media screen and (max-width: 1450px) {
+      gap: 26px;
+      padding: 120px 376px;
+
+      &-body {
+        gap: 32px;
+      }
+
+      picture {
+        width: 784px;
+        height: 464px;
+      }
+
+      &-desc {
+        width: 531px;
+        font-size: 12px;
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      align-items: flex-start;
+      gap: 0.48rem;
+      padding: 1.6rem 0.5rem 1rem;
+
+      &-body {
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+
+      picture {
+        width: 100%;
+        height: 6.8rem;
+      }
+
+      &-desc {
+        width: 6.1rem;
+        font-size: 0.28rem;
+        text-align: left;
+      }
+
+      &-btn {
+        width: 3.1rem;
+        height: 0.76rem;
+        padding: 0.14rem 0.26rem;
+        border-radius: 0.47rem;
+
+        &-text {
+          font-size: 0.28rem;
+          line-height: 0.48rem;
+        }
+
+        &-icon {
+          width: 0.4rem;
+          height: 0.4rem;
+        }
+      }
+    }
+  }
+
+  /* ===== 03 卖点合集（设计稿 PC 1:190 / MOB 1:957）=====
+     PC：3 列 Grid（325/310/325），MTL 跨前两列 = 645，BATT 与 CHARGE 各跨两行 = 510
+     MOB：2 列 Grid（170/169），卡片顺序与 PC 不同，由 grid-row 显式排布 */
+  &-grid {
+    display: grid;
+    grid-template-columns: 325px 310px 325px;
+    grid-template-rows: repeat(3, 250px);
+    justify-content: center;
+    box-sizing: border-box;
+    gap: 10px;
+    padding: 150px 470px 200px;
+    background: #f5f5f5;
+
+    &-card {
+      position: relative;
+      overflow: hidden;
+
+      &-bg {
+        display: block;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &-text {
+        position: relative;
+        z-index: 1;
+      }
+
+      &-title {
+        margin: 0;
+        font-family: 'DinExp-Bold';
+        white-space: pre-line;
+      }
+
+      &-subtitle {
+        margin: 0;
+        font-family: 'DinExp';
+      }
+    }
+
+    &-mtl {
+      grid-column: 1 / 3;
+      grid-row: 1;
+
+      .product-armour-g2-grid-card-text {
+        padding: 30px 0 0 30px;
+      }
+
+      .product-armour-g2-grid-card-title {
+        color: #fff;
+        font-size: 24px;
+        line-height: 1;
+      }
+    }
+
+    /* 气流指示条：左弱右强，矢量素材两端共用 */
+    &-mtl-flow-l,
+    &-mtl-flow-r {
+      display: block;
+      position: absolute;
+      z-index: 1;
+      top: 165px;
+      width: 66px;
+      height: 10px;
+    }
+
+    &-mtl-flow-l {
+      left: 133px;
+    }
+
+    &-mtl-flow-r {
+      left: 554px;
+    }
+
+    &-gtx {
+      grid-column: 3;
+      grid-row: 1;
+
+      .product-armour-g2-grid-card-text {
+        padding: 24px 0 0 30px;
+      }
+
+      .product-armour-g2-grid-card-title {
+        width: 220px;
+        color: #fff;
+        font-size: 21px;
+        line-height: 1.25;
+      }
+    }
+
+    &-batt {
+      grid-column: 1;
+      grid-row: 2 / 4;
+
+      .product-armour-g2-grid-card-text {
+        padding: 24px 0 0 30px;
+      }
+
+      .product-armour-g2-grid-card-title {
+        color: #fff;
+        font-size: 24px;
+        line-height: 1.02;
+        white-space: nowrap;
+      }
+    }
+
+    &-charge {
+      grid-column: 3;
+      grid-row: 2 / 4;
+
+      .product-armour-g2-grid-card-text {
+        padding: 24px 0 0 30px;
+      }
+
+      .product-armour-g2-grid-card-title {
+        color: #fff;
+        font-size: 24px;
+        line-height: 1.02;
+        white-space: nowrap;
+      }
+    }
+
+    &-airflow {
+      grid-column: 2;
+      grid-row: 3;
+      background: #fff;
+
+      .product-armour-g2-grid-card-text {
+        padding: 16px 0 0 30px;
+      }
+
+      .product-armour-g2-grid-card-title {
+        width: 240px;
+        color: #000;
+        font-size: 24px;
+        line-height: 1.1;
+      }
+    }
+
+    &-safety {
+      display: flex;
+      grid-column: 2;
+      grid-row: 2;
+      flex-direction: column;
+      align-items: center;
+      gap: 21px;
+      padding-top: 16px;
+      background: #fff;
+
+      .product-armour-g2-grid-card-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        text-align: center;
+      }
+
+      .product-armour-g2-grid-card-title {
+        color: #000;
+        font-size: 24px;
+        line-height: 1;
+      }
+
+      .product-armour-g2-grid-card-subtitle {
+        color: #000;
+        font-size: 16px;
+        line-height: 1.35;
+        white-space: nowrap;
+      }
+    }
+
+    &-safety-imgs {
+      display: flex;
+      gap: 11px;
+    }
+
+    /* 圆角由 CSS 控制，素材本身是矩形；该值超过宽度一半，浏览器会 clamp 成胶囊端 */
+    &-safety-img {
+      display: block;
+      width: 97.5px;
+      height: 130px;
+      border-radius: 52.097px;
+      object-fit: cover;
+    }
+
+    @media screen and (max-width: 1450px) {
+      grid-template-columns: 260px 248px 260px;
+      grid-template-rows: repeat(3, 200px);
+      gap: 8px;
+      padding: 120px 376px 160px;
+
+      &-mtl {
+        .product-armour-g2-grid-card-text {
+          padding: 24px 0 0 24px;
+        }
+
+        .product-armour-g2-grid-card-title {
+          font-size: 19px;
+        }
+      }
+
+      &-mtl-flow-l,
+      &-mtl-flow-r {
+        top: 132px;
+        width: 53px;
+        height: 8px;
+      }
+
+      &-mtl-flow-l {
+        left: 106px;
+      }
+
+      &-mtl-flow-r {
+        left: 443px;
+      }
+
+      &-gtx {
+        .product-armour-g2-grid-card-text {
+          padding: 19px 0 0 24px;
+        }
+
+        .product-armour-g2-grid-card-title {
+          width: 176px;
+          font-size: 17px;
+        }
+      }
+
+      &-batt,
+      &-charge {
+        .product-armour-g2-grid-card-text {
+          padding: 19px 0 0 24px;
+        }
+
+        .product-armour-g2-grid-card-title {
+          font-size: 19px;
+        }
+      }
+
+      &-airflow {
+        .product-armour-g2-grid-card-text {
+          padding: 13px 0 0 24px;
+        }
+
+        .product-armour-g2-grid-card-title {
+          width: 192px;
+          font-size: 19px;
+        }
+      }
+
+      &-safety {
+        gap: 17px;
+        padding-top: 13px;
+
+        .product-armour-g2-grid-card-title {
+          font-size: 19px;
+        }
+
+        .product-armour-g2-grid-card-subtitle {
+          font-size: 13px;
+        }
+      }
+
+      &-safety-imgs {
+        gap: 9px;
+      }
+
+      &-safety-img {
+        width: 78px;
+        height: 104px;
+        border-radius: 41.7px;
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      grid-template-columns: 3.4rem 3.38rem;
+      grid-template-rows: 3.22rem 4.52rem 4.3rem 4.3rem;
+      gap: 0.12rem;
+      padding: 1.2rem 0.3rem 1rem;
+
+      &-mtl {
+        grid-column: 1 / 3;
+        grid-row: 1;
+
+        .product-armour-g2-grid-card-text {
+          padding: 0.36rem 0.24rem 0;
+        }
+
+        .product-armour-g2-grid-card-title {
+          width: 1.62rem;
+          font-size: 0.3rem;
+          line-height: 1.2;
+        }
+      }
+
+      &-mtl-flow-l,
+      &-mtl-flow-r {
+        top: 2.28rem;
+        width: 1.06rem;
+        height: 0.16rem;
+      }
+
+      &-mtl-flow-l {
+        left: 1.02rem;
+      }
+
+      &-mtl-flow-r {
+        left: 5.56rem;
+      }
+
+      &-charge {
+        grid-column: 1 / 3;
+        grid-row: 2;
+
+        .product-armour-g2-grid-card-text {
+          padding: 0.36rem 0.24rem 0;
+        }
+
+        .product-armour-g2-grid-card-title {
+          width: 2.9rem;
+          font-size: 0.3rem;
+          line-height: 1.2;
+          white-space: normal;
+        }
+      }
+
+      &-safety {
+        grid-column: 1;
+        grid-row: 3;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 0;
+        padding: 0.36rem 0.2rem;
+
+        .product-armour-g2-grid-card-text {
+          align-items: flex-start;
+          gap: 0.08rem;
+          text-align: left;
+        }
+
+        .product-armour-g2-grid-card-title {
+          font-size: 0.3rem;
+        }
+
+        .product-armour-g2-grid-card-subtitle {
+          font-size: 0.3rem;
+        }
+      }
+
+      &-safety-imgs {
+        align-self: center;
+        gap: 0.08rem;
+      }
+
+      &-safety-img {
+        width: 1.24rem;
+        height: 2.52rem;
+        border-radius: 1.04rem;
+      }
+
+      &-airflow {
+        grid-column: 2;
+        grid-row: 3;
+
+        .product-armour-g2-grid-card-text {
+          padding: 0.36rem 0.24rem 0;
+        }
+
+        .product-armour-g2-grid-card-title {
+          width: 2.9rem;
+          font-size: 0.3rem;
+          line-height: 1.2;
+        }
+      }
+
+      &-gtx {
+        grid-column: 1;
+        grid-row: 4;
+
+        .product-armour-g2-grid-card-text {
+          padding: 0.36rem 0.24rem 0;
+        }
+
+        .product-armour-g2-grid-card-title {
+          width: 2.9rem;
+          font-size: 0.3rem;
+          line-height: 1.2;
+        }
+      }
+
+      &-batt {
+        grid-column: 2;
+        grid-row: 4;
+
+        .product-armour-g2-grid-card-text {
+          padding: 0.36rem 0.24rem 0;
+        }
+
+        .product-armour-g2-grid-card-title {
+          width: 2.22rem;
+          font-size: 0.3rem;
+          line-height: 1.2;
+          white-space: normal;
+        }
+      }
+    }
+  }
+
+  /* ===== 04 电量（设计稿 PC 1:217 / MOB 1:981）=====
+     PC：全屏背景图 + 左侧单列（文字 + 数据）
+     MOB：文字在上白底，背景图压到底部 400 高，数据绝对定位到图左下 */
+  &-battery {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 1080px;
+    padding: 358px 409px;
+    color: #000;
+
+    picture {
+      display: block;
+      position: absolute;
+      inset: 0;
+    }
+
+    &-bg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &-text {
+      display: flex;
+      position: relative;
+      z-index: 1;
+      flex-direction: column;
+      gap: 20px;
+      width: 471px;
+
+      &-main {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+    }
+
+    &-title {
+      width: 435px;
+      margin: 0;
+      font-size: 54px;
+      font-family: 'DinExp-Bold';
+      line-height: 1;
+    }
+
+    &-desc {
+      margin: 0;
+      font-size: 16px;
+      font-family: 'DinExp-Bold';
+      line-height: 1.3;
+    }
+
+    &-tips {
+      margin: 0;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 16px;
+      font-family: 'DinExp';
+      line-height: 1.3;
+    }
+
+    &-highlights {
+      display: flex;
+      position: relative;
+      z-index: 1;
+      align-items: center;
+      gap: 60px;
+      margin-top: 60px;
+    }
+
+    &-hl {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+
+      &-value {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        margin: 0;
+      }
+
+      /* 蓝绿渐变数字：CSS 实现，不烧进素材 */
+      &-num,
+      &-unit {
+        background-image: linear-gradient(
+          180deg,
+          #1971c3 18.978%,
+          #49ff61 108.52%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        font-family: 'DinExp-Bold';
+        line-height: 1;
+      }
+
+      &-num {
+        font-size: 60px;
+      }
+
+      &-unit {
+        font-size: 30px;
+      }
+
+      &-label {
+        margin: 0;
+        font-size: 16px;
+        font-family: 'DinExp-Bold';
+        line-height: 1.3;
+        white-space: nowrap;
+      }
+    }
+
+    @media screen and (max-width: 1450px) {
+      height: 864px;
+      padding: 286px 327px;
+
+      &-text {
+        gap: 16px;
+        width: 377px;
+
+        &-main {
+          gap: 14px;
+        }
+      }
+
+      &-title {
+        width: 348px;
+        font-size: 43px;
+      }
+
+      &-desc,
+      &-tips {
+        font-size: 13px;
+      }
+
+      &-highlights {
+        gap: 48px;
+        margin-top: 48px;
+      }
+
+      &-hl {
+        &-num {
+          font-size: 48px;
+        }
+
+        &-unit {
+          font-size: 24px;
+        }
+
+        &-label {
+          font-size: 13px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      align-items: center;
+      justify-content: flex-start;
+      height: 13.74rem;
+      padding: 1.2rem 0 0;
+
+      picture {
+        inset: auto 0 0 0;
+        height: 8rem;
+      }
+
+      &-text {
+        gap: 0.24rem;
+        width: 6.1rem;
+
+        &-main {
+          gap: 0.24rem;
+        }
+      }
+
+      &-title {
+        width: 5.04rem;
+        font-size: 0.6rem;
+      }
+
+      &-desc {
+        font-size: 0.32rem;
+      }
+
+      &-tips {
+        font-size: 0.3rem;
+        line-height: 1.35;
+      }
+
+      /* 数据块叠到底部图片区左下：section 底部即图片区底部 */
+      &-highlights {
+        position: absolute;
+        left: 0.7rem;
+        bottom: 0.48rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.48rem;
+        margin-top: 0;
+      }
+
+      &-hl {
+        gap: 0.04rem;
+
+        &-value {
+          gap: 0;
+        }
+
+        &-num {
+          font-size: 0.88rem;
+        }
+
+        &-unit {
+          font-size: 0.48rem;
+        }
+
+        &-label {
+          width: 2.2rem;
+          font-size: 0.26rem;
+          white-space: normal;
+        }
+      }
+    }
+  }
+
+  /* ===== 05 3A 快充（设计稿 PC 1:235 / MOB 1:999）=====
+     PC：左对齐，顺序 标题→描述→图→注释
+     MOB：居中，顺序 标题→描述→注释→图（用 order 重排，DOM 单套） */
+  &-charging {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    padding: 150px 0 150px 470px;
+    background: #f5f5f5;
+    color: #000;
+
+    &-title {
+      order: 1;
+      width: 728px;
+      margin: 0;
+      font-size: 48px;
+      font-family: 'DinExp-Bold';
+      line-height: 1.05;
+    }
+
+    &-desc {
+      order: 2;
+      width: 728px;
+      margin: 18px 0 0;
+      font-size: 17px;
+      font-family: 'DinExp';
+      line-height: 1.35;
+    }
+
+    &-media {
+      display: block;
+      order: 3;
+      width: 1050px;
+      height: 600px;
+      margin-top: 40px;
+    }
+
+    &-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &-tips {
+      order: 4;
+      margin: 40px 0 0;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 15px;
+      font-family: 'DinExp';
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    @media screen and (max-width: 1450px) {
+      padding: 120px 0 120px 376px;
+
+      &-title {
+        width: 582px;
+        font-size: 38px;
+      }
+
+      &-desc {
+        width: 582px;
+        margin-top: 14px;
+        font-size: 14px;
+      }
+
+      &-media {
+        width: 840px;
+        height: 480px;
+        margin-top: 32px;
+      }
+
+      &-tips {
+        margin-top: 32px;
+        font-size: 12px;
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      align-items: center;
+      padding: 1.6rem 0 1rem;
+
+      &-title {
+        width: 6.1rem;
+        font-size: 0.6rem;
+        line-height: 1;
+      }
+
+      &-desc {
+        width: 6.1rem;
+        margin-top: 0.24rem;
+        font-size: 0.34rem;
+      }
+
+      /* 移动端注释紧跟描述，图排到最后 */
+      &-tips {
+        order: 3;
+        width: 6.1rem;
+        margin-top: 0.24rem;
+        font-size: 0.3rem;
+        line-height: 1.35;
+        white-space: normal;
+      }
+
+      &-media {
+        order: 4;
+        width: 6.7rem;
+        height: 8rem;
+        margin-top: 0.64rem;
+      }
+    }
+  }
+
+  /* ===== 06 Pulse Mode 滚动缩窄揭示（设计稿 PC 1:242+1:243 / MOB 1:1006）=====
+     PC：container 为 flex，box 固定 50% 且 flex-shrink:0 初始被挤出视口，
+         GSAP 把 media 宽度 100%→50%，白底即被腾进来（详见 FlavorSection.jsx）
+     MOB：无动效，黑底内容在上、芯片图在下，且标题/图表/描述顺序与 PC 不同 */
+  &-flavor {
+    /* 用 % 而非 vw：有纵向滚动条时 100vw 比可视宽多 15px，会把白底右侧裁掉 */
+    &-container {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      height: 100vh;
+    }
+
+    &-media {
+      display: block;
+      flex-shrink: 0;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+
+    &-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    &-box {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      width: 50%;
+      height: 100%;
+      background: #fff;
+    }
+
+    /* PC：Figma 中为 grid 叠放 + ml/mt 定位，这里用相对/绝对等价还原 */
+    &-content {
+      position: relative;
+      flex-shrink: 0;
+      width: 572px;
+      height: 540px;
+      margin-left: 92px;
+      color: #000;
+    }
+
+    &-text {
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 25px;
+      flex-direction: column;
+      gap: 18px;
+      width: 508px;
+    }
+
+    &-title {
+      margin: 0;
+      font-size: 48px;
+      font-family: 'DinExp-Bold';
+      line-height: 1;
+    }
+
+    &-desc {
+      margin: 0;
+      font-size: 16px;
+      font-family: 'DinExp';
+      line-height: 1.3;
+    }
+
+    &-chart {
+      display: block;
+      position: absolute;
+      top: 218px;
+      left: 0;
+      width: 572px;
+
+      &-img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    &-tips {
+      position: absolute;
+      top: 519px;
+      left: 25px;
+      width: 508px;
+      margin: 0;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 16px;
+      font-family: 'DinExp';
+      line-height: 1.3;
+    }
+
+    @media screen and (max-width: 1450px) {
+      &-content {
+        width: 458px;
+        height: 432px;
+        margin-left: 74px;
+      }
+
+      &-text {
+        left: 20px;
+        gap: 14px;
+        width: 406px;
+      }
+
+      &-title {
+        font-size: 38px;
+      }
+
+      &-desc {
+        font-size: 13px;
+      }
+
+      &-chart {
+        top: 174px;
+        width: 458px;
+      }
+
+      &-tips {
+        top: 415px;
+        left: 20px;
+        width: 406px;
+        font-size: 13px;
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      &-container {
+        flex-direction: column-reverse;
+        width: 100%;
+        height: auto;
+      }
+
+      &-media {
+        width: 100%;
+        height: 6.42rem;
+      }
+
+      &-box {
+        display: block;
+        width: 100%;
+        height: auto;
+        padding: 1.2rem 0.3rem 0.8rem;
+        background: #000;
+      }
+
+      &-content {
+        display: flex;
+        position: static;
+        flex-direction: column;
+        align-items: center;
+        width: 6.9rem;
+        height: auto;
+        margin: 0 auto;
+        color: #fff;
+      }
+
+      /* 让标题与描述脱离分组，直接参与 content 的排序 */
+      &-text {
+        display: contents;
+      }
+
+      &-title {
+        order: 1;
+        width: 6.1rem;
+        font-size: 0.6rem;
+      }
+
+      &-chart {
+        order: 2;
+        position: static;
+        width: 100%;
+        margin-top: 0.8rem;
+      }
+
+      &-desc {
+        order: 3;
+        width: 6.1rem;
+        margin-top: 0.8rem;
+        font-size: 0.3rem;
+        line-height: 1.4;
+      }
+
+      &-tips {
+        order: 4;
+        position: static;
+        width: 6.1rem;
+        margin-top: 0.2rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.3rem;
+        line-height: 1.35;
+      }
+    }
+  }
+
+  &-mode {
+    padding: 150px 0 200px;
+    background: #fff;
+
+    &-inner {
+      width: 980px;
+      margin: 0 auto;
+    }
+
+    &-title {
+      width: 728px;
+      margin: 0 auto 48px;
+      color: #000;
+      font-size: 48px;
+      font-family: 'DinExp-Bold';
+      line-height: 1.05;
       text-align: center;
     }
 
+    &-cards {
+      display: flex;
+      gap: 20px;
+    }
+
+    &-card {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+      overflow: hidden;
+      width: 480px;
+      height: 580px;
+      padding: 38px 40px;
+      background: #000;
+
+      /* 左下压黑，保证白字与橙字可读；设计稿为 12.875° 的线性渐变 */
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          12.875deg,
+          rgba(0, 0, 0, 0.8) 5.2444%,
+          rgba(0, 0, 0, 0) 29.273%
+        );
+      }
+
+      &-bg {
+        display: block;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &-head {
+        display: flex;
+        z-index: 1;
+        position: relative;
+        align-items: center;
+        gap: 20px;
+      }
+
+      &-name {
+        color: #fff;
+        font-size: 20px;
+        font-family: 'DinExp-Bold';
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      /* 两张卡的滑块宽度不同（91.7 / 92.4），锁高度让固有比例决定宽度 */
+      &-slider {
+        display: block;
+        width: auto;
+        height: 14px;
+      }
+
+      &-list {
+        z-index: 1;
+        position: relative;
+        width: 164px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      &-item {
+        color: #fff;
+        font-size: 16px;
+        font-family: 'DinExp-Bold';
+        line-height: 1;
+
+        & + & {
+          margin-top: 8px;
+          padding-top: 8px;
+          border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        &-key {
+          color: #ff6a00;
+        }
+      }
+    }
+
     @media screen and (max-width: 1450px) {
-      .ui-v4-text-card__media {
-        width: 288px;
+      padding: 120px 0 160px;
+
+      &-inner {
+        width: 784px;
+      }
+
+      &-title {
+        width: 582px;
+        margin-bottom: 38px;
+        font-size: 38px;
+      }
+
+      &-cards {
+        gap: 16px;
+      }
+
+      &-card {
+        width: 384px;
+        height: 464px;
+        padding: 30px 32px;
+
+        &-head {
+          gap: 16px;
+        }
+
+        &-name {
+          font-size: 16px;
+        }
+
+        &-slider {
+          height: 11.2px;
+        }
+
+        &-list {
+          width: 131px;
+        }
+
+        &-item {
+          font-size: 13px;
+
+          & + & {
+            margin-top: 6px;
+            padding-top: 6px;
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0.3rem 1rem;
+
+      &-inner {
+        width: 100%;
+      }
+
+      &-title {
+        width: 6.1rem;
+        margin-bottom: 0.8rem;
+        font-size: 0.6rem;
+        line-height: 1;
+        text-align: left;
+      }
+
+      &-cards {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+
+      &-card {
+        width: 100%;
+        height: 8.32rem;
+        padding: 0.6rem 0.4rem;
+
+        &-head {
+          gap: 0.4rem;
+        }
+
+        &-name {
+          font-size: 0.4rem;
+        }
+
+        &-slider {
+          height: 0.28rem;
+        }
+
+        &-list {
+          width: 3.28rem;
+        }
+
+        &-item {
+          font-size: 0.28rem;
+
+          & + & {
+            margin-top: 0.2rem;
+            padding-top: 0.2rem;
+          }
+        }
       }
     }
   }
 
-  &-charging {
+  &-leak {
+    padding: 150px 0 200px;
     background: #f5f5f5;
 
-    .ui-v4-description {
-      text-align: left;
+    &-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 1120px;
+      margin: 0 auto;
     }
 
-    .ui-v4-text-media__media {
-      height: 640px;
+    &-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+      margin-bottom: 48px;
+    }
+
+    &-title {
+      width: 100%;
+      margin: 0;
+      color: #000;
+      font-size: 48px;
+      font-family: 'DinExp-Bold';
+      line-height: 1.05;
+      text-align: center;
+      /* 数据里的 \A 在这里折成空格，移动端才换行 */
+      white-space: nowrap;
+    }
+
+    &-desc {
+      width: 728px;
+      margin: 0;
+      color: #000;
+      font-size: 18px;
+      font-family: 'DinExp';
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    &-cards {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      margin-bottom: 48px;
+    }
+
+    &-card {
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+      width: 360px;
+      height: 520px;
+      padding: 30px 50px;
+      background: #fff;
+
+      &-media {
+        display: block;
+        position: absolute;
+        inset: 0;
+      }
+
+      &-bg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &-label {
+        z-index: 1;
+        position: relative;
+        width: 100%;
+        margin: 0;
+        color: #000;
+        font-size: 20px;
+        font-family: 'DinExp-Bold';
+        line-height: 1;
+      }
+    }
+
+    &-tips {
+      margin: 0;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 16px;
+      font-family: 'DinExp';
+      line-height: 1.3;
+      white-space: nowrap;
     }
 
     @media screen and (max-width: 1450px) {
-      .ui-v4-text-media__media {
-        height: 512px;
+      padding: 120px 0 160px;
+
+      &-inner {
+        width: 896px;
+      }
+
+      &-head {
+        gap: 14px;
+        margin-bottom: 38px;
+      }
+
+      &-title {
+        font-size: 38px;
+      }
+
+      &-desc {
+        width: 582px;
+        font-size: 14px;
+      }
+
+      &-cards {
+        gap: 16px;
+        margin-bottom: 38px;
+      }
+
+      &-card {
+        width: 288px;
+        height: 416px;
+        padding: 24px 40px;
+
+        &-label {
+          font-size: 16px;
+        }
+      }
+
+      &-tips {
+        font-size: 13px;
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      padding: 1.2rem 0.3rem 1rem;
+
+      &-inner {
+        width: 100%;
+      }
+
+      &-head {
+        align-items: flex-start;
+        gap: 0.24rem;
+        width: 6.1rem;
+        margin-bottom: 0.8rem;
+      }
+
+      &-title {
+        font-size: 0.6rem;
+        line-height: 1;
+        text-align: left;
+        /* 保留数据里的换行：Double Top | 之后另起一行 */
+        white-space: pre-line;
+      }
+
+      &-desc {
+        width: 100%;
+        font-size: 0.3rem;
+        line-height: 0.42rem;
+        text-align: left;
+      }
+
+      &-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.24rem;
+        margin-bottom: 0.48rem;
+      }
+
+      /* 设计稿里第 1 张卡的内边距比另两张少 10px，属稿内不一致，
+         这里统一取 30px，避免三卡堆叠时标签看起来没对齐 */
+      &-card {
+        width: 6.9rem;
+        height: 6rem;
+        padding: 0.6rem;
+
+        &-label {
+          font-size: 0.4rem;
+        }
+      }
+
+      &-tips {
+        width: 6.1rem;
+        font-size: 0.3rem;
+        line-height: 1.35;
+        white-space: normal;
+      }
+    }
+  }
+
+  &-lock {
+    padding: 150px 0 200px;
+    background: #fff;
+
+    &-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 978px;
+      margin: 0 auto;
+    }
+
+    &-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+      margin-bottom: 48px;
+      color: #000;
+      text-align: center;
+    }
+
+    &-title {
+      margin: 0;
+      font-size: 48px;
+      font-family: 'DinExp-Bold';
+      line-height: 1;
+      letter-spacing: -1px;
+      text-transform: capitalize;
+    }
+
+    &-desc {
+      width: 782px;
+      margin: 0;
+      font-size: 18px;
+      font-family: 'DinExp';
+      line-height: 25px;
+    }
+
+    &-cards {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    &-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+
+      /* 进入视口后才让第二帧开始轮播 */
+      &.appear .product-armour-g2-lock-frame-2 {
+        animation-play-state: running;
+      }
+    }
+
+    &-frames {
+      position: relative;
+      overflow: hidden;
+      width: 484px;
+      height: 595px;
+      background: #f5f5f5;
+    }
+
+    &-frame {
+      display: block;
+      position: absolute;
+      inset: 0;
+
+      &-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* 第二帧（LOCKED）叠在上层，opacity 由 keyframes 驱动 */
+      &-2 {
+        opacity: 0;
+        animation: armour-g2-lock-fade 6s ease-in-out infinite;
+        animation-play-state: paused;
+      }
+    }
+
+    @keyframes armour-g2-lock-fade {
+      0%,
+      41.67% {
+        opacity: 0;
+      }
+
+      50%,
+      91.67% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &-frame-2 {
+        animation: none;
+        opacity: 0;
+      }
+    }
+
+    &-caption {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: #000;
+      white-space: nowrap;
+    }
+
+    &-note {
+      margin: 0;
+      font-size: 18px;
+      font-family: 'DinExp';
+      line-height: 25px;
+    }
+
+    &-label {
+      margin: 0;
+      font-size: 20px;
+      font-family: 'DinExp-Bold';
+      line-height: 1.3;
+    }
+
+    @media screen and (max-width: 1450px) {
+      padding: 120px 0 160px;
+
+      &-inner {
+        width: 782px;
+      }
+
+      &-head {
+        gap: 14px;
+        margin-bottom: 38px;
+      }
+
+      &-title {
+        font-size: 38px;
+      }
+
+      &-desc {
+        width: 626px;
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      &-card {
+        gap: 16px;
+      }
+
+      &-frames {
+        width: 387px;
+        height: 476px;
+      }
+
+      &-caption {
+        gap: 8px;
+      }
+
+      &-note {
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      &-label {
+        font-size: 16px;
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      padding: 1.2rem 0.3rem 1rem 0.28rem;
+
+      &-inner {
+        width: 6.92rem;
+      }
+
+      &-head {
+        align-items: flex-start;
+        gap: 0.24rem;
+        width: 6.1rem;
+        margin-bottom: 0.8rem;
+        text-align: left;
+      }
+
+      &-title {
+        font-size: 0.6rem;
+        letter-spacing: 0;
+        /* 数据里的换行在移动端生效：Dual Safety Lock | 之后另起一行 */
+        white-space: pre-line;
+      }
+
+      &-desc {
+        width: 100%;
+        font-size: 0.3rem;
+        line-height: 0.42rem;
+      }
+
+      &-cards {
+        flex-direction: column;
+        gap: 1.2rem;
+        width: 100%;
+      }
+
+      &-card {
+        gap: 0.4rem;
+        width: 100%;
+      }
+
+      &-frames {
+        width: 100%;
+        height: 6rem;
+      }
+
+      &-caption {
+        gap: 0.12rem;
+        padding-left: 0.42rem;
+      }
+
+      &-note {
+        font-size: 0.3rem;
+        line-height: 1;
+      }
+
+      &-label {
+        font-size: 0.4rem;
+      }
+    }
+  }
+
+  &-guard {
+    padding: 150px 0 200px;
+    background: #000;
+
+    &-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 1120px;
+      margin: 0 auto;
+    }
+
+    &-title {
+      width: 100%;
+      margin: 0 0 48px;
+      color: #fff;
+      font-size: 48px;
+      font-family: 'DinExp-Bold';
+      line-height: 1;
+      text-align: center;
+    }
+
+    &-cards {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    /* 大卡：底色 + 底部橙色椭圆辉光。椭圆半径与圆心都用百分比，
+       PC/移动两端设计稿换算下来完全一致，一套值通吃 */
+    &-card {
+      display: flex;
+      flex: 1 0 0;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      min-width: 0;
+      height: 340px;
+      padding: 60px 0 40px;
+      background:
+        radial-gradient(
+          ellipse 333.6% 68.1% at 51.6% 104.3%,
+          rgba(255, 78, 0, 0.7) 0%,
+          rgba(191, 59, 0, 0.525) 8.61%,
+          rgba(128, 39, 0, 0.35) 17.22%,
+          rgba(64, 20, 0, 0.175) 25.82%,
+          rgba(0, 0, 0, 0) 34.43%
+        ),
+        #161616;
+      box-shadow: inset 0 0 12px 0 rgba(255, 78, 0, 0.45);
+
+      &-icon {
+        display: block;
+        width: 120px;
+        height: 120px;
+      }
+
+      &-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+      }
+
+      &-title {
+        width: 100%;
+        margin: 0;
+        color: #fff;
+        font-size: 20px;
+        font-family: 'DinExp-Bold';
+        line-height: 1.3;
+        text-align: center;
+      }
+
+      &-desc {
+        width: 291px;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 16px;
+        font-family: 'DinExp';
+        line-height: 1.5;
+        text-align: center;
+      }
+    }
+
+    &-minis {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 48px;
+    }
+
+    &-mini {
+      display: flex;
+      flex: 1 0 0;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      min-width: 0;
+      gap: 20px;
+      height: 200px;
+      background: #161616;
+      box-shadow: inset 0 0 8px 0 rgba(255, 78, 0, 0.45);
+
+      &-icon {
+        display: block;
+        width: 80px;
+        height: 80px;
+      }
+
+      &-label {
+        width: 180px;
+        margin: 0;
+        color: #fff;
+        font-size: 20px;
+        font-family: 'DinExp-Bold';
+        line-height: 1.2;
+        text-align: center;
+      }
+
+      /* Battery Low：图标竖长、比另四张靠上，且设计稿里略偏右于卡片中线 */
+      &--tall {
+        justify-content: flex-start;
+        gap: 13.9px;
+        padding-top: 21.9px;
+
+        .product-armour-g2-guard-mini-icon {
+          width: 44px;
+          height: 112.2px;
+          margin-left: 14px;
+        }
+      }
+    }
+
+    &-tips {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 16px;
+      font-family: 'DinExp';
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    @media screen and (max-width: 1450px) {
+      padding: 120px 0 160px;
+
+      &-inner {
+        width: 896px;
+      }
+
+      &-title {
+        margin-bottom: 38px;
+        font-size: 38px;
+      }
+
+      &-cards {
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      &-card {
+        height: 272px;
+        padding: 48px 0 32px;
+
+        &-icon {
+          width: 96px;
+          height: 96px;
+        }
+
+        &-text {
+          gap: 8px;
+        }
+
+        &-title {
+          font-size: 16px;
+        }
+
+        &-desc {
+          width: 233px;
+          font-size: 13px;
+        }
+      }
+
+      &-minis {
+        gap: 8px;
+        margin-bottom: 38px;
+      }
+
+      &-mini {
+        gap: 16px;
+        height: 160px;
+
+        &-icon {
+          width: 64px;
+          height: 64px;
+        }
+
+        &-label {
+          width: 144px;
+          font-size: 16px;
+        }
+
+        &--tall {
+          gap: 11.1px;
+          padding-top: 17.5px;
+
+          .product-armour-g2-guard-mini-icon {
+            width: 35.2px;
+            height: 89.8px;
+            margin-left: 11.2px;
+          }
+        }
+      }
+
+      &-tips {
+        font-size: 13px;
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      padding: 1.2rem 0.42rem 1.62rem 0.44rem;
+
+      &-inner {
+        align-items: flex-start;
+        width: 100%;
+      }
+
+      /* 设计稿里标题块 305 是居中的、卡片块 332 是满宽的，故此处居中而非左贴边 */
+      &-title {
+        align-self: center;
+        width: 6.1rem;
+        margin-bottom: 0.8rem;
+        font-size: 0.6rem;
+        text-align: left;
+      }
+
+      &-cards {
+        flex-direction: column;
+        gap: 0.24rem;
+        margin-bottom: 0.28rem;
+      }
+
+      &-card {
+        height: auto;
+        padding: 0.8rem 0;
+
+        &-icon {
+          width: 1.2rem;
+          height: 1.2rem;
+        }
+
+        &-text {
+          gap: 0.16rem;
+          margin-top: 0.4rem;
+        }
+
+        &-title {
+          font-size: 0.36rem;
+        }
+
+        &-desc {
+          width: 5.82rem;
+          font-size: 0.26rem;
+          line-height: 1.3;
+        }
+      }
+
+      /* 5 张小卡两列铺排，最后一张独占左列 */
+      &-minis {
+        flex-wrap: wrap;
+        gap: 0.24rem;
+        margin-bottom: 0;
+      }
+
+      &-mini {
+        flex: 0 0 calc(50% - 0.12rem);
+        gap: 0.4rem;
+        height: 3rem;
+        box-shadow: inset 0 0 12px 0 rgba(255, 78, 0, 0.45);
+
+        &-icon {
+          width: 1rem;
+          height: 1rem;
+        }
+
+        &-label {
+          width: 3rem;
+          font-size: 0.3rem;
+        }
+
+        &--tall {
+          gap: 0.21rem;
+          padding-top: 0.32rem;
+
+          .product-armour-g2-guard-mini-icon {
+            width: 0.706rem;
+            height: 1.8rem;
+            margin-left: 0.262rem;
+          }
+        }
+      }
+
+      /* 移动端设计稿无脚注 */
+      &-tips {
+        display: none;
+      }
+    }
+  }
+
+  &-theme {
+    padding: 150px 0 200px;
+    background: #fff;
+
+    &-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 980px;
+      margin: 0 auto;
+    }
+
+    &-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+      margin-bottom: 48px;
+      color: #000;
+      text-align: center;
+    }
+
+    &-title {
+      width: 728px;
+      margin: 0;
+      font-size: 48px;
+      font-family: 'DinExp-Bold';
+      line-height: 1;
+    }
+
+    &-desc {
+      width: 680px;
+      margin: 0;
+      font-size: 16px;
+      font-family: 'DinExp';
+      line-height: 1.3;
+    }
+
+    &-cards {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+    }
+
+    &-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      width: 485px;
+
+      &-media {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        height: 540px;
+      }
+
+      &-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &-caption {
+        width: 100%;
+        margin: 0;
+        color: #000;
+        font-size: 20px;
+        font-family: 'DinExp-Bold';
+        line-height: 1.35;
+      }
+    }
+
+    @media screen and (max-width: 1450px) {
+      padding: 120px 0 160px;
+
+      &-inner {
+        width: 784px;
+      }
+
+      &-head {
+        gap: 14px;
+        margin-bottom: 38px;
+      }
+
+      &-title {
+        width: 582px;
+        font-size: 38px;
+      }
+
+      &-desc {
+        width: 544px;
+        font-size: 13px;
+      }
+
+      &-cards {
+        gap: 8px;
+      }
+
+      &-card {
+        gap: 16px;
+        width: 388px;
+
+        &-media {
+          height: 432px;
+        }
+
+        &-caption {
+          font-size: 16px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0 1rem;
+
+      &-inner {
+        width: 100%;
+      }
+
+      &-head {
+        align-items: flex-start;
+        gap: 0.24rem;
+        width: 6.1rem;
+        margin-bottom: 0.8rem;
+        text-align: left;
+      }
+
+      &-title {
+        width: 100%;
+        font-size: 0.6rem;
+      }
+
+      &-desc {
+        width: 100%;
+        font-size: 0.3rem;
+        line-height: 0.42rem;
+      }
+
+      &-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+      }
+
+      /* 图 346 与说明 305 各自居中于 375，宽度分别设在子元素上 */
+      &-card {
+        align-items: center;
+        gap: 0.4rem;
+        width: 100%;
+
+        &-media {
+          width: 6.92rem;
+          height: 6rem;
+        }
+
+        &-caption {
+          width: 6.1rem;
+          font-size: 0.4rem;
+          line-height: 1.3;
+        }
+      }
+    }
+  }
+
+  &-mesh {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    height: 890px;
+    background: #000;
+
+    &-media {
+      display: block;
+      position: absolute;
+      inset: 0;
+
+      /* 设计稿三段渐变：顶/底压黑 + 左侧压暗 70%（保证文案可读），不烧进素材 */
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, #000 4.13%, rgba(0, 0, 0, 0) 24.174%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0) 78.855%, #000 96.834%),
+          linear-gradient(
+            270deg,
+            rgba(0, 0, 0, 0) 33.827%,
+            rgba(0, 0, 0, 0.7) 64.157%
+          );
+      }
+    }
+
+    &-bg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    &-body {
+      display: flex;
+      position: absolute;
+      top: calc(50% - 22px);
+      left: 400px;
+      flex-direction: column;
+      gap: 60px;
+      width: 433px;
+      transform: translateY(-50%);
+    }
+
+    &-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    &-logo {
+      display: block;
+      width: 136px;
+      height: 46px;
+      margin-bottom: 30px;
+    }
+
+    &-title {
+      width: 100%;
+      margin: 0 0 24px;
+      color: #fff;
+      font-size: 48px;
+      font-family: 'DinExp-Bold';
+      line-height: 52px;
+    }
+
+    &-desc {
+      width: 100%;
+      margin: 0 0 24px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 16px;
+      font-family: 'DinExp';
+      line-height: 1.5;
+    }
+
+    &-tips {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 16px;
+      font-family: 'DinExp';
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    &-stats {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+    }
+
+    &-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+
+      &-value {
+        display: flex;
+        align-items: flex-end;
+        gap: 4px;
+        width: 112px;
+      }
+
+      /* font-size: 0 消掉 span 之间的空白节点，尺寸全由内部 span 决定 */
+      &-num {
+        margin: 0;
+        color: #ff6a00;
+        font-size: 0;
+        font-family: 'DinExp-Bold';
+        line-height: 0;
+        white-space: nowrap;
+      }
+
+      &-int {
+        font-size: 60px;
+        line-height: 1.05;
+      }
+
+      &-unit {
+        font-size: 20px;
+        line-height: 1.05;
+      }
+
+      &-arrow {
+        display: block;
+        flex-shrink: 0;
+        width: 20.321px;
+        height: 45.423px;
+
+        &-img {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      &-label {
+        margin: 0;
+        color: #fff;
+        font-size: 16px;
+        font-family: 'DinExp-Bold';
+        line-height: 1;
+        white-space: nowrap;
+      }
+    }
+
+    @media screen and (max-width: 1450px) {
+      height: 712px;
+
+      &-body {
+        top: calc(50% - 18px);
+        left: 320px;
+        gap: 48px;
+        width: 346px;
+      }
+
+      &-logo {
+        width: 109px;
+        height: 37px;
+        margin-bottom: 24px;
+      }
+
+      &-title {
+        margin-bottom: 19px;
+        font-size: 38px;
+        line-height: 42px;
+      }
+
+      &-desc {
+        margin-bottom: 19px;
+        font-size: 13px;
+      }
+
+      &-tips {
+        font-size: 13px;
+      }
+
+      &-stats {
+        gap: 64px;
+      }
+
+      &-stat {
+        gap: 13px;
+
+        &-value {
+          gap: 3px;
+          width: 90px;
+        }
+
+        &-int {
+          font-size: 48px;
+        }
+
+        &-unit {
+          font-size: 16px;
+        }
+
+        &-arrow {
+          width: 16.257px;
+          height: 36.338px;
+        }
+
+        &-label {
+          font-size: 13px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      display: grid;
+      grid-template-rows: auto 7.8rem;
+      grid-template-columns: 100%;
+      height: auto;
+
+      &-media {
+        grid-row: 2;
+        grid-column: 1;
+        position: relative;
+        inset: auto;
+
+        &::after {
+          background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0) 84.957%,
+            #000 102.6%
+          );
+        }
+      }
+
+      /* 拆组：让文案落到第 1 行、数据与图片同格叠放 */
+      &-body {
+        display: contents;
+      }
+
+      &-text {
+        grid-row: 1;
+        grid-column: 1;
+        width: 6.1rem;
+        margin: 0 auto;
+        padding: 1.6rem 0 0.8rem;
+      }
+
+      &-logo {
+        width: 2.72rem;
+        height: 0.92rem;
+        margin-bottom: 0.48rem;
+      }
+
+      &-title {
+        margin-bottom: 0.24rem;
+        font-size: 0.6rem;
+        line-height: 1;
+      }
+
+      &-desc {
+        margin-bottom: 0.24rem;
+        color: #fff;
+        font-size: 0.3rem;
+        line-height: 1.5;
+      }
+
+      &-tips {
+        font-size: 0.3rem;
+        line-height: 1.3;
+        white-space: normal;
+      }
+
+      &-stats {
+        z-index: 1;
+        grid-row: 2;
+        grid-column: 1;
+        align-self: start;
+        gap: 0.88rem;
+        padding-left: 0.7rem;
+      }
+
+      &-stat {
+        gap: 0.08rem;
+
+        &-value {
+          gap: 0.12rem;
+          width: auto;
+        }
+
+        &-int {
+          font-size: 0.88rem;
+          line-height: 1;
+        }
+
+        &-unit {
+          font-size: 0.48rem;
+          line-height: 1;
+        }
+
+        &-arrow {
+          width: 0.28rem;
+          height: 0.48rem;
+          margin-bottom: 0.124rem;
+        }
+
+        &-label {
+          font-size: 0.26rem;
+        }
+      }
+    }
+  }
+
+  &-end {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 21px;
+    padding: 160px 0 200px;
+    background: #f2f2f2;
+
+    &-title {
+      width: 100%;
+      margin: 0;
+      color: #000;
+      font-size: 48px;
+      font-family: 'DinExp-Bold';
+      line-height: 1.08;
+      text-align: center;
+    }
+
+    &-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 780px;
+    }
+
+    &-img {
+      display: block;
+      width: 340px;
+      height: 480px;
+      object-fit: cover;
+    }
+
+    &-tags {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    &-tag {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      height: 36px;
+      padding: 0 15px;
+      border: 1px solid rgba(68, 68, 68, 0.5);
+      color: #666;
+      font-size: 15px;
+      font-family: 'DinExp';
+      line-height: 20px;
+      white-space: nowrap;
+    }
+
+    @media screen and (max-width: 1450px) {
+      gap: 17px;
+      padding: 128px 0 160px;
+
+      &-title {
+        font-size: 38px;
+      }
+
+      &-body {
+        width: 624px;
+      }
+
+      &-img {
+        width: 272px;
+        height: 384px;
+      }
+
+      &-tags {
+        gap: 10px;
+      }
+
+      &-tag {
+        height: 29px;
+        padding: 0 12px;
+        font-size: 12px;
+        line-height: 16px;
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      gap: 0.2rem;
+      padding: 1.2rem 0.4rem 1.6rem;
+
+      &-title {
+        font-size: 0.5rem;
+        line-height: 1.1;
+      }
+
+      &-body {
+        width: 100%;
+      }
+
+      /* 设计稿图框 340 比内容区 335 宽，左右各溢出 2.5px。
+         全局有 img{max-width:100%}，需显式解除才能溢出 */
+      &-img {
+        flex-shrink: 0;
+        max-width: none;
+        width: 6.8rem;
+        height: 9.6rem;
+      }
+
+      &-tags {
+        gap: 0.213rem;
+        width: 6.7rem;
+      }
+
+      &-tag {
+        height: auto;
+        padding: 0.142rem 0.213rem;
+        font-size: 0.267rem;
+        line-height: 0.356rem;
+      }
+    }
+  }
+
+  &-compare {
+    padding: 150px 0;
+    background: #fff;
+
+    &-title {
+      width: 1120px;
+      margin: 0 auto 48px;
+      color: #000;
+      font-size: 48px;
+      font-family: 'DinExp-Bold';
+      line-height: 1;
+      text-align: center;
+    }
+
+    &-cols {
+      display: flex;
+      width: 1120px;
+      margin: 0 auto;
+    }
+
+    &-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      gap: 18px;
+      width: 280px;
+      padding: 20px 0 30px;
+      border: 1px solid #f2f2f2;
+
+      &--alt {
+        background: #f2f2f2;
+      }
+    }
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      box-sizing: border-box;
+      gap: 20px;
+      width: 208px;
+      height: 350px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    /* PC 锁宽：四张图各自的固有比例决定高度，底部随 justify-end 对齐 */
+    &-device {
+      display: block;
+      width: 78px;
+      height: auto;
+    }
+
+    &-name {
+      width: 100%;
+      margin: 0;
+      padding: 10px;
+      box-sizing: border-box;
+      color: #000;
+      font-size: 20px;
+      font-family: 'DinExp-Bold';
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    &-features {
+      width: 208px;
+    }
+
+    &-feature {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      height: 74px;
+      padding: 10px;
+
+      &-text {
+        width: 100%;
+        margin: 0;
+        color: #000;
+        font-size: 17px;
+        font-family: 'DinExp-Bold';
+        line-height: 1.1;
+        text-align: center;
+        /* 数据里的 \\A 在 PC 强制换行，移动端交给自动折行 */
+        white-space: pre-line;
+      }
+
+      &-icon {
+        display: block;
+        position: absolute;
+        top: 25.5px;
+        right: 10px;
+        width: 13px;
+        height: 26.54px;
+      }
+    }
+
+    @media screen and (max-width: 1450px) {
+      padding: 120px 0;
+
+      &-title {
+        width: 896px;
+        margin-bottom: 38px;
+        font-size: 38px;
+      }
+
+      &-cols {
+        width: 896px;
+      }
+
+      &-col {
+        gap: 14px;
+        width: 224px;
+        padding: 16px 0 24px;
+      }
+
+      &-info {
+        gap: 16px;
+        width: 166px;
+        height: 280px;
+        padding-bottom: 16px;
+      }
+
+      &-device {
+        width: 62px;
+      }
+
+      &-name {
+        padding: 8px;
+        font-size: 16px;
+      }
+
+      &-features {
+        width: 166px;
+      }
+
+      &-feature {
+        height: 59px;
+        padding: 8px;
+
+        &-text {
+          font-size: 14px;
+        }
+
+        &-icon {
+          top: 20.4px;
+          right: 8px;
+          width: 10.4px;
+          height: 21.2px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 1023px) {
+      padding: 1.6rem 0;
+
+      &-title {
+        width: 6.1rem;
+        margin: 0 0 0.8rem 0.7rem;
+        font-size: 0.6rem;
+        line-height: 1.033;
+        text-align: left;
+      }
+
+      &-cols {
+        flex-wrap: wrap;
+        width: 6.88rem;
+      }
+
+      &-col {
+        align-items: flex-start;
+        gap: 0.4rem;
+        width: 3.44rem;
+        padding: 0.4rem 0.34rem;
+        border-color: rgba(0, 0, 0, 0.1);
+      }
+
+      &-info {
+        gap: 0.56rem;
+        width: 2.76rem;
+        height: 4.96rem;
+        padding-bottom: 0.4rem;
+      }
+
+      /* 移动端锁高：画框宽度随各设备比例自适应 */
+      &-device {
+        width: auto;
+        height: 3.68rem;
+      }
+
+      &-name {
+        padding: 0;
+        font-size: 0.34rem;
+      }
+
+      &-features {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        width: 2.76rem;
+      }
+
+      &-feature {
+        height: 0.8rem;
+        padding: 0;
+
+        /* 文本框比列内容区宽 14px，设计稿是左右各溢出 7px 居中 */
+        &-text {
+          width: 3.04rem;
+          margin: 0 -0.14rem;
+          font-size: 0.26rem;
+          /* 移动端换行点与 PC 不同，交给自动折行 */
+          white-space: normal;
+        }
+
+        &-icon {
+          top: 0.16rem;
+          right: -0.12rem;
+          width: 0.235rem;
+          height: 0.48rem;
+        }
       }
     }
   }
 
   &-pod-compatible {
-    padding: 150px 200px;
-    background-color: #000;
-    color: #fff;
-    text-align: center;
+    padding: 150px 0 200px;
+    background: #000;
 
-    &-list {
-      width: 1120px;
-      margin: 48px auto;
+    &-title {
+      width: 854px;
+      margin: 0 auto 48px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 48px;
+      font-family: 'DinExp-Bold';
+      line-height: 1.08;
+      text-align: center;
     }
 
+    &-list {
+      width: 964px;
+      margin: 0 auto;
+    }
+
+    /* Pod 与各线圈组是同级 flex 子项，移动端靠 flex-wrap 绕排 */
     &-item {
       display: flex;
+      align-items: flex-start;
+      box-sizing: border-box;
       width: 100%;
       margin-bottom: 16px;
-      padding: 43px 35px;
+      padding: 42.5px 33px;
+      column-gap: 37px;
       background: #2b2b2b;
-      column-gap: 45px;
 
       &:last-child {
         margin-bottom: 0;
@@ -80,163 +2990,237 @@
     }
 
     &-pod {
-      width: 220px;
-      margin-right: 30px;
-      padding: 24px 30px;
-      font-family: 'DinExp-Bold';
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      align-items: center;
+      gap: 15px;
+      width: 160px;
+      margin-right: 23px;
+      padding: 24px 0;
 
-      &-img {
-        object-fit: cover;
+      &-media {
+        display: block;
         width: 160px;
         height: 162px;
       }
 
+      &-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: bottom;
+      }
+
       &-title {
-        margin-top: 15px;
+        width: 100%;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.9);
         font-size: 19px;
+        font-family: 'DinExp-Bold';
         line-height: 1.06;
+        text-align: center;
       }
     }
 
-    &-coil-container {
-      padding: 10px 0 19px;
-      text-align: center;
-    }
-
-    &-coil-box {
+    &-coil-group {
       display: flex;
-      column-gap: 2px;
+      flex-shrink: 0;
+      gap: 2px;
+      padding-top: 10.5px;
     }
 
     &-coil {
       width: 58px;
+      text-align: center;
 
       &-tag {
-        color: #ff2121;
-        font-size: 20px;
+        height: 18px;
+        margin: 0;
+        color: red;
+        font-size: 17px;
+        font-family: 'DinExp';
         line-height: 1.05;
       }
 
       &-img {
         display: block;
-        object-fit: cover;
         width: 58px;
         height: 86px;
-        margin: 6px 0 10px;
+        margin-top: 11.5px;
+        object-fit: cover;
       }
 
       &-ohm {
-        font-size: 20px;
+        margin: 25px 0 0;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 19px;
+        font-family: 'DinExp-Bold';
         line-height: 28px;
       }
 
+      /* 「Dual\A Mesh」在数据里带换行，这里保留 */
       &-tech {
-        min-height: 34px;
-        margin-top: 10px;
-        font-size: 16px;
+        margin: 10px 0 0;
+        color: red;
+        font-size: 17px;
         font-family: 'DinExp';
         line-height: 1.05;
+        white-space: pre-line;
       }
-    }
-
-    &-coil-watt {
-      margin-top: 24px;
-      color: rgb(255 255 255 / 30%);
-      font-size: 14px;
-      line-height: 1.05;
     }
 
     @media screen and (max-width: 1450px) {
       padding: 120px 0 160px;
 
+      &-title {
+        width: 683px;
+        margin-bottom: 38px;
+        font-size: 38px;
+      }
+
       &-list {
-        width: 960px;
-        margin: 38px auto 0;
+        width: 771px;
       }
 
       &-item {
         margin-bottom: 13px;
-        padding: 21px 28px;
-        column-gap: 36px;
+        padding: 34px 26px;
+        column-gap: 30px;
       }
 
       &-pod {
-        width: 176px;
-        margin-right: 24px;
-        padding: 19px 24px;
+        gap: 12px;
+        width: 128px;
+        margin-right: 18px;
+        padding: 19px 0;
 
-        &-img {
+        &-media {
           width: 128px;
-          height: 129px;
+          height: 130px;
         }
 
         &-title {
-          margin-top: 12px;
           font-size: 15px;
         }
       }
 
-      &-coil-container {
-        padding: 8px 0 15px;
+      &-coil-group {
+        padding-top: 8px;
       }
 
       &-coil {
         width: 46px;
 
         &-tag {
-          font-size: 16px;
+          height: 14px;
+          font-size: 14px;
         }
 
         &-img {
           width: 46px;
-          height: 68px;
-          margin: 5px 0 8px;
+          height: 69px;
+          margin-top: 9px;
         }
 
         &-ohm {
-          font-size: 16px;
+          margin-top: 20px;
+          font-size: 15px;
           line-height: 22px;
         }
 
         &-tech {
-          min-height: 28px;
           margin-top: 8px;
           font-size: 14px;
         }
       }
-
-      &-coil-watt {
-        margin-top: 19px;
-        font-size: 12px;
-      }
     }
 
     @media screen and (max-width: 1023px) {
-      padding: 1rem 0 0;
+      padding: 1.2rem 0 0;
 
-      .ui-v4-title {
-        &-pod-img {
-          width: 128px;
-          height: 129px;
-        }
-
-        &-pod-title {
-          font-size: 16px;
-        }
-
-        margin-left: 0.7rem;
+      &-title {
+        width: 6.1rem;
+        margin: 0 0 0.8rem 0.7rem;
+        font-size: 0.6rem;
+        line-height: 1.1;
+        text-align: left;
       }
 
       &-list {
-        width: 100vw;
+        width: 100%;
       }
 
+      /* 线圈组绕着 Pod 换行铺排；一行放不下就整组换到下一行 */
       &-item {
         flex-wrap: wrap;
-        width: 100%;
+        margin-bottom: 0.46rem;
+        padding: 0.48rem 0.32rem;
+        column-gap: 0.1rem;
+        row-gap: 0.36rem;
+      }
+
+      &-pod {
+        align-items: flex-start;
+        gap: 0.4rem;
+        width: 3.9rem;
+        margin-right: 0;
+        padding: 0;
+
+        &-media {
+          width: 2.38rem;
+          height: 2.78rem;
+          margin-left: 0.29rem;
+        }
+
+        &-title {
+          width: 2.96rem;
+          font-size: 0.38rem;
+          line-height: 1.3;
+        }
+      }
+
+      &-coil-group {
+        gap: 0;
+        padding-top: 0;
+      }
+
+      &-coil {
+        width: 1.16rem;
+
+        /* 设计稿里成对线圈是重叠 5px 排的（图两侧本就留白） */
+        & + & {
+          margin-left: -0.1rem;
+        }
+
+        &-tag {
+          height: 0.34rem;
+          font-size: 0.3rem;
+          line-height: 0.34rem;
+        }
+
+        &-img {
+          width: 1.16rem;
+          height: 1.66rem;
+          margin-top: 0.02rem;
+        }
+
+        &-ohm {
+          margin-top: 0.496rem;
+          font-size: 0.36rem;
+          line-height: 0.52rem;
+        }
+
+        &-tech {
+          margin-top: 0.042rem;
+          font-size: 0.3rem;
+          line-height: 1.4;
+        }
       }
     }
   }
+
 
   .spec-content .f li:nth-child(2) {
     margin-right: 60px;
