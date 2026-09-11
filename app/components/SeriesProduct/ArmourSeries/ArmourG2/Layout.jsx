@@ -278,7 +278,8 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
       {
         id: 'mtl',
         name: 'MTL',
-        img: `${CDN}/armour-g2-08-1-2x.webp`,
+        imgPc: `${CDN}/armour-g2-08-1-v2-2x.webp`,
+        imgMob: `${CDN}/armour-g2-mob-08-1-3x.webp`,
         slider: `${CDN}/armour-g2-08-mtl.svg`,
         features: [
           {id: 'tip', key: 'Slim', text: 'drip tip'},
@@ -289,7 +290,8 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
       {
         id: 'dtl',
         name: 'DTL',
-        img: `${CDN}/armour-g2-08-2-2x.webp`,
+        imgPc: `${CDN}/armour-g2-08-2-v2-2x.webp`,
+        imgMob: `${CDN}/armour-g2-mob-08-2-3x.webp`,
         slider: `${CDN}/armour-g2-08-dtl.svg`,
         features: [
           {id: 'tip', key: 'Wide', text: 'drip tip'},
@@ -299,7 +301,6 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
       },
     ],
   };
-  /* 两个 Pod 在设计稿里用的是同一张照片（导出文件 md5 一致），故共用一份素材 */
   const CompareSectionData = {
     title: "What's New In ARMOUR G2&GS2?",
     arrow: `${CDN}/armour-g2-14-arrow.svg`,
@@ -368,12 +369,14 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
   };
   const PodCompatibleData = {
     title: 'Compatible With Multiple GTX Coils',
+    // Pod 主图：设计稿（2026-09-11 换图）两个 Pod 用同一张产品抠图，但各节点裁切不同，
+    // 故按节点各出一张透明底 3x 图，卡片底色由 CSS 提供
     podList: [
       {
         id: 'dtl',
         podName: 'ARMOUR G Series DTL Pod',
-        podImgPc: `${CDN}/armour-g2-13-pod-1-1x.webp`,
-        podImgMob: `${CDN}/armour-g2-mob-13-pod-1-1x.webp`,
+        podImgPc: `${CDN}/armour-g2-13-pod-1-3x.webp`,
+        podImgMob: `${CDN}/armour-g2-mob-13-pod-1-3x.webp`,
         coilGroups: [
           {
             id: 'g015',
@@ -460,8 +463,8 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
       {
         id: 'mtl',
         podName: 'ARMOUR G Series MTL Pod',
-        podImgPc: `${CDN}/armour-g2-13-pod-2-1x.webp`,
-        podImgMob: `${CDN}/armour-g2-mob-13-pod-2-1x.webp`,
+        podImgPc: `${CDN}/armour-g2-13-pod-2-3x.webp`,
+        podImgMob: `${CDN}/armour-g2-mob-13-pod-2-3x.webp`,
         coilGroups: [
           {
             id: 'm04',

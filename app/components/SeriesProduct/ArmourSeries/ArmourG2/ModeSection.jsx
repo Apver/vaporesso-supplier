@@ -1,9 +1,9 @@
 /**
  * ARMOUR G2 — MTL & DTL Compatible
  * 设计稿：PC 1:299（标题居中，两张卡片并排）／MOB 1:1058（标题左对齐，卡片上下堆叠）
- * 两端卡片内的图片裁切完全一致（设计稿百分比逐位相同），故 PC/MOB 共用一份素材，
- * 不再拆 pc/mob 两张，`<picture>` 也随之省掉。
- * 卡片左下的压黑渐变与条目之间的分隔线都由 CSS 实现，不烧进素材。
+ * 设计师 2026-09-11 换图后，两端用同一张源图但裁切与旋转不同，故 PC/MOB 各出一张，用 <picture> 分端。
+ * 卡片左下的压黑渐变与条目之间的分隔线都由 CSS 实现，不烧进素材；
+ * 各卡渐变可能不同（移动端 DTL 与其余不同），卡片带 --{id} 修饰类供 CSS 区分。
  */
 export function ModeSection({title, cards, className}) {
   return (
@@ -13,12 +13,19 @@ export function ModeSection({title, cards, className}) {
 
         <div className="product-armour-g2-mode-cards">
           {cards?.map((card) => (
-            <div className="product-armour-g2-mode-card to-top" key={card.id}>
-              <img
-                className="product-armour-g2-mode-card-bg"
-                src={card.img}
-                alt=""
-              />
+            <div
+              className={`product-armour-g2-mode-card product-armour-g2-mode-card--${card.id} to-top`}
+              key={card.id}
+            >
+              <picture>
+                <source media="(max-width: 1023px)" srcSet={card.imgMob} />
+                <source media="(min-width: 1024px)" srcSet={card.imgPc} />
+                <img
+                  className="product-armour-g2-mode-card-bg"
+                  src={card.imgPc}
+                  alt=""
+                />
+              </picture>
 
               <div className="product-armour-g2-mode-card-head">
                 <span className="product-armour-g2-mode-card-name">
@@ -33,7 +40,10 @@ export function ModeSection({title, cards, className}) {
 
               <ul className="product-armour-g2-mode-card-list">
                 {card.features?.map((item) => (
-                  <li className="product-armour-g2-mode-card-item" key={item.id}>
+                  <li
+                    className="product-armour-g2-mode-card-item"
+                    key={item.id}
+                  >
                     <span className="product-armour-g2-mode-card-item-key">
                       {item.key}
                     </span>{' '}

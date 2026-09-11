@@ -880,8 +880,9 @@
     flex-direction: column;
     align-items: flex-start;
     box-sizing: border-box;
-    /* 左留白相对页面中线（1920 下 = 470px），内容右缘对齐 1120 容器右缘 */
-    padding: 150px 0 150px calc(50% - 490px);
+    /* 内容块（图宽 1050）在页面中水平居中（2026-09-11 用户要求；设计稿原为右缘对齐 1120 容器），
+       块内文字仍左对齐 */
+    padding: 150px 0 150px calc(50% - 525px);
     background: #f5f5f5;
     color: #000;
 
@@ -929,7 +930,7 @@
     }
 
     @media screen and (max-width: 1450px) {
-      padding: 120px 0 120px calc(50% - 392px);
+      padding: 120px 0 120px calc(50% - 420px);
 
       &-title {
         width: 582px;
@@ -1238,6 +1239,13 @@
         );
       }
 
+      /* 背景图外层的 <picture> 也要脱离文档流，否则会作为第三个 flex 项参与
+         space-between，把标签行挤到卡片中部 */
+      > picture {
+        position: absolute;
+        inset: 0;
+      }
+
       &-bg {
         display: block;
         position: absolute;
@@ -1370,6 +1378,15 @@
         width: 100%;
         height: 8.32rem;
         padding: 0.6rem 0.4rem;
+
+        /* 移动端 DTL 卡的压黑渐变与其余三张不同（设计稿 1:1071）：15.83°、纯黑起 */
+        &--dtl::after {
+          background: linear-gradient(
+            15.826deg,
+            #000 7.8298%,
+            rgba(0, 0, 0, 0) 34.534%
+          );
+        }
 
         &-head {
           gap: 0.4rem;
@@ -1668,10 +1685,12 @@
         object-fit: cover;
       }
 
-      /* 第二帧（LOCKED）叠在上层，opacity 由 keyframes 驱动 */
+      /* 第二帧（LOCKED）叠在上层，opacity 由 keyframes 驱动。
+         周期 4s（2026-09-11 用户要求加快，原 6s）：每帧停约 1.67s、交叉淡变约 0.33s，
+         调速只改这里的时长，keyframes 按比例不用动 */
       &-2 {
         opacity: 0;
-        animation: armour-g2-lock-fade 6s ease-in-out infinite;
+        animation: armour-g2-lock-fade 4s ease-in-out infinite;
         animation-play-state: paused;
       }
     }
