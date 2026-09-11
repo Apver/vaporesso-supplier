@@ -53,7 +53,7 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
     imgPc: `${CDN}/armour-g2-02-1-2x.webp`,
     imgMob: `${CDN}/armour-g2-mob-02-1-3x.webp`,
     btnText: 'Watch the video',
-    // TODO 视频链接待产品/设计确认（跳转外链还是弹窗播放）
+    // TODO 视频按钮暂时隐藏：btnLink 为空时不渲染，拿到 YouTube 链接后填在这里即可显示
     btnLink: '',
   };
   /* 素材编号 PC / MOB 同号同卡：1=MTL 2=GTX 3=BATT 4·5=Safety 6=Airflow 7=Charge */
