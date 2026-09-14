@@ -12,8 +12,8 @@ export const ArmourG2ProductSpecData = {
       itemTitle: 'Finish',
       itemType: 'color',
       primaryColorImages: [
-        `${SPEC_IMG}/armour-g2-color-1.webp`,
-        `${SPEC_IMG}/armour-g2-color-2.webp`,
+        `${SPEC_IMG}/armour-g2-color-1.webp?v=1789348080`,
+        `${SPEC_IMG}/armour-g2-color-2.webp?v=1789348086`,
       ],
       primaryColorTitle: [
         ['Carbon Fiber Gray', 'Silk Blue', 'Silk Silver', 'Mist Green'],
@@ -28,12 +28,12 @@ export const ArmourG2ProductSpecData = {
         ['Mist Pink', 'Dark Black', 'Racing Brown', 'Racing Red'],
       ],
       secondaryColorImages: [
-        `${SPEC_IMG}/armour-gs2-color-1.webp`,
-        `${SPEC_IMG}/armour-gs2-color-2.webp`,
+        `${SPEC_IMG}/armour-g2-color-mob-1.webp?v=1789348094`,
+        `${SPEC_IMG}/armour-g2-color-mob-2.webp?v=1789348101`,
       ],
       secondaryColorTitle: [
         ['Black Weave', 'Gunmetal Weave', 'Deep\nBlue', 'Pine\nGreen'],
-        ['Sakura Pink', 'Silver\nTopo', '', ''],
+        ['Sakura Pink', 'Silver Topo', '', ''],
       ],
       secondaryColorImagesMobile: [
         `${SPEC_IMG}/armour-gs2-color-mob-1.webp`,
@@ -102,6 +102,7 @@ export const ArmourG2ProductSpecData = {
       itemTitle: 'Packing list',
       itemType: 'textWithImage',
       primaryTextWithImage: [
+        '<ARMOUR G2>',
         '<Global MTL Ver.  KIT INCLUDES>',
         '1 x VAPORESSO ARMOUR G2 Mod',
         '1 x VAPORESSO ARMOUR G SERIES POD(5ML/ MTL)  ',
@@ -140,6 +141,7 @@ export const ArmourG2ProductSpecData = {
         ),
       ],
       secondaryTextWithImage: [
+        '<ARMOUR GS2>',
         '<Global Ver.  KIT INCLUDES>',
         '1 x VAPORESSO ARMOUR GS2 Mod',
         '1 x VAPORESSO ARMOUR G SERIES POD(5ML/ DTL)',

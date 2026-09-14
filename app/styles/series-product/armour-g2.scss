@@ -14,18 +14,18 @@
 
     &-bg {
       display: block;
+      object-fit: cover;
       width: 100%;
       height: 100%;
-      object-fit: cover;
     }
 
     /* 水平位置一律相对页面中线：1920 下 = 400px（1120 容器左缘），
        其他宽度随容器居中；背景图 cover 也是居中裁切，文字与产品的相对位置不变 */
     &-content {
-      display: flex;
       position: absolute;
       top: 50%;
       left: calc(50% - 560px);
+      display: flex;
       flex-direction: column;
       gap: 24px;
       transform: translateY(-50%);
@@ -96,16 +96,16 @@
   &-video {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 32px;
+    align-items: center;
     padding: 150px 470px;
     color: #000;
 
     &-body {
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 40px;
+      align-items: center;
       width: 100%;
     }
 
@@ -117,9 +117,9 @@
 
     &-cover {
       display: block;
+      object-fit: cover;
       width: 100%;
       height: 100%;
-      object-fit: cover;
     }
 
     &-desc {
@@ -180,13 +180,13 @@
     }
 
     @media screen and (max-width: 1023px) {
-      align-items: flex-start;
       gap: 0.48rem;
+      align-items: flex-start;
       padding: 1.6rem 0.5rem 1rem;
 
       &-body {
-        align-items: flex-start;
         gap: 0.6rem;
+        align-items: flex-start;
       }
 
       picture {
@@ -224,11 +224,11 @@
      MOB：2 列 Grid（170/169），卡片顺序与 PC 不同，由 grid-row 显式排布 */
   &-grid {
     display: grid;
-    grid-template-columns: 325px 310px 325px;
     grid-template-rows: repeat(3, 250px);
+    grid-template-columns: 325px 310px 325px;
+    gap: 10px;
     justify-content: center;
     box-sizing: border-box;
-    gap: 10px;
     padding: 150px 470px 200px;
     background: #f5f5f5;
 
@@ -237,12 +237,12 @@
       overflow: hidden;
 
       &-bg {
-        display: block;
         position: absolute;
-        inset: 0;
+        display: block;
+        object-fit: cover;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        inset: 0;
       }
 
       &-text {
@@ -269,8 +269,8 @@
     }
 
     &-mtl {
-      grid-column: 1 / 3;
       grid-row: 1;
+      grid-column: 1 / 3;
 
       .product-armour-g2-grid-card-text {
         padding: 30px 0 0 30px;
@@ -286,10 +286,10 @@
     /* 气流指示条：左弱右强，矢量素材两端共用 */
     &-mtl-flow-l,
     &-mtl-flow-r {
-      display: block;
       position: absolute;
-      z-index: 1;
       top: 165px;
+      z-index: 1;
+      display: block;
       width: 66px;
       height: 10px;
     }
@@ -303,8 +303,8 @@
     }
 
     &-gtx {
-      grid-column: 3;
       grid-row: 1;
+      grid-column: 3;
 
       .product-armour-g2-grid-card-text {
         padding: 24px 0 0 30px;
@@ -319,8 +319,8 @@
     }
 
     &-batt {
-      grid-column: 1;
       grid-row: 2 / 4;
+      grid-column: 1;
 
       .product-armour-g2-grid-card-text {
         padding: 24px 0 0 30px;
@@ -334,8 +334,8 @@
     }
 
     &-charge {
-      grid-column: 3;
       grid-row: 2 / 4;
+      grid-column: 3;
 
       .product-armour-g2-grid-card-text {
         padding: 24px 0 0 30px;
@@ -349,8 +349,8 @@
     }
 
     &-airflow {
-      grid-column: 2;
       grid-row: 3;
+      grid-column: 2;
       background: #fff;
 
       .product-armour-g2-grid-card-text {
@@ -367,19 +367,19 @@
 
     &-safety {
       display: flex;
-      grid-column: 2;
-      grid-row: 2;
       flex-direction: column;
-      align-items: center;
+      grid-row: 2;
+      grid-column: 2;
       gap: 21px;
+      align-items: center;
       padding-top: 16px;
       background: #fff;
 
       .product-armour-g2-grid-card-text {
         display: flex;
         flex-direction: column;
-        align-items: center;
         gap: 4px;
+        align-items: center;
         text-align: center;
       }
 
@@ -405,15 +405,15 @@
     /* 圆角由 CSS 控制，素材本身是矩形；该值超过宽度一半，浏览器会 clamp 成胶囊端 */
     &-safety-img {
       display: block;
+      object-fit: cover;
       width: 97.5px;
       height: 130px;
       border-radius: 52.097px;
-      object-fit: cover;
     }
 
     @media screen and (max-width: 1450px) {
-      grid-template-columns: 260px 248px 260px;
       grid-template-rows: repeat(3, 200px);
+      grid-template-columns: 260px 248px 260px;
       gap: 8px;
       padding: 120px 376px 160px;
 
@@ -500,14 +500,14 @@
     }
 
     @media screen and (max-width: 1023px) {
-      grid-template-columns: 3.4rem 3.38rem;
       grid-template-rows: 3.22rem 4.52rem 4.3rem 4.3rem;
+      grid-template-columns: 3.4rem 3.38rem;
       gap: 0.12rem;
       padding: 1.2rem 0.3rem 1rem;
 
       &-mtl {
-        grid-column: 1 / 3;
         grid-row: 1;
+        grid-column: 1 / 3;
 
         .product-armour-g2-grid-card-text {
           padding: 0.36rem 0.24rem 0;
@@ -536,8 +536,8 @@
       }
 
       &-charge {
-        grid-column: 1 / 3;
         grid-row: 2;
+        grid-column: 1 / 3;
 
         .product-armour-g2-grid-card-text {
           padding: 0.36rem 0.24rem 0;
@@ -551,16 +551,16 @@
       }
 
       &-safety {
-        grid-column: 1;
         grid-row: 3;
+        grid-column: 1;
+        gap: 0;
         align-items: flex-start;
         justify-content: space-between;
-        gap: 0;
         padding: 0.36rem 0.2rem;
 
         .product-armour-g2-grid-card-text {
-          align-items: flex-start;
           gap: 0.08rem;
+          align-items: flex-start;
           text-align: left;
         }
 
@@ -574,8 +574,8 @@
       }
 
       &-safety-imgs {
-        align-self: center;
         gap: 0.08rem;
+        align-self: center;
       }
 
       &-safety-img {
@@ -585,8 +585,8 @@
       }
 
       &-airflow {
-        grid-column: 2;
         grid-row: 3;
+        grid-column: 2;
 
         .product-armour-g2-grid-card-text {
           padding: 0.36rem 0.24rem 0;
@@ -600,8 +600,8 @@
       }
 
       &-gtx {
-        grid-column: 1;
         grid-row: 4;
+        grid-column: 1;
 
         .product-armour-g2-grid-card-text {
           padding: 0.36rem 0.24rem 0;
@@ -615,8 +615,8 @@
       }
 
       &-batt {
-        grid-column: 2;
         grid-row: 4;
+        grid-column: 2;
 
         .product-armour-g2-grid-card-text {
           padding: 0.36rem 0.24rem 0;
@@ -645,34 +645,35 @@
      PC：全屏背景图 + 左侧单列（文字 + 数据）
      MOB：文字在上白底，背景图压到底部 400 高，数据绝对定位到图左下 */
   &-battery {
-    display: flex;
     position: relative;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     box-sizing: border-box;
     height: 1080px;
+
     /* 左右留白相对页面中线（1920 下 = 409px），背景图 cover 居中裁切，二者同步 */
     padding: 358px calc(50% - 551px);
     color: #000;
 
     picture {
-      display: block;
       position: absolute;
+      display: block;
       inset: 0;
     }
 
     &-bg {
       display: block;
+      object-fit: cover;
       width: 100%;
       height: 100%;
-      object-fit: cover;
     }
 
     &-text {
-      display: flex;
       position: relative;
       z-index: 1;
+      display: flex;
       flex-direction: column;
       gap: 20px;
       width: 471px;
@@ -701,18 +702,18 @@
 
     &-tips {
       margin: 0;
-      color: rgba(0, 0, 0, 0.5);
+      color: rgb(0 0 0 / 50%);
       font-size: 16px;
       font-family: 'DinExp';
       line-height: 1.3;
     }
 
     &-highlights {
-      display: flex;
       position: relative;
       z-index: 1;
-      align-items: center;
+      display: flex;
       gap: 60px;
+      align-items: center;
       margin-top: 60px;
     }
 
@@ -734,7 +735,6 @@
           #49ff61 106.19%
         );
         background-clip: text;
-        -webkit-background-clip: text;
         color: transparent;
         font-size: 0;
         line-height: 0;
@@ -814,8 +814,8 @@
       padding: 1.2rem 0 0;
 
       picture {
-        inset: auto 0 0 0;
         height: 8rem;
+        inset: auto 0 0;
       }
 
       &-text {
@@ -844,11 +844,11 @@
       /* 数据块叠到底部图片区左下：section 底部即图片区底部 */
       &-highlights {
         position: absolute;
-        left: 0.7rem;
         bottom: 0.48rem;
+        left: 0.7rem;
         flex-direction: column;
-        align-items: flex-start;
         gap: 0.48rem;
+        align-items: flex-start;
         margin-top: 0;
       }
 
@@ -880,6 +880,7 @@
     flex-direction: column;
     align-items: flex-start;
     box-sizing: border-box;
+
     /* 内容块（图宽 1050）在页面中水平居中（2026-09-11 用户要求；设计稿原为右缘对齐 1120 容器），
        块内文字仍左对齐 */
     padding: 150px 0 150px calc(50% - 525px);
@@ -914,15 +915,15 @@
 
     &-img {
       display: block;
+      object-fit: cover;
       width: 100%;
       height: 100%;
-      object-fit: cover;
     }
 
     &-tips {
       order: 4;
       margin: 40px 0 0;
-      color: rgba(0, 0, 0, 0.5);
+      color: rgb(0 0 0 / 50%);
       font-size: 15px;
       font-family: 'DinExp';
       line-height: 1.3;
@@ -1013,9 +1014,9 @@
 
     &-img {
       display: block;
+      object-fit: cover;
       width: 100%;
       height: 100%;
-      object-fit: cover;
       object-position: center center;
     }
 
@@ -1039,10 +1040,10 @@
     }
 
     &-text {
-      display: flex;
       position: absolute;
       top: 0;
       left: 25px;
+      display: flex;
       flex-direction: column;
       gap: 18px;
       width: 508px;
@@ -1063,10 +1064,10 @@
     }
 
     &-chart {
-      display: block;
       position: absolute;
       top: 218px;
       left: 0;
+      display: block;
       width: 572px;
 
       &-img {
@@ -1082,7 +1083,7 @@
       left: 25px;
       width: 508px;
       margin: 0;
-      color: rgba(0, 0, 0, 0.5);
+      color: rgb(0 0 0 / 50%);
       font-size: 16px;
       font-family: 'DinExp';
       line-height: 1.3;
@@ -1143,8 +1144,8 @@
       }
 
       &-content {
-        display: flex;
         position: static;
+        display: flex;
         flex-direction: column;
         align-items: center;
         width: 6.9rem;
@@ -1165,8 +1166,8 @@
       }
 
       &-chart {
-        order: 2;
         position: static;
+        order: 2;
         width: 100%;
         margin-top: 0.8rem;
       }
@@ -1180,11 +1181,11 @@
       }
 
       &-tips {
-        order: 4;
         position: static;
+        order: 4;
         width: 6.1rem;
         margin-top: 0.2rem;
-        color: rgba(255, 255, 255, 0.5);
+        color: rgb(255 255 255 / 50%);
         font-size: 0.3rem;
         line-height: 1.35;
       }
@@ -1216,12 +1217,12 @@
     }
 
     &-card {
-      display: flex;
       position: relative;
+      display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-sizing: border-box;
       overflow: hidden;
+      box-sizing: border-box;
       width: 480px;
       height: 580px;
       padding: 38px 40px;
@@ -1231,12 +1232,12 @@
       &::after {
         content: '';
         position: absolute;
-        inset: 0;
         background: linear-gradient(
           12.875deg,
-          rgba(0, 0, 0, 0.8) 5.2444%,
-          rgba(0, 0, 0, 0) 29.273%
+          rgb(0 0 0 / 80%) 5.2444%,
+          rgb(0 0 0 / 0%) 29.273%
         );
+        inset: 0;
       }
 
       /* 背景图外层的 <picture> 也要脱离文档流，否则会作为第三个 flex 项参与
@@ -1247,20 +1248,20 @@
       }
 
       &-bg {
-        display: block;
         position: absolute;
-        inset: 0;
+        display: block;
+        object-fit: cover;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        inset: 0;
       }
 
       &-head {
-        display: flex;
-        z-index: 1;
         position: relative;
-        align-items: center;
+        z-index: 1;
+        display: flex;
         gap: 20px;
+        align-items: center;
       }
 
       &-name {
@@ -1279,8 +1280,8 @@
       }
 
       &-list {
-        z-index: 1;
         position: relative;
+        z-index: 1;
         width: 164px;
         margin: 0;
         padding: 0;
@@ -1296,7 +1297,7 @@
         & + & {
           margin-top: 8px;
           padding-top: 8px;
-          border-top: 1px solid rgba(255, 255, 255, 0.3);
+          border-top: 1px solid rgb(255 255 255 / 30%);
         }
 
         &-key {
@@ -1384,7 +1385,7 @@
           background: linear-gradient(
             15.826deg,
             #000 7.8298%,
-            rgba(0, 0, 0, 0) 34.534%
+            rgb(0 0 0 / 0%) 34.534%
           );
         }
 
@@ -1431,8 +1432,8 @@
     &-head {
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 18px;
+      align-items: center;
       width: 100%;
       margin-bottom: 48px;
     }
@@ -1445,6 +1446,7 @@
       font-family: 'DinExp-Bold';
       line-height: 1.05;
       text-align: center;
+
       /* 数据里的 \A 在这里折成空格，移动端才换行 */
       white-space: nowrap;
     }
@@ -1467,30 +1469,30 @@
     }
 
     &-card {
-      box-sizing: border-box;
       position: relative;
       overflow: hidden;
+      box-sizing: border-box;
       width: 360px;
       height: 520px;
       padding: 30px 50px;
       background: #fff;
 
       &-media {
-        display: block;
         position: absolute;
+        display: block;
         inset: 0;
       }
 
       &-bg {
         display: block;
+        object-fit: cover;
         width: 100%;
         height: 100%;
-        object-fit: cover;
       }
 
       &-label {
-        z-index: 1;
         position: relative;
+        z-index: 1;
         width: 100%;
         margin: 0;
         color: #000;
@@ -1502,7 +1504,7 @@
 
     &-tips {
       margin: 0;
-      color: rgba(0, 0, 0, 0.5);
+      color: rgb(0 0 0 / 50%);
       font-size: 16px;
       font-family: 'DinExp';
       line-height: 1.3;
@@ -1558,8 +1560,8 @@
       }
 
       &-head {
-        align-items: flex-start;
         gap: 0.24rem;
+        align-items: flex-start;
         width: 6.1rem;
         margin-bottom: 0.8rem;
       }
@@ -1568,6 +1570,7 @@
         font-size: 0.6rem;
         line-height: 1;
         text-align: left;
+
         /* 保留数据里的换行：Double Top | 之后另起一行 */
         white-space: pre-line;
       }
@@ -1581,8 +1584,8 @@
 
       &-cards {
         flex-direction: column;
-        align-items: center;
         gap: 0.24rem;
+        align-items: center;
         margin-bottom: 0.48rem;
       }
 
@@ -1622,8 +1625,8 @@
     &-head {
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 18px;
+      align-items: center;
       width: 100%;
       margin-bottom: 48px;
       color: #000;
@@ -1656,8 +1659,8 @@
     &-card {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
       gap: 20px;
+      align-items: flex-start;
 
       /* 进入视口后才让第二帧开始轮播 */
       &.appear .product-armour-g2-lock-frame-2 {
@@ -1674,15 +1677,15 @@
     }
 
     &-frame {
-      display: block;
       position: absolute;
+      display: block;
       inset: 0;
 
       &-img {
         display: block;
+        object-fit: cover;
         width: 100%;
         height: 100%;
-        object-fit: cover;
       }
 
       /* 第二帧（LOCKED）叠在上层，opacity 由 keyframes 驱动。
@@ -1713,8 +1716,8 @@
 
     @media (prefers-reduced-motion: reduce) {
       &-frame-2 {
-        animation: none;
         opacity: 0;
+        animation: none;
       }
     }
 
@@ -1793,8 +1796,8 @@
       }
 
       &-head {
-        align-items: flex-start;
         gap: 0.24rem;
+        align-items: flex-start;
         width: 6.1rem;
         margin-bottom: 0.8rem;
         text-align: left;
@@ -1803,6 +1806,7 @@
       &-title {
         font-size: 0.6rem;
         letter-spacing: 0;
+
         /* 数据里的换行在移动端生效：Dual Safety Lock | 之后另起一行 */
         white-space: pre-line;
       }
@@ -1889,14 +1893,14 @@
       background:
         radial-gradient(
           ellipse 333.6% 68.1% at 51.6% 104.3%,
-          rgba(255, 78, 0, 0.7) 0%,
-          rgba(191, 59, 0, 0.525) 8.61%,
-          rgba(128, 39, 0, 0.35) 17.22%,
-          rgba(64, 20, 0, 0.175) 25.82%,
-          rgba(0, 0, 0, 0) 34.43%
+          rgb(255 78 0 / 70%) 0%,
+          rgb(191 59 0 / 52.5%) 8.61%,
+          rgb(128 39 0 / 35%) 17.22%,
+          rgb(64 20 0 / 17.5%) 25.82%,
+          rgb(0 0 0 / 0%) 34.43%
         ),
         #161616;
-      box-shadow: inset 0 0 12px 0 rgba(255, 78, 0, 0.45);
+      box-shadow: inset 0 0 12px 0 rgb(255 78 0 / 45%);
 
       &-icon {
         display: block;
@@ -1907,8 +1911,8 @@
       &-text {
         display: flex;
         flex-direction: column;
-        align-items: center;
         gap: 10px;
+        align-items: center;
         width: 100%;
       }
 
@@ -1925,7 +1929,7 @@
       &-desc {
         width: 291px;
         margin: 0;
-        color: rgba(255, 255, 255, 0.6);
+        color: rgb(255 255 255 / 60%);
         font-size: 16px;
         font-family: 'DinExp';
         line-height: 1.5;
@@ -1944,14 +1948,14 @@
       display: flex;
       flex: 1 0 0;
       flex-direction: column;
+      gap: 20px;
       align-items: center;
       justify-content: center;
       box-sizing: border-box;
       min-width: 0;
-      gap: 20px;
       height: 200px;
       background: #161616;
-      box-shadow: inset 0 0 8px 0 rgba(255, 78, 0, 0.45);
+      box-shadow: inset 0 0 8px 0 rgb(255 78 0 / 45%);
 
       &-icon {
         display: block;
@@ -1971,8 +1975,8 @@
 
       /* Battery Low：图标竖长、比另四张靠上，且设计稿里略偏右于卡片中线 */
       &--tall {
-        justify-content: flex-start;
         gap: 13.9px;
+        justify-content: flex-start;
         padding-top: 21.9px;
 
         .product-armour-g2-guard-mini-icon {
@@ -1985,7 +1989,7 @@
 
     &-tips {
       margin: 0;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgb(255 255 255 / 50%);
       font-size: 16px;
       font-family: 'DinExp';
       line-height: 1.3;
@@ -2127,7 +2131,7 @@
         flex: 0 0 calc(50% - 0.12rem);
         gap: 0.4rem;
         height: 3rem;
-        box-shadow: inset 0 0 12px 0 rgba(255, 78, 0, 0.45);
+        box-shadow: inset 0 0 12px 0 rgb(255 78 0 / 45%);
 
         &-icon {
           width: 1rem;
@@ -2173,8 +2177,8 @@
     &-head {
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 18px;
+      align-items: center;
       width: 100%;
       margin-bottom: 48px;
       color: #000;
@@ -2206,8 +2210,8 @@
     &-card {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
       gap: 20px;
+      align-items: flex-start;
       width: 485px;
 
       &-media {
@@ -2219,9 +2223,9 @@
 
       &-img {
         display: block;
+        object-fit: cover;
         width: 100%;
         height: 100%;
-        object-fit: cover;
       }
 
       &-caption {
@@ -2282,8 +2286,8 @@
       }
 
       &-head {
-        align-items: flex-start;
         gap: 0.24rem;
+        align-items: flex-start;
         width: 6.1rem;
         margin-bottom: 0.8rem;
         text-align: left;
@@ -2302,14 +2306,14 @@
 
       &-cards {
         flex-direction: column;
-        align-items: center;
         gap: 1.2rem;
+        align-items: center;
       }
 
       /* 图 346 与说明 305 各自居中于 375，宽度分别设在子元素上 */
       &-card {
-        align-items: center;
         gap: 0.4rem;
+        align-items: center;
         width: 100%;
 
         &-media {
@@ -2327,47 +2331,47 @@
   }
 
   &-mesh {
-    display: block;
     position: relative;
+    display: block;
     overflow: hidden;
     height: 890px;
     background: #000;
 
     &-media {
-      display: block;
       position: absolute;
+      display: block;
       inset: 0;
 
       /* 设计稿三段渐变：顶/底压黑 + 左侧压暗 70%（保证文案可读），不烧进素材 */
       &::after {
         content: '';
         position: absolute;
-        inset: 0;
         background:
-          linear-gradient(180deg, #000 4.13%, rgba(0, 0, 0, 0) 24.174%),
-          linear-gradient(180deg, rgba(0, 0, 0, 0) 78.855%, #000 96.834%),
+          linear-gradient(180deg, #000 4.13%, rgb(0 0 0 / 0%) 24.174%),
+          linear-gradient(180deg, rgb(0 0 0 / 0%) 78.855%, #000 96.834%),
           linear-gradient(
             270deg,
-            rgba(0, 0, 0, 0) 33.827%,
-            rgba(0, 0, 0, 0.7) 64.157%
+            rgb(0 0 0 / 0%) 33.827%,
+            rgb(0 0 0 / 70%) 64.157%
           );
+        inset: 0;
       }
     }
 
     &-bg {
       display: block;
+      object-fit: cover;
       width: 100%;
       height: 100%;
-      object-fit: cover;
       object-position: center center;
     }
 
     /* 水平位置相对页面中线（1920 下 = 400px），与居中裁切的背景图同步 */
     &-body {
-      display: flex;
       position: absolute;
       top: calc(50% - 22px);
       left: calc(50% - 560px);
+      display: flex;
       flex-direction: column;
       gap: 60px;
       width: 433px;
@@ -2400,7 +2404,7 @@
     &-desc {
       width: 100%;
       margin: 0 0 24px;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgb(255 255 255 / 60%);
       font-size: 16px;
       font-family: 'DinExp';
       line-height: 1.5;
@@ -2408,7 +2412,7 @@
 
     &-tips {
       margin: 0;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgb(255 255 255 / 50%);
       font-size: 16px;
       font-family: 'DinExp';
       line-height: 1.3;
@@ -2417,20 +2421,20 @@
 
     &-stats {
       display: flex;
-      align-items: center;
       gap: 80px;
+      align-items: center;
     }
 
     &-stat {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
       gap: 16px;
+      align-items: flex-start;
 
       &-value {
         display: flex;
-        align-items: flex-end;
         gap: 4px;
+        align-items: flex-end;
         width: 112px;
       }
 
@@ -2546,15 +2550,15 @@
       height: auto;
 
       &-media {
+        position: relative;
         grid-row: 2;
         grid-column: 1;
-        position: relative;
         inset: auto;
 
         &::after {
           background: linear-gradient(
             0deg,
-            rgba(0, 0, 0, 0) 84.957%,
+            rgb(0 0 0 / 0%) 84.957%,
             #000 102.6%
           );
         }
@@ -2602,8 +2606,8 @@
         z-index: 1;
         grid-row: 2;
         grid-column: 1;
-        align-self: start;
         gap: 0.88rem;
+        align-self: start;
         padding-left: 0.7rem;
       }
 
@@ -2641,8 +2645,8 @@
   &-end {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 21px;
+    align-items: center;
     padding: 160px 0 200px;
     background: #f2f2f2;
 
@@ -2665,17 +2669,17 @@
 
     &-img {
       display: block;
+      object-fit: cover;
       width: 340px;
       height: 480px;
-      object-fit: cover;
     }
 
     &-tags {
       display: flex;
       flex-wrap: wrap;
+      gap: 12px;
       align-items: center;
       justify-content: center;
-      gap: 12px;
       width: 100%;
     }
 
@@ -2686,7 +2690,7 @@
       box-sizing: border-box;
       height: 36px;
       padding: 0 15px;
-      border: 1px solid rgba(68, 68, 68, 0.5);
+      border: 1px solid rgb(68 68 68 / 50%);
       color: #666;
       font-size: 15px;
       font-family: 'DinExp';
@@ -2703,8 +2707,8 @@
       background: #000;
       color: #fff;
       font: inherit;
-      font-family: 'DinExp';
       font-size: 16px;
+      font-family: 'DinExp';
       line-height: normal;
       cursor: pointer;
 
@@ -2764,8 +2768,8 @@
          全局有 img{max-width:100%}，需显式解除才能溢出 */
       &-img {
         flex-shrink: 0;
-        max-width: none;
         width: 6.8rem;
+        max-width: none;
         height: 9.6rem;
       }
 
@@ -2812,9 +2816,9 @@
     &-col {
       display: flex;
       flex-direction: column;
+      gap: 18px;
       align-items: center;
       box-sizing: border-box;
-      gap: 18px;
       width: 280px;
       padding: 20px 0 30px;
       border: 1px solid #f2f2f2;
@@ -2827,14 +2831,14 @@
     &-info {
       display: flex;
       flex-direction: column;
+      gap: 20px;
       align-items: center;
       justify-content: flex-end;
       box-sizing: border-box;
-      gap: 20px;
       width: 208px;
       height: 350px;
       padding-bottom: 20px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgb(0 0 0 / 10%);
     }
 
     /* PC 锁宽：四张图各自的固有比例决定高度，底部随 justify-end 对齐 */
@@ -2845,10 +2849,10 @@
     }
 
     &-name {
+      box-sizing: border-box;
       width: 100%;
       margin: 0;
       padding: 10px;
-      box-sizing: border-box;
       color: #000;
       font-size: 20px;
       font-family: 'DinExp-Bold';
@@ -2862,8 +2866,8 @@
     }
 
     &-feature {
-      display: flex;
       position: relative;
+      display: flex;
       flex-direction: column;
       justify-content: center;
       box-sizing: border-box;
@@ -2878,6 +2882,7 @@
         font-family: 'DinExp-Bold';
         line-height: 1.1;
         text-align: center;
+
         /* 两端都按数据里的 \n 断行，与设计稿逐格一致（自动折行受字体渲染影响，各机器结果不同） */
         white-space: pre-line;
 
@@ -2888,10 +2893,10 @@
       }
 
       &-icon {
-        display: block;
         position: absolute;
         top: 25.5px;
         right: 10px;
+        display: block;
         width: 13px;
         height: 26.54px;
       }
@@ -2955,6 +2960,7 @@
 
     @media screen and (max-width: 1023px) {
       padding: 1.6rem 0;
+
       /* 移动端设计稿（1:1603）底色 #fafafa，PC（1:820）为白 */
       background: #fafafa;
 
@@ -2972,11 +2978,11 @@
       }
 
       &-col {
-        align-items: flex-start;
         gap: 0.4rem;
+        align-items: flex-start;
         width: 3.44rem;
         padding: 0.4rem 0.34rem;
-        border-color: rgba(0, 0, 0, 0.1);
+        border-color: rgb(0 0 0 / 10%);
       }
 
       &-info {
@@ -3042,7 +3048,7 @@
     &-title {
       width: 854px;
       margin: 0 auto 48px;
-      color: rgba(255, 255, 255, 0.9);
+      color: rgb(255 255 255 / 90%);
       font-size: 48px;
       font-family: 'DinExp-Bold';
       line-height: 1.08;
@@ -3062,8 +3068,8 @@
       width: 100%;
       margin-bottom: 16px;
       padding: 42.5px 33px;
-      column-gap: 37px;
       background: #2b2b2b;
+      column-gap: 37px;
 
       &:last-child {
         margin-bottom: 0;
@@ -3072,10 +3078,10 @@
 
     &-pod {
       display: flex;
-      flex-direction: column;
       flex-shrink: 0;
-      align-items: center;
+      flex-direction: column;
       gap: 15px;
+      align-items: center;
       width: 160px;
       margin-right: 23px;
       padding: 24px 0;
@@ -3088,16 +3094,16 @@
 
       &-img {
         display: block;
+        object-fit: cover;
         width: 100%;
         height: 100%;
-        object-fit: cover;
         object-position: bottom;
       }
 
       &-title {
         width: 100%;
         margin: 0;
-        color: rgba(255, 255, 255, 0.9);
+        color: rgb(255 255 255 / 90%);
         font-size: 19px;
         font-family: 'DinExp-Bold';
         line-height: 1.06;
@@ -3127,15 +3133,15 @@
 
       &-img {
         display: block;
+        object-fit: cover;
         width: 58px;
         height: 86px;
         margin-top: 11.5px;
-        object-fit: cover;
       }
 
       &-ohm {
         margin: 25px 0 0;
-        color: rgba(255, 255, 255, 0.9);
+        color: rgb(255 255 255 / 90%);
         font-size: 19px;
         font-family: 'DinExp-Bold';
         line-height: 28px;
@@ -3236,15 +3242,14 @@
       /* 线圈组绕着 Pod 换行铺排；一行放不下就整组换到下一行 */
       &-item {
         flex-wrap: wrap;
+        gap: 0.36rem 0.1rem;
         margin-bottom: 0.46rem;
         padding: 0.48rem 0.32rem;
-        column-gap: 0.1rem;
-        row-gap: 0.36rem;
       }
 
       &-pod {
-        align-items: flex-start;
         gap: 0.4rem;
+        align-items: flex-start;
         width: 3.9rem;
         margin-right: 0;
         padding: 0;
@@ -3302,7 +3307,6 @@
     }
   }
 
-
   .spec-content .f li:nth-child(2) {
     margin-right: 60px;
   }
@@ -3338,6 +3342,10 @@
         width: 131.6%;
         margin-left: -16%;
       }
+    }
+
+    .spec-content .f li:nth-child(2) {
+      margin-right: 0;
     }
   }
 }
