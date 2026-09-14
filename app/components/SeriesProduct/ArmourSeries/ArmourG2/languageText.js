@@ -20,16 +20,16 @@ export const ArmourG2ProductSpecData = {
         ['Mist Pink', 'Dark Black', 'Racing Brown', 'Racing Red'],
       ],
       primaryColorImagesMobile: [
-        `${SPEC_IMG}/armour-g2-color-mob-1.webp`,
-        `${SPEC_IMG}/armour-g2-color-mob-2.webp`,
+        `${SPEC_IMG}/armour-g2-color-mob-1.webp?v=1789348094`,
+        `${SPEC_IMG}/armour-g2-color-mob-2.webp?v=1789348101`,
       ],
       primaryColorTitleMobile: [
         ['Carbon Fiber Gray', 'Silk Blue', 'Silk Silver', 'Mist Green'],
         ['Mist Pink', 'Dark Black', 'Racing Brown', 'Racing Red'],
       ],
       secondaryColorImages: [
-        `${SPEC_IMG}/armour-g2-color-mob-1.webp?v=1789348094`,
-        `${SPEC_IMG}/armour-g2-color-mob-2.webp?v=1789348101`,
+        `${SPEC_IMG}/armour-gs2-color-1.webp`,
+        `${SPEC_IMG}/armour-gs2-color-2.webp`,
       ],
       secondaryColorTitle: [
         ['Black Weave', 'Gunmetal Weave', 'Deep\nBlue', 'Pine\nGreen'],
