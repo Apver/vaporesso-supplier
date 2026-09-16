@@ -429,94 +429,94 @@
     }
 
     @media screen and (max-width: 1450px) {
-      grid-template-rows: repeat(3, 200px);
-      grid-template-columns: 260px 248px 260px;
-      gap: 8px;
-      padding: 120px 376px 160px;
+      grid-template-rows: repeat(3, 163px);
+      grid-template-columns: 211px 202px 211px;
+      gap: 6px;
+      padding: 100px 305px 130px;
 
       &-mtl {
         .product-armour-g2-grid-card-text {
-          padding: 24px 0 0 24px;
+          padding: 20px 0 0 20px;
         }
 
         .product-armour-g2-grid-card-title {
-          font-size: 19px;
+          font-size: 15px;
         }
       }
 
       &-mtl-flow-l,
       &-mtl-flow-r {
-        top: 132px;
-        width: 53px;
-        height: 8px;
+        top: 107px;
+        width: 43px;
+        height: 7px;
       }
 
       &-mtl-flow-l {
-        left: 106px;
+        left: 86px;
       }
 
       &-mtl-flow-r {
-        left: 443px;
+        left: 360px;
       }
 
       &-gtx {
         .product-armour-g2-grid-card-text {
-          padding: 19px 0 0 24px;
+          padding: 16px 0 0 20px;
         }
 
         .product-armour-g2-grid-card-title {
-          width: 176px;
-          font-size: 17px;
+          width: 143px;
+          font-size: 14px;
         }
       }
 
       &-batt,
       &-charge {
         .product-armour-g2-grid-card-text {
-          padding: 19px 0 0 24px;
+          padding: 16px 0 0 20px;
         }
 
         .product-armour-g2-grid-card-title {
-          font-size: 19px;
+          font-size: 15px;
         }
       }
 
       &-airflow {
         .product-armour-g2-grid-card-text {
-          padding: 13px 0 0 24px;
+          padding: 10px 0 0 20px;
         }
 
         .product-armour-g2-grid-card-title {
-          width: 192px;
-          font-size: 19px;
+          width: 156px;
+          font-size: 15px;
         }
       }
 
       &-safety {
-        gap: 17px;
-        padding-top: 13px;
+        gap: 14px;
+        padding-top: 10px;
 
         .product-armour-g2-grid-card-text {
           gap: 3px;
         }
 
         .product-armour-g2-grid-card-title {
-          font-size: 19px;
+          font-size: 15px;
         }
 
         .product-armour-g2-grid-card-subtitle {
-          font-size: 13px;
+          font-size: 11px;
         }
       }
 
       &-safety-imgs {
-        gap: 9px;
+        gap: 7px;
       }
 
       &-safety-img {
-        width: 78px;
-        height: 104px;
-        border-radius: 41.7px;
+        width: 63px;
+        height: 84px;
+        border-radius: 34px;
       }
     }
 
@@ -955,7 +955,7 @@
     }
 
     @media screen and (max-width: 1450px) {
-      padding: 120px 0 120px calc(50% - 420px);
+      padding: 110px 0 110px calc(50% - 360px);
 
       &-title {
         width: 582px;
@@ -964,18 +964,18 @@
 
       &-desc {
         width: 582px;
-        margin-top: 14px;
+        margin-top: 10px;
         font-size: 14px;
       }
 
       &-media {
-        width: 840px;
-        height: 480px;
-        margin-top: 32px;
+        width: 720px;
+        height: auto;
+        margin-top: 20px;
       }
 
       &-tips {
-        margin-top: 32px;
+        margin-top: 20px;
         font-size: 12px;
       }
     }
@@ -1334,7 +1334,7 @@
       padding: 120px 0 160px;
 
       &-inner {
-        width: 784px;
+        width: 686px;
       }
 
       &-title {
@@ -1344,16 +1344,16 @@
       }
 
       &-cards {
-        gap: 16px;
+        gap: 14px;
       }
 
       &-card {
-        width: 384px;
-        height: 464px;
-        padding: 30px 32px;
+        width: 336px;
+        height: 406px;
+        padding: 26px 28px;
 
         &-head {
-          gap: 16px;
+          gap: 14px;
         }
 
         &-name {
@@ -1365,15 +1365,15 @@
         }
 
         &-list {
-          width: 131px;
+          width: 114px;
         }
 
         &-item {
-          font-size: 13px;
+          font-size: 12px;
 
           & + & {
-            margin-top: 6px;
-            padding-top: 6px;
+            margin-top: 5px;
+            padding-top: 5px;
           }
         }
       }
@@ -1539,12 +1539,12 @@
       padding: 120px 0 160px;
 
       &-inner {
-        width: 896px;
+        width: 728px;
       }
 
       &-head {
         gap: 14px;
-        margin-bottom: 38px;
+        margin-bottom: 30px;
       }
 
       &-title {
@@ -1558,13 +1558,13 @@
 
       &-cards {
         gap: 16px;
-        margin-bottom: 38px;
+        margin-bottom: 30px;
       }
 
       &-card {
-        width: 288px;
-        height: 416px;
-        padding: 24px 40px;
+        width: 234px;
+        height: 338px;
+        padding: 20px 26px;
 
         &-label {
           font-size: 16px;
@@ -1809,6 +1809,56 @@
 
       &-label {
         font-size: 16px;
+      }
+    }
+
+    @media screen and (max-width: 1300px) {
+      padding: 100px 0 120px;
+
+      &-inner {
+        width: 626px;
+      }
+
+      &-head {
+        gap: 9px;
+        margin-bottom: 24px;
+      }
+
+      &-title {
+        font-size: 36px;
+      }
+
+      &-desc {
+        width: 626px;
+        font-size: 13px;
+        line-height: 16px;
+      }
+
+      &-cards {
+        justify-content: center;
+        column-gap: 14px;
+      }
+
+      &-card {
+        gap: 10px;
+      }
+
+      &-frames {
+        width: 242px;
+        height: 297px;
+      }
+
+      &-caption {
+        gap: 4px;
+      }
+
+      &-note {
+        font-size: 13px;
+        line-height: 15px;
+      }
+
+      &-label {
+        font-size: 15px;
       }
     }
 
@@ -2271,15 +2321,15 @@
     }
 
     @media screen and (max-width: 1450px) {
-      padding: 120px 0 160px;
+      padding: 105px 0 140px;
 
       &-inner {
-        width: 784px;
+        width: 654px;
       }
 
       &-head {
-        gap: 14px;
-        margin-bottom: 38px;
+        gap: 13px;
+        margin-bottom: 30px;
       }
 
       &-title {
@@ -2297,15 +2347,15 @@
       }
 
       &-card {
-        gap: 16px;
-        width: 388px;
+        gap: 14px;
+        width: 320px;
 
         &-media {
-          height: 432px;
+          height: 368px;
         }
 
         &-caption {
-          font-size: 16px;
+          font-size: 14px;
         }
       }
     }
