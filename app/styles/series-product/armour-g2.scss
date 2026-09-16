@@ -755,7 +755,7 @@
           #1971c3 -21.08%,
           #49ff61 106.19%
         );
-        -webkit-background-clip: text;
+        background-clip: text;
         background-clip: text;
         color: transparent;
         font-size: 0;
@@ -1812,55 +1812,55 @@
       }
     }
 
-    @media screen and (max-width: 1300px) {
-      padding: 100px 0 120px;
+    // @media screen and (max-width: 1300px) {
+    //   padding: 100px 0 120px;
 
-      &-inner {
-        width: 626px;
-      }
+    //   &-inner {
+    //     width: 626px;
+    //   }
 
-      &-head {
-        gap: 9px;
-        margin-bottom: 24px;
-      }
+    //   &-head {
+    //     gap: 9px;
+    //     margin-bottom: 24px;
+    //   }
 
-      &-title {
-        font-size: 36px;
-      }
+    //   &-title {
+    //     font-size: 36px;
+    //   }
 
-      &-desc {
-        width: 626px;
-        font-size: 13px;
-        line-height: 16px;
-      }
+    //   &-desc {
+    //     width: 626px;
+    //     font-size: 13px;
+    //     line-height: 16px;
+    //   }
 
-      &-cards {
-        justify-content: center;
-        column-gap: 14px;
-      }
+    //   &-cards {
+    //     justify-content: center;
+    //     column-gap: 14px;
+    //   }
 
-      &-card {
-        gap: 10px;
-      }
+    //   &-card {
+    //     gap: 10px;
+    //   }
 
-      &-frames {
-        width: 242px;
-        height: 297px;
-      }
+    //   &-frames {
+    //     width: 242px;
+    //     height: 297px;
+    //   }
 
-      &-caption {
-        gap: 4px;
-      }
+    //   &-caption {
+    //     gap: 4px;
+    //   }
 
-      &-note {
-        font-size: 13px;
-        line-height: 15px;
-      }
+    //   &-note {
+    //     font-size: 13px;
+    //     line-height: 15px;
+    //   }
 
-      &-label {
-        font-size: 15px;
-      }
-    }
+    //   &-label {
+    //     font-size: 15px;
+    //   }
+    // }
 
     @media screen and (max-width: 1023px) {
       padding: 1.2rem 0.3rem 1rem 0.28rem;
