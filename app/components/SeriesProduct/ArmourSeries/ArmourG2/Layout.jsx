@@ -49,7 +49,7 @@ export function ArmourG2Layout({children, onCheckSpecs}) {
   };
   const VideoSectionData = {
     description:
-      'ARMOUR G2 & GS2 combine a compact design with a 3400mAh battery and 3A fast charging. Enjoy both MTL and DTL vaping with rich dual-mesh flavor. Dual safety locks and advanced leak protection enhance safety, while the clean, elegant dynamic UI provides an intuitive user experience.',
+      'ARMOUR G2 combine a compact design with a 3400mAh battery and 3A fast charging. Enjoy both MTL and DTL vaping with rich dual-mesh flavor. Dual safety locks and advanced leak protection enhance safety, while the clean, elegant dynamic UI provides an intuitive user experience.',
     imgPc: `${CDN}/armour-g2-02-1-2x.webp`,
     imgMob: `${CDN}/armour-g2-mob-02-1-3x.webp`,
     btnText: 'Watch the video',
