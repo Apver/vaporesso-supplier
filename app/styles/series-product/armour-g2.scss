@@ -177,6 +177,23 @@
         width: 531px;
         font-size: 12px;
       }
+
+      &-btn {
+        width: 124px;
+        height: 30px;
+        padding: 6px 10px 6px 11px;
+        border-radius: 19px;
+
+        &-text {
+          font-size: 11px;
+          line-height: 19px;
+        }
+
+        &-icon {
+          width: 16px;
+          height: 16px;
+        }
+      }
     }
 
     @media screen and (max-width: 1023px) {
@@ -479,6 +496,10 @@
         gap: 17px;
         padding-top: 13px;
 
+        .product-armour-g2-grid-card-text {
+          gap: 3px;
+        }
+
         .product-armour-g2-grid-card-title {
           font-size: 19px;
         }
@@ -734,6 +755,7 @@
           #1971c3 -21.08%,
           #49ff61 106.19%
         );
+        -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
         font-size: 0;
@@ -793,6 +815,8 @@
       }
 
       &-hl {
+        gap: 5px;
+
         &-num {
           font-size: 48px;
         }
@@ -1998,6 +2022,14 @@
 
     @media screen and (max-width: 1450px) {
       padding: 120px 0 160px;
+
+      &-card {
+        box-shadow: inset 0 0 10px 0 rgb(255 78 0 / 45%);
+      }
+
+      &-mini {
+        box-shadow: inset 0 0 6px 0 rgb(255 78 0 / 45%);
+      }
 
       &-inner {
         width: 896px;
@@ -3327,6 +3359,111 @@
 
   .spec-content .l img {
     margin-bottom: 10px;
+  }
+
+  /* 规格页 1024–1450：共享样式（product.css / common.css）只有 1920 与 ≤1023 两档，
+     这一档会整页按 1920 尺寸显示（实测 1440 与 1920 的内容高度同为 3962px）。
+     这里按设计稿 0.8 倍补一份数值，且整段限定在 .product-armour-g2 内，
+     其他产品页的规格页不受影响。工具类带 !important，故覆盖也需带。 */
+  @media screen and (min-width: 1024px) and (max-width: 1450px) {
+    .spec-content {
+      padding-top: 48px;
+
+      .card {
+        width: 896px;
+        max-width: 896px;
+      }
+
+      ul {
+        padding: 48px 0;
+      }
+
+      ul li {
+        line-height: 18px;
+      }
+
+      ul li:first-child {
+        width: 272px;
+        line-height: 22px;
+      }
+
+      ul:not(.f) li img:not(:first-child) {
+        margin-top: 26px;
+      }
+
+      ul .d {
+        padding-right: 48px;
+
+        p {
+          max-width: 504px;
+          line-height: 18px;
+        }
+
+        .kit {
+          margin-bottom: 19px;
+        }
+      }
+
+      .t {
+        padding: 56px 0 40px;
+
+        li {
+          line-height: 26px;
+        }
+      }
+
+      .t li:first-child,
+      .f li:first-child {
+        width: 160px;
+      }
+
+      .f li {
+        padding-right: 24px;
+
+        p {
+          line-height: 18px;
+        }
+      }
+
+      .f li:nth-child(2) {
+        margin-right: 48px;
+      }
+
+      .f img,
+      .f .colors {
+        max-width: 504px;
+      }
+
+      .f .colors .item {
+        font-size: 12px !important;
+      }
+
+      .l img {
+        width: 208px;
+        margin-bottom: 8px;
+      }
+
+      .package-list img {
+        margin-bottom: 64px;
+      }
+
+      .f_28 {
+        font-size: 22px !important;
+      }
+
+      .f_24 {
+        font-size: 19px !important;
+        line-height: 26px;
+      }
+
+      .f_15 {
+        font-size: 12px !important;
+      }
+
+      .mb_10 {
+        margin-bottom: 8px !important;
+      }
+    }
   }
 
   @media screen and (max-width: 1023px) {
