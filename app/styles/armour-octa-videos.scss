@@ -1,0 +1,253 @@
+.armour-octa-videos {
+  background-color: #fff;
+  &__title {
+    width: 100%;
+    height: 174px;
+    background-color: #000;
+    padding: 0;
+    margin: 0;
+    font-size: 60px;
+    font-family: 'Din-Black';
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    @media (max-width: 1440px) {
+      height: 140px;
+      font-size: 48px;
+      line-height: 140;
+    }
+    @media (max-width: 991px) {
+      height: 2rem;
+      padding: 0 1.5rem;
+      font-size: 0.56rem;
+      line-height: 0.58rem;
+    }
+  }
+  &__list {
+    width: 1120px;
+    margin: 60px auto 150px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 40px;
+    @media (max-width: 1440px) {
+      width: 896px;
+      margin: 48px auto 120px;
+      column-gap: 16px;
+      row-gap: 32px;
+    }
+    @media (max-width: 991px) {
+      width: 100%;
+      padding: 0 0.36rem;
+      margin: 0.96rem auto 1.6rem;
+      column-gap: 0.18rem;
+      row-gap: 0.8rem;
+    }
+  }
+  &__item {
+    width: 208px;
+    &-box {
+      height: 370px;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.5);
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    &-play {
+      width: 44px;
+      height: 44px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
+    &-download {
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+    &-title {
+      margin: 20px 0 6px;
+      font-size: 16px;
+      line-height: 17px;
+      font-family: 'DinExp-Bold';
+      color: #000;
+    }
+    &-description {
+      font-size: 14px;
+      line-height: 19px;
+      font-family: 'DinExp';
+      color: rgba(0, 0, 0, 0.7);
+    }
+    @media (max-width: 1440px) {
+      width: 166px;
+      &-box {
+        height: 298px;
+      }
+      &-play {
+        width: 36px;
+        height: 36px;
+      }
+      &-download {
+        width: 15px;
+        height: 15px;
+        bottom: 8px;
+        right: 8px;
+      }
+      &-title {
+        margin: 16px 0 5px;
+        font-size: 14px;
+        line-height: 15px;
+      }
+      &-description {
+        font-size: 12px;
+        line-height: 17px;
+      }
+    }
+    @media (max-width: 991px) {
+      width: 3.3rem;
+      &-box {
+        height: 5.88rem;
+        border-radius: 0.16rem;
+      }
+      &-play {
+        width: 0.8rem;
+        height: 0.8rem;
+      }
+      &-download {
+        width: 0.44rem;
+        height: 0.44rem;
+        bottom: 0.2rem;
+        right: 0.2rem;
+      }
+      &-title {
+        margin: 0.38rem 0 0.12rem;
+        font-size: 0.34rem;
+        line-height: 0.45rem;
+      }
+      &-description {
+        font-size: 0.28rem;
+        line-height: 0.38rem;
+      }
+    }
+  }
+  &__item--horizontal {
+    width: 664px;
+  }
+  &__item--horizontal &__item-box {
+    height: 373px;
+    border-radius: 12px;
+  }
+  &__item--horizontal &__item-play {
+    width: 60px;
+    height: 60px;
+  }
+  &__item--horizontal &__item-download {
+    bottom: 14px;
+    right: 14px;
+  }
+  &__item--horizontal &__item-title {
+    margin: 20px 0 12px;
+    font-size: 24px;
+    line-height: 25px;
+  }
+  @media screen and (max-width: 1440px) {
+    &__item--horizontal {
+      width: 532px;
+    }
+    &__item--horizontal &__item-box {
+      height: 298px;
+    }
+    &__item--horizontal &__item-play {
+      width: 48px;
+      height: 48px;
+    }
+    &__item--horizontal &__item-title {
+      margin: 16px 0 10px;
+      font-size: 20px;
+      line-height: 21px;
+    }
+  }
+  @media screen and (max-width: 991px) {
+    &__item--horizontal {
+      width: 6.78rem;
+    }
+    &__item--horizontal &__item-box {
+      height: 3.82rem;
+      border-radius: 0.08rem;
+    }
+    &__item--horizontal &__item-play {
+      width: 0.96rem;
+      height: 0.96rem;
+    }
+    &__item--horizontal &__item-download {
+      bottom: 0.24rem;
+      right: 0.24rem;
+    }
+    &__item--horizontal &__item-title {
+      margin: 0.4rem 0 0.24rem;
+      font-size: 0.36rem;
+      line-height: 0.46rem;
+    }
+    &__item--horizontal &__item-description {
+      font-size: 0.28rem;
+      line-height: 0.38rem;
+    }
+  }
+
+  &__mask {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-video-container {
+      position: relative;
+    }
+    &-video {
+      width: auto;
+      height: 70vh;
+      object-fit: cover;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    &-video--horizontal {
+      width: 70vw;
+      height: auto;
+    }
+    &-close {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+    }
+    @media (max-width: 1440px) {
+      &-close {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    @media (max-width: 991px) {
+      &-close {
+        width: 0.4rem;
+        height: 0.4rem;
+      }
+    }
+  }
+}
