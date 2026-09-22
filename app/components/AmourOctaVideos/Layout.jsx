@@ -2,96 +2,127 @@
  * Xros5Mini Layout Component
  * Layout component for XROS 5 Mini product pages
  */
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 export function ArmourOctaVideosLayout() {
   const [activeVideo, setActiveVideo] = useState(null);
+  const maskVideoRef = useRef(null);
+
+  useEffect(() => {
+    if (!activeVideo) return;
+    const el = maskVideoRef.current;
+    if (!el) return;
+
+    const tryPlay = () => {
+      el.currentTime = 0;
+      const playPromise = el.play();
+      if (playPromise?.catch) {
+        playPromise.catch(() => {
+          el.muted = true;
+          el.play().catch(() => {});
+        });
+      }
+    };
+
+    if (el.readyState >= 2) {
+      tryPlay();
+      return undefined;
+    }
+
+    el.addEventListener('canplay', tryPlay, {once: true});
+    return () => el.removeEventListener('canplay', tryPlay);
+  }, [activeVideo]);
   const Videos = [
     {
       id: '1',
-      title: 'New members in Vaporesso Gen Family! Gen S and Gen Nano kit!',
-      description:
-        'Compatible with the 0.4ohm pod for precise wattage adjustment and other pods for three-level adjustment',
+      title: 'Armour OCTA full-introduction Video',
+      description: 'Unboxing and check what you can get.',
       video:
-        'https://cdn.shopify.com/videos/c/o/v/11fcae10524144a2a6f0a27abcd26203.mp4',
+        'https://cdn.shopify.com/videos/c/o/v/0290db60f4c1431e973beba8c68a0dc9.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-video-01.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-1.webp',
       direction: 'horizontal',
     },
     {
       id: '2',
-      title:
-        "Vaporesso Gen S with NRG S tank---Power isn't just for the Pros! Is it an updated Gen?",
-      description:
-        'Based on the performance of the Axon chip on Gen mod, we are providing another option for more box kit users, the Gen S with NRG S tank.',
-      video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      title: 'Real-World Shockproof Test',
+      description: 'Military-Grade Drop Resistance: 1.2 m, 26 Angles.',
+      video:
+        'https://cdn.shopify.com/videos/c/o/v/2fe11701ed4d48bcb563bae6e7fab0b4.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-video-02.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-2.webp',
       direction: 'vertical',
     },
     {
       id: '3',
-      title:
-        "Vaporesso Gen S with NRG S tank---Power isn't just for the Pros! Is it an updated Gen?",
-      description:
-        'Based on the performance of the Axon chip on Gen mod, we are providing another option for more box kit users, the Gen S with NRG S tank.',
-      video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      title: 'Real-World Waterproof Test',
+      description: 'IPX8 Certificate, 1m for 30+min.',
+      video:
+        'https://cdn.shopify.com/videos/c/o/v/caa81e58abcf41a0a7e814dcc4ecfe42.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-video-03.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-3.webp',
       direction: 'vertical',
     },
     {
       id: '4',
-      title:
-        "Vaporesso Gen S with NRG S tank---Power isn't just for the Pros! Is it an updated Gen?",
-      description:
-        'Based on the performance of the Axon chip on Gen mod, we are providing another option for more box kit users, the Gen S with NRG S tank.',
-      video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      title: 'Real-World Waterproof Test',
+      description: '100 bar High-Pressure | 85°C Hot Water Resistant.',
+      video:
+        'https://cdn.shopify.com/videos/c/o/v/7a4059497bc04933b1c6a3d6417b9f6d.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-video-04.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-4.webp',
       direction: 'vertical',
     },
     {
       id: '5',
-      title:
-        "Vaporesso Gen S with NRG S tank---Power isn't just for the Pros! Is it an updated Gen?",
+      title: 'Riding Together, Titanium Grey',
       description:
-        'Based on the performance of the Axon chip on Gen mod, we are providing another option for more box kit users, the Gen S with NRG S tank.',
-      video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        'The same premium silicone surface used on motorcycle grips.',
+      video:
+        'https://cdn.shopify.com/videos/c/o/v/c4b78c34b0de4ec581c0307eaee37a99.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-video-05.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-5.webp',
       direction: 'vertical',
     },
     {
       id: '6',
-      title:
-        "Vaporesso Gen S with NRG S tank---Power isn't just for the Pros! Is it an updated Gen?",
+      title: 'Racing Together, Aero White',
       description:
-        'Based on the performance of the Axon chip on Gen mod, we are providing another option for more box kit users, the Gen S with NRG S tank.',
-      video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        'Design elements inspired by rally racing, embodying speed and passion.',
+      video:
+        'https://cdn.shopify.com/videos/c/o/v/c9e8737f8cdf41feb727731386175afa.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-video-06.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-6.webp',
       direction: 'vertical',
     },
     {
       id: '7',
-      title:
-        "Vaporesso Gen S with NRG S tank---Power isn't just for the Pros! Is it an updated Gen?",
-      description:
-        'Based on the performance of the Axon chip on Gen mod, we are providing another option for more box kit users, the Gen S with NRG S tank.',
-      video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      title: 'Drinking Together, Rust Bronze',
+      description: 'Retro design inspired by 1980s industrial aesthetics.',
+      video:
+        'https://cdn.shopify.com/videos/c/o/v/eb657abf3ade46b08839c16600068152.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-video-07.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-7.webp',
       direction: 'vertical',
     },
     {
       id: '8',
-      title:
-        "Vaporesso Gen S with NRG S tank---Power isn't just for the Pros! Is it an updated Gen?",
-      description:
-        'Based on the performance of the Axon chip on Gen mod, we are providing another option for more box kit users, the Gen S with NRG S tank.',
-      video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      title: 'Hiking Together, Vintage Green',
+      description: 'Embrace nature and explore the world beneath your feet.',
+      video:
+        'https://cdn.shopify.com/videos/c/o/v/4da39432ae59427688d7399e843e8e9a.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-video-08.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-8.webp',
+      direction: 'vertical',
+    },
+    {
+      id: '9',
+      title: 'Surfing Together, Rally Blue',
+      description:
+        'Sky and sea, friends and Octa—together, they make life happier.',
+      video:
+        'https://cdn.shopify.com/videos/c/o/v/3556c256301c40ccbafc5b08554f9a1d.mp4',
+      poster:
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-9.webp',
       direction: 'vertical',
     },
   ];
@@ -126,7 +157,7 @@ export function ArmourOctaVideosLayout() {
   return (
     <div className="armour-octa-videos">
       <h2 className="armour-octa-videos__title">
-        ARMOUR OCTA LIVE- ACTION VIDEOS*
+        ARMOUR OCTA LIVE- ACTION VIDEOS
       </h2>
       <div className="armour-octa-videos__list">
         {Videos.map((video) => (
@@ -135,13 +166,11 @@ export function ArmourOctaVideosLayout() {
             className={`armour-octa-videos__item ${video.direction === 'horizontal' ? 'armour-octa-videos__item--horizontal' : ''}`}
           >
             <div className="armour-octa-videos__item-box">
-              <video
+              <img
                 className={`armour-octa-videos__item-video ${video.direction === 'horizontal' ? 'armour-octa-videos__item-video--horizontal' : ''}`}
-                src={video.video}
-                poster={video.poster}
-              >
-                <track kind="captions" />
-              </video>
+                src={video.poster}
+                alt={video.title}
+              />
               <div
                 className="armour-octa-videos__item-play"
                 onClick={() => setActiveVideo(video)}
@@ -196,10 +225,15 @@ export function ArmourOctaVideosLayout() {
         >
           <div className="armour-octa-videos__mask-container">
             <video
+              key={activeVideo.id}
+              ref={maskVideoRef}
               className={`armour-octa-videos__mask-video ${activeVideo?.direction === 'horizontal' ? 'armour-octa-videos__mask-video--horizontal' : ''}`}
-              src={activeVideo?.video}
-              poster={activeVideo?.poster}
+              src={activeVideo.video}
+              poster={activeVideo.poster}
               controls
+              autoPlay
+              playsInline
+              preload="auto"
             >
               <track kind="captions" />
             </video>
