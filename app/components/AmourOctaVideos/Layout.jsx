@@ -91,7 +91,7 @@ export function ArmourOctaVideosLayout() {
       video:
         'https://cdn.shopify.com/videos/c/o/v/c9e8737f8cdf41feb727731386175afa.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-6.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-6.jpg',
       direction: 'vertical',
     },
     {
@@ -101,7 +101,7 @@ export function ArmourOctaVideosLayout() {
       video:
         'https://cdn.shopify.com/videos/c/o/v/eb657abf3ade46b08839c16600068152.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-7.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-7.jpg',
       direction: 'vertical',
     },
     {
@@ -111,7 +111,7 @@ export function ArmourOctaVideosLayout() {
       video:
         'https://cdn.shopify.com/videos/c/o/v/4da39432ae59427688d7399e843e8e9a.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-8.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-8.jpg',
       direction: 'vertical',
     },
     {
@@ -122,7 +122,7 @@ export function ArmourOctaVideosLayout() {
       video:
         'https://cdn.shopify.com/videos/c/o/v/3556c256301c40ccbafc5b08554f9a1d.mp4',
       poster:
-        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-9.webp',
+        'https://cdn.shopify.com/s/files/1/0703/9873/8521/files/armour-octa-list-poster-9.jpg',
       direction: 'vertical',
     },
   ];
