@@ -28,7 +28,10 @@ import {
   ArmourG2ProductSpecData,
   ArmourG2SpecSection,
 } from '~/components/SeriesProduct/ArmourSeries/ArmourG2';
-
+import {
+  VastLayout,
+  VastProductSpecData,
+} from '~/components/SeriesProduct/VastSeries/Vast';
 /** 不展示 ProductNav / SpecSection / Product3DViewer 的 template 值 */
 export const SERIES_PRODUCT_NO_NAV_TEMPLATES = [];
 
@@ -87,6 +90,7 @@ export const SERIES_PRODUCT_SPEC_DATA_IN_JS = [
   'prix',
   'armour-octa',
   'armour-g2',
+  'vast',
 ];
 
 /** template → 硬编码 Spec 数据（见各产品目录 languageText.js） */
@@ -98,6 +102,7 @@ export const SERIES_PRODUCT_SPEC_DATA_BY_TEMPLATE = {
   prix: PrixProductSpecData,
   'armour-octa': ArmourOctaProductSpecData,
   'armour-g2': ArmourG2ProductSpecData,
+  vast: VastProductSpecData,
 };
 
 /**
@@ -148,4 +153,9 @@ export const SERIES_PRODUCT_LAYOUT_ENTRIES = {
     /** 本页 Specs 页签用自己的组件，不走共享的 SpecSectionJsData */
     SpecComponent: ArmourG2SpecSection,
   },
+  vast: {
+    Layout: VastLayout,
+    specElementId: 'check-specs-vast',
+  },
 };
+  

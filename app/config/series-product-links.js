@@ -6,6 +6,7 @@ import xrosMiniRetroStyles from '~/styles/series-product/xros-mini-retro.scss?ur
 import prixKitStyles from '~/styles/series-product/prix.scss?url';
 import armourOctaStyles from '~/styles/series-product/armour-octa.scss?url';
 import armourG2Styles from '~/styles/series-product/armour-g2.scss?url';
+import vastStyles from '~/styles/series-product/vast.scss?url';
 
 /** URL / Shopify handle → template（metafield 缺失时的回退） */
 export const SERIES_PRODUCT_HANDLE_TEMPLATE_MAP = {
@@ -80,6 +81,7 @@ const SERIES_PRODUCT_STYLESHEETS_BY_TEMPLATE = {
   prix: [productStyles, uiV4Styles, prixKitStyles],
   'armour-octa': [productStyles, uiV4Styles, armourOctaStyles],
   'armour-g2': [productStyles, uiV4Styles, armourG2Styles],
+  vast: [productStyles, uiV4Styles, vastStyles],
 };
 
 function hrefsToStylesheetDescriptors(hrefs) {
