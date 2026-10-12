@@ -324,13 +324,12 @@
 
   @media screen and (max-width: 1023px) {
     .vast-features {
-      padding: 60px 15px 80px;
+      padding: 1.2rem 0.3rem 1.6rem;
     }
 
     .vast-features__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
-      max-width: 600px;
+      gap: 0.12rem;
     }
 
     .vast-features__row {
@@ -338,7 +337,6 @@
     }
 
     .vast-features__card {
-      box-sizing: border-box;
       container-type: inline-size;
     }
 
@@ -350,12 +348,12 @@
 
     .vast-features__card--2 {
       order: 2;
-      aspect-ratio: 169.5 / 240;
+      aspect-ratio: 169 / 240;
     }
 
     .vast-features__card--3 {
       order: 3;
-      aspect-ratio: 169.5 / 240;
+      aspect-ratio: 169 / 240;
     }
 
     .vast-features__card--5 {
@@ -366,12 +364,12 @@
 
     .vast-features__card--4 {
       order: 5;
-      aspect-ratio: 169.5 / 175;
+      aspect-ratio: 169 / 175;
     }
 
     .vast-features__card--6 {
       order: 6;
-      aspect-ratio: 169.5 / 175;
+      aspect-ratio: 169 / 175;
     }
 
     .vast-features__media {
@@ -392,9 +390,9 @@
     }
 
     .vast-features__overlay {
-      top: 24px;
-      right: 16px;
-      left: 16px;
+      top: 0.48rem;
+      right: 0.36rem;
+      left: 0.36rem;
       transform: none;
     }
 
@@ -405,131 +403,346 @@
     }
 
     .vast-features__image-title {
-      font-size: 14px;
-      line-height: 1.3;
+      font-size: 0.3rem;
     }
 
     .vast-features__image-desc {
-      font-size: 14px;
-      line-height: 1.3;
+      font-size: 0.3rem;
     }
 
     .vast-features__card--1 .vast-features__overlay {
       display: block;
       top: 50%;
       right: auto;
-      left: 16px;
+      left: 0.36rem;
       transform: translateY(-50%);
     }
 
     .vast-features__card--1 .vast-features__image-title {
-      color: #fff2c6;
-      font-family: var(--db, 'Arial Narrow', sans-serif);
-      font-size: 52px;
-      line-height: 1;
-      letter-spacing: -1px;
+      font-size: 0.32rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.04rem;
     }
 
-    .vast-features__card--1 .vast-features__image-desc {
-      margin-top: 4px;
-      color: #fff;
-      font-family: var(--deb, Arial, sans-serif);
-      font-size: 16px;
-      font-weight: 700;
+    .vast-features__card--1 .vast-features__image-title .vast-features__image__suffix {
+      background: linear-gradient(180deg, #FFF8E5 0%, #E5CF96 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: var(--db, 'Arial Narrow', sans-serif);
+      font-size: 1.12rem;
+      line-height: 0.9;
     }
 
     .vast-features__card--2 .vast-features__overlay {
       display: flex;
       align-items: center;
-      gap: 6px;
-      top: 16px;
+      top: 0.24rem;
     }
 
     .vast-features__card--2 .vast-features__image-title {
+      font-size: 0.3rem;
+      display: flex;
+      gap: 0.12rem;
+      align-items: flex-end;
+    }
+
+    .vast-features__card--2 .vast-features__image-title .vast-features__image__suffix {
       flex-shrink: 0;
-      color: #8c1866;
       font-family: var(--db, 'Arial Narrow', sans-serif);
-      font-size: 52px;
-      line-height: 1;
-      letter-spacing: -1px;
+      font-size: 1.12rem;
+      line-height: 0.9;
+      letter-spacing: -0.008rem;
+      background: linear-gradient(180deg, #57003A 0%, #982D74 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .vast-features__card--2 .vast-features__image-desc {
-      color: #000;
-      font-family: var(--deb, Arial, sans-serif);
-      font-size: 14px;
-      font-weight: 700;
+    .vast-features__card--2 .vast-features__image-title .vast-features__image__suffix strong {
+      font-size: 0.8rem;
     }
 
-    .vast-features__card--3 .vast-features__picture {
-      position: absolute;
+    .vast-features__card--3 .vast-features__overlay {
       right: 0;
-      bottom: 0;
-      left: 0;
-      height: 72%;
     }
 
-    .vast-features__card--3 .vast-features__image {
-      object-position: center top;
-    }
-
-    .vast-features__card--3 .vast-features__image-title {
-      font-size: 14px;
-    }
 
     .vast-features__card--5 .vast-features__overlay {
-      top: 18px;
-      right: 10px;
-      left: 10px;
+      top: 0.35rem;
+      right: 1.22rem;
+      left: 1.26rem;
       text-align: center;
     }
 
     .vast-features__card--5 .vast-features__image-title {
       color: #fff;
-      font-size: 13px;
+      font-size: 0.28rem;
       text-align: center;
     }
 
     .vast-features__content {
-      gap: 12px;
-      padding: 14px 8px;
+      gap: 0.14rem;
+      padding: 0.4rem 0.3rem;
     }
 
     .vast-features__logo {
-      width: 41%;
+      width: 1.4rem;
       height: auto;
       flex-shrink: 0;
     }
 
     .vast-features__title {
-      font-size: 32px;
-      line-height: 1.1;
-      letter-spacing: -0.5px;
+      font-size: 0.64rem;
+      letter-spacing: -0.01rem;
     }
 
     .vast-features__desc {
-      margin: 4px 0 0;
-      font-size: 13px;
-      line-height: 1.2;
+      margin: 0;
+      font-size: 0.26rem;
+      line-height: 1.1;
     }
 
     .vast-features__card--battery .vast-features__logo {
-      width: 38%;
+      width: 1.16rem;
     }
 
     .vast-features__card--battery .vast-features__title {
-      font-size: 56px;
-      line-height: 0.9;
-      letter-spacing: -2px;
+      font-size: 1.12rem;
+      letter-spacing: -0.03094rem;
+
     }
 
     .vast-features__suffix {
-      font-size: 28px;
-      letter-spacing: -0.5px;
+      font-size: 0.56rem;
+      letter-spacing: -0.01rem;
     }
 
     .vast-features__card--battery .vast-features__desc {
-      font-size: 14px;
+      font-size: 0.3rem;
+      margin-top: 0.04rem;
+    }
+
+    .vast-features__card--6 .vast-features__desc {
+      margin-top: -0.2rem;
+    }
+  }
+}
+
+
+/* VAST：165 帧全屏滚动模块。必须放在全宽容器内。 */
+.vast-sequence {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #ededed;
+  font-family: Arial, sans-serif;
+
+  &__background,
+  &__headlines,
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  &__background {
+    z-index: 0;
+    visibility: hidden;
+
+    >div {
+      width: 100%;
+      height: 100%;
+    }
+
+    &--1 {
+      visibility: visible;
+    }
+  }
+
+  &__headlines {
+    z-index: 1;
+  }
+
+  &__headline {
+    position: absolute;
+    top: 46%;
+    left: 7.5%;
+    width: 80%;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8%;
+    margin: 0;
+    transform: translateY(-50%);
+    visibility: hidden;
+    white-space: nowrap;
+    font-family: var(--vast-sequence-display-font, 'DIN Condensed'), Impact, 'Arial Narrow', sans-serif;
+    font-weight: 700;
+    font-size: min(25vw, 50svh);
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+    will-change: transform;
+
+    &--1 {
+      visibility: visible;
+    }
+  }
+
+  &__word {
+    flex-shrink: 0;
+  }
+
+  &__metric {
+    display: inline-flex;
+    align-items: baseline;
+    flex-shrink: 0;
+    gap: 0.018em;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  &__number {
+    font: inherit;
+  }
+
+  &__unit {
+    font-size: 0.2em;
+    line-height: 1;
+    letter-spacing: -0.025em;
+  }
+
+  &__canvas {
+    z-index: 2;
+    display: block;
+    /* Canvas 覆盖整个屏幕；产品的位置由每张帧图本身决定。 */
+  }
+
+  &__captions {
+    position: absolute;
+    z-index: 3;
+    top: 76.5%;
+    left: 0;
+    width: 100%;
+    padding: 0 24px;
+    display: grid;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  &__caption {
+    grid-area: 1 / 1;
+    visibility: hidden;
+
+    &--1 {
+      visibility: visible;
+    }
+  }
+
+  &__subtitle {
+    margin: 0 0 12px;
+    font-size: clamp(14px, 1.04vw, 20px);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: inherit;
+    font-size: clamp(26px, 2.5vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-transform: none;
+  }
+
+  &__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 1023px) {
+    &__headline {
+      left: 5%;
+      width: 90%;
+      gap: 4%;
+      font-size: 26vw;
+    }
+
+    &__captions {
+      top: auto;
+      bottom: 11%;
+      padding: 0 20px;
+    }
+
+    &__title {
+      font-size: clamp(26px, 4vw, 38px);
+    }
+  }
+
+  @media (max-width: 767px) {
+
+    &__headline {
+      top: 43%;
+      left: 6%;
+      width: 114%;
+      gap: 8%;
+      font-size: 34vw;
+    }
+
+    &__captions {
+      bottom: max(9%, env(safe-area-inset-bottom));
+    }
+
+    &__subtitle {
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+
+    &__title {
+      max-width: 340px;
+      margin: 0 auto;
+      font-size: 28px;
+      line-height: 1.12;
+    }
+  }
+
+  .vast-sequence {
+    &__headline {
+      left: 100%;
+      width: max-content;
+      min-width: 80%;
+      gap: 8vw;
+      transform: translateY(-50%);
+    }
+
+    @media (max-width: 1023px) {
+      &__headline {
+        left: 100%;
+        width: max-content;
+        min-width: 90%;
+        gap: 4vw;
+      }
+    }
+
+    @media (max-width: 767px) {
+      &__headline {
+        left: 100%;
+        width: max-content;
+        min-width: 114%;
+        gap: 8vw;
+      }
     }
   }
 }

@@ -5,5 +5,5 @@
  * @returns {{ pc: string, mobile: string }}
  */
 export function specImg(pc, mobile = '') {
-  return {pc, mobile};
+  return { pc, mobile };
 }

@@ -6,6 +6,7 @@ import { useEffect, useRef } from 'react';
 import { initScrollAppearAnimate } from '~/utils/scroll_appear_animate';
 import { KvSectionV4, BriefSectionV4, EndProduct } from '~/components/ui-v4';
 import { VastFeatures } from './VastFeatures';
+import { VastThreeSellingPoint } from './VastThreeSellingPoint';
 
 import {
   PRIX_KV_SECTION_DATA,
@@ -29,6 +30,7 @@ export function VastLayout({ children, onCheckSpecs }) {
       />
       <BriefSectionV4 className="product-vast-brief" data={PRIX_BRIEF_SECTION_DATA} />
       <VastFeatures data={VAST_FEATURES_DATA} />
+      <VastThreeSellingPoint />
       <EndProduct
         className="product-vast-end-product"
         data={PRIX_END_PRODUCT_DATA}

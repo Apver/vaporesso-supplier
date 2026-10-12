@@ -54,7 +54,8 @@ export const VastFeatures = ({ data = {} }) => {
             <div className="vast-features__overlay">
               {item.title && (
                 <h3 className="vast-features__image-title">
-                  {item.title}
+                  {item.suffix && <span className="vast-features__image__suffix">{item.suffix}<strong>{item.suffix1}</strong> </span>}
+                  {item.title && <span className="vast-features__image__tle">{item.title}</span>}
                 </h3>
               )}
               {item.desc && (
