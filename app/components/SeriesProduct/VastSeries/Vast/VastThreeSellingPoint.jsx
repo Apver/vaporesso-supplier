@@ -1,292 +1,666 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { PRIX_CDN } from './constants';
 
-const DEFAULT_SLIDES = [
-  { word: 'VAST', value: '10', unit: 'mL', subtitle: 'One Fill, One Week', title: 'No More Frequent Filling', background: 'linear-gradient(110deg, #f6f6f6, #e5e5e5)', wordColor: '#c78db8', accent: '#951d70', valueBackground: 'linear-gradient(#620544, #922671)', titleColor: '#000' },
-  { word: 'FAST', value: '1', unit: 'Second', subtitle: 'Insta Juiced, Insta Start', title: 'No More Unnecessary Waiting', background: 'linear-gradient(110deg, #323232, #060606)', wordColor: '#694d23', accent: '#e29400', valueBackground: 'linear-gradient(#e0a600, #a06308)', titleColor: '#fff' },
-  { word: 'LAST', value: '6', unit: 'Refills', subtitle: 'Up To 150K Puffs', title: 'No More Frequent Replacing', background: 'linear-gradient(110deg, #eff6ff, #c8d7e7)', wordColor: '#86b0d5', accent: '#075698', valueBackground: 'linear-gradient(#003965, #085ba5)', titleColor: '#000' },
+const FRAME_COUNT = 165;
+const LAST_FRAME = FRAME_COUNT - 1;
+const STARTS = [0, 40, 120];
+const ENDS = STARTS.map((_, index) => (STARTS[index + 1] ?? FRAME_COUNT) - 1);
+
+const ANCHORS = [...STARTS, LAST_FRAME];
+
+const SCENES = [
+  {
+    word: 'VAST', value: '10', unit: 'mL',
+    eyebrow: 'One Fill, One Week',
+    title: ['No More', 'Frequent Filling'],
+  },
+  {
+    word: 'FAST', value: '1', unit: 'Second',
+    eyebrow: 'Insta Juiced, Insta Start',
+    title: ['No More', 'Unnecessary Waiting'],
+  },
+  {
+    word: 'LAST', value: '6', unit: 'Refills',
+    eyebrow: 'Up To 150K Puffs',
+    title: ['No More', 'Frequent Replacing'],
+  },
 ];
 
-/**
- * 全屏透明帧图：vast_04_000.webp ～ vast_04_164.webp。
- * frameBase：图片所在目录，不包含文件名。
- * switchFrames 使用从 0 开始的文件编号，默认 040 / 120 切屏。
- * slides 可覆盖三屏文案、背景和颜色；样式在 vast.scss。
- */
-export const VastThreeSellingPoint = ({ data = {} }) => {
-  const {
-    title = 'VAST Performance',
-    frameBase = 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files',
-    framePrefix = 'vast_04_',
-    frameCount = 165,
-    switchFrames = [40, 120],
-    scrollScreens = 5,
-    scrub = 0.35,
-    textTravel = 0.24,
-    fit = 'cover',
-    slides = [],
-  } = data;
-  const sectionRef = useRef(null);
+
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+const sceneOf = (frame) => (frame >= STARTS[2] ? 2 : frame >= STARTS[1] ? 1 : 0);
+
+
+const splitLetters = (value) => Array.from(value).map((letter, index) => (
+  <span className="vast-sequence__char-mask" key={`${index}-${letter}`}>
+    <span className="vast-sequence__char">{letter === ' ' ? '\u00a0' : letter}</span>
+  </span>
+));
+
+export function VastThreeSellingPoint({ data = {}, className = '' }) {
+  const rootRef = useRef(null);
   const canvasRef = useRef(null);
-  const count = Math.max(3, Math.floor(Number(frameCount) || 165));
-  const split1 = Math.min(count - 2, Math.max(1, Math.floor(Number(switchFrames[0]) || 40)));
-  const split2 = Math.min(count - 1, Math.max(split1 + 1, Math.floor(Number(switchFrames[1]) || 120)));
-  const scenes = DEFAULT_SLIDES.map((item, index) => ({ ...item, ...slides[index] }));
+  const {
+    frameBase = PRIX_CDN,
+    framePrefix = 'vast_04_',
+    mobileFramePrefix = '',
+    scrollDistance = 5200,
+    mobileScrollDistance = 4200,
+    scrub = 1,
+    fit = 'cover',
+    mobileFit = 'cover',
+    mobileFrameScale = 0.75,
+    mobilePositionY = 0.1,
+  } = data;
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const section = sectionRef.current;
+    const root = rootRef.current;
     const canvas = canvasRef.current;
-    const context2d = canvas.getContext('2d');
-    if (!context2d) return undefined;
-
-    const backgrounds = [...section.querySelectorAll('.vast-sequence__background')];
-    const headlines = [...section.querySelectorAll('.vast-sequence__headline')];
-    const captions = [...section.querySelectorAll('.vast-sequence__caption')];
-    const moveText = headlines.map((item) => gsap.quickSetter(item, 'x', 'px'));
-    const playhead = { frame: 0 };
-    const cache = new Map();
-    const pending = new Map();
-    const attempts = new Map();
-    const starts = [0, split1, split2];
-    const ends = [split1 - 1, split2 - 1, count - 1];
-    const maxCache = window.matchMedia('(max-width: 767px)').matches ? 14 : 24;
-    const getScene = (frame) => (frame < split1 ? 0 : frame < split2 ? 1 : 2);
-    const getUrl = (frame) => `${frameBase.replace(/\/$/, '')}/${framePrefix}${String(frame).padStart(3, '0')}.webp`;
-    let disposed = false;
-    let loadingEnabled = false;
-    let queue = [];
-    let target = 0;
-    let rendered = -1;
-    let activeScene = -1;
-    let direction = 1;
-    let raf = 0;
-    let width = 0;
-    let height = 0;
-    let dirty = true;
-
-    const trimCache = () => {
-      const keys = [...cache.keys()].filter((key) => key !== rendered);
-      keys.sort((a, b) => Math.abs(b - target) - Math.abs(a - target));
-      while (cache.size > maxCache && keys.length) cache.delete(keys.shift());
-    };
-
-    const draw = () => {
-      raf = 0;
-      if (disposed || !width || !height) return;
-      // 优先精确帧；慢网时只选同一屏的最近已加载帧，防止旧请求覆盖新位置。
-      const scene = getScene(target);
-      let frame = cache.has(target) ? target : -1;
-      if (frame < 0) {
-        for (const key of cache.keys()) {
-          if (getScene(key) === scene && (frame < 0 || Math.abs(key - target) < Math.abs(frame - target))) frame = key;
-        }
-      }
-      if (frame < 0) frame = rendered;
-      const img = cache.get(frame);
-      if (!img) return;
-
-      if (dirty || frame !== rendered) {
-        const scale = (fit === 'contain' ? Math.min : Math.max)(width / img.naturalWidth, height / img.naturalHeight);
-        const drawWidth = img.naturalWidth * scale;
-        const drawHeight = img.naturalHeight * scale;
-        context2d.clearRect(0, 0, width, height);
-        context2d.drawImage(img, (width - drawWidth) / 2, (height - drawHeight) / 2, drawWidth, drawHeight);
-        rendered = frame;
-        dirty = false;
-        section.dataset.frame = String(frame);
-      }
-
-      const nextScene = getScene(frame);
-      if (nextScene !== activeScene) {
-        activeScene = nextScene;
-        // 与实际显示帧同步切换背景、大字和底部文案。
-        backgrounds.forEach((item, index) => { item.style.visibility = index === nextScene ? 'visible' : 'hidden'; });
-        headlines.forEach((item, index) => { item.style.visibility = index === nextScene ? 'visible' : 'hidden'; });
-        captions.forEach((item, index) => {
-          item.style.visibility = index === nextScene ? 'visible' : 'hidden';
-          item.setAttribute('aria-hidden', String(index !== nextScene));
-        });
-        section.dataset.scene = String(nextScene + 1);
-      }
-      const visualFrame = nextScene === scene ? playhead.frame : frame;
-      const progress = gsap.utils.clamp(0, 1, (visualFrame - starts[nextScene]) / Math.max(1, ends[nextScene] - starts[nextScene]));
-      // 每屏大字从右向左移动；回滚时跟随时间轴反向还原。
-      const headlineWidth = headlines[nextScene].scrollWidth;
-
-      moveText[nextScene](
-        -progress * (width + headlineWidth)
-      );
-    };
-
-    const requestDraw = () => {
-      if (!disposed && !raf) raf = requestAnimationFrame(draw);
-    };
-
-    const pump = () => {
-      if (disposed || !loadingEnabled) return;
-      while (pending.size < 4 && queue.length) {
-        const frame = queue.shift();
-        if (cache.has(frame) || pending.has(frame) || (attempts.get(frame) || 0) >= 2) continue;
-        attempts.set(frame, (attempts.get(frame) || 0) + 1);
-        const img = new Image();
-        let settled = false;
-        const finish = (success) => {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timer);
-          img.onload = null;
-          img.onerror = null;
-          pending.delete(frame);
-          if (disposed) return;
-          if (success && img.naturalWidth) {
-            attempts.delete(frame);
-            cache.set(frame, img);
-            trimCache();
-            requestDraw();
-          } else if ((attempts.get(frame) || 0) < 2) {
-            if (Math.abs(frame - target) <= 10) queue.push(frame);
-          } else {
-            console.warn(`[VastScrollSequence] 帧图加载失败：${getUrl(frame)}`);
-          }
-          pump();
-        };
-        const timer = setTimeout(() => { finish(false); img.src = ''; }, 15000);
-        pending.set(frame, { img, timer });
-        img.decoding = 'async';
-        img.onload = () => finish(true);
-        img.onerror = () => finish(false);
-        img.src = getUrl(frame);
-      }
-    };
-
-    const updateQueue = () => {
-      queue = [target];
-      // 当前帧最优先，滚动方向预载 10 帧，反方向保留 3 帧。
-      for (let i = 1; i <= 10; i += 1) {
-        queue.push(target + i * direction);
-        if (i <= 3) queue.push(target - i * direction);
-      }
-      queue = [...new Set(queue)].filter((frame) => frame >= 0 && frame < count);
-      pump();
-    };
-
-    const updateFrame = () => {
-      // floor 保证 039 尚属第一屏，040 开始第二屏；补偿浮点误差。
-      const frame = Math.min(count - 1, Math.max(0, Math.floor(playhead.frame + 0.00001)));
-      if (frame !== target) {
-        direction = frame > target ? 1 : -1;
-        target = frame;
-        updateQueue();
-      }
-      requestDraw();
-    };
-
-    const resize = () => {
-      width = section.clientWidth;
-      height = section.clientHeight;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const pixelWidth = Math.max(1, Math.round(width * dpr));
-      const pixelHeight = Math.max(1, Math.round(height * dpr));
-      if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
-        canvas.width = pixelWidth;
-        canvas.height = pixelHeight;
-        context2d.setTransform(dpr, 0, 0, dpr, 0, 0);
-        dirty = true;
-      }
-      requestDraw();
-    };
-
-    const gsapContext = gsap.context(() => {
-      gsap.fromTo(playhead, { frame: 0 }, {
-        frame: count - 1,
-        ease: 'none',
-        onUpdate: updateFrame,
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: () => `+=${Math.round(section.clientHeight * Math.max(1, Number(scrollScreens) || 5))}`,
-          pin: true,
-          pinSpacing: true,
-          scrub,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onRefresh: resize,
-          // 快速滚过边界时同步到首/尾帧，再释放定屏。
-          onLeave: (self) => { self.getTween()?.progress(1); self.animation.progress(1); },
-          onLeaveBack: (self) => { self.getTween()?.progress(1); self.animation.progress(0); },
-        },
+    const context = canvas?.getContext('2d', { alpha: true });
+    if (!root || !context) return undefined;
+    let cancelled = false;
+    let cleanup = () => { };
+    Promise.all([import('gsap'), import('gsap/dist/ScrollTrigger')])
+      .then(([gsapModule, triggerModule]) => {
+        if (cancelled) return;
+        const gsap = gsapModule.gsap || gsapModule.default?.gsap || gsapModule.default;
+        const ScrollTrigger = triggerModule.ScrollTrigger || triggerModule.default?.ScrollTrigger || triggerModule.default;
+        cleanup = initialize(gsap, ScrollTrigger);
+      })
+      .catch((error) => {
+        if (!cancelled) console.error('[VastThreeSellingPoint] Animation initialization failed:', error);
       });
-    }, section);
+    function initialize(gsap, ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+      const media = gsap.matchMedia();
+      media.add({
+        desktop: '(min-width: 1024px)',
+        mobile: '(max-width: 1023px)',
+        reducedMotion: '(prefers-reduced-motion: reduce)',
+      }, (mediaContext) => {
+        const { mobile, reducedMotion } = mediaContext.conditions;
+        const headlines = [...root.querySelectorAll('.vast-sequence__headline')];
+        const captions = [...root.querySelectorAll('.vast-sequence__caption')];
+        const circles = [...root.querySelectorAll('.vast-sequence__background--circle')];
+        const headlineInners = headlines.map((node) => node.querySelector('.vast-sequence__headline-inner'));
+        const captionTimelines = captions.map((caption) => {
+          const letters = gsap.utils.toArray('.vast-sequence__char', caption);
+          return gsap.timeline({ paused: true })
+            .fromTo(caption,
+              { autoAlpha: 0, y: 28 },
+              { autoAlpha: 1, y: 0, duration: 0.48, ease: 'power3.out' }, 0)
+            .fromTo(letters,
+              { yPercent: 115, opacity: 0, rotate: 4 },
+              {
+                yPercent: 0, opacity: 1, rotate: 0, duration: 0.7,
+                stagger: { each: 0.018, from: 'start' }, ease: 'power3.out'
+              }, 0.12);
+        });
+        const firstHeadlineChars = gsap.utils.toArray('.vast-sequence__headline--1 .vast-sequence__char', root);
+        const firstMetric = root.querySelector('.vast-sequence__headline--1 .vast-sequence__metric');
+        const firstHeadlineTimeline = gsap.timeline({ paused: true })
+          .fromTo(firstHeadlineChars,
+            { yPercent: 120, opacity: 0, rotate: 6 },
+            {
+              yPercent: 0, opacity: 1, rotate: 0, duration: 0.8,
+              stagger: 0.12, ease: 'power3.out'
+            }, 0)
+          .fromTo(firstMetric,
+            { autoAlpha: 0, y: 32 },
+            { autoAlpha: 1, y: 0, duration: 0.75, ease: 'power3.out' }, 0.22);
+        let firstEntered = false;
+        let activeCaption = -1;
+        let firstEntranceTrigger;
 
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(section);
-    const preloadObserver = new IntersectionObserver(([entry]) => {
-      loadingEnabled = entry.isIntersecting;
-      if (loadingEnabled) updateQueue();
-    }, { rootMargin: '100% 0px' });
-    // 观察 pin spacer，避免被固定后的元素影响预加载范围。
-    preloadObserver.observe(section.parentElement);
-    const refresh = () => { if (!disposed) ScrollTrigger.refresh(); };
-    window.addEventListener('load', refresh);
-    document.fonts?.ready.then(refresh);
-    resize();
+        function setActiveCaption(index) {
+          if (activeCaption === index) return;
+          activeCaption = index;
+          captionTimelines.forEach((timeline, i) => {
+            if (i === index) {
+              if (reducedMotion) timeline.progress(1).pause();
+              else timeline.timeScale(1).restart();
+            } else if (reducedMotion) {
+              timeline.progress(0).pause();
+            } else {
+              // 离场快速收起，约为入场倒放的 4 倍速度；再次入场恢复正常速度。
+              timeline.timeScale(4).reverse();
+            }
+          });
+        }
+
+        function enterFirstScene() {
+          if (dead || firstEntered) return;
+          firstEntered = true;
+          if (reducedMotion) firstHeadlineTimeline.progress(1).pause();
+          else firstHeadlineTimeline.play(0);
+          // 仅在第一屏时显示第一组小字；越过第一屏不会抢回当前字幕。
+          if (activeScene <= 0) setActiveCaption(0);
+          updateVisuals();
+        }
+
+        function resetFirstScene() {
+          firstEntered = false;
+          firstHeadlineTimeline.pause(0);
+          if (activeScene === 0) setActiveCaption(-1);
+          updateVisuals();
+        }
+        gsap.set(circles, { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: 0.001 });
+        const smooth = { frame: 0 };
+        const smoothFrame = gsap.quickTo(smooth, 'frame', {
+          duration: 0.48,
+          ease: 'power2.out',
+          onUpdate: () => updateVisuals(),
+        });
+        const ready = new Map();
+        const pending = new Map();
+        const attempts = new Map();
+        const model = { frame: 0 };
+        let queue = [];
+        let dead = false;
+        let nearby = false;
+        let generation = 0;
+        let target = 0;
+        let direction = 1;
+        let width = 0;
+        let height = 0;
+        let dpr = 1;
+        let painted = -1;
+        let activeScene = -1;
+        let raf = 0;
+        let resizeObserver;
+        let intersectionObserver;
+        function frameUrl(index) {
+          const prefix = mobile && mobileFramePrefix ? mobileFramePrefix : framePrefix;
+          return `${frameBase.replace(/\/$/, '')}/${prefix}${String(index).padStart(3, '0')}.webp`;
+        }
+        function activateScene(index) {
+          if (index === activeScene) return;
+          activeScene = index;
+          root.dataset.scene = String(index + 1);
+          captions.forEach((caption, i) => caption.setAttribute('aria-hidden', String(i !== index)));
+          // 第 1 屏等视口中线触发；第 2/3 屏在进入对应帧区间时自动播放。
+          if (index === 0 && !firstEntered) setActiveCaption(-1);
+          else setActiveCaption(index);
+        }
+
+        function updateVisuals() {
+          if (dead || !width) return;
+          const frame = reducedMotion ? 0 : smooth.frame;
+          const ease = (value) => {
+            const t = clamp(value, 0, 1);
+            return t * t * (3 - 2 * t);
+          };
+          const transition = mobile ? 9 : 12;
+
+          // 圆形背景按照实际屏幕对角线放大，覆盖所有角落。
+          circles.forEach((circle, i) => {
+            const boundary = STARTS[i + 1];
+            const phase = reducedMotion ? 0 : ease((frame - (boundary - transition)) / (transition * 2));
+            gsap.set(circle, {
+              scale: 0.001 + phase * 1.01,
+              autoAlpha: phase > 0 ? 1 : 0,
+              force3D: true,
+            });
+          });
+
+          let dominant = 0;
+          headlines.forEach((headline, i) => {
+            const start = STARTS[i];
+            const end = ENDS[i];
+            const duration = Math.max(1, end - start);
+            const local = clamp((frame - start) / duration, 0, 1);
+            const entry = i === 0 ? 1 : ease((frame - (start - transition * 0.4)) / (transition * 1.2));
+            const exit = i === 2 ? 1 : 1 - ease((frame - (STARTS[i + 1] - transition * 0.8)) / (transition * 1.35));
+            const alpha = clamp(entry * exit * (i === 0 && !firstEntered ? 0 : 1), 0, 1);
+
+            // 用缩放后的实际文字宽度来计算最终位置，不会因为字体和屏幕宽度产生偏移。
+            const inner = headlineInners[i];
+            const scale = Number(root.style.getPropertyValue('--vast-letter-scale')) || 0.65;
+            const visualWidth = inner.offsetWidth * scale;
+            const centeredX = (width - visualWidth) / 2;
+            // 第一屏默认居中，随后随滚动向左退出；第二、三屏仍由右侧进入。
+            const from = i === 0 ? centeredX : width + width * (mobile ? 0.04 : 0.08);
+            const to = i === 2
+              ? centeredX                   // 最后一屏停止在视口正中
+              : -visualWidth - width * 0.08; // 前两屏向左退出
+            const x = reducedMotion ? (width - visualWidth) / 2 : from + (to - from) * ease(local);
+            gsap.set(headline, { x, autoAlpha: alpha, force3D: true });
+
+            // 字幕的显隐和逐字入场全部由 setActiveCaption() 的真实时间轴控制。
+            // 此处只计算大字随滚动的位置与场景过渡。
+
+            if (frame >= start) dominant = i;
+          });
+          activateScene(dominant);
+        }
+        function nearestReady() {
+          if (ready.has(target)) return target;
+          const scene = sceneOf(target);
+          let best = -1;
+          let distance = Infinity;
+          for (const index of ready.keys()) {
+            if (sceneOf(index) !== scene) continue;
+            const delta = Math.abs(index - target);
+            if (delta < distance) { best = index; distance = delta; }
+          }
+          return best;
+        }
+        function render(force = false) {
+          if (dead || !width || !height) return;
+          let index = nearestReady();
+          if (index < 0 && force && ready.has(painted)) index = painted;
+          if (index < 0) {
+            updateVisuals();
+            return;
+          }
+          updateVisuals();
+          if (painted === index && !force) return;
+          const img = ready.get(index);
+          const objectFit = mobile ? mobileFit : fit;
+          const ratio = objectFit === 'contain' ? Math.min(width / img.naturalWidth, height / img.naturalHeight) : Math.max(width / img.naturalWidth, height / img.naturalHeight);
+          const scale = ratio * (mobile && !mobileFramePrefix ? mobileFrameScale : 1);
+          const drawWidth = img.naturalWidth * scale;
+          const drawHeight = img.naturalHeight * scale;
+          const x = (width - drawWidth) / 2;
+          const y = (height - drawHeight) * (mobile && !mobileFramePrefix ? mobilePositionY : 0.5);
+          context.setTransform(dpr, 0, 0, dpr, 0, 0);
+          context.clearRect(0, 0, width, height);
+          context.drawImage(img, x, y, drawWidth, drawHeight);
+          painted = index;
+          root.dataset.frame = String(index);
+        }
+        function fitTypography() {
+          const naturalWidth = headlines[0].querySelector('.vast-sequence__word').offsetWidth;
+          if (naturalWidth) {
+            const desiredWidth = width * (mobile ? 0.48 : 0.38);
+            root.style.setProperty('--vast-letter-scale', String(desiredWidth / naturalWidth));
+          }
+        }
+        function resize() {
+          if (dead) return;
+          const nextWidth = root.clientWidth;
+          const nextHeight = root.clientHeight;
+          const nextDpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
+          if (nextWidth === width && nextHeight === height && nextDpr === dpr) return;
+          width = nextWidth;
+          height = nextHeight;
+          dpr = nextDpr;
+          canvas.width = Math.max(1, Math.round(width * dpr));
+          canvas.height = Math.max(1, Math.round(height * dpr));
+          root.style.setProperty('--vast-circle-size', `${Math.ceil(Math.hypot(width, height) * 1.08)}px`);
+          fitTypography();
+          render(true);
+        }
+        function trimCache() {
+          const limit = mobile ? 28 : 40;
+          if (ready.size <= limit) return;
+          const removable = [...ready.keys()].filter((index) => !ANCHORS.includes(index) && index !== painted && index !== target).sort((a, b) => Math.abs(b - target) - Math.abs(a - target));
+          while (ready.size > limit && removable.length) ready.delete(removable.shift());
+        }
+
+        function pump() {
+          if (dead) return;
+          const concurrent = mobile ? 3 : 4;
+          while (pending.size < concurrent && queue.length) {
+            const index = queue.shift();
+            if (ready.has(index) || pending.has(index) || (attempts.get(index) || 0) >= 2) continue;
+            const image = new Image();
+            const token = generation;
+            attempts.set(index, (attempts.get(index) || 0) + 1);
+            image.decoding = 'async';
+            const entry = { image, timer: 0 };
+            pending.set(index, entry);
+            const finish = (success) => {
+              if (dead || token !== generation || pending.get(index) !== entry) return;
+              clearTimeout(entry.timer);
+              image.onload = null;
+              image.onerror = null;
+              pending.delete(index);
+              if (success && image.naturalWidth) {
+                ready.set(index, image);
+                attempts.delete(index);
+                render();
+                trimCache();
+              } else if ((attempts.get(index) || 0) < 2) {
+                queue.push(index);
+
+              }
+              pump();
+            };
+            image.onload = () => finish(true);
+            image.onerror = () => finish(false);
+            entry.timer = window.setTimeout(() => {
+              finish(false);
+              image.src = '';
+            }, 15000);
+            image.src = frameUrl(index);
+          }
+        }
+
+
+
+        function planLoads() {
+          const candidates = reducedMotion ? [0] : [target, STARTS[sceneOf(target)]];
+          if (nearby && !reducedMotion) {
+            for (let offset = 1; offset <= 16; offset += 1) {
+              candidates.push(target + offset * direction);
+              if (offset <= 6) candidates.push(target - offset * direction);
+            }
+          }
+
+          if (!reducedMotion) candidates.push(...ANCHORS);
+          queue = [...new Set(candidates)].filter((index) => (
+            index >= 0 && index < FRAME_COUNT && !ready.has(index) && !pending.has(index) && (attempts.get(index) || 0) < 2
+          ));
+          pump();
+        }
+
+
+
+        function update() {
+
+          if (dead) return;
+
+          // floor 保证到 040 / 120 才切屏，不在 039.5 / 119.5 提前切换。
+
+          const next = clamp(Math.floor(model.frame + 0.00001), 0, LAST_FRAME);
+
+          if (next !== target) {
+
+            direction = next > target ? 1 : -1;
+
+            target = next;
+
+            planLoads();
+
+          }
+
+          smoothFrame(model.frame);
+          render();
+
+        }
+
+
+
+        function buildAnimation() {
+
+          model.frame = 0;
+
+          target = 0;
+
+          if (!reducedMotion) {
+
+            gsap.to(model, {
+
+              frame: LAST_FRAME,
+
+              ease: 'none',
+
+              onUpdate: update,
+
+              scrollTrigger: {
+
+                trigger: root,
+
+                start: 'top top',
+
+                end: () => `+=${mobile ? mobileScrollDistance : scrollDistance}`,
+
+                pin: true,
+
+                pinSpacing: true,
+
+                scrub,
+
+                anticipatePin: 1,
+
+                invalidateOnRefresh: true,
+
+                onRefresh: () => { resize(); update(); },
+
+                onEnter: () => { nearby = true; planLoads(); },
+
+                onEnterBack: () => { nearby = true; planLoads(); },
+
+              },
+
+            });
+
+          }
+
+          planLoads();
+
+          render(true);
+
+        }
+
+
+
+        function discardImages() {
+
+          generation += 1;
+
+          for (const { image, timer } of pending.values()) {
+
+            clearTimeout(timer);
+
+            image.onload = null;
+
+            image.onerror = null;
+
+            image.src = '';
+
+          }
+
+          pending.clear();
+
+          ready.clear();
+
+          attempts.clear();
+
+          queue = [];
+
+          painted = -1;
+
+        }
+
+
+
+        function refreshLayout() {
+
+          if (!dead) { resize(); fitTypography(); ScrollTrigger.refresh(); }
+
+        }
+
+
+
+        activateScene(0);
+
+        resize();
+
+        buildAnimation();
+
+        if (reducedMotion) {
+          enterFirstScene();
+        } else {
+          // top center：模块顶部到达视口中线时立即播放，不需要继续滚动才能显示完。
+          firstEntranceTrigger = ScrollTrigger.create({
+            trigger: root,
+            start: 'top center',
+            end: 'bottom top',
+            onEnter: enterFirstScene,
+            onEnterBack: enterFirstScene,
+            onLeaveBack: resetFirstScene,
+            invalidateOnRefresh: true,
+          });
+          // 处理从中间帧刷新、浏览器恢复滚动位置等情况。
+          if (firstEntranceTrigger.isActive || firstEntranceTrigger.scroll() >= firstEntranceTrigger.start) {
+            enterFirstScene();
+          }
+        }
+
+        if ('ResizeObserver' in window) {
+
+          resizeObserver = new ResizeObserver(resize);
+
+          resizeObserver.observe(root);
+
+        } else {
+
+          window.addEventListener('resize', resize);
+
+        }
+
+        if ('IntersectionObserver' in window) {
+
+          intersectionObserver = new IntersectionObserver(([entry]) => {
+
+            nearby = entry.isIntersecting;
+
+            planLoads();
+
+          }, { rootMargin: '150% 0px' });
+
+          intersectionObserver.observe(root);
+
+        } else {
+
+          nearby = true;
+
+          planLoads();
+
+        }
+
+        window.addEventListener('load', refreshLayout);
+
+        document.fonts?.ready.then(refreshLayout);
+
+        raf = requestAnimationFrame(refreshLayout);
+
+
+
+        return () => {
+
+          dead = true;
+
+          cancelAnimationFrame(raf);
+
+          intersectionObserver?.disconnect();
+
+          resizeObserver?.disconnect();
+
+          window.removeEventListener('resize', resize);
+
+          window.removeEventListener('load', refreshLayout);
+
+          firstEntranceTrigger?.kill();
+          firstHeadlineTimeline.kill();
+          captionTimelines.forEach((timeline) => timeline.kill());
+          smoothFrame.tween?.kill();
+          discardImages();
+
+          // tween、ScrollTrigger 和 pin-spacer 由本组件的 media.revert() 清理。
+
+          headlines.forEach((headline) => { headline.style.transform = ''; });
+
+          root.style.removeProperty('--vast-letter-scale');
+          root.style.removeProperty('--vast-circle-size');
+
+          root.removeAttribute('data-frame');
+
+        };
+
+      }, root);
+
+      return () => media.revert();
+
+    }
+
+
 
     return () => {
-      disposed = true;
-      cancelAnimationFrame(raf);
-      preloadObserver.disconnect();
-      resizeObserver.disconnect();
-      window.removeEventListener('load', refresh);
-      pending.forEach(({ img, timer }) => {
-        clearTimeout(timer);
-        img.onload = null;
-        img.onerror = null;
-        img.src = '';
-      });
-      pending.clear();
-      cache.clear();
-      gsapContext.revert();
-      // React StrictMode / 配置变化时恢复首屏初始状态。
-      [...backgrounds, ...headlines, ...captions].forEach((item) => item.removeAttribute('style'));
-      captions.forEach((item, index) => item.setAttribute('aria-hidden', String(index !== 0)));
-      delete section.dataset.frame;
-      delete section.dataset.scene;
+
+      cancelled = true;
+
+      cleanup();
+
     };
-  }, [frameBase, framePrefix, count, split1, split2, scrollScreens, scrub, textTravel, fit]);
+
+  }, [frameBase, framePrefix, mobileFramePrefix, scrollDistance, mobileScrollDistance,
+
+    scrub, fit, mobileFit, mobileFrameScale, mobilePositionY]);
+
+
 
   return (
-    <section ref={sectionRef} className="vast-sequence" aria-label={title}>
-      {scenes.map((item, index) => (
-        <div key={`bg-${index}`} className={`vast-sequence__background vast-sequence__background--${index + 1}`} aria-hidden="true">
-          <div style={{ background: item.background }} />
-        </div>
-      ))}
+
+    <section ref={rootRef} className={`vast-sequence ${className}`.trim()} data-scene="1" aria-label="VAST product details">
+
+      <div className="vast-sequence__backgrounds" aria-hidden="true">
+
+        {SCENES.map((scene, index) => (
+
+          <div key={scene.word} className={`vast-sequence__background vast-sequence__background--${index + 1}${index ? ' vast-sequence__background--circle' : ''}`} />
+
+        ))}
+
+      </div>
 
       <div className="vast-sequence__headlines" aria-hidden="true">
-        {scenes.map((item, index) => (
-          <div key={`headline-${index}`} className={`vast-sequence__headline vast-sequence__headline--${index + 1}`}>
-            <span className="vast-sequence__word" style={{ color: item.wordColor }}>{item.word}</span>
-            <span className="vast-sequence__metric" style={{ backgroundImage: item.valueBackground }}>
-              <strong className="vast-sequence__number">{item.value}</strong>
-              <span className="vast-sequence__unit">{item.unit}</span>
+
+        {SCENES.map((scene, index) => (
+
+          <div key={scene.word} className={`vast-sequence__headline vast-sequence__headline--${index + 1}`}>
+
+            <span className="vast-sequence__headline-inner">
+              <span className="vast-sequence__word">{index === 0 ? splitLetters(scene.word) : scene.word}</span>
+              <span className="vast-sequence__metric">
+                <span className="vast-sequence__value">{scene.value}</span>
+                <span className="vast-sequence__unit">{scene.unit}</span>
+              </span>
             </span>
+
           </div>
+
         ))}
+
       </div>
 
       <canvas ref={canvasRef} className="vast-sequence__canvas" aria-hidden="true" />
 
       <div className="vast-sequence__captions">
-        {scenes.map((item, index) => (
-          <div key={`caption-${index}`} className={`vast-sequence__caption vast-sequence__caption--${index + 1}`} aria-hidden={index !== 0}>
-            <span className="vast-sequence__sr-only">{item.word} {item.value} {item.unit}.</span>
-            <p className="vast-sequence__subtitle" style={{ color: item.accent }}>{item.subtitle}</p>
-            <h2 className="vast-sequence__title" style={{ color: item.titleColor }}>{item.title}</h2>
+
+        {SCENES.map((scene, index) => (
+
+          <div key={scene.word} className={`vast-sequence__caption vast-sequence__caption--${index + 1}`} aria-hidden={index !== 0}>
+
+            <p className="vast-sequence__eyebrow" aria-label={scene.eyebrow}>
+              <span aria-hidden="true">{splitLetters(scene.eyebrow)}</span>
+            </p>
+            <h2 className="vast-sequence__title" aria-label={scene.title.join(' ')}>
+              <span aria-hidden="true">{splitLetters(scene.title[0])}</span>
+              <span className="vast-sequence__title-break" aria-hidden="true"> </span>
+              <span aria-hidden="true">{splitLetters(scene.title[1])}</span>
+            </h2>
+
           </div>
+
         ))}
+
       </div>
+
+      <span className="vast-sequence__sr-only">
+
+        {SCENES.map((scene) => `${scene.word}: ${scene.value} ${scene.unit}. ${scene.eyebrow}. ${scene.title.join(' ')}.`).join(' ')}
+
+      </span>
+
     </section>
+
   );
-};
+
+}
+
+
+
+export default VastThreeSellingPoint;

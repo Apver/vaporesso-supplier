@@ -8,11 +8,14 @@ import { KvSectionV4, BriefSectionV4, EndProduct } from '~/components/ui-v4';
 import { VastFeatures } from './VastFeatures';
 import { VastThreeSellingPoint } from './VastThreeSellingPoint';
 
+import { VastBattery } from './VastBattery';
+
 import {
   PRIX_KV_SECTION_DATA,
   PRIX_BRIEF_SECTION_DATA,
   PRIX_END_PRODUCT_DATA,
-  VAST_FEATURES_DATA
+  VAST_FEATURES_DATA,
+  PRIX_BATTERY_SECTION_DATA
 } from './constants';
 export function VastLayout({ children, onCheckSpecs }) {
   const rootRef = useRef(null);
@@ -31,6 +34,7 @@ export function VastLayout({ children, onCheckSpecs }) {
       <BriefSectionV4 className="product-vast-brief" data={PRIX_BRIEF_SECTION_DATA} />
       <VastFeatures data={VAST_FEATURES_DATA} />
       <VastThreeSellingPoint />
+      <VastBattery data={PRIX_BATTERY_SECTION_DATA} />
       <EndProduct
         className="product-vast-end-product"
         data={PRIX_END_PRODUCT_DATA}

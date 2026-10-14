@@ -88,3 +88,9 @@ export const VAST_FEATURES_DATA = {
     },
   ],
 };
+
+export const PRIX_BATTERY_SECTION_DATA = {
+  productImage: prixAsset('vast_09_1.webp'),
+  mobileProductImage: prixAsset('vast_mob_09_1.webp'),
+};
+
