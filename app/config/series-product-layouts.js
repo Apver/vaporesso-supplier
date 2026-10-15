@@ -3,6 +3,10 @@ import {
   Xros6ProductSpecData,
 } from '~/components/SeriesProduct/XrosSeries/Xros6';
 import {
+  Xros6MiniLayout,
+  Xros6MiniProductSpecData,
+} from '~/components/SeriesProduct/XrosSeries/Xros6Mini';
+import {
   XrosMiniRetroLayout,
   XrosMiniRetroProductSpecData,
 } from '~/components/SeriesProduct/XrosSeries/XrosMiniRetro';
@@ -84,6 +88,7 @@ export function getSeriesListMobileTextClass(product) {
 
 export const SERIES_PRODUCT_SPEC_DATA_IN_JS = [
   'xros6',
+  'xros6-mini',
   'xros-mini-retro',
   'xros-mini-fresh',
   'xros-se',
@@ -96,6 +101,7 @@ export const SERIES_PRODUCT_SPEC_DATA_IN_JS = [
 /** template → 硬编码 Spec 数据（见各产品目录 languageText.js） */
 export const SERIES_PRODUCT_SPEC_DATA_BY_TEMPLATE = {
   xros6: Xros6ProductSpecData,
+  'xros6-mini': Xros6MiniProductSpecData,
   'xros-mini-retro': XrosMiniRetroProductSpecData,
   'xros-mini-fresh': XrosMiniFreshProductSpecData,
   'xros-se': XrosSeProductSpecData,
@@ -117,6 +123,10 @@ export const SERIES_PRODUCT_LAYOUT_ENTRIES = {
   xros6: {
     Layout: Xros6Layout,
     specElementId: 'check-specs-xros-6',
+  },
+  'xros6-mini': {
+    Layout: Xros6MiniLayout,
+    specElementId: 'check-specs-xros-6-mini',
   },
   'xros-mini-retro': {
     Layout: XrosMiniRetroLayout,
