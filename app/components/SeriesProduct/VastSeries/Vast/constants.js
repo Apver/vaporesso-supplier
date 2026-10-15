@@ -168,3 +168,22 @@ export const VAST_LEAK_RESISTANCE_DATA =
   scrub: 0.7,
   pinOffset: 0
 };
+
+export const VAST_TRI_CORE_DATA = {
+  assetBase: PRIX_CDN,
+  techEyebrow: 'Tri-core Mesh Technology',
+  techTitle: 'One Pod, Three Experiences\nFor All MTL Vapers',
+  moodEyebrow: 'Tri-core Mesh Technology',
+  moodTitle: 'One Click To Switch\nYour Mood',
+
+  desktopScrollDistance: 4800,
+  mobileTechScrollDistance: 2000,
+  mobileMoodScrollDistance: 2400,
+  scrub: 0.65,
+  pinOffset: 0,
+  // modes: [
+  //   { key: 'eco', sceneImage: '自定义 ECO 场景图', mobileSceneImage: '可选移动图', position: '52% center' },
+  //   { key: 'nor', sceneImage: '自定义 NOR 场景图', position: '55% center' },
+  //   { key: 'pwr', sceneImage: '自定义 PWR 场景图', position: '54% center' },
+  // ],
+};

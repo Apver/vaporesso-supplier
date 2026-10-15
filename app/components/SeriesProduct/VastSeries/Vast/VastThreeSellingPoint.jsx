@@ -51,6 +51,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
     mobileFit = 'cover',
     mobileFrameScale = 0.75,
     mobilePositionY = 0.1,
+    endHold = 0.2
   } = data;
 
   useEffect(() => {
@@ -81,7 +82,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
         const { mobile, reducedMotion } = mediaContext.conditions;
         const headlines = [...root.querySelectorAll('.vast-sequence__headline')];
         const captions = [...root.querySelectorAll('.vast-sequence__caption')];
-        const circles = [...root.querySelectorAll('.vast-sequence__background--circle')];
+        const backgrounds = [...root.querySelectorAll('.vast-sequence__background')];
         const headlineInners = headlines.map((node) => node.querySelector('.vast-sequence__headline-inner'));
         const captionTimelines = captions.map((caption) => {
           const letters = gsap.utils.toArray('.vast-sequence__char', caption);
@@ -96,22 +97,30 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
                 stagger: { each: 0.018, from: 'start' }, ease: 'power3.out'
               }, 0.12);
         });
-        const firstHeadlineChars = gsap.utils.toArray('.vast-sequence__headline--1 .vast-sequence__char', root);
-        const firstMetric = root.querySelector('.vast-sequence__headline--1 .vast-sequence__metric');
-        const firstHeadlineTimeline = gsap.timeline({ paused: true })
-          .fromTo(firstHeadlineChars,
-            { yPercent: 120, opacity: 0, rotate: 6 },
-            {
-              yPercent: 0, opacity: 1, rotate: 0, duration: 0.8,
-              stagger: 0.12, ease: 'power3.out'
-            }, 0)
-          .fromTo(firstMetric,
-            { autoAlpha: 0, y: 32 },
-            { autoAlpha: 1, y: 0, duration: 0.75, ease: 'power3.out' }, 0.22);
+        // const firstHeadlineChars = gsap.utils.toArray('.vast-sequence__headline--1 .vast-sequence__char', root);
+        // const firstMetric = root.querySelector('.vast-sequence__headline--1 .vast-sequence__metric');
+        const firstHeadlineChars = gsap.utils.toArray('.vast-sequence__headline--1 .vast-sequence__word .vast-sequence__char', root,);
+        const firstMetric = root.querySelector('.vast-sequence__headline--1 .vast-sequence__metric',);
+        const firstHeadlineTargets = [...firstHeadlineChars, firstMetric];
+        const firstHeadlineTimeline = gsap.timeline({ paused: true }).fromTo(firstHeadlineTargets,
+          {
+            yPercent: 120,
+            autoAlpha: 0,
+            rotate: 6,
+          },
+          {
+            yPercent: 0,
+            autoAlpha: 1,
+            rotate: 0,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: 'power3.out',
+          },
+          0,
+        );
         let firstEntered = false;
         let activeCaption = -1;
         let firstEntranceTrigger;
-
         function setActiveCaption(index) {
           if (activeCaption === index) return;
           activeCaption = index;
@@ -144,7 +153,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
           if (activeScene === 0) setActiveCaption(-1);
           updateVisuals();
         }
-        gsap.set(circles, { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: 0.001 });
+        gsap.set(backgrounds, { autoAlpha: (index) => index === 0 ? 1 : 0 });
         const smooth = { frame: 0 };
         const smoothFrame = gsap.quickTo(smooth, 'frame', {
           duration: 0.48,
@@ -192,15 +201,13 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
           };
           const transition = mobile ? 9 : 12;
 
-          // 圆形背景按照实际屏幕对角线放大，覆盖所有角落。
-          circles.forEach((circle, i) => {
-            const boundary = STARTS[i + 1];
+          // 整屏背景叠层淡入：保留底层，下一层只改变透明度。
+          // 不同时降低上一层透明度，避免过渡时露出页面底色。
+          backgrounds.forEach((background, index) => {
+            if (index === 0) return;
+            const boundary = STARTS[index];
             const phase = reducedMotion ? 0 : ease((frame - (boundary - transition)) / (transition * 2));
-            gsap.set(circle, {
-              scale: 0.001 + phase * 1.01,
-              autoAlpha: phase > 0 ? 1 : 0,
-              force3D: true,
-            });
+            gsap.set(background, { autoAlpha: phase });
           });
 
           let dominant = 0;
@@ -213,7 +220,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
             const exit = i === 2 ? 1 : 1 - ease((frame - (STARTS[i + 1] - transition * 0.8)) / (transition * 1.35));
             const alpha = clamp(entry * exit * (i === 0 && !firstEntered ? 0 : 1), 0, 1);
 
-            // 用缩放后的实际文字宽度来计算最终位置，不会因为字体和屏幕宽度产生偏移。
+            // 用缩放后的实际文字宽度来计算最终位置
             const inner = headlineInners[i];
             const scale = Number(root.style.getPropertyValue('--vast-letter-scale')) || 0.65;
             const visualWidth = inner.offsetWidth * scale;
@@ -225,10 +232,6 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
               : -visualWidth - width * 0.08; // 前两屏向左退出
             const x = reducedMotion ? (width - visualWidth) / 2 : from + (to - from) * ease(local);
             gsap.set(headline, { x, autoAlpha: alpha, force3D: true });
-
-            // 字幕的显隐和逐字入场全部由 setActiveCaption() 的真实时间轴控制。
-            // 此处只计算大字随滚动的位置与场景过渡。
-
             if (frame >= start) dominant = i;
           });
           activateScene(dominant);
@@ -287,7 +290,6 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
           dpr = nextDpr;
           canvas.width = Math.max(1, Math.round(width * dpr));
           canvas.height = Math.max(1, Math.round(height * dpr));
-          root.style.setProperty('--vast-circle-size', `${Math.ceil(Math.hypot(width, height) * 1.08)}px`);
           fitTypography();
           render(true);
         }
@@ -336,9 +338,6 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
             image.src = frameUrl(index);
           }
         }
-
-
-
         function planLoads() {
           const candidates = reducedMotion ? [0] : [target, STARTS[sceneOf(target)]];
           if (nearby && !reducedMotion) {
@@ -347,139 +346,88 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
               if (offset <= 6) candidates.push(target - offset * direction);
             }
           }
-
           if (!reducedMotion) candidates.push(...ANCHORS);
           queue = [...new Set(candidates)].filter((index) => (
             index >= 0 && index < FRAME_COUNT && !ready.has(index) && !pending.has(index) && (attempts.get(index) || 0) < 2
           ));
           pump();
         }
-
-
-
         function update() {
-
           if (dead) return;
-
           // floor 保证到 040 / 120 才切屏，不在 039.5 / 119.5 提前切换。
-
           const next = clamp(Math.floor(model.frame + 0.00001), 0, LAST_FRAME);
-
           if (next !== target) {
-
             direction = next > target ? 1 : -1;
-
             target = next;
-
             planLoads();
-
           }
-
           smoothFrame(model.frame);
           render();
-
         }
-
-
-
         function buildAnimation() {
-
           model.frame = 0;
-
           target = 0;
-
           if (!reducedMotion) {
+            const hold = Math.max(0, Number(endHold) || 0);
 
-            gsap.to(model, {
-
-              frame: LAST_FRAME,
-
-              ease: 'none',
-
-              onUpdate: update,
-
+            const timeline = gsap.timeline({
               scrollTrigger: {
-
                 trigger: root,
-
                 start: 'top top',
-
-                end: () => `+=${mobile ? mobileScrollDistance : scrollDistance}`,
-
+                end: () =>
+                  `+=${(mobile ? mobileScrollDistance : scrollDistance) * (1 + hold)}`,
                 pin: true,
-
                 pinSpacing: true,
-
                 scrub,
-
                 anticipatePin: 1,
-
                 invalidateOnRefresh: true,
-
-                onRefresh: () => { resize(); update(); },
-
-                onEnter: () => { nearby = true; planLoads(); },
-
-                onEnterBack: () => { nearby = true; planLoads(); },
-
+                onRefresh: () => {
+                  resize();
+                  update();
+                },
+                onEnter: () => {
+                  nearby = true;
+                  planLoads();
+                },
+                onEnterBack: () => {
+                  nearby = true;
+                  planLoads();
+                },
               },
-
             });
 
+            timeline.to(model, {
+              frame: LAST_FRAME,
+              duration: 1,
+              ease: 'none',
+              onUpdate: update,
+            });
+
+            // 最后追加空动画，保持最终画面继续定屏
+            if (hold > 0) {
+              timeline.to({}, { duration: hold });
+            }
           }
 
           planLoads();
-
           render(true);
-
         }
-
-
-
         function discardImages() {
-
           generation += 1;
-
           for (const { image, timer } of pending.values()) {
-
             clearTimeout(timer);
-
             image.onload = null;
-
             image.onerror = null;
-
             image.src = '';
-
           }
-
-          pending.clear();
-
-          ready.clear();
-
-          attempts.clear();
-
-          queue = [];
-
-          painted = -1;
-
+          pending.clear(); ready.clear(); attempts.clear(); queue = []; painted = -1;
         }
-
-
-
         function refreshLayout() {
-
           if (!dead) { resize(); fitTypography(); ScrollTrigger.refresh(); }
-
         }
-
-
-
         activateScene(0);
-
         resize();
-
         buildAnimation();
-
         if (reducedMotion) {
           enterFirstScene();
         } else {
@@ -498,120 +446,59 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
             enterFirstScene();
           }
         }
-
         if ('ResizeObserver' in window) {
-
           resizeObserver = new ResizeObserver(resize);
-
           resizeObserver.observe(root);
-
         } else {
-
           window.addEventListener('resize', resize);
-
         }
-
         if ('IntersectionObserver' in window) {
-
           intersectionObserver = new IntersectionObserver(([entry]) => {
-
             nearby = entry.isIntersecting;
-
             planLoads();
-
           }, { rootMargin: '150% 0px' });
-
           intersectionObserver.observe(root);
-
         } else {
-
           nearby = true;
-
           planLoads();
-
         }
-
         window.addEventListener('load', refreshLayout);
-
         document.fonts?.ready.then(refreshLayout);
-
         raf = requestAnimationFrame(refreshLayout);
-
-
-
         return () => {
-
           dead = true;
-
           cancelAnimationFrame(raf);
-
           intersectionObserver?.disconnect();
-
           resizeObserver?.disconnect();
-
           window.removeEventListener('resize', resize);
-
           window.removeEventListener('load', refreshLayout);
-
           firstEntranceTrigger?.kill();
           firstHeadlineTimeline.kill();
           captionTimelines.forEach((timeline) => timeline.kill());
           smoothFrame.tween?.kill();
           discardImages();
-
-          // tween、ScrollTrigger 和 pin-spacer 由本组件的 media.revert() 清理。
-
           headlines.forEach((headline) => { headline.style.transform = ''; });
-
           root.style.removeProperty('--vast-letter-scale');
-          root.style.removeProperty('--vast-circle-size');
-
           root.removeAttribute('data-frame');
-
         };
-
       }, root);
-
       return () => media.revert();
-
     }
-
-
-
     return () => {
-
       cancelled = true;
-
       cleanup();
-
     };
-
-  }, [frameBase, framePrefix, mobileFramePrefix, scrollDistance, mobileScrollDistance,
-
-    scrub, fit, mobileFit, mobileFrameScale, mobilePositionY]);
-
-
-
+  }, [frameBase, framePrefix, mobileFramePrefix, scrollDistance, mobileScrollDistance, scrub, endHold, fit, mobileFit, mobileFrameScale, mobilePositionY,]);
   return (
-
     <section ref={rootRef} className={`vast-sequence ${className}`.trim()} data-scene="1" aria-label="VAST product details">
-
       <div className="vast-sequence__backgrounds" aria-hidden="true">
-
         {SCENES.map((scene, index) => (
-
-          <div key={scene.word} className={`vast-sequence__background vast-sequence__background--${index + 1}${index ? ' vast-sequence__background--circle' : ''}`} />
-
+          <div key={scene.word} className={`vast-sequence__background vast-sequence__background--${index + 1}`} />
         ))}
-
       </div>
-
       <div className="vast-sequence__headlines" aria-hidden="true">
-
         {SCENES.map((scene, index) => (
-
           <div key={scene.word} className={`vast-sequence__headline vast-sequence__headline--${index + 1}`}>
-
             <span className="vast-sequence__headline-inner">
               <span className="vast-sequence__word">{index === 0 ? splitLetters(scene.word) : scene.word}</span>
               <span className="vast-sequence__metric">
@@ -619,21 +506,13 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
                 <span className="vast-sequence__unit">{scene.unit}</span>
               </span>
             </span>
-
           </div>
-
         ))}
-
       </div>
-
       <canvas ref={canvasRef} className="vast-sequence__canvas" aria-hidden="true" />
-
       <div className="vast-sequence__captions">
-
         {SCENES.map((scene, index) => (
-
           <div key={scene.word} className={`vast-sequence__caption vast-sequence__caption--${index + 1}`} aria-hidden={index !== 0}>
-
             <p className="vast-sequence__eyebrow" aria-label={scene.eyebrow}>
               <span aria-hidden="true">{splitLetters(scene.eyebrow)}</span>
             </p>
@@ -642,25 +521,15 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
               <span className="vast-sequence__title-break" aria-hidden="true"> </span>
               <span aria-hidden="true">{splitLetters(scene.title[1])}</span>
             </h2>
-
           </div>
-
         ))}
-
       </div>
-
       <span className="vast-sequence__sr-only">
-
         {SCENES.map((scene) => `${scene.word}: ${scene.value} ${scene.unit}. ${scene.eyebrow}. ${scene.title.join(' ')}.`).join(' ')}
-
       </span>
-
     </section>
-
   );
-
 }
-
 
 
 export default VastThreeSellingPoint;

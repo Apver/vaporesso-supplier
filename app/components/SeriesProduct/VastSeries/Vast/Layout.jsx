@@ -16,6 +16,7 @@ import VastInstaStart from './VastInstaStart';
 import VastCustomization from './VastCustomization';
 import VastCoreGuard from './VastCoreGuard';
 import VastLeakResistance from './VastLeakResistance';
+import VastTriCoreExperience from './VastTriCoreExperience';
 
 
 
@@ -29,7 +30,8 @@ import {
   PRIX_INTASTART_SECTION_DATA,
   VAST_CUSTOMIZATION_SECTION_DATA,
   VAST_CORE_GUARD_DATA,
-  VAST_LEAK_RESISTANCE_DATA
+  VAST_LEAK_RESISTANCE_DATA,
+  VAST_TRI_CORE_DATA
 } from './constants';
 export function VastLayout({ children, onCheckSpecs }) {
   const rootRef = useRef(null);
@@ -48,6 +50,7 @@ export function VastLayout({ children, onCheckSpecs }) {
       <BriefSectionV4 className="product-vast-brief" data={PRIX_BRIEF_SECTION_DATA} />
       <VastFeatures data={VAST_FEATURES_DATA} />
       <VastThreeSellingPoint />
+      <VastTriCoreExperience data={VAST_TRI_CORE_DATA} />
       <VastLeakResistance data={VAST_LEAK_RESISTANCE_DATA} />
       <VastCoreGuard data={VAST_CORE_GUARD_DATA} />
       <VastBattery data={PRIX_BATTERY_SECTION_DATA} />
