@@ -91,6 +91,80 @@ export const VAST_FEATURES_DATA = {
 
 export const PRIX_BATTERY_SECTION_DATA = {
   productImage: prixAsset('vast_09_1.webp'),
-  mobileProductImage: prixAsset('vast_mob_09_1.webp'),
+  mobileProductImage: prixAsset('vast_09_1.webp'),
+};
+export const PRIX_PREMIUM_SECTION_DATA = {
+  title: 'Simply Premium.',
+  description: "Engineered with the same obsessive attention to material and finish you'd expect from the world's finest devices.",
+  pcImage: prixAsset('vast_11.webp'),
+  mobileImage: prixAsset('vast_mob_11.webp'),
+};
+export const PRIX_INTASTART_SECTION_DATA = {
+  title: '4 Steps to Insta Start',
+  slides: [
+    {
+      image: prixAsset('vast_12_1.webp'),
+      text: 'Fill E-juice to the minimum line.',
+    },
+    {
+      image: prixAsset('vast_12_2.webp'),
+      text: 'Remove the silicone.',
+    },
+    {
+      image: prixAsset('vast_12_3.webp'),
+      text: 'Push together right after filling.',
+    },
+    {
+      image: prixAsset('vast_12_4.webp'),
+      text: 'Enjoy it.',
+    },
+  ],
 };
 
+export const VAST_CUSTOMIZATION_SECTION_DATA = {
+  title: 'Effortlessly\nCustomized',
+  image: prixAsset('vast_10_1.webp'),
+  features: [
+    {
+      title: 'Adjustable\nAirflow',
+      description: 'Loose - Tight',
+      image: prixAsset('vast_10_2.webp'),
+    },
+    {
+      title: 'Adjustable\nPower Modes',
+      description: 'ECO - NOR - PWR',
+      image: prixAsset('vast_10_3.webp'),
+    },
+  ],
+};
+
+
+export const VAST_CORE_GUARD_DATA = {
+  eyebrow: 'CoreGuard Tech',
+  title: 'Keep All 105K Looking\nAnd Tasting The Same',
+  description: 'A nano-scale coating protects the heating wire from e-liquid corrosion, improving durability, stability, and flavor.',
+  dayImage: prixAsset('vast_08_1.webp'),
+  nightImage: prixAsset('vast_08_2.webp'),
+  mobileDayImage: prixAsset('vast_mob_08_1.webp'),
+  mobileNightImage: prixAsset('vast_mob_08_2.webp'),
+  detailImage: prixAsset('vast_08_4.webp'),
+  scrollDistance: 2,
+  mobileScrollDistance: 1.4,
+  scrub: 0.7,
+  pinOffset: 0,
+};
+
+export const VAST_LEAK_RESISTANCE_DATA =
+{
+  eyebrow: 'SSS 3.0 Leak Resistance Tech',
+  title: '10mL In. Mess Out.\nKeep Every Drop Inside',
+  tripImage: prixAsset('vast_07_1.webp'),
+  flightImage: prixAsset('vast_07_3.webp'),
+  techImage: prixAsset('vast_07_2.webp'),
+  mobileTripImage: prixAsset('vast_mob_07_1.webp'),
+  mobileFlightImage: prixAsset('vast_mob_07_3.webp'),
+  mobileTechImage: prixAsset('vast_mob_07_2.webp'),
+  scrollDistance: 2,
+  scrub: 0.7,
+  pinOffset: 0
+};
