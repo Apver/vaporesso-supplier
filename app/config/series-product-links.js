@@ -2,6 +2,7 @@ import productStyles from '~/styles/series-product/product.css?url';
 import uiV3Styles from '~/styles/series-product/ui-v3.scss?url';
 import uiV4Styles from '~/styles/ui-v4/common.scss?url';
 import xros6Styles from '~/styles/series-product/xros-6.scss?url';
+import xros6MiniStyles from '~/styles/series-product/xros-6-mini.scss?url';
 import xrosMiniRetroStyles from '~/styles/series-product/xros-mini-retro.scss?url';
 import prixKitStyles from '~/styles/series-product/prix.scss?url';
 import armourOctaStyles from '~/styles/series-product/armour-octa.scss?url';
@@ -11,6 +12,7 @@ import vastStyles from '~/styles/series-product/vast.scss?url';
 /** URL / Shopify handle → template（metafield 缺失时的回退） */
 export const SERIES_PRODUCT_HANDLE_TEMPLATE_MAP = {
   xros6: 'xros6',
+  'xros6-mini': 'xros6-mini',
 };
 
 /**
@@ -75,6 +77,7 @@ const SERIES_PRODUCT_FALLBACK_STYLE_HREFS = [
 /** @type {Record<string, string[]>} */
 const SERIES_PRODUCT_STYLESHEETS_BY_TEMPLATE = {
   xros6: [productStyles, uiV3Styles, xros6Styles],
+  'xros6-mini': [productStyles, uiV3Styles, xros6MiniStyles],
   'xros-mini-retro': [productStyles, uiV4Styles, xrosMiniRetroStyles],
   'xros-mini-fresh': [productStyles, uiV4Styles, xrosMiniRetroStyles],
   'xros-se': [productStyles, uiV4Styles, xrosMiniRetroStyles],
