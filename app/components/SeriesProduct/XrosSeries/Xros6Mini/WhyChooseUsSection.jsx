@@ -1,8 +1,4 @@
 import {useEffect, useRef} from 'react';
-import {gsap} from 'gsap';
-import {ScrollTrigger} from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ASSET =
   'https://cdn.shopify.com/s/files/1/0703/9873/8521/files';
@@ -51,72 +47,37 @@ function DangerIcon() {
 
 /**
  * XROS 6 MINI R — WHY CHOOSE US?
- * 静态严格对齐 UI：双卡 + 20px 间距 + 标题下划线 + 图标在标题后
- * 动效：合上的书本 → 左右从中间向两边翻开
+ * 动画对齐 dojo Compatibility（blast10k-fresh）：从中间向两边 translateX 滑开
  */
 export function Xros6MiniWhyChooseUsSection() {
   const bookRef = useRef(null);
 
   useEffect(() => {
     const book = bookRef.current;
-    if (!book) return undefined;
+    if (!book || typeof window === 'undefined') return undefined;
 
-    const left = book.querySelector('.xros6-mini-why-choose__page--left');
-    const right = book.querySelector('.xros6-mini-why-choose__page--right');
-    if (!left || !right) return undefined;
+    // H5 不需要滑开动画
+    const mq = window.matchMedia('(max-width: 1023px)');
+    if (mq.matches) {
+      book.classList.add('appear');
+      return undefined;
+    }
 
-    const mm = gsap.matchMedia();
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          requestAnimationFrame(() => {
+            book.classList.add('appear');
+          });
+          obs.unobserve(entry.target);
+        });
+      },
+      {root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.25},
+    );
 
-    mm.add('(min-width: 1024px)', () => {
-      book.classList.remove('is-open');
-
-      gsap.set(left, {
-        transformOrigin: 'right center',
-        rotateY: 88,
-        zIndex: 2,
-      });
-      gsap.set(right, {
-        transformOrigin: 'left center',
-        rotateY: -88,
-        zIndex: 2,
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: book,
-          start: 'top 72%',
-          once: true,
-        },
-        onComplete: () => {
-          book.classList.add('is-open');
-          gsap.set([left, right], {clearProps: 'transform'});
-        },
-      });
-
-      tl.to(
-        left,
-        {rotateY: 0, duration: 1.25, ease: 'power2.inOut'},
-        0,
-      ).to(
-        right,
-        {rotateY: 0, duration: 1.25, ease: 'power2.inOut'},
-        0,
-      );
-
-      return () => {
-        tl.scrollTrigger?.kill();
-        tl.kill();
-        gsap.set([left, right], {clearProps: 'all'});
-        book.classList.remove('is-open');
-      };
-    });
-
-    mm.add('(max-width: 1023px)', () => {
-      gsap.set([left, right], {clearProps: 'all'});
-      book.classList.add('is-open');
-    });
-
-    return () => mm.revert();
+    observer.observe(book);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -125,32 +86,37 @@ export function Xros6MiniWhyChooseUsSection() {
         <h2 className="xros6-mini-why-choose__title to-top">WHY CHOOSE US?</h2>
 
         <div className="xros6-mini-why-choose__stage">
-          <div className="xros6-mini-why-choose__book" ref={bookRef}>
+          <div
+            className="xros6-mini-why-choose__book why-choose-split-reveal"
+            ref={bookRef}
+          >
             {/* 左卡 — VAPORESSO */}
             <div className="xros6-mini-why-choose__page xros6-mini-why-choose__page--left">
               <div className="xros6-mini-why-choose__head xros6-mini-why-choose__head--vaporesso">
                 VAPORESSO
               </div>
 
-              <div className="xros6-mini-why-choose__block xros6-mini-why-choose__block--vaporesso">
-                <div className="xros6-mini-why-choose__label">EASIER</div>
-                <ul className="xros6-mini-why-choose__list">
-                  {VAPORESSO_EASIER.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="xros6-mini-why-choose__block xros6-mini-why-choose__block--vaporesso">
-                <div className="xros6-mini-why-choose__label">
-                  <span>SAFER</span>
-                  <SafeIcon />
+              <div className="xros6-mini-why-choose__body xros6-mini-why-choose__body--vaporesso">
+                <div className="xros6-mini-why-choose__block">
+                  <div className="xros6-mini-why-choose__label">EASIER</div>
+                  <ul className="xros6-mini-why-choose__list">
+                    {VAPORESSO_EASIER.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="xros6-mini-why-choose__list">
-                  {VAPORESSO_SAFER.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+
+                <div className="xros6-mini-why-choose__block">
+                  <div className="xros6-mini-why-choose__label">
+                    <span>SAFER</span>
+                    <SafeIcon />
+                  </div>
+                  <ul className="xros6-mini-why-choose__list">
+                    {VAPORESSO_SAFER.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -160,25 +126,27 @@ export function Xros6MiniWhyChooseUsSection() {
                 OTHER
               </div>
 
-              <div className="xros6-mini-why-choose__block xros6-mini-why-choose__block--other">
-                <div className="xros6-mini-why-choose__label">MORE DIFFICULT</div>
-                <ul className="xros6-mini-why-choose__list">
-                  {OTHER_DIFFICULT.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="xros6-mini-why-choose__block xros6-mini-why-choose__block--other">
-                <div className="xros6-mini-why-choose__label">
-                  <span>RISKIER</span>
-                  <DangerIcon />
+              <div className="xros6-mini-why-choose__body xros6-mini-why-choose__body--other">
+                <div className="xros6-mini-why-choose__block">
+                  <div className="xros6-mini-why-choose__label">MORE DIFFICULT</div>
+                  <ul className="xros6-mini-why-choose__list">
+                    {OTHER_DIFFICULT.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="xros6-mini-why-choose__list">
-                  {OTHER_RISKIER.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+
+                <div className="xros6-mini-why-choose__block">
+                  <div className="xros6-mini-why-choose__label">
+                    <span>RISKIER</span>
+                    <DangerIcon />
+                  </div>
+                  <ul className="xros6-mini-why-choose__list">
+                    {OTHER_RISKIER.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
