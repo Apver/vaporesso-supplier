@@ -2374,8 +2374,8 @@
 
   .xros6-mini-battery-remove__eyebrow {
     margin: 0 0 8px;
-    font-family: D-DIN Exp-DINExp, D-DIN Exp-DINExp;
-    font-weight: bold;
+    font-family: 'DinExp-Bold';
+    font-weight: 700;
     font-size: 18px;
     color: #000000;
     line-height: 23px;
@@ -2386,8 +2386,8 @@
 
   .xros6-mini-battery-remove__title {
     box-sizing: border-box;
-    font-family: D-DIN Exp-DINExp, D-DIN Exp-DINExp;
-    font-weight: bold;
+    font-family: 'DinExp-Bold';
+    font-weight: 700;
     font-size: 48px;
     color: #000000;
     line-height: 52px;
@@ -2398,8 +2398,8 @@
 
   .xros6-mini-battery-remove__note {
     margin: 8px 0 0;
-    font-family: D-DIN Exp-DINExp, D-DIN Exp-DINExp;
-    font-weight: bold;
+    font-family: 'DinExp';
+    font-weight: 700;
     font-size: 18px;
     color: #297DD0;
     line-height: 19px;
@@ -2452,8 +2452,8 @@
     background: transparent;
     color: #000;
     font-weight: 700;
-    font-size: 16px;
-    font-family: 'DinExp-Bold';
+    font-size: 19px;
+    font-family: 'DinExp-Bold' !important;
     letter-spacing: 0.04em;
     line-height: 46px;
     text-align: center;
@@ -2525,9 +2525,8 @@
     background: #fff;
     color: #000;
     font-weight: 700;
-    font-size: 28px;
+    font-size: 20px;
     font-family: 'DinExp-Bold';
-    line-height: 1;
   }
 
   .xros6-mini-battery-remove__step-text {
@@ -2537,37 +2536,41 @@
     box-sizing: border-box;
     color: #000;
     font-size: 18px;
-    font-family: D-DIN Exp, D-DIN Exp;
+    font-family: 'DinExp';
     line-height: 24px;
     font-weight: 400;
 
-    p {
+    > p {
       margin: 0;
+    }
+
+    /* 比 `> p` 更高优先级，保证正文与警告空出一行 */
+    > .xros6-mini-battery-remove__step-warn {
+      margin-top: 24px;
     }
   }
 
   .xros6-mini-battery-remove__step-warn {
     display: flex;
     align-items: center;
-    margin: 25px 0 0;
     color: #ff0000;
     font-weight: 400;
     font-size: 18px;
     line-height: 24px;
-    font-family: D-DIN Exp, D-DIN Exp;
+    font-family: 'DinExp';
   }
 
   .xros6-mini-battery-remove__warn-icon {
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
+    margin-right: 4px;
     line-height: 0;
+    vertical-align: middle;
   }
 
+  /* 仅禁断词，保持 inline，避免夹在句子中时被当成 flex 行盒拉开空行 */
   .xros6-mini-battery-remove__nowrap {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
     white-space: nowrap;
   }
 
@@ -2587,10 +2590,14 @@
 
   .xros6-mini-battery-remove__reinstall {
     display: grid;
-    /* 右侧图固定 550px；1fr 会把列挤窄导致 width:550px 显示不全 */
-    grid-template-columns: minmax(0, 1fr) 550px;
-    gap: 80px;
+    /* 左 370 + gap 80 + 右 550；width:max-content 让背景跟着列宽走，避免父级变窄后右图溢出、浅蓝背景包不住 */
+    box-sizing: border-box;
+    width: max-content;
+    max-width: none;
+    grid-template-columns: 370px 550px;
+    column-gap: 80px;
     align-items: start;
+    justify-content: start;
     padding: 20px;
     background: #eef6fd;
     text-align: left;
@@ -2606,21 +2613,21 @@
   .xros6-mini-battery-remove__reinstall-copy .xros6-mini-battery-remove__step-num {
     width: 36px;
     height: 36px;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 20px;
     color: #000000;
     line-height: 19px;
-    font-family: D-DIN Exp-DINExp, D-DIN Exp-DINExp;
+    font-family: 'DinExp-Bold';
   }
 
   .xros6-mini-battery-remove__reinstall-text {
-    margin: 40px 0 0 10px;
-    width: 370px;
+    margin: 40px 0 0;
+    width: 100%;
     height: 474px;
     box-sizing: border-box;
     font-weight: 400;
     font-size: 18px;
-    font-family: D-DIN Exp, D-DIN Exp;
+    font-family: 'DinExp';
     line-height: 24px;
     display: flex;
     flex-direction: column;
@@ -2656,92 +2663,92 @@
     padding-top: 200px;
     padding-bottom: 136px;
     text-align: center;
+
+    /* 双卡 515+20+515=1050，不能再用 container1 的 1120-80 padding，否则会被裁切 */
+    .custom__container1 {
+      max-width: 1050px;
+      padding-inline: 0;
+    }
   }
 
   .xros6-mini-why-choose__title {
     margin: 0 0 40px;
     color: #000;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 48px;
-    font-family: D-DIN Exp-DINExp, D-DIN Exp-DINExp;
+    font-family: 'DinExp-Bold';
     line-height: 48px;
 
   }
 
   .xros6-mini-why-choose__stage {
-    perspective: 2400px;
-    perspective-origin: 50% 42%;
+    /* 动画用子元素 translateX，父级 hidden 会把滑开过程/大屏边缘裁掉 */
+    overflow: visible;
+    width: 1050px;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
-  /* 双卡各 515px + 中间 20px；subgrid 对齐两卡区块 */
+  /* 双卡各 515px + 中间 20px；body 固定 515×404 */
   .xros6-mini-why-choose__book {
     position: relative;
-    display: grid;
-    /* 1fr 会均分容器宽度，盖掉子元素 width:515px；列宽必须写死 */
-    grid-template-columns: 515px 515px;
-    grid-template-rows: 67px auto auto;
-    column-gap: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
     justify-content: center;
+    width: 1050px;
+    gap: 20px;
     background: transparent;
     text-align: left;
-    transform-style: preserve-3d;
-  }
-
-  .xros6-mini-why-choose__book::before {
-    content: '';
-    position: absolute;
-    top: 4%;
-    bottom: 4%;
-    left: 50%;
-    z-index: 3;
-    width: 20px;
-    margin-left: -10px;
-    border-radius: 4px;
-    background: linear-gradient(
-      90deg,
-      rgb(0 0 0 / 10%),
-      rgb(0 0 0 / 2%) 45%,
-      rgb(0 0 0 / 2%) 55%,
-      rgb(0 0 0 / 10%)
-    );
-    opacity: 0.85;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-  }
-
-  .xros6-mini-why-choose__book.is-open::before {
-    opacity: 0;
   }
 
   .xros6-mini-why-choose__page {
-    display: grid;
-    grid-template-rows: subgrid;
-    grid-row: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 515px;
     width: 515px;
-    overflow: hidden;
-    border-radius: 0;
+    /* 勿 hidden：body 固定 404px 时会被父级裁掉底部背景 */
+    overflow: visible;
     background: transparent;
-    transform-style: preserve-3d;
-    will-change: transform;
   }
 
-  .xros6-mini-why-choose__page--left {
-    position: relative;
-    z-index: 2;
-    transform: rotateY(88deg);
-    transform-origin: right center;
+  /*
+   * 动画对齐 dojo Compatibility（blast10k-fresh Full Compatibility）：
+   * 初始靠中间收拢 → appear 后向两边 translateX 滑开
+   */
+  .why-choose-split-reveal .xros6-mini-why-choose__page--left,
+  .why-choose-split-reveal .xros6-mini-why-choose__page--right {
+    opacity: 0;
+    transition:
+      transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 1s ease;
+    will-change: transform, opacity;
   }
 
-  .xros6-mini-why-choose__page--right {
-    position: relative;
-    z-index: 2;
-    transform: rotateY(-88deg);
-    transform-origin: left center;
+  .why-choose-split-reveal .xros6-mini-why-choose__page--left {
+    transform: translateX(80px);
   }
 
-  .xros6-mini-why-choose__book.is-open .xros6-mini-why-choose__page--left,
-  .xros6-mini-why-choose__book.is-open .xros6-mini-why-choose__page--right {
-    transform: none;
+  .why-choose-split-reveal .xros6-mini-why-choose__page--right {
+    transform: translateX(-80px);
+  }
+
+  .why-choose-split-reveal.appear .xros6-mini-why-choose__page--left,
+  .why-choose-split-reveal.appear .xros6-mini-why-choose__page--right {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* 中屏视口放不下 1050 时整体等比缩放，避免 overflow-x 裁切左卡 */
+  @media (min-width: 1024px) and (max-width: 1120px) {
+    .xros6-mini-why-choose__stage {
+      width: 100%;
+    }
+
+    .xros6-mini-why-choose__book {
+      transform: scale(0.82);
+      transform-origin: top center;
+    }
   }
 
   .xros6-mini-why-choose__head {
@@ -2752,9 +2759,9 @@
     height: 67px;
     box-sizing: border-box;
     color: #fff;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 28px;
-    font-family: D-DIN Exp-DINExp, D-DIN Exp-DINExp;
+    font-family: 'DinExp-Bold';
   }
 
   .xros6-mini-why-choose__head--vaporesso {
@@ -2765,22 +2772,35 @@
     background: #000;
   }
 
-  /* 连续浅色内容区：无中间分隔线，仅标题下有下划线
-     注意：:first-child 无效，因为第一个子元素是 __head，不是 __block */
-  .xros6-mini-why-choose__head + .xros6-mini-why-choose__block {
-    padding: 36px 56px 0;
+  /*
+   * 设计稿 515×404，但文案+padding 实际约 433px。
+   * 写死 height:404 + overflow:hidden 会裁掉 SAFER/RISKIER 底部列表。
+   * 用 min-height:404 保底，高度随内容撑开。
+   */
+  .xros6-mini-why-choose__body {
+    display: flex;
+    flex-direction: column;
+    width: 515px;
+    height: 404px;
+    box-sizing: border-box;
   }
 
-  .xros6-mini-why-choose__block:last-child {
-    padding: 48px 56px 60px 56px;
-  }
-
-  .xros6-mini-why-choose__block--vaporesso {
+  .xros6-mini-why-choose__body--vaporesso {
     background: #ebf5ff;
   }
 
-  .xros6-mini-why-choose__block--other {
+  .xros6-mini-why-choose__body--other {
     background: #f5f5f5;
+  }
+
+  .xros6-mini-why-choose__body > .xros6-mini-why-choose__block:first-child {
+    flex: 0 0 auto;
+    padding: 36px 56px 0;
+  }
+
+  .xros6-mini-why-choose__body > .xros6-mini-why-choose__block:last-child {
+    flex: 1 0 auto;
+    padding: 48px 56px 0 56px;
   }
 
   .xros6-mini-why-choose__label {
@@ -2792,10 +2812,10 @@
     margin: 0 0 12px;
     padding: 0 0 12px;
     border-bottom: 1px solid;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 20px;
-    font-family: D-DIN Exp-DINExp, D-DIN Exp-DINExp;
-    line-height: 24px;
+    font-family: 'DinExp-Bold';
+    line-height: 22px;
 
   }
 
@@ -2831,9 +2851,9 @@
     padding: 0;
     list-style: none;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
     font-family: 'DinExp';
-    line-height: 1.55;
+    line-height: 24px;
 
     li {
       position: relative;
@@ -2842,6 +2862,7 @@
       list-style: none;
       font-weight: 400;
       font-size: 18px;
+      line-height: 24px;
       color: rgba(0,0,0,0.6);
 
       &::marker {
@@ -2886,8 +2907,8 @@
     }
 
     .xros6-mini-battery-remove__title {
-      font-family: D-DIN Exp-DINExp, D-DIN Exp-DINExp;
-      font-weight: bold;
+      font-family: 'DinExp-Bold';
+      font-weight: 700;
       font-size: 0.6rem;
       color: #000000;
       line-height: 0.72rem;
@@ -2901,7 +2922,7 @@
     }
 
     .xros6-mini-battery-remove__tabs {
-      width: 4.82rem;
+      width: 4.5rem;
       height: 0.92rem;
       margin-top: 0.72rem;
       padding: 0.06rem;
@@ -2912,15 +2933,16 @@
     .xros6-mini-battery-remove__tabs-thumb {
       top: 0.06rem;
       left: 0.06rem;
-      width: 2.28rem;
+      /* 内宽一半：(4.5 - 0.06*2) / 2 = 2.19 */
+      width: calc((100% - 0.12rem) / 2);
       height: 0.8rem;
       border-radius: 0.8rem;
     }
 
     .xros6-mini-battery-remove__tabs[data-tab='reinstall']
       .xros6-mini-battery-remove__tabs-thumb {
-      /* 4.82 - 0.06(左) - 0.06(右) - 2.28 = 2.42 */
-      transform: translateX(2.42rem);
+      /* 滑到右侧：位移 = 自身宽度，贴齐右边 padding */
+      transform: translateX(100%);
     }
 
     .xros6-mini-battery-remove__tab {
@@ -2935,18 +2957,21 @@
     }
 
     .xros6-mini-battery-remove__steps {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 0.24rem;
     }
 
-    /* REMOVE 卡片：左文案 + 右图 */
+    /* REMOVE 卡片：6.7×3.6，内边距 0.24；内区 6.22×3.12，右图 3.12 正方形 */
     .xros6-mini-battery-remove__step {
+      box-sizing: border-box;
       display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      gap: 0.16rem;
+      grid-template-columns: minmax(0, 1fr) 3.12rem;
+      column-gap: 0.32rem;
       align-items: stretch;
-      min-height: 0;
-      padding: 0.2rem;
+      height: 3.6rem;
+      padding: 0.24rem;
       background: #eef6fd;
       opacity: 1;
       transform: none;
@@ -2955,9 +2980,9 @@
     .xros6-mini-battery-remove__step-copy {
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      min-width: 0;
-      padding: 0.08rem 0 0.08rem 0.08rem;
+      width: 100%;
+      padding: 0;
+      margin-left: 0.08rem;
     }
 
     .xros6-mini-battery-remove__step-num {
@@ -2968,10 +2993,13 @@
     }
 
     .xros6-mini-battery-remove__step-text {
-      margin: 0.4rem 0 0;
-      width: 2.7rem;
-      height: 2.2rem;
-      font-family: D-DIN Exp, D-DIN Exp;
+      margin: 0.24rem 0 0;
+      width: 100%;
+      max-width: 2.7rem;
+      height: auto;
+      flex: 1;
+      box-sizing: border-box;
+      font-family: 'DinExp';
       font-weight: 400;
       font-size: 0.3rem;
       color: #000000;
@@ -2979,19 +3007,18 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+
+      > .xros6-mini-battery-remove__step-warn {
+        margin-top: 0;
+      }
     }
 
     .xros6-mini-battery-remove__step-warn {
       flex-wrap: wrap;
       gap: 0.06rem;
-      margin: 0.12rem 0 0;
       font-size: 0.3rem;
       line-height: 0.41rem;
       white-space: normal;
-    }
-
-    .xros6-mini-battery-remove__nowrap {
-      gap: 0.01rem;
     }
 
     .xros6-mini-battery-remove__warn-icon svg {
@@ -3000,27 +3027,27 @@
     }
 
     .xros6-mini-battery-remove__step-pic {
-      align-self: center;
-      width: 100%;
-      margin: 0;
-      overflow: hidden;
-      border-radius: 0.08rem;
-      background: #fff;
+      width: 3.12rem;
+      height: 3.12rem;
+      margin-top: 0;
 
       img {
-        width: 100%;
-        height: auto;
-        background: #fff;
+        display: block;
+        width: 3.12rem;
+        height: 3.12rem;
+        object-fit: cover;
       }
     }
 
-    /* REINSTALL 卡片：上文案 + 下图 */
+    /* REINSTALL：卡片随容器宽；图用 width:100% 铺满内宽，避免固定 6.06rem 右侧留空 */
     .xros6-mini-battery-remove__reinstall {
       display: flex;
       flex-direction: column;
+      width: 100%;
+      max-width: 100%;
       gap: 0.4rem;
       align-items: stretch;
-      padding: 0.28rem 0.24rem 0.24rem;
+      padding: 0.24rem 0.32rem 0.32rem;
       background: #eef6fd;
     }
 
@@ -3064,13 +3091,17 @@
     }
 
     .xros6-mini-battery-remove__reinstall-pic {
-      width: 6.06rem;
-      height: 6.06rem;
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #fff;
 
       img {
         display: block;
-        width: 6.06rem;
-        height: 6.06rem;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
 
@@ -3081,40 +3112,45 @@
     }
 
     .xros6-mini-why-choose__title {
-      margin: 0 0 0.4rem;
-      font-size: 0.44rem;
-      line-height: 1.15;
+      margin: 0 0 0.6rem;
+      font-size: 0.6rem;
+      line-height: 0.72rem;
       text-align: center;
     }
 
+    .xros6-mini-why-choose {
+      .custom__container1 {
+        max-width: none;
+        padding-inline: var(--container-gutter, 0.4rem);
+      }
+    }
+
     .xros6-mini-why-choose__stage {
-      perspective: none;
+      width: 100%;
+      overflow: visible;
     }
 
     .xros6-mini-why-choose__book {
-      display: flex;
       flex-direction: column;
-      grid-template-columns: none;
-      grid-template-rows: none;
-      row-gap: 0.24rem;
-      column-gap: 0;
+      gap: 0.24rem;
       width: 100%;
       justify-content: stretch;
-    }
-
-    .xros6-mini-why-choose__book::before {
-      display: none;
+      transform: none;
     }
 
     .xros6-mini-why-choose__page {
-      display: flex;
-      flex-direction: column;
-      grid-row: auto;
+      flex: none;
       width: 100%;
       overflow: hidden;
-      border-radius: 0;
       transform: none !important;
       opacity: 1 !important;
+    }
+
+    .why-choose-split-reveal .xros6-mini-why-choose__page--left,
+    .why-choose-split-reveal .xros6-mini-why-choose__page--right {
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
 
     .xros6-mini-why-choose__head {
@@ -3123,21 +3159,26 @@
       font-size: 0.4rem;
     }
 
-    /* 覆盖 PC 的 head + block / last-child 固定 px padding */
-    .xros6-mini-why-choose__head + .xros6-mini-why-choose__block {
-      padding: 0.52rem 0.42rem 0 0.42rem;
+    .xros6-mini-why-choose__body {
+      width: 100%;
+      height: auto;
     }
 
-    .xros6-mini-why-choose__block:last-child {
-      padding: 0.6rem 0.42rem 0.8rem 0.42rem;
+    .xros6-mini-why-choose__body > .xros6-mini-why-choose__block:first-child {
+      padding: 0.52rem 0.42rem 0;
+    }
+
+    .xros6-mini-why-choose__body > .xros6-mini-why-choose__block:last-child {
+      flex: none;
+      padding: 0.6rem 0.42rem 0.8rem;
     }
 
     .xros6-mini-why-choose__label {
       gap: 0.24rem;
       margin: 0 0 0.24rem;
       padding: 0 0 0.22rem;
-      font-size: 0.28rem;
-      line-height: 1.2;
+      font-size: 0.36rem;
+      line-height: 0.4rem;
     }
 
     .xros6-mini-why-choose__icon {
