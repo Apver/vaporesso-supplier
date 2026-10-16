@@ -1,6 +1,6 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
-const DEFAULT_CLASS_NAMES = ['to-top', 'to-right', 'to-left'];
+const DEFAULT_CLASS_NAMES = ['to-top', 'to-right', 'to-left', "mobile-to-top"];
 
 /** 相邻动画开始的间隔（ms），形成层次感且不拖沓 */
 const DEFAULT_STAGGER_MS = 180;
@@ -61,7 +61,7 @@ export function initScrollAppearAnimate(options = {}) {
   } = options;
 
   if (typeof window === 'undefined') {
-    return () => {};
+    return () => { };
   }
 
   const classSelector = classNames.map((cls) => `.${cls}`).join(',');
@@ -70,7 +70,7 @@ export function initScrollAppearAnimate(options = {}) {
   ).filter((el) => !el.classList.contains('appear'));
 
   if (!animateElements.length) {
-    return () => {};
+    return () => { };
   }
 
   /** @type {Element[]} */
@@ -134,7 +134,7 @@ export function initScrollAppearAnimate(options = {}) {
       });
       sortByDocumentOrder(wave).forEach(enqueue);
     },
-    {root: null, rootMargin, threshold},
+    { root: null, rootMargin, threshold },
   );
 
   const enqueueVisible = () => {
@@ -179,7 +179,7 @@ export function initScrollAppearAnimate(options = {}) {
 
   window.addEventListener('pageshow', onPageShow);
   window.addEventListener('load', onLoad);
-  window.addEventListener('scroll', onScrollOrResize, {passive: true});
+  window.addEventListener('scroll', onScrollOrResize, { passive: true });
   window.addEventListener('resize', onScrollOrResize);
 
   return () => {

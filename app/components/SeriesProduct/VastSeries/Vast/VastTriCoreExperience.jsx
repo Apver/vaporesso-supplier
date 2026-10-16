@@ -176,7 +176,7 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           const timeline = gsap.timeline({
             scrollTrigger: {
               trigger: root,
-              start: () => `top top+=${offset}`,
+              start: () => `top top+=52`,
               end: () => `+=${distance(desktopScrollDistance, 4800)}`,
               pin,
               pinSpacing: true,
@@ -197,7 +197,7 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           const techTimeline = gsap.timeline({
             scrollTrigger: {
               trigger: overview,
-              start: () => `top top+=${offset}`,
+              start: () => `top top+=44`,
               end: () => `+=${distance(mobileTechScrollDistance, 2000)}`,
               pin: true,
               pinSpacing: true,
@@ -229,7 +229,7 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           const moodTimeline = gsap.timeline({
             scrollTrigger: {
               trigger: mood,
-              start: () => `top top+=${offset}`,
+              start: () => `top top+=44`,
               end: () => `+=${distance(mobileMoodScrollDistance, 2400)}`,
               pin: true,
               pinSpacing: true,
@@ -269,10 +269,10 @@ export const VastTriCoreExperience = ({ data = {} }) => {
       <div className="vast-tri-core__pin">
         <section className="vast-tri-core__overview" aria-label="Tri-core mesh technology">
           <header className="vast-tri-core__tech-header">
-            <p className="vast-tri-core__eyebrow">{techEyebrow}</p>
-            <h2 className="vast-tri-core__tech-title">{splitLines(techTitle)}</h2>
+            <p className="vast-tri-core__eyebrow to-top">{techEyebrow}</p>
+            <h2 className="vast-tri-core__tech-title to-top">{splitLines(techTitle)}</h2>
           </header>
-          <div className="vast-tri-core__tech-stage">
+          <div className="vast-tri-core__tech-stage to-top">
             {modes.map((mode, index) => (
               <article className={`vast-tri-core__tech-mode vast-tri-core__tech-mode--${index + 1}`} key={mode.key}>
                 <div className="vast-tri-core__ruler">
@@ -293,11 +293,11 @@ export const VastTriCoreExperience = ({ data = {} }) => {
         </section>
 
         <section className="vast-tri-core__mood" aria-label="One click to switch your mood">
-          <header className="vast-tri-core__mood-header">
+          <header className="vast-tri-core__mood-header to-top">
             <p className="vast-tri-core__eyebrow">{moodEyebrow}</p>
             <h2 className="vast-tri-core__mood-title">{splitLines(moodTitle)}</h2>
           </header>
-          <div className="vast-tri-core__showcase">
+          <div className="vast-tri-core__showcase to-top">
             {modes.map((mode, index) => (
               <div className={`vast-tri-core__mood-scene vast-tri-core__mood-scene--${index + 1}`} key={mode.key} aria-hidden={index !== 0}>
                 <Picture className="vast-tri-core__scene-photo" image={mode.sceneImage} mobileImage={mode.mobileSceneImage} alt={mode.sceneAlt || mode.caption} style={{ '--scene-position': mode.position }} />

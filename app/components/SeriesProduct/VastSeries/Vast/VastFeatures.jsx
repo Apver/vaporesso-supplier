@@ -10,7 +10,7 @@ export const VastFeatures = ({ data = {} }) => {
   const renderCard = (item, index) => (
     <div
       key={item.key || index}
-      className={`vast-features__card vast-features__card--${index + 1}${item.type === 'logo' ? ' vast-features__card--logo' : ''}${item.key === 'battery' ? ' vast-features__card--battery' : ''}`}
+      className={`vast-features__card to-top vast-features__card--${index + 1}${item.type === 'logo' ? ' vast-features__card--logo' : ''}${item.key === 'battery' ? ' vast-features__card--battery' : ''}`}
       style={item.color ? { '--vast-feature-color': item.color } : undefined}
     >
       {item.type === 'logo' ? (

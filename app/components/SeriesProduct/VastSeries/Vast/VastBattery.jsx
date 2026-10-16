@@ -38,13 +38,13 @@ export const VastBattery = ({ data = {} }) => {
   return (
     <section className="vast-battery">
       <div className="vast-battery__container">
-        <h2 className="vast-battery__title">{title}</h2>
+        <h2 className="vast-battery__title to-top">{title}</h2>
         <div className="vast-battery__visual">
-          <p className="vast-battery__capacity">{capacity}</p>
+          <p className="vast-battery__capacity to-top">{capacity}</p>
           {productImage && (
-            <picture className="vast-battery__product">
+            <picture className="vast-battery__product to-top">
               {mobileProductImage && (
-                <source media="(max-width: 767px)" srcSet={mobileProductImage} />
+                <source media="(max-width: 1023px)" srcSet={mobileProductImage} />
               )}
               <img src={productImage} alt={productAlt} loading="lazy" decoding="async" />
             </picture>
@@ -52,7 +52,7 @@ export const VastBattery = ({ data = {} }) => {
         </div>
         <ul className="vast-battery__indicators">
           {indicators.map(({ range, label, color }, index) => (
-            <li className="vast-battery__indicator" key={`${range}-${index}`} style={{ '--light-color': color }}>
+            <li className="vast-battery__indicator to-top" key={`${range}-${index}`} style={{ '--light-color': color }}>
               <span className="vast-battery__range">{range}</span>
               <LightIcon />
               <span className="vast-battery__label">{label}</span>

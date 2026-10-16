@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
 const DEFAULT_CLASS_NAMES = ['to-top'];
 
@@ -23,7 +23,7 @@ export function initToTopAnimate(options = {}) {
   const animateElements = root.querySelectorAll(classSelector);
 
   if (!animateElements.length) {
-    return () => {};
+    return () => { };
   }
 
   const observer = new IntersectionObserver(
@@ -36,7 +36,7 @@ export function initToTopAnimate(options = {}) {
         obs.unobserve(entry.target);
       });
     },
-    {root: null, rootMargin, threshold},
+    { root: null, rootMargin, threshold },
   );
 
   const observeInBatches = (elements, batchSize = 20) => {

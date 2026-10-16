@@ -1,4 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 import { PRIX_CDN } from './constants';
 
 const FRAME_COUNT = 165;
@@ -54,23 +58,13 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
     endHold = 0.2
   } = data;
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined;
     const root = rootRef.current;
+    const pin = root?.querySelector('.vast-sequence__pin');
     const canvas = canvasRef.current;
     const context = canvas?.getContext('2d', { alpha: true });
-    if (!root || !context) return undefined;
-    let cancelled = false;
-    let cleanup = () => { };
-    Promise.all([import('gsap'), import('gsap/dist/ScrollTrigger')])
-      .then(([gsapModule, triggerModule]) => {
-        if (cancelled) return;
-        const gsap = gsapModule.gsap || gsapModule.default?.gsap || gsapModule.default;
-        const ScrollTrigger = triggerModule.ScrollTrigger || triggerModule.default?.ScrollTrigger || triggerModule.default;
-        cleanup = initialize(gsap, ScrollTrigger);
-      })
-      .catch((error) => {
-        if (!cancelled) console.error('[VastThreeSellingPoint] Animation initialization failed:', error);
-      });
+    if (!root || !pin || !context) return undefined;
     function initialize(gsap, ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
       const media = gsap.matchMedia();
@@ -97,8 +91,6 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
                 stagger: { each: 0.018, from: 'start' }, ease: 'power3.out'
               }, 0.12);
         });
-        // const firstHeadlineChars = gsap.utils.toArray('.vast-sequence__headline--1 .vast-sequence__char', root);
-        // const firstMetric = root.querySelector('.vast-sequence__headline--1 .vast-sequence__metric');
         const firstHeadlineChars = gsap.utils.toArray('.vast-sequence__headline--1 .vast-sequence__word .vast-sequence__char', root,);
         const firstMetric = root.querySelector('.vast-sequence__headline--1 .vast-sequence__metric',);
         const firstHeadlineTargets = [...firstHeadlineChars, firstMetric];
@@ -281,8 +273,8 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
         }
         function resize() {
           if (dead) return;
-          const nextWidth = root.clientWidth;
-          const nextHeight = root.clientHeight;
+          const nextWidth = pin.clientWidth;
+          const nextHeight = pin.clientHeight;
           const nextDpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
           if (nextWidth === width && nextHeight === height && nextDpr === dpr) return;
           width = nextWidth;
@@ -373,10 +365,9 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
             const timeline = gsap.timeline({
               scrollTrigger: {
                 trigger: root,
-                start: 'top top',
-                end: () =>
-                  `+=${(mobile ? mobileScrollDistance : scrollDistance) * (1 + hold)}`,
-                pin: true,
+                start: () => `top top+=${mobile ? 44 : 52}`,
+                end: () => `+=${(mobile ? mobileScrollDistance : scrollDistance) * (1 + hold)}`,
+                pin,
                 pinSpacing: true,
                 scrub,
                 anticipatePin: 1,
@@ -423,7 +414,14 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
           pending.clear(); ready.clear(); attempts.clear(); queue = []; painted = -1;
         }
         function refreshLayout() {
-          if (!dead) { resize(); fitTypography(); ScrollTrigger.refresh(); }
+          if (dead) return;
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(() => {
+            if (dead) return;
+            resize();
+            fitTypography();
+            ScrollTrigger.refresh();
+          });
         }
         activateScene(0);
         resize();
@@ -448,7 +446,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
         }
         if ('ResizeObserver' in window) {
           resizeObserver = new ResizeObserver(resize);
-          resizeObserver.observe(root);
+          resizeObserver.observe(pin);
         } else {
           window.addEventListener('resize', resize);
         }
@@ -464,7 +462,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
         }
         window.addEventListener('load', refreshLayout);
         document.fonts?.ready.then(refreshLayout);
-        raf = requestAnimationFrame(refreshLayout);
+        refreshLayout();
         return () => {
           dead = true;
           cancelAnimationFrame(raf);
@@ -484,49 +482,48 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
       }, root);
       return () => media.revert();
     }
-    return () => {
-      cancelled = true;
-      cleanup();
-    };
+    return initialize(gsap, ScrollTrigger);
   }, [frameBase, framePrefix, mobileFramePrefix, scrollDistance, mobileScrollDistance, scrub, endHold, fit, mobileFit, mobileFrameScale, mobilePositionY,]);
   return (
     <section ref={rootRef} className={`vast-sequence ${className}`.trim()} data-scene="1" aria-label="VAST product details">
-      <div className="vast-sequence__backgrounds" aria-hidden="true">
-        {SCENES.map((scene, index) => (
-          <div key={scene.word} className={`vast-sequence__background vast-sequence__background--${index + 1}`} />
-        ))}
-      </div>
-      <div className="vast-sequence__headlines" aria-hidden="true">
-        {SCENES.map((scene, index) => (
-          <div key={scene.word} className={`vast-sequence__headline vast-sequence__headline--${index + 1}`}>
-            <span className="vast-sequence__headline-inner">
-              <span className="vast-sequence__word">{index === 0 ? splitLetters(scene.word) : scene.word}</span>
-              <span className="vast-sequence__metric">
-                <span className="vast-sequence__value">{scene.value}</span>
-                <span className="vast-sequence__unit">{scene.unit}</span>
+      <div className="vast-sequence__pin">
+        <div className="vast-sequence__backgrounds" aria-hidden="true">
+          {SCENES.map((scene, index) => (
+            <div key={scene.word} className={`vast-sequence__background vast-sequence__background--${index + 1}`} />
+          ))}
+        </div>
+        <div className="vast-sequence__headlines" aria-hidden="true">
+          {SCENES.map((scene, index) => (
+            <div key={scene.word} className={`vast-sequence__headline vast-sequence__headline--${index + 1}`}>
+              <span className="vast-sequence__headline-inner">
+                <span className="vast-sequence__word">{index === 0 ? splitLetters(scene.word) : scene.word}</span>
+                <span className="vast-sequence__metric">
+                  <span className="vast-sequence__value">{scene.value}</span>
+                  <span className="vast-sequence__unit">{scene.unit}</span>
+                </span>
               </span>
-            </span>
-          </div>
-        ))}
+            </div>
+          ))}
+        </div>
+        <canvas ref={canvasRef} className="vast-sequence__canvas" aria-hidden="true" />
+        <div className="vast-sequence__captions">
+          {SCENES.map((scene, index) => (
+            <div key={scene.word} className={`vast-sequence__caption vast-sequence__caption--${index + 1}`} aria-hidden={index !== 0}>
+              <p className="vast-sequence__eyebrow" aria-label={scene.eyebrow}>
+                <span aria-hidden="true">{splitLetters(scene.eyebrow)}</span>
+              </p>
+              <h2 className="vast-sequence__title" aria-label={scene.title.join(' ')}>
+                <span aria-hidden="true">{splitLetters(scene.title[0])}</span>
+                <span className="vast-sequence__title-break" aria-hidden="true"> </span>
+                <span aria-hidden="true">{splitLetters(scene.title[1])}</span>
+              </h2>
+            </div>
+          ))}
+        </div>
+        <span className="vast-sequence__sr-only">
+          {SCENES.map((scene) => `${scene.word}: ${scene.value} ${scene.unit}. ${scene.eyebrow}. ${scene.title.join(' ')}.`).join(' ')}
+        </span>
       </div>
-      <canvas ref={canvasRef} className="vast-sequence__canvas" aria-hidden="true" />
-      <div className="vast-sequence__captions">
-        {SCENES.map((scene, index) => (
-          <div key={scene.word} className={`vast-sequence__caption vast-sequence__caption--${index + 1}`} aria-hidden={index !== 0}>
-            <p className="vast-sequence__eyebrow" aria-label={scene.eyebrow}>
-              <span aria-hidden="true">{splitLetters(scene.eyebrow)}</span>
-            </p>
-            <h2 className="vast-sequence__title" aria-label={scene.title.join(' ')}>
-              <span aria-hidden="true">{splitLetters(scene.title[0])}</span>
-              <span className="vast-sequence__title-break" aria-hidden="true"> </span>
-              <span aria-hidden="true">{splitLetters(scene.title[1])}</span>
-            </h2>
-          </div>
-        ))}
-      </div>
-      <span className="vast-sequence__sr-only">
-        {SCENES.map((scene) => `${scene.word}: ${scene.value} ${scene.unit}. ${scene.eyebrow}. ${scene.title.join(' ')}.`).join(' ')}
-      </span>
     </section>
   );
 }

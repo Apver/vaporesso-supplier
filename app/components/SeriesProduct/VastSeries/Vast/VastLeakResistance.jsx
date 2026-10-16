@@ -14,13 +14,13 @@ const DEFAULT_CALLOUTS = [
 
 const Image = ({ image, mobileImage, alt = '', className = '' }) => (
   <picture className={className}>
-    {mobileImage && <source media="(max-width: 767px)" srcSet={mobileImage} />}
+    {mobileImage && <source media="(max-width: 1023px)" srcSet={mobileImage} />}
     {(image || mobileImage) && <img src={image || mobileImage} alt={alt} loading="eager" decoding="async" />}
   </picture>
 );
 
 const SceneCard = ({ item, className }) => (
-  <article className={`vast-leak-resistance__side ${className}`}>
+  <article className={`vast-leak-resistance__side mobile-to-top ${className}`}>
     <div className="vast-leak-resistance__photo">
       <Image image={item.image} mobileImage={item.mobileImage} alt={item.alt || ''} />
 
@@ -222,14 +222,14 @@ export const VastLeakResistance = ({ data = {} }) => {
     <section className="vast-leak-resistance" ref={rootRef}>
       <div className="vast-leak-resistance__pin">
         <header className="vast-leak-resistance__header">
-          <p className="vast-leak-resistance__eyebrow">{eyebrow}</p>
-          <h2 className="vast-leak-resistance__title">
+          <p className="vast-leak-resistance__eyebrow to-top">{eyebrow}</p>
+          <h2 className="vast-leak-resistance__title to-top">
             {String(title).split('\n').map((line, index) => <span key={index}>{line}</span>)}
           </h2>
         </header>
         <div className="vast-leak-resistance__stage">
           <SceneCard item={tripData} className="vast-leak-resistance__side--trip" />
-          <article className="vast-leak-resistance__tech" aria-label="SSS 3.0 leak resistance structure">
+          <article className="vast-leak-resistance__tech mobile-to-top" aria-label="SSS 3.0 leak resistance structure">
             <Image image={techImage} mobileImage={mobileTechImage} alt="Exploded view of the leak-resistant pod" />
             <svg className="vast-leak-resistance__annotations" viewBox="0 0 472 650" aria-label="Leak resistance technical features" role="img">
               {callouts.map((item, index) => {

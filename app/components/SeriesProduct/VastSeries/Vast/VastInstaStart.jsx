@@ -13,17 +13,17 @@ export const VastInstaStart = ({ data = {} }) => {
   return (
     <section className="vast-insta-start">
       <div className="vast-insta-start__container">
-        <h2 className="vast-insta-start__title">{title}</h2>
+        <h2 className="vast-insta-start__title to-top">{title}</h2>
         <ol className="vast-insta-start__grid">
           {slides.map((item, index) => (
-            <li className="vast-insta-start__card" key={item.key || index}>
+            <li className="vast-insta-start__card to-top" key={item.key || index}>
               <div className="vast-insta-start__content">
                 <span className="vast-insta-start__number" aria-hidden="true">{index + 1}</span>
                 <p className="vast-insta-start__text">{item.text || STEP_TEXT[index]}</p>
               </div>
               <picture className="vast-insta-start__media">
                 {item.mobileImage && (
-                  <source media="(max-width: 767px)" srcSet={item.mobileImage} />
+                  <source media="(max-width: 1023px)" srcSet={item.mobileImage} />
                 )}
                 <img
                   src={item.image}

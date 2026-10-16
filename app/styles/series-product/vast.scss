@@ -10,6 +10,23 @@
   --deb: "DinExp-Bold";
   --de: 'DinExp';
   --db: 'Din-Black';
+  --vast-nav-height: 52px;
+
+  @media (max-width: 1023px) {
+    --vast-nav-height: 44px;
+
+    .mobile-to-top {
+      opacity: 0;
+      transform: translateY(20%);
+      transition: transform 1.2s, opacity 1.2s ease-in-out;
+    }
+
+    .mobile-to-top.appear {
+      opacity: 1;
+      transform: translateY(0);
+      will-change: transform, opacity;
+    }
+  }
 
   &-kv {
     .ui-v4-kv-content {
@@ -192,7 +209,7 @@
   .vast-features__title {
     margin: 0;
     color: var(--vast-feature-color, #8c1866);
-    font-family: var(--db, 'Arial Narrow', sans-serif);
+    font-family: var(--db);
     font-size: 40px;
     font-weight: 700;
     line-height: 1.2;
@@ -206,7 +223,7 @@
 
   .vast-features__desc {
     color: #000;
-    font-family: var(--deb, Arial, sans-serif);
+    font-family: var(--deb);
     font-size: 16px;
     font-weight: 600;
     line-height: 1.2;
@@ -248,7 +265,7 @@
   }
 
   .vast-features__image-title {
-    font-family: var(--deb, 'Arial Narrow', sans-serif);
+    font-family: var(--deb);
     font-size: 21px;
     font-weight: 700;
     line-height: 1.2;
@@ -259,7 +276,7 @@
   }
 
   .vast-features__image-desc {
-    font-family: var(--de, Arial, sans-serif);
+    font-family: var(--de);
     margin-top: 8px;
     font-size: 16px;
     font-weight: 400;
@@ -457,7 +474,7 @@
 
     .vast-features__card--2 .vast-features__image-title .vast-features__image__suffix {
       flex-shrink: 0;
-      font-family: var(--db, 'Arial Narrow', sans-serif);
+      font-family: var(--db);
       font-size: 1.12rem;
       line-height: 0.9;
       letter-spacing: -0.008rem;
@@ -535,15 +552,18 @@
   }
 
 
-  /* 三大卖点：GSAP 帧图 + 圆形背景扩散 + 逐字入场 */
+  /* 三大卖点 */
   .vast-sequence {
     position: relative;
+  }
+
+  .vast-sequence__pin {
+    position: relative;
     width: 100%;
-    height: 100vh;
-    height: 100svh;
+    height: calc(100vh - var(--vast-nav-height));
+    height: calc(100svh - var(--vast-nav-height));
     overflow: hidden;
     isolation: isolate;
-    --vast-circle-size: 160vmax;
   }
 
   .vast-sequence__backgrounds,
@@ -608,28 +628,35 @@
 
   .vast-sequence__headline {
     position: absolute;
-    top: 31%;
+    top: 23%;
     left: 0;
     display: block;
     width: max-content;
     margin: 0;
-    font-family: var(--db, Impact, sans-serif);
+    font-family: var(--db);
     font-size: 50rem;
     font-weight: 700;
     line-height: 1;
-    // letter-spacing: -2.5rem;
+    letter-spacing: -2.5rem;
     white-space: nowrap;
     visibility: hidden;
     opacity: 0;
     will-change: transform, opacity;
   }
 
+  .vast-sequence__headline--1 .vast-sequence__word {
+    letter-spacing: normal;
+  }
+
+  .vast-sequence__headline--1 .vast-sequence__word>.vast-sequence__char-mask+.vast-sequence__char-mask {
+    margin-left: -2.5rem;
+  }
+
   .vast-sequence__headline-inner {
     display: inline-flex;
     align-items: baseline;
-    gap: 10rem;
+    gap: 25rem;
     width: max-content;
-    // transform: scaleX(var(--vast-letter-scale, .65));
     transform-origin: left center;
   }
 
@@ -649,9 +676,7 @@
   }
 
   .vast-sequence__unit {
-    font-size: .2em;
     line-height: 1;
-    letter-spacing: -.04em;
   }
 
   .vast-sequence__headline--1 .vast-sequence__word {
@@ -671,11 +696,13 @@
   }
 
   .vast-sequence__headline--2 .vast-sequence__metric {
-    background-image: linear-gradient(#e3a600, #a66a05);
+    background-image: linear-gradient(0deg, #92570F 0%, #E5A605 100%);
+    ;
   }
 
   .vast-sequence__headline--3 .vast-sequence__metric {
-    background-image: linear-gradient(#003568, #0a60a7);
+    background-image: linear-gradient(180deg, #013566 0%, #0A5BA7 100%);
+    ;
   }
 
   .vast-sequence__metric .vast-sequence__value,
@@ -696,6 +723,7 @@
   }
 
   .vast-sequence__caption {
+    font-family: var(--deb);
     position: absolute;
     top: 76%;
     left: 4%;
@@ -708,18 +736,17 @@
   }
 
   .vast-sequence__eyebrow {
-    margin: 0 0 12px;
-    font-size: clamp(14px, 1.05vw, 22px);
+    margin: 0 0 1rem;
+    font-size: 2rem;
     font-weight: 700;
-    line-height: 1.25;
+    line-height: 1.1;
   }
 
   .vast-sequence__title {
     margin: 0;
-    font-size: clamp(26px, 2.5vw, 52px);
+    font-size: 4.8rem;
     font-weight: 700;
-    line-height: 1.16;
-    letter-spacing: -.025em;
+    line-height: 1.1;
   }
 
   .vast-sequence__char-mask {
@@ -769,28 +796,51 @@
 
   @media (max-width: 1023px) {
     .vast-sequence__headline {
-      top: 21%;
-      font-size: min(36vw, 30svh);
+      top: 0.56rem;
+      font-size: 4.5rem;
+      letter-spacing: -0.225rem;
+      left: -1.76rem;
+    }
+
+    .vast-sequence__headline--1 .vast-sequence__word>.vast-sequence__char-mask+.vast-sequence__char-mask {
+      margin-left: -0.225rem;
+    }
+
+    .product-vast .vast-sequence__metric .vast-sequence__unit {
+      font-size: 0.9rem;
+      letter-spacing: -0.027rem;
+
+    }
+
+    .product-vast .vast-sequence__metric .vast-sequence__value {
+      letter-spacing: -0.045rem;
+
     }
 
     .vast-sequence__headline-inner {
-      gap: .08em;
+      gap: 0;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .product-vast .vast-sequence__metric {
+      margin-top: -1.3rem;
     }
 
     .vast-sequence__caption {
-      top: 77%;
+      top: 76%;
       left: 3%;
       width: 94%;
     }
 
     .vast-sequence__eyebrow {
-      margin-bottom: 8px;
-      font-size: clamp(13px, 4vw, 20px);
+      margin-bottom: 0.12rem;
+      font-size: 0.32rem;
     }
 
     .vast-sequence__title {
-      font-size: clamp(23px, 8vw, 42px);
-      line-height: 1.13;
+      font-size: 0.6rem;
+      line-height: 113.333%;
     }
 
     .vast-sequence__title-break {
@@ -798,24 +848,7 @@
     }
   }
 
-  @media (max-width: 1023px) and (orientation: landscape) {
-    .vast-sequence__headline {
-      top: 17%;
-      font-size: 25svh;
-    }
-
-    .vast-sequence__caption {
-      top: 74%;
-    }
-
-    .vast-sequence__title {
-      font-size: 20px;
-    }
-
-    .vast-sequence__title-break {
-      display: inline;
-    }
-  }
+  @media (max-width: 1023px) and (orientation: landscape) {}
 
   @media (prefers-reduced-motion: reduce) {
 
@@ -832,29 +865,29 @@
     overflow: hidden;
     color: #000;
     background: linear-gradient(62deg, #ECF4FF 32.19%, #BBCCE0 99.32%);
-    font-family: var(--deb, Arial), sans-serif;
+    font-family: var(--deb);
 
     &__container {
       width: 100%;
       max-width: 1920px;
       margin: 0 auto;
-      padding: clamp(80px, 7.92vw, 152px) 24px clamp(70px, 6.15vw, 118px);
+      padding: 150px 24px 120px;
       text-align: center;
     }
 
     &__title {
-      margin: 0 0 clamp(28px, 2.08vw, 40px);
+      margin: 0 0 60px;
       color: #000;
-      font-family: var(--deb, Arial), sans-serif;
-      font-size: clamp(30px, 2.5vw, 48px);
+      font-family: var(--deb);
+      font-size: 48px;
       font-weight: 700;
-      line-height: 1.15;
+      line-height: 1.1;
     }
 
     &__visual {
       position: relative;
-      width: min(100%, 1020px);
-      aspect-ratio: 1020 / 572;
+      width: min(100%, 1110px);
+      aspect-ratio: 1110 / 458;
       margin: 0 auto;
       isolation: isolate;
     }
@@ -863,12 +896,12 @@
       position: relative;
       z-index: 0;
       margin: 0;
-      background: linear-gradient(180deg, #5d003f 15%, #952878 100%);
+      background: linear-gradient(180deg, #57003A 0%, #982D74 100%);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      font-family: var(--deb, Arial), sans-serif;
-      font-size: clamp(100px, 12.5vw, 240px);
+      font-family: var(--deb);
+      font-size: 240px;
       font-weight: 700;
       line-height: 1;
       letter-spacing: -0.035em;
@@ -878,7 +911,7 @@
     &__product {
       position: absolute;
       z-index: 1;
-      top: 29%;
+      top: 39%;
       left: 0;
       display: block;
       width: 100%;
@@ -893,11 +926,12 @@
     &__indicators {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-      width: min(100%, 780px);
+      gap: 60px;
+      width: min(100%, 720px);
       margin: 0 auto;
       padding: 0;
       list-style: none;
+      margin-top: 131px;
     }
 
     &__indicator {
@@ -909,57 +943,83 @@
     }
 
     &__range {
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       color: #000;
-      font-family: var(--deb, Arial), sans-serif;
+      font-family: var(--deb);
       font-size: 24px;
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1.5;
     }
 
     &__light {
       display: block;
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       margin-bottom: 10px;
     }
 
     &__label {
       font-size: 18px;
       font-weight: 600;
-      line-height: 1.25;
+      line-height: 1;
     }
 
     @media screen and (max-width: 1450px) and (min-width: 1024px) {
+      &__container {
+        max-width: 1536px;
+        padding: 120px 19px 96px;
+      }
+
+      &__title {
+        margin: 0 0 48px;
+        font-size: 38px;
+      }
+
+      &__visual {
+        width: min(100%, 888px);
+      }
+
+      &__capacity {
+        font-size: 192px;
+      }
+
+      &__indicators {
+        gap: 48px;
+        width: min(100%, 576px);
+        margin-top: 105px;
+      }
+
       &__range {
-        font-size: 20px;
+        margin-bottom: 13px;
+        font-size: 19px;
       }
 
       &__light {
-        width: 40px;
-        height: 40px;
+        width: 37px;
+        height: 37px;
+        margin-bottom: 8px;
       }
 
       &__label {
-        font-size: 16px;
+        font-size: 14px;
       }
     }
 
     @media (max-width: 1023px) {
       &__container {
-        padding: 80px 24px 76px;
+        padding: 1.6rem 0.2rem;
       }
 
       &__title {
-        max-width: 240px;
-        margin: 0 auto 42px;
-        font-size: 30px;
+        max-width: 6.1rem;
+        margin: 0 auto 0.8rem;
+        font-size: 0.6rem;
         line-height: 1.2;
       }
 
       &__visual {
         width: 100%;
-        aspect-ratio: 327 / 218;
+        aspect-ratio: 231/95;
       }
 
       &__capacity {
@@ -972,22 +1032,23 @@
       }
 
       &__indicators {
-        gap: 8px;
+        gap: 0.32rem;
+        margin-top: 1.2rem;
       }
 
       &__range {
-        margin-bottom: 14px;
-        font-size: 14px;
+        margin-bottom: 0.24rem;
+        font-size: 0.3rem;
       }
 
       &__light {
-        width: 34px;
-        height: 34px;
-        margin-bottom: 7px;
+        width: 0.64rem;
+        height: 0.64rem;
+        margin-bottom: 0.15rem;
       }
 
       &__label {
-        font-size: 12px;
+        font-size: 0.26rem;
       }
     }
   }
@@ -998,7 +1059,7 @@
     aspect-ratio: 1920 / 1050;
     overflow: hidden;
     background: #fff;
-    font-family: var(--de, Arial), sans-serif;
+    font-family: var(--de);
 
     &__background {
       position: absolute;
@@ -1012,7 +1073,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center;
       }
     }
 
@@ -1036,32 +1096,44 @@
     &__title {
       margin: 0 0 24px;
       color: #000;
-      font-family: var(--deb, Arial), sans-serif;
-      font-size: clamp(28px, 2.5vw, 48px);
+      font-family: var(--deb);
+      font-size: 48px;
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1.1;
     }
 
     &__description {
       margin: 0;
-      color: #666;
-      font-size: clamp(13px, 0.834vw, 16px);
+      color: rgba(0, 0, 0, 0.60);
+      font-size: 16px;
       font-weight: 400;
       line-height: 1.5;
     }
 
     @media screen and (max-width: 1450px) and (min-width: 1024px) {
+      &__container {
+        width: calc(100% - 56px);
+        max-width: 896px;
+      }
+
+      &__content {
+        max-width: 320px;
+      }
+
       &__title {
-        margin-bottom: 16px;
+        margin: 0 0 19px;
+        font-size: 38px;
+      }
+
+      &__description {
+        font-size: 13px;
       }
     }
 
     @media (max-width: 1023px) {
       aspect-ratio: 375 / 687;
 
-      &__background img {
-        object-position: right bottom;
-      }
+      &__background img {}
 
       &__container {
         position: absolute;
@@ -1070,23 +1142,23 @@
         max-width: none;
         height: auto;
         margin: 0;
-        padding: 80px 35px 0;
+        padding: 1.6rem 0.7rem 0;
       }
 
       &__content {
         position: static;
         width: 100%;
-        max-width: 400px;
+        max-width: 6.1rem;
       }
 
       &__title {
-        margin-bottom: 16px;
-        font-size: 30px;
+        margin-bottom: 0.32rem;
+        font-size: 0.6rem;
         line-height: 1.2;
       }
 
       &__description {
-        font-size: 15px;
+        font-size: 0.3rem;
         line-height: 1.4;
       }
     }
@@ -1094,9 +1166,9 @@
 
   .vast-insta-start {
     padding: 150px 24px;
-    background: #ededed;
+    background: linear-gradient(0deg, #EDEDED 0%, #EDEDED 100%), linear-gradient(62deg, #ECF4FF 32.19%, #BBCCE0 99.32%);
     color: #000;
-    font-family: var(--de, Arial), sans-serif;
+    font-family: var(--de);
 
     &__container {
       width: 100%;
@@ -1108,7 +1180,7 @@
       margin: 0 0 48px;
       color: #000;
       text-align: center;
-      font-family: var(--deb, Arial), sans-serif;
+      font-family: var(--deb);
       font-size: 48px;
       font-weight: 700;
       line-height: 1.1;
@@ -1152,7 +1224,7 @@
       border-radius: 50%;
       background: #000;
       color: #fff;
-      font-family: var(--deb, Arial), sans-serif;
+      font-family: var(--deb);
       font-size: 20px;
       font-weight: 700;
       line-height: 1;
@@ -1163,7 +1235,7 @@
       margin: 0;
       font-size: 16px;
       font-weight: 600;
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
     &__media {
@@ -1183,65 +1255,78 @@
     }
 
     @media screen and (max-width: 1450px) and (min-width: 1024px) {
-      padding: 100px 24px;
+      padding: 120px 19px;
+
+      &__container {
+        max-width: 840px;
+      }
 
       &__title {
-        font-size: 40px;
+        margin: 0 0 38px;
+        font-size: 38px;
+      }
+
+      &__grid {
+        gap: 13px;
       }
 
       &__card {
-        gap: 12px;
+        gap: 16px;
         padding: 16px;
       }
 
       &__content {
-        padding-left: 0;
+        padding: 38px 0 19px 8px;
       }
 
       &__number {
-        left: 0;
-      }
-
-      &__text {
-        font-size: 14px;
-      }
-    }
-
-    @media (max-width: 1023px) {
-      padding: 80px 20px 72px;
-
-      &__title {
-        margin-bottom: 36px;
-        font-size: clamp(24px, 7.47vw, 32px);
-        line-height: 1.25;
-      }
-
-      &__grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 8px;
-      }
-
-      &__card {
-        grid-template-columns: minmax(0, 1fr) 50%;
-        gap: 8px;
-        padding: 12px;
-      }
-
-      &__content {
-        padding: 36px 0 12px 4px;
-      }
-
-      &__number {
-        left: 4px;
-        width: 26px;
-        height: 26px;
+        left: 8px;
+        width: 29px;
+        height: 29px;
         font-size: 16px;
       }
 
       &__text {
-        max-width: 145px;
-        font-size: 14px;
-        line-height: 1.4;
+        max-width: 140px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      padding: 1.6rem 0.4rem 1.2rem;
+
+      &__title {
+        margin-bottom: 0.72rem;
+        font-size: 0.6rem;
+        letter-spacing: -0.0136rem;
+        line-height: 1.2;
+      }
+
+      &__grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.16rem;
+      }
+
+      &__card {
+        grid-template-columns: minmax(0, 1fr) 50%;
+        gap: 0.16rem;
+        padding: 0.24rem;
+      }
+
+      &__content {
+        padding: 0.72rem 0 0.24rem 0.08rem;
+      }
+
+      &__number {
+        left: 0.08rem;
+        width: 0.52rem;
+        height: 0.52rem;
+        font-size: 0.32rem;
+      }
+
+      &__text {
+        max-width: 2.9rem;
+        font-size: 0.28rem;
       }
     }
   }
@@ -1250,7 +1335,7 @@
     padding: 150px 24px;
     background: #fff;
     color: #000;
-    font-family: var(--de, Arial), sans-serif;
+    font-family: var(--de);
 
     &__container {
       width: 100%;
@@ -1261,7 +1346,7 @@
     &__title {
       margin: 0 0 48px;
       color: #000;
-      font-family: var(--deb, Arial), sans-serif;
+      font-family: var(--deb);
       font-size: 48px;
       font-weight: 700;
       line-height: 1.1;
@@ -1298,7 +1383,7 @@
     }
 
     &__card {
-      aspect-ratio: 515 / 250;
+      aspect-ratio: 515 / 249;
     }
 
     &__picture {
@@ -1341,38 +1426,52 @@
       margin: 0;
       color: #000;
       font-size: 16px;
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
     @media screen and (max-width: 1450px) and (min-width: 1024px) {
-      padding: 100px 24px;
+      padding: 120px 19px;
+
+      &__container {
+        max-width: 840px;
+      }
 
       &__title {
-        font-size: 40px;
+        margin: 0 0 38px;
+        font-size: 38px;
+      }
+
+      &__grid {
+        gap: 16px;
+      }
+
+      &__features {
+        gap: 16px;
       }
 
       &__copy {
-        left: 24px;
-        width: 46%;
+        left: 32px;
+        width: 43%;
       }
 
       &__feature-title {
-        font-size: clamp(20px, 2.4vw, 28px);
+        margin: 0 0 10px;
+        font-size: 22px;
       }
 
       &__description {
-        font-size: 14px;
+        font-size: 13px;
       }
     }
 
     @media (max-width: 1023px) {
-      padding: 80px 15px 20px;
+      padding: 1.6rem 0.3rem 0.4rem;
 
       &__title {
         width: fit-content;
         max-width: 100%;
-        margin: 0 auto 36px;
-        font-size: 30px;
+        margin: 0 auto 0.72rem;
+        font-size: 0.6rem;
         line-height: 1.2;
         text-align: left;
 
@@ -1387,26 +1486,26 @@
 
       &__grid {
         grid-template-columns: minmax(0, 1fr);
-        gap: 14px;
+        gap: 0.28rem;
       }
 
       &__features {
-        gap: 14px;
+        gap: 0.28rem;
       }
 
       &__copy {
-        left: 20px;
+        left: 0.4rem;
         width: 46%;
       }
 
       &__feature-title {
-        margin-bottom: 10px;
-        font-size: 20px;
+        margin-bottom: 0.2rem;
+        font-size: 0.4rem;
         line-height: 1.05;
       }
 
       &__description {
-        font-size: 14px;
+        font-size: 0.28rem;
         line-height: 1.3;
       }
     }
@@ -1414,9 +1513,9 @@
 
   .vast-core-guard {
     position: relative;
-    background: #ededed;
+    background: #EDEDED;
     color: #000;
-    font-family: var(--de, Arial), sans-serif;
+    font-family: var(--de);
 
     &__pin {
       display: grid;
@@ -1425,7 +1524,7 @@
       height: 100vh;
       height: 100svh;
       min-height: 620px;
-      background: #ededed;
+      background: #EDEDED;
     }
 
     &__scene-slot {
@@ -1509,7 +1608,7 @@
 
     &__eyebrow {
       margin: 0 0 10px;
-      color: #a90075;
+      color: #8C1866;
       font-size: 18px;
       font-weight: 700;
       line-height: 1.2;
@@ -1518,7 +1617,7 @@
     &__title {
       margin: 0 0 24px;
       color: #000;
-      font-family: var(--deb, Arial), sans-serif;
+      font-family: var(--deb);
       font-size: clamp(28px, 2.5vw, 48px);
       font-weight: 700;
       line-height: 1.12;
@@ -1531,7 +1630,7 @@
 
     &__description {
       margin: 0;
-      color: #666;
+      color: rgba(0, 0, 0, 0.60);
       font-size: 16px;
       line-height: 1.5;
     }
@@ -1574,8 +1673,8 @@
     &__value {
       display: flex;
       align-items: baseline;
-      color: #b13c00;
-      font-family: var(--deb, Arial), sans-serif;
+      color: #B13C00;
+      font-family: var(--deb);
       line-height: 1;
 
       strong {
@@ -1660,7 +1759,7 @@
         flex-direction: column;
         height: auto;
         min-height: 0;
-        padding-bottom: 90px;
+        padding-bottom: 1.8rem;
         background: linear-gradient(#202020, #000);
       }
 
@@ -1673,24 +1772,24 @@
         width: 100%;
         max-width: none;
         margin: 0;
-        padding: 80px 35px 36px;
+        padding: 1.6rem 0.7rem 0.72rem;
         background: #ededed;
       }
 
       &__eyebrow {
-        margin-bottom: 12px;
-        font-size: 16px;
+        margin-bottom: 0.24rem;
+        font-size: 0.32rem;
       }
 
       &__title {
-        margin-bottom: 18px;
-        font-size: 30px;
+        margin-bottom: 0.36rem;
+        font-size: 0.6rem;
         line-height: 1.2;
         letter-spacing: -0.04em;
       }
 
       &__description {
-        font-size: 15px;
+        font-size: 0.3rem;
         line-height: 1.4;
       }
 
@@ -1704,56 +1803,61 @@
         order: 1;
         flex: none;
         width: 100%;
-        height: min(130.6667vw, calc(100svh - 24px));
+        height: min(9.8rem, calc(100svh - 0.48rem));
       }
 
       &__shade {
-        background: linear-gradient(180deg, transparent 48%, rgba(28, 28, 28, 0.5) 68%, #202020 100%);
+        background: linear-gradient(180deg,
+            transparent 48%,
+            rgba(28, 28, 28, 0.5) 68%,
+            #202020 100%);
       }
 
       &__chart {
-        right: 20px;
-        bottom: 10px;
-        width: calc(100% - 40px);
-        max-width: 453px;
+        right: 0.4rem;
+        bottom: 0.2rem;
+        width: calc(100% - 0.8rem);
+        max-width: 9.06rem;
       }
 
       &__stats {
         order: 2;
-        width: calc(100% - 76px);
+        width: calc(100% - 1.52rem);
         max-width: none;
-        margin: 36px 38px 24px;
-        gap: 28px;
+        margin: 0.72rem 0.76rem 0.48rem;
+        gap: 0.56rem;
       }
 
       &__value strong {
-        font-size: 44px;
+        font-size: 0.88rem;
       }
 
       &__value>span:not(.vast-core-guard__arrow):not(.vast-core-guard__sr-only) {
-        font-size: 27px;
+        font-size: 0.54rem;
       }
 
       &__stat-label {
+        margin-top: 0.12rem;
         color: #fff;
-        font-size: 14px;
+        font-size: 0.28rem;
         line-height: 1.25;
       }
 
       &__arrow {
-        width: 18px;
-        height: 33px;
+        width: 0.36rem;
+        height: 0.66rem;
+        margin-left: 0.14rem;
       }
 
       &__detail {
         order: 3;
-        width: calc(100% - 40px);
+        width: calc(100% - 0.8rem);
         max-width: none;
-        margin: 0 20px;
+        margin: 0 0.4rem;
       }
     }
 
-    @media (min-width: 768px) and (max-height: 700px) {
+    @media (min-width: 1024px) and (max-height: 700px) {
       &__pin {
         min-height: 540px;
       }
@@ -1781,7 +1885,7 @@
     position: relative;
     background: #fff;
     color: #000;
-    font-family: var(--de, Arial), sans-serif;
+    font-family: var(--de);
 
     &__pin {
       display: flex;
@@ -1805,7 +1909,7 @@
 
     &__eyebrow {
       margin: 0 0 12px;
-      color: #00549e;
+      color: #0E5292;
       font-size: 20px;
       font-weight: 700;
       line-height: 1.2;
@@ -1814,7 +1918,7 @@
     &__title {
       margin: 0;
       color: #000;
-      font-family: var(--deb, Arial), sans-serif;
+      font-family: var(--deb);
       font-size: clamp(30px, 2.5vw, 48px);
       font-weight: 700;
       line-height: 1.1;
@@ -1885,7 +1989,7 @@
       align-items: baseline;
       margin: 0;
       color: #fff;
-      font-family: var(--deb, Arial), sans-serif;
+      font-family: var(--deb);
       font-weight: 700;
       line-height: 1;
       transform: rotate(-4deg);
@@ -1926,7 +2030,7 @@
       h3 {
         margin: 0 0 10px;
         color: #000;
-        font-family: var(--deb, Arial), sans-serif;
+        font-family: var(--deb);
         font-size: clamp(16px, 2cqw, 28px);
         font-weight: 700;
         line-height: 1.15;
@@ -1935,7 +2039,7 @@
 
       p {
         margin: 0;
-        color: #535e69;
+        color: rgba(0, 0, 0, 0.60);
         font-size: clamp(12px, 1.07cqw, 15px);
         line-height: 1.6;
       }
@@ -1974,7 +2078,7 @@
       width: 100%;
       height: 100%;
       color: #ffff99;
-      font-family: var(--de, Arial), sans-serif;
+      font-family: var(--de);
       font-size: 15px;
       pointer-events: none;
 
@@ -2026,20 +2130,20 @@
       &__pin {
         height: auto;
         min-height: 0;
-        padding: 80px 15px 60px;
+        padding: 1.6rem 0.3rem 1.2rem;
       }
 
       &__header {
-        margin-bottom: 36px;
+        margin-bottom: 0.72rem;
       }
 
       &__eyebrow {
-        margin-bottom: 10px;
-        font-size: 16px;
+        margin-bottom: 0.2rem;
+        font-size: 0.32rem;
       }
 
       &__title {
-        font-size: clamp(24px, 7.47vw, 32px);
+        font-size: 0.56rem;
         line-height: 1.2;
         letter-spacing: -0.04em;
       }
@@ -2047,7 +2151,7 @@
       &__stage {
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 0.28rem;
         width: 100%;
         aspect-ratio: auto;
         container-type: normal;
@@ -2085,18 +2189,18 @@
       }
 
       &__body {
-        min-height: 118px;
-        padding: 24px;
+        min-height: 2.36rem;
+        padding: 0.48rem;
       }
 
       &__body h3 {
-        margin-bottom: 10px;
-        font-size: 20px;
+        margin-bottom: 0.2rem;
+        font-size: 0.4rem;
         line-height: 1.2;
       }
 
       &__body p {
-        font-size: 14px;
+        font-size: 0.28rem;
         line-height: 1.5;
       }
 
@@ -2106,15 +2210,15 @@
       }
 
       &__badge strong {
-        font-size: clamp(90px, 32vw, 180px);
+        font-size: 2.4rem;
       }
 
       &__badge span {
-        font-size: clamp(30px, 9vw, 54px);
+        font-size: 0.675rem;
       }
 
       &__side--flight .vast-leak-resistance__badge strong {
-        font-size: clamp(65px, 22vw, 130px);
+        font-size: 1.65rem;
       }
 
       &__annotations [data-leak-line],
@@ -2144,15 +2248,17 @@
 
   .vast-tri-core {
     position: relative;
-    font-family: var(--de, Arial), sans-serif;
+    font-family: var(--de);
     color: #000;
+
 
     &__pin {
       position: relative;
       width: 100%;
-      height: 100vh;
-      height: 100svh;
-      min-height: 640px;
+      height: calc(100vh - var(--vast-nav-height));
+      height: calc(100svh - var(--vast-nav-height));
+      min-height: 0;
+
     }
 
     &__overview,
@@ -2170,8 +2276,8 @@
     &__overview {
       z-index: 0;
       padding: clamp(64px, 14.7svh, 150px) 40px 0;
-      background: linear-gradient(165deg, #df3604 0%, #e44100 57%, #ec9b0b 100%);
       color: #fff;
+      background: linear-gradient(180deg, #DA3C0C 50%, #DA4A0E 62.02%, #DA5510 69.23%, #D96B12 85%, #D87B14 100%);
     }
 
     &__tech-header {
@@ -2189,13 +2295,13 @@
     }
 
     &__tech-header .vast-tri-core__eyebrow {
-      color: #ffff99;
+      color: #FFFF37;
     }
 
     &__tech-title,
     &__mood-title {
       margin: 0;
-      font-family: var(--deb, Arial), sans-serif;
+      font-family: var(--deb);
       font-size: clamp(30px, 2.5vw, 48px);
       font-weight: 700;
       line-height: 1.12;
@@ -2214,11 +2320,11 @@
       position: relative;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
+      gap: 8px;
       flex: 1;
       min-height: 0;
       width: 100%;
-      max-width: 1360px;
+      max-width: 1400px;
     }
 
     &__tech-mode {
@@ -2340,7 +2446,7 @@
     }
 
     &__mood-header .vast-tri-core__eyebrow {
-      color: #9f167b;
+      color: #8C1866;
     }
 
     &__mood-title {
@@ -2381,7 +2487,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: var(--scene-position, center);
       }
     }
 
@@ -2399,7 +2504,6 @@
         width: 100%;
         height: 100%;
         object-fit: contain;
-        object-position: left bottom;
       }
     }
 
@@ -2456,7 +2560,7 @@
       inset: 0;
       margin: 0;
       color: #000;
-      font-family: var(--deb, Arial), sans-serif;
+      font-family: var(--deb);
       font-size: 24px;
       font-weight: 700;
       line-height: 1.3;
@@ -2477,8 +2581,8 @@
       .vast-tri-core__overview,
       .vast-tri-core__mood {
         position: relative;
-        height: 100svh;
-        min-height: 640px;
+        height: calc(100svh - var(--vast-nav-height));
+        min-height: 0;
         opacity: 1;
         visibility: visible;
       }
@@ -2528,42 +2632,42 @@
       &__mood {
         position: relative;
         inset: auto;
-        height: 100vh;
-        height: 100svh;
-        min-height: 607px;
+        height: calc(100vh - var(--vast-nav-height));
+        height: calc(100svh - var(--vast-nav-height));
+        min-height: 0;
         opacity: 1;
         visibility: visible;
       }
 
       &__overview {
-        padding: 80px 20px 0;
+        padding: 1.6rem 0.4rem 0;
       }
 
       &__tech-header {
-        margin-bottom: 40px;
+        margin-bottom: 0.8rem;
       }
 
       &__eyebrow {
-        margin-bottom: 10px;
-        font-size: 16px;
-        line-height: 1.25;
+        margin-bottom: 0.12rem;
+        font-size: 0.32rem;
+        line-height: 1.3;
       }
 
       &__tech-title,
       &__mood-title {
-        font-size: 30px;
-        line-height: 1.12;
+        font-size: 0.6rem;
+        line-height: 113.333%;
       }
 
       &__tech-title {
-        max-width: 430px;
+        max-width: 8.6rem;
         margin: 0 auto;
       }
 
       &__tech-stage {
         display: block;
         width: 100%;
-        max-width: 520px;
+        max-width: 10.4rem;
       }
 
       &__tech-mode {
@@ -2579,66 +2683,66 @@
       }
 
       &__ruler {
-        min-height: 58px;
-        margin-bottom: 30px;
+        min-height: 1.16rem;
+        margin-bottom: 0.6rem;
       }
 
       &__ruler-top {
-        height: 25px;
-        gap: 18px;
+        height: 0.5rem;
+        gap: 0.36rem;
       }
 
       &__ruler-top strong {
-        font-size: 21px;
+        font-size: 0.42rem;
       }
 
       &__ruler-top>span {
-        height: 19px;
+        height: 0.38rem;
         background-size: auto;
-        background-image: repeating-linear-gradient(90deg, rgba(81, 42, 0, 0.55) 0 1px, transparent 1px 16px);
+        background-image: repeating-linear-gradient(90deg, rgba(81, 42, 0, 0.55) 0 0.02rem, transparent 0.02rem 0.32rem);
       }
 
       &__ruler p {
-        margin-top: 8px;
-        font-size: 15px;
+        margin-top: 0.16rem;
+        font-size: 0.3rem;
       }
 
       &__coil-image {
-        top: -15px;
+        top: -0.3rem;
         right: -4%;
         width: 94.5%;
-        max-width: 520px;
+        max-width: 10.4rem;
       }
 
       &__coil-copy h3 {
-        margin-top: 22px;
-        margin-bottom: 8px;
-        font-size: 21px;
+        margin-top: 0.44rem;
+        margin-bottom: 0.16rem;
+        font-size: 0.42rem;
       }
 
       &__coil-copy p {
-        max-width: 185px;
-        font-size: 14px;
+        max-width: 3.7rem;
+        font-size: 0.28rem;
         line-height: 1.35;
       }
 
       &__coil-lights {
-        gap: 8px;
+        gap: 0.16rem;
       }
 
       &__coil-lights svg {
-        width: 25px;
-        height: 25px;
+        width: 0.5rem;
+        height: 0.5rem;
       }
 
       &__mood {
         justify-content: center;
-        padding: 80px 20px 36px;
+        padding: 1.6rem 0.4rem 0.72rem;
         min-height: 0;
       }
 
       &__mood-header {
-        margin-bottom: 36px;
+        margin-bottom: 0.72rem;
       }
 
       &__mood-title span {
@@ -2650,7 +2754,7 @@
       }
 
       &__showcase {
-        width: min(100%, 520px, calc((100svh - 350px) * 1.135593));
+        width: min(100%, 10.4rem, calc((100svh - 7rem) * 1.135593));
         max-width: 100%;
         aspect-ratio: 335 / 295;
       }
@@ -2664,102 +2768,82 @@
       }
 
       &__control {
-        width: 156px;
-        height: 40px;
-        margin-top: 24px;
+        width: 3.12rem;
+        height: 0.8rem;
+        margin-top: 0.48rem;
       }
 
       &__control-buttons {
-        padding: 4px 18px;
+        padding: 0.08rem 0.36rem;
       }
 
       &__mode-captions {
-        height: 24px;
-        margin-top: 16px;
+        height: 0.48rem;
+        margin-top: 0.32rem;
       }
 
       &__mode-caption {
-        font-size: 18px;
-      }
-    }
-
-    @media (max-width: 374px) {
-
-      &__tech-title,
-      &__mood-title {
-        font-size: 27px;
-      }
-
-      &__coil-copy h3 {
-        font-size: 19px;
-      }
-
-      &__coil-copy p {
-        font-size: 13px;
-      }
-
-      &__mode-caption {
-        font-size: 16px;
+        font-size: 0.36rem;
       }
     }
 
     @media (max-width: 1023px) and (orientation: landscape) {
       &__overview {
         min-height: 0;
-        padding-top: 24px;
+        padding-top: 0.48rem;
       }
 
       &__tech-header {
-        margin-bottom: 20px;
+        margin-bottom: 0.4rem;
       }
 
       &__eyebrow {
-        margin-bottom: 8px;
-        font-size: 14px;
+        margin-bottom: 0.16rem;
+        font-size: 0.28rem;
       }
 
       &__tech-title,
       &__mood-title {
-        font-size: 24px;
+        font-size: 0.48rem;
       }
 
       &__ruler {
-        min-height: 42px;
-        margin-bottom: 12px;
+        min-height: 0.84rem;
+        margin-bottom: 0.24rem;
       }
 
       &__ruler p {
-        margin-top: 4px;
-        font-size: 12px;
+        margin-top: 0.08rem;
+        font-size: 0.24rem;
       }
 
       &__coil-image {
         top: 0;
         right: 0;
-        width: min(80%, 320px);
+        width: min(80%, 6.4rem);
       }
 
       &__coil-copy h3 {
-        margin-top: 12px;
-        font-size: 18px;
+        margin-top: 0.24rem;
+        font-size: 0.36rem;
       }
 
       &__coil-copy p {
-        font-size: 12px;
+        font-size: 0.24rem;
       }
 
       &__coil-lights svg {
-        width: 20px;
-        height: 20px;
+        width: 0.4rem;
+        height: 0.4rem;
       }
 
       &__mood {
-        padding-top: 16px;
-        padding-bottom: 16px;
+        padding-top: 0.32rem;
+        padding-bottom: 0.32rem;
       }
 
       &__mood-header {
-        margin-bottom: 16px;
+        margin-bottom: 0.32rem;
       }
 
       &__mood-title span {
@@ -2771,22 +2855,22 @@
       }
 
       &__showcase {
-        width: min(100%, calc((100svh - 180px) * 1.135593));
+        width: min(100%, calc((100svh - 3.6rem) * 1.135593));
       }
 
       &__control {
-        width: 124px;
-        height: 32px;
-        margin-top: 12px;
+        width: 2.48rem;
+        height: 0.64rem;
+        margin-top: 0.24rem;
       }
 
       &__mode-captions {
-        height: 20px;
-        margin-top: 8px;
+        height: 0.4rem;
+        margin-top: 0.16rem;
       }
 
       &__mode-caption {
-        font-size: 14px;
+        font-size: 0.28rem;
       }
     }
 
@@ -2806,7 +2890,7 @@
       &__mood {
         position: relative;
         inset: auto;
-        height: 100svh;
+        height: calc(100svh - var(--vast-nav-height));
         min-height: 646px;
         opacity: 1;
         visibility: visible;
@@ -2832,11 +2916,12 @@
       &__tech-mode {
         position: relative;
         flex: none;
-        height: 520px;
+        height: 10.4rem;
         opacity: 1;
         visibility: visible;
       }
     }
   }
+
 
 }

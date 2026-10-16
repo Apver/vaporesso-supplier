@@ -9,9 +9,9 @@ export const VastPremium = ({ data = {} }) => {
 
   return (
     <section className="vast-premium">
-      <picture className="vast-premium__background">
+      <picture className="vast-premium__background to-top">
         {mobileImage && (
-          <source media="(max-width: 767px)" srcSet={mobileImage} />
+          <source media="(max-width: 1023px)" srcSet={mobileImage} />
         )}
         <img
           src={pcImage || mobileImage}
@@ -22,7 +22,7 @@ export const VastPremium = ({ data = {} }) => {
           decoding="async"
         />
       </picture>
-      <div className="vast-premium__container">
+      <div className="vast-premium__container to-top">
         <div className="vast-premium__content">
           <h2 className="vast-premium__title">{title}</h2>
           <p className="vast-premium__description">{description}</p>

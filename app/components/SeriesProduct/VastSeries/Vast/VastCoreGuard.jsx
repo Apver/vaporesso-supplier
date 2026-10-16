@@ -1,4 +1,8 @@
-import { useEffect, useId, useRef } from 'react';
+import { useEffect, useLayoutEffect, useId, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 const CoreGuardChart = () => {
   const uid = `coreguard-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
@@ -73,7 +77,7 @@ const DEFAULT_STATS = [
 
 const ResponsiveImage = ({ image, mobileImage, alt = '', className = '' }) => (
   <picture className={className}>
-    {mobileImage && <source media="(max-width: 767px)" srcSet={mobileImage} />}
+    {mobileImage && <source media="(max-width: 1023px)" srcSet={mobileImage} />}
     {(image || mobileImage) && (
       <img src={image || mobileImage} alt={alt} loading="eager" decoding="async" />
     )}
@@ -101,8 +105,8 @@ export const VastCoreGuard = ({ data = {} }) => {
     onAnimationError,
   } = data;
 
-  useEffect(() => {
-    // GSAP 和插件只在浏览器挂载后加载，SSR 不访问 window。
+  useIsomorphicLayoutEffect(() => {
+    // 浏览器绘制前初始化动画；SSR 不执行布局副作用。
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined;
     const root = rootRef.current;
     if (!root) return undefined;
@@ -111,22 +115,15 @@ export const VastCoreGuard = ({ data = {} }) => {
     let refreshFrame;
     let refreshAfterLoad;
 
-    const init = async () => {
+    const init = () => {
       try {
-        const [gsapModule, triggerModule] = await Promise.all([
-          import('gsap'),
-          import('gsap/ScrollTrigger'),
-        ]);
-        if (disposed) return;
-        const gsap = gsapModule.gsap || gsapModule.default;
-        const ScrollTrigger = triggerModule.ScrollTrigger || triggerModule.default;
         gsap.registerPlugin(ScrollTrigger);
         media = gsap.matchMedia();
 
         media.add(
           {
-            desktop: '(min-width: 768px)',
-            mobile: '(max-width: 767px)',
+            desktop: '(min-width: 1024px)',
+            mobile: '(max-width: 1023px)',
             reduced: '(prefers-reduced-motion: reduce)',
           },
           (context) => {
@@ -153,12 +150,15 @@ export const VastCoreGuard = ({ data = {} }) => {
 
             const pinTarget = mobile ? scene : stage;
             const distance = mobile ? mobileScrollDistance : scrollDistance;
-            const offset = Math.max(0, Number(pinOffset) || 0);
+            const offset = () => {
+              const navHeight = window.matchMedia('(max-width: 1023px)').matches ? 0 : 0;
+              return navHeight + Math.max(0, Number(pinOffset) || 0);
+            };
             const timeline = gsap.timeline({
               defaults: { ease: 'none' },
               scrollTrigger: {
                 trigger: pinTarget,
-                start: () => `top top+=${offset}`,
+                start: () => `top top+=${offset()}`,
                 end: () => `+=${Math.max(1, Number(distance) || 1) * window.innerHeight}`,
                 pin: true,
                 pinSpacing: true,

@@ -8,7 +8,7 @@ const renderLines = (text) =>
 
 const FeatureImage = ({ image, mobileImage, alt = '', width, height }) => (
   <picture className="vast-customization__picture">
-    {mobileImage && <source media="(max-width: 767px)" srcSet={mobileImage} />}
+    {mobileImage && <source media="(max-width: 1023px)" srcSet={mobileImage} />}
     {image && (
       <img src={image} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
     )}
@@ -27,14 +27,14 @@ export const VastCustomization = ({ data = {} }) => {
   return (
     <section className="vast-customization">
       <div className="vast-customization__container">
-        <h2 className="vast-customization__title">{renderLines(title)}</h2>
+        <h2 className="vast-customization__title to-top">{renderLines(title)}</h2>
         <div className="vast-customization__grid">
-          <div className="vast-customization__overview">
+          <div className="vast-customization__overview to-top">
             <FeatureImage image={image} mobileImage={mobileImage} alt={imageAlt} width={515} height={515} />
           </div>
           <div className="vast-customization__features">
             {features.map((item, index) => (
-              <div className="vast-customization__card" key={item.key || index}>
+              <div className="vast-customization__card to-top" key={item.key || index}>
                 <FeatureImage image={item.image} mobileImage={item.mobileImage} alt={item.alt || ''} width={515} height={250} />
                 <div className="vast-customization__copy">
                   <h3 className="vast-customization__feature-title">{renderLines(item.title || '')}</h3>
