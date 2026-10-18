@@ -1038,6 +1038,7 @@
       &__indicators {
         gap: 0.32rem;
         margin-top: 1.66rem;
+        padding: 0 0.22rem;
       }
 
       &__range {
@@ -1822,7 +1823,7 @@
         flex-direction: column;
         box-sizing: border-box;
         width: 100%;
-        padding: 0.72rem 0 0.96rem;
+        padding: 0.72rem 0 1.2rem;
         background: linear-gradient(180deg,#1b1b1b 0%,#000 100%);
       }
 
@@ -2629,7 +2630,7 @@
     }
     @media (min-width: 1024px) and (min-height: 1100px) {
       &__showcase {
-        width: min(140svh,calc(100vw - 96px),calc((100svh - 500px) * 2.161017));
+        width: min(140svh,calc(100vw - 96px),calc((100svh - 550px) * 2.161017));
       }
       &__tech-stage {
         width: min(155svh, calc(100vw - 80px));
