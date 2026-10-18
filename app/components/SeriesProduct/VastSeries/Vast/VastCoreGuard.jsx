@@ -177,7 +177,7 @@ export const VastCoreGuard = ({ data = {} }) => {
                     }
                   : {
                       trigger: stage,
-                      start: () => `top top+=${offset}`,
+                      start: () => `top top+=${offset()}`,
                       end: () =>
                         `+=${Math.max(1, Number(distance) || 1) * window.innerHeight}`,
                       pin: true,
@@ -252,21 +252,24 @@ export const VastCoreGuard = ({ data = {} }) => {
             </h2>
             <p className="vast-core-guard__description">{description}</p>
           </div>
-          <div className="vast-core-guard__detail">
-            <ResponsiveImage image={detailImage} mobileImage={mobileDetailImage} alt={detailAlt} />
-          </div>
-          <ul className="vast-core-guard__stats">
-            {stats.map((stat, index) => (
-              <li className="vast-core-guard__stat" key={stat.label || index}>
-                <div className="vast-core-guard__value">
-                  <strong>{stat.value}</strong><span>{stat.suffix || 'x'}</span>
-                  <span className={`vast-core-guard__arrow${stat.direction === 'up' ? ' vast-core-guard__arrow--up' : ''}`} aria-hidden="true"><CoreGuardArrow /></span>
-                  <span className="vast-core-guard__sr-only">{stat.direction === 'up' ? ' increase' : ' decrease'}</span>
-                </div>
-                <p className="vast-core-guard__stat-label">{stat.label}</p>
-              </li>
-            ))}
-          </ul>
+          <div className="vast-core-guard__bottom">
+
+            <div className="vast-core-guard__detail">
+              <ResponsiveImage image={detailImage} mobileImage={mobileDetailImage} alt={detailAlt} />
+            </div>
+            <ul className="vast-core-guard__stats">
+              {stats.map((stat, index) => (
+                <li className="vast-core-guard__stat" key={stat.label || index}>
+                  <div className="vast-core-guard__value">
+                    <strong>{stat.value}</strong><span>{stat.suffix || 'x'}</span>
+                    <span className={`vast-core-guard__arrow${stat.direction === 'up' ? ' vast-core-guard__arrow--up' : ''}`} aria-hidden="true"><CoreGuardArrow /></span>
+                    <span className="vast-core-guard__sr-only">{stat.direction === 'up' ? ' increase' : ' decrease'}</span>
+                  </div>
+                  <p className="vast-core-guard__stat-label">{stat.label}</p>
+                </li>
+              ))}
+            </ul>
+            </div>
         </div>
       </div>
     </section>

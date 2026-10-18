@@ -11,6 +11,12 @@ const DEFAULT_CALLOUTS = [
   { text: 'Bigger Condensation\nStorage', x: 433, y: 415, align: 'end', points: [[433, 407], [288, 407], [236, 445]] },
   { text: 'Liquid Self-\ncirculation System', x: 433, y: 503, align: 'end', points: [[433, 491], [289, 491], [236, 530]] },
 ];
+const MOBILE_CALLOUTS = [
+  { text: 'Innovative Cotton\nBuffer Design', x: 21, y: 83, lineHeight: 25, points: [[21, 135], [146, 135], [239, 253]] },
+  { text: 'Bigger Wicking\nCotton', x: 21, y: 280, lineHeight: 25, points: [[21, 331], [160, 330], [208, 378]] },
+  { text: 'Bigger Condensation\nStorage', x: 450, y: 432, align: 'end', lineHeight: 25, points: [[450, 417], [278, 417], [215, 465]] },
+  { text: 'Liquid Self-\ncirculation System', x: 450, y: 528, align: 'end', lineHeight: 25, points: [[450, 508], [281, 508], [218, 549]] },
+];
 
 const Image = ({ image, mobileImage, alt = '', className = '' }) => (
   <picture className={className}>
@@ -68,11 +74,9 @@ export const VastLeakResistance = ({ data = {} }) => {
     };
 
     try {
-      // 静态导入，插件注册与 DOM 操作只在客户端 layout effect 内执行。
       gsap.registerPlugin(ScrollTrigger);
       media = gsap.matchMedia();
       media.add({ desktop: '(min-width: 1024px)', reduced: '(prefers-reduced-motion: reduce)' }, (context) => {
-        // 移动端使用 CSS 静态布局，不创建动画或 ScrollTrigger。
         if (!context.conditions.desktop || context.conditions.reduced) return;
         const pin = root.querySelector('.vast-leak-resistance__pin');
         const left = root.querySelector('.vast-leak-resistance__side--trip');
@@ -102,7 +106,8 @@ const stageShift = () => {
         gsap.set(left, { xPercent: 0, x: startOffset });
         gsap.set(right, { xPercent: 0, x: () => -startOffset() });
         // 卡片整体先藏在舞台下方，通过 stage 的 overflow:hidden 裁切。
-        gsap.set(tech, { autoAlpha: 1, yPercent: 105 });
+        // gsap.set(tech, { autoAlpha: 1, yPercent: 105 });
+        gsap.set(tech, { autoAlpha: 0, yPercent: 105 });
         gsap.set([...dots, ...labels], { autoAlpha: 0 });
         lines.forEach((line) => {
           const length = line.getTotalLength();
@@ -221,6 +226,7 @@ rise.to(
   tech,
   {
     yPercent: 0,
+    autoAlpha: 1,
     duration: riseEnd - headerEnd,
     ease: 'none',
   },
@@ -278,7 +284,7 @@ rise.to({}, { duration: 1 - riseEnd }, riseEnd);
           <SceneCard item={tripData} className="vast-leak-resistance__side--trip" />
           <article className="vast-leak-resistance__tech mobile-to-top" aria-label="SSS 3.0 leak resistance structure">
             <Image image={techImage} mobileImage={mobileTechImage} alt="Exploded view of the leak-resistant pod" />
-            <svg className="vast-leak-resistance__annotations" viewBox="0 0 472 650" aria-label="Leak resistance technical features" role="img">
+            {/* <svg className="vast-leak-resistance__annotations" viewBox="0 0 472 650" aria-label="Leak resistance technical features" role="img">
               {callouts.map((item, index) => {
                 const last = item.points[item.points.length - 1];
                 return (
@@ -291,7 +297,26 @@ rise.to({}, { duration: 1 - riseEnd }, riseEnd);
                   </g>
                 );
               })}
-            </svg>
+            </svg> */}
+            {[
+              { device: 'desktop', items: callouts },
+              { device: 'mobile', items: MOBILE_CALLOUTS },
+            ].map(({ device, items }) => (
+              <svg key={device} className={`vast-leak-resistance__annotations vast-leak-resistance__annotations--${device}`} viewBox="0 0 472 650" aria-label="Leak resistance technical features" role="img">
+                {items.map((item, index) => {
+                  const last = item.points[item.points.length - 1];
+                  return (
+                    <g key={index}>
+                      <polyline data-leak-line="" points={item.points.map((point) => point.join(',')).join(' ')} fill="none" stroke="currentColor" strokeWidth="1" />
+                      <circle data-leak-dot="" cx={last[0]} cy={last[1]} r="2.5" fill="currentColor" />
+                      <text data-leak-label="" x={item.x} y={item.y} textAnchor={item.align || 'start'} dominantBaseline="hanging" fill="currentColor">
+                        {item.text.split('\n').map((line, lineIndex) => <tspan x={item.x} dy={lineIndex ? (item.lineHeight || 20) : 0} key={lineIndex}>{line}</tspan>)}
+                      </text>
+                    </g>
+                  );
+                })}
+              </svg>
+            ))}
           </article>
           <SceneCard item={flightData} className="vast-leak-resistance__side--flight" />
         </div>
