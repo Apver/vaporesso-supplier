@@ -219,9 +219,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
             const centeredX = (width - visualWidth) / 2;
             // 第一屏默认居中，随后随滚动向左退出；第二、三屏仍由右侧进入。
             const from = i === 0 ? centeredX : width + width * (mobile ? 0.04 : 0.08);
-            const to = i === 2
-              ? centeredX                   // 最后一屏停止在视口正中
-              : -visualWidth - width * 0.08; // 前两屏向左退出
+            const to = i === 2 ? centeredX - width * (mobile ? 0 : 0.1) : -visualWidth - width * 0.08;
             const x = reducedMotion ? (width - visualWidth) / 2 : from + (to - from) * ease(local);
             gsap.set(headline, { x, autoAlpha: alpha, force3D: true });
             if (frame >= start) dominant = i;
@@ -510,7 +508,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
           {SCENES.map((scene, index) => (
             <div key={scene.word} className={`vast-sequence__caption vast-sequence__caption--${index + 1}`} aria-hidden={index !== 0}>
               <p className="vast-sequence__eyebrow" aria-label={scene.eyebrow}>
-                <span aria-hidden="true">{splitLetters(scene.eyebrow)}</span>
+                <span  className="vast-sequence__eyebrow__spanbox" aria-hidden="true">{splitLetters(scene.eyebrow)}</span>
               </p>
               <h2 className="vast-sequence__title" aria-label={scene.title.join(' ')}>
                 <span aria-hidden="true">{splitLetters(scene.title[0])}</span>

@@ -106,7 +106,6 @@ export const VastCoreGuard = ({ data = {} }) => {
   } = data;
 
   useIsomorphicLayoutEffect(() => {
-    // 浏览器绘制前初始化动画；SSR 不执行布局副作用。
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined;
     const root = rootRef.current;
     if (!root) return undefined;
@@ -148,31 +147,52 @@ export const VastCoreGuard = ({ data = {} }) => {
             gsap.set(reveal, { attr: { width: 0 } });
             gsap.set(night, { autoAlpha: 0 });
 
-            const pinTarget = mobile ? scene : stage;
+            // const pinTarget = mobile ? scene : stage;
             const distance = mobile ? mobileScrollDistance : scrollDistance;
             const offset = () => {
               const navHeight = window.matchMedia('(max-width: 1023px)').matches ? 0 : 0;
               return navHeight + Math.max(0, Number(pinOffset) || 0);
             };
+            // const timeline = gsap.timeline({
+            //   defaults: { ease: 'none' },
+            //   scrollTrigger: {
+            //     trigger: pinTarget,
+            //     start: () => `top top+=${offset()}`,
+            //     end: () => `+=${Math.max(1, Number(distance) || 1) * window.innerHeight}`,
+            //     pin: true,
+            //     pinSpacing: true,
+            //     scrub: Math.max(0, Number(scrub) || 0),
+            //     anticipatePin: 1,
+            //     invalidateOnRefresh: true,
+            //   },
+            // });
             const timeline = gsap.timeline({
-              defaults: { ease: 'none' },
-              scrollTrigger: {
-                trigger: pinTarget,
-                start: () => `top top+=${offset()}`,
-                end: () => `+=${Math.max(1, Number(distance) || 1) * window.innerHeight}`,
-                pin: true,
-                pinSpacing: true,
-                scrub: Math.max(0, Number(scrub) || 0),
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-              },
-            });
+                defaults: { ease: 'none' },
+                scrollTrigger: mobile
+                  ? {
+                      trigger: scene,
+                      start: 'top 20%',
+                      toggleActions: 'play none none none',
+                      once: true,
+                    }
+                  : {
+                      trigger: stage,
+                      start: () => `top top+=${offset}`,
+                      end: () =>
+                        `+=${Math.max(1, Number(distance) || 1) * window.innerHeight}`,
+                      pin: true,
+                      pinSpacing: true,
+                      scrub: Math.max(0, Number(scrub) || 0),
+                      anticipatePin: 1,
+                      invalidateOnRefresh: true,
+                    },
+              });
 
-            // 0—0.12 保留初始画面；中段切图与绘图；最后停留完整曲线。
+            // 0—0.13 保留初始画面；中段切图与绘图；最后停留完整曲线。
             timeline.to({}, { duration: 1 }, 0);
             timeline.to(night, { autoAlpha: 1, duration: 0.46, ease: 'power1.inOut' }, 0.18);
-            timeline.to(reveal, { attr: { width: 394 }, duration: 0.7 }, 0.12);
-            timeline.to(paths, { strokeDashoffset: 0, duration: 0.7 }, 0.12);
+            timeline.to(reveal, { attr: { width: 394 }, duration: 0.7 }, 0.1);
+            timeline.to(paths, { strokeDashoffset: 0, duration: 0.7 }, 0.13);
             // 反向滚动自动恢复白天图，并收回曲线。
           },
           root,

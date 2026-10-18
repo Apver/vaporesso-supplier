@@ -71,7 +71,7 @@ export const VastLeakResistance = ({ data = {} }) => {
       // 静态导入，插件注册与 DOM 操作只在客户端 layout effect 内执行。
       gsap.registerPlugin(ScrollTrigger);
       media = gsap.matchMedia();
-      media.add({ desktop: '(min-width: 768px)', reduced: '(prefers-reduced-motion: reduce)' }, (context) => {
+      media.add({ desktop: '(min-width: 1024px)', reduced: '(prefers-reduced-motion: reduce)' }, (context) => {
         // 移动端使用 CSS 静态布局，不创建动画或 ScrollTrigger。
         if (!context.conditions.desktop || context.conditions.reduced) return;
         const pin = root.querySelector('.vast-leak-resistance__pin');
@@ -81,6 +81,19 @@ export const VastLeakResistance = ({ data = {} }) => {
         const lines = Array.from(root.querySelectorAll('[data-leak-line]'));
         const dots = root.querySelectorAll('[data-leak-dot]');
         const labels = root.querySelectorAll('[data-leak-label]');
+        const header = root.querySelector('.vast-leak-resistance__header');
+const stage = root.querySelector('.vast-leak-resistance__stage');
+
+gsap.set(header, { y: 0, autoAlpha: 1 });
+gsap.set(stage, { y: 0 });
+
+const stageShift = () => {
+  const top = Math.max(
+    24,
+    (pin.clientHeight - stage.offsetHeight) / 2,
+  );
+  return Math.min(0, top - stage.offsetTop);
+};
         const startOffset = () => {
           const gap = tech.offsetLeft - left.offsetLeft - left.offsetWidth;
           return (tech.offsetWidth + gap) / 2;
@@ -179,8 +192,42 @@ export const VastLeakResistance = ({ data = {} }) => {
             },
           },
         });
-        rise.to(tech, { yPercent: 0, duration: riseEnd, ease: 'none' }, 0);
-        rise.to({}, { duration: 1 - riseEnd }, riseEnd);
+const headerEnd = 0.22;
+
+rise.fromTo(
+  header,
+  { y: 0, autoAlpha: 1 },
+  {
+    y: () => -(header.offsetTop + header.offsetHeight + 24),
+    autoAlpha: 0,
+    duration: headerEnd,
+    ease: 'none',
+  },
+  0,
+);
+
+rise.fromTo(
+  stage,
+  { y: 0 },
+  {
+    y: stageShift,
+    duration: headerEnd,
+    ease: 'none',
+  },
+  0,
+);
+
+rise.to(
+  tech,
+  {
+    yPercent: 0,
+    duration: riseEnd - headerEnd,
+    ease: 'none',
+  },
+  headerEnd,
+);
+
+rise.to({}, { duration: 1 - riseEnd }, riseEnd);
       }, root);
 
       root.querySelectorAll('img').forEach((image) => {

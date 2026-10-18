@@ -113,6 +113,7 @@ export const VastTriCoreExperience = ({ data = {} }) => {
         const pin = root.querySelector('.vast-tri-core__pin');
         const overview = root.querySelector('.vast-tri-core__overview');
         const mood = root.querySelector('.vast-tri-core__mood');
+        const techStage = root.querySelector('.vast-tri-core__tech-stage');
         const techModes = Array.from(root.querySelectorAll('.vast-tri-core__tech-mode'));
         const scenes = Array.from(root.querySelectorAll('.vast-tri-core__mood-scene'));
         const captions = Array.from(root.querySelectorAll('.vast-tri-core__mode-caption'));
@@ -190,14 +191,16 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           timeline.to(mood, { autoAlpha: 1, duration: 0.6, ease: 'power1.inOut' }, 0.7);
           buildMoodSequence(timeline, 1.3);
         } else {
-          // 移动端：橙色与灰色分别定屏，没有两个模块之间的叠层切换。
-          gsap.set(techModes, { autoAlpha: (index) => index === 0 ? 1 : 0 });
+          gsap.set(techModes, { autoAlpha: 1 });
+          gsap.set(techStage, { x: 0 });
+
           const boundaries = [1.1, 2.7];
           let lastTech = -1;
+
           const techTimeline = gsap.timeline({
             scrollTrigger: {
               trigger: overview,
-              start: () => `top top+=44`,
+              start: () => 'top top+=44',
               end: () => `+=${distance(mobileTechScrollDistance, 2000)}`,
               pin: true,
               pinSpacing: true,
@@ -206,14 +209,38 @@ export const VastTriCoreExperience = ({ data = {} }) => {
               invalidateOnRefresh: true,
             },
           });
-          techModes.forEach((mode, index) => mode.setAttribute('aria-hidden', String(index !== 0)));
+
+          techModes.forEach((mode, index) => {
+            mode.setAttribute('aria-hidden', String(index !== 0));
+          });
+
           techTimeline.to({}, { duration: 0.8 }, 0);
-          techTimeline.to(techModes[0], { autoAlpha: 0, duration: 0.4 }, 0.8);
-          techTimeline.to(techModes[1], { autoAlpha: 1, duration: 0.6 }, 0.8);
-          techTimeline.to(techModes[1], { autoAlpha: 0, duration: 0.4 }, 2.4);
-          techTimeline.to(techModes[2], { autoAlpha: 1, duration: 0.6 }, 2.4);
+
+          techTimeline.fromTo(
+            techStage,
+            { x: 0 },
+            {
+              x: () => -techStage.clientWidth,
+              duration: 0.6,
+              ease: 'none',
+              immediateRender: false,
+            },
+            0.8,
+          );
+
+          techTimeline.fromTo(
+            techStage,
+            { x: () => -techStage.clientWidth },
+            {
+              x: () => -techStage.clientWidth * 2,
+              duration: 0.6,
+              ease: 'none',
+              immediateRender: false,
+            },
+            2.4,
+          );
+
           techTimeline.to({}, { duration: 1 }, 3);
-          // 创建并填充完时间线后再注册回调，直接引用实例，不依赖回调 this。
           const syncTechMode = () => {
             const time = techTimeline.time();
             const index = time >= boundaries[1] ? 2 : time >= boundaries[0] ? 1 : 0;
@@ -272,7 +299,7 @@ export const VastTriCoreExperience = ({ data = {} }) => {
             <p className="vast-tri-core__eyebrow to-top">{techEyebrow}</p>
             <h2 className="vast-tri-core__tech-title to-top">{splitLines(techTitle)}</h2>
           </header>
-          <div className="vast-tri-core__tech-stage to-top">
+          <div className="vast-tri-core__tech-stage">
             {modes.map((mode, index) => (
               <article className={`vast-tri-core__tech-mode vast-tri-core__tech-mode--${index + 1}`} key={mode.key}>
                 <div className="vast-tri-core__ruler">

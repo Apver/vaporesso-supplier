@@ -8,7 +8,7 @@ export function prixAsset(file) {
 }
 
 export const PRIX_KV_SECTION_DATA = {
-  name: 'Vast',
+  name: 'VAST',
   slogan: 'VAST, FAST, LAST',
   mobBanner: prixAsset('vast_mob_01.webp'),
   pcBanner: prixAsset('vast_01.webp'),
@@ -23,7 +23,7 @@ export const PRIX_BRIEF_SECTION_DATA = {
 };
 
 export const PRIX_END_PRODUCT_DATA = {
-  title: 'Vast',
+  title: 'VAST',
   imgUrl: prixAsset('vast_13.webp'),
   salesList: [
     { id: 'sales1', text: '10mL Pod Capacity' },

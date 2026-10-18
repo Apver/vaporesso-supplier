@@ -40,7 +40,7 @@ export const VastBattery = ({ data = {} }) => {
       <div className="vast-battery__container">
         <h2 className="vast-battery__title to-top">{title}</h2>
         <div className="vast-battery__visual">
-          <p className="vast-battery__capacity to-top">{capacity}</p>
+          <p className="vast-battery__capacity to-top" style={{'transition-delay':'1.5s'}}>{capacity}</p>
           {productImage && (
             <picture className="vast-battery__product to-top">
               {mobileProductImage && (
