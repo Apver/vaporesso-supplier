@@ -276,6 +276,7 @@
   font-family: 'DinExp-Bold';
   src:
     url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp-Bold.woff2') format('woff2'),
+    url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp-Bold.woff') format('woff'),
     url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp-Bold.otf');
   font-display: swap;
 }
