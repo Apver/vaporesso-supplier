@@ -86,18 +86,18 @@ export const VastLeakResistance = ({ data = {} }) => {
         const dots = root.querySelectorAll('[data-leak-dot]');
         const labels = root.querySelectorAll('[data-leak-label]');
         const header = root.querySelector('.vast-leak-resistance__header');
-const stage = root.querySelector('.vast-leak-resistance__stage');
+        const stage = root.querySelector('.vast-leak-resistance__stage');
 
-gsap.set(header, { y: 0, autoAlpha: 1 });
-gsap.set(stage, { y: 0 });
+        gsap.set(header, { y: 0, autoAlpha: 1 });
+        gsap.set(stage, { y: 0 });
 
-const stageShift = () => {
-  const top = Math.max(
-    24,
-    (pin.clientHeight - stage.offsetHeight) / 2,
-  );
-  return Math.min(0, top - stage.offsetTop);
-};
+        const stageShift = () => {
+          const top = Math.max(
+            24,
+            (pin.clientHeight - stage.offsetHeight) / 2,
+          );
+          return Math.min(0, top - stage.offsetTop);
+        };
         const startOffset = () => {
           const gap = tech.offsetLeft - left.offsetLeft - left.offsetWidth;
           return (tech.offsetWidth + gap) / 2;
@@ -197,43 +197,43 @@ const stageShift = () => {
             },
           },
         });
-const headerEnd = 0.22;
+        const headerEnd = 0.22;
 
-rise.fromTo(
-  header,
-  { y: 0, autoAlpha: 1 },
-  {
-    y: () => -(header.offsetTop + header.offsetHeight + 24),
-    autoAlpha: 0,
-    duration: headerEnd,
-    ease: 'none',
-  },
-  0,
-);
+        rise.fromTo(
+          header,
+          { y: 0, autoAlpha: 1 },
+          {
+            y: () => -(header.offsetTop + header.offsetHeight + 24),
+            autoAlpha: 0,
+            duration: headerEnd,
+            ease: 'none',
+          },
+          0,
+        );
 
-rise.fromTo(
-  stage,
-  { y: 0 },
-  {
-    y: stageShift,
-    duration: headerEnd,
-    ease: 'none',
-  },
-  0,
-);
+        rise.fromTo(
+          stage,
+          { y: 0 },
+          {
+            y: stageShift,
+            duration: headerEnd,
+            ease: 'none',
+          },
+          0,
+        );
 
-rise.to(
-  tech,
-  {
-    yPercent: 0,
-    autoAlpha: 1,
-    duration: riseEnd - headerEnd,
-    ease: 'none',
-  },
-  headerEnd,
-);
+        rise.to(
+          tech,
+          {
+            yPercent: 0,
+            autoAlpha: 1,
+            duration: riseEnd - headerEnd,
+            ease: 'none',
+          },
+          headerEnd,
+        );
 
-rise.to({}, { duration: 1 - riseEnd }, riseEnd);
+        rise.to({}, { duration: 1 - riseEnd }, riseEnd);
       }, root);
 
       root.querySelectorAll('img').forEach((image) => {

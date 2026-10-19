@@ -5,9 +5,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 import { PRIX_CDN } from './constants';
 
-const FRAME_COUNT = 165;
+const FRAME_COUNT = 198;
 const LAST_FRAME = FRAME_COUNT - 1;
-const STARTS = [0, 40, 120];
+const STARTS = [0, 52, 140];
 const ENDS = STARTS.map((_, index) => (STARTS[index + 1] ?? FRAME_COUNT) - 1);
 
 const ANCHORS = [...STARTS, LAST_FRAME];
@@ -46,7 +46,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
   const canvasRef = useRef(null);
   const {
     frameBase = PRIX_CDN,
-    framePrefix = 'vast_04_',
+    framePrefix = 'vast_04_new_',
     mobileFramePrefix = '',
     scrollDistance = 5200,
     mobileScrollDistance = 4200,
@@ -508,7 +508,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
           {SCENES.map((scene, index) => (
             <div key={scene.word} className={`vast-sequence__caption vast-sequence__caption--${index + 1}`} aria-hidden={index !== 0}>
               <p className="vast-sequence__eyebrow" aria-label={scene.eyebrow}>
-                <span  className="vast-sequence__eyebrow__spanbox" aria-hidden="true">{splitLetters(scene.eyebrow)}</span>
+                <span className="vast-sequence__eyebrow__spanbox" aria-hidden="true">{splitLetters(scene.eyebrow)}</span>
               </p>
               <h2 className="vast-sequence__title" aria-label={scene.title.join(' ')}>
                 <span aria-hidden="true">{splitLetters(scene.title[0])}</span>

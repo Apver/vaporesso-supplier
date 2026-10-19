@@ -104,18 +104,22 @@ export const PRIX_INTASTART_SECTION_DATA = {
   slides: [
     {
       image: prixAsset('vast_12_1.webp'),
+      mobileImage: prixAsset('vast_mob_12_1.webp'),
       text: 'Fill E-juice to the minimum line.',
     },
     {
       image: prixAsset('vast_12_2.webp'),
+      mobileImage: prixAsset('vast_mob_12_2.webp'),
       text: 'Remove the silicone.',
     },
     {
       image: prixAsset('vast_12_3.webp'),
+      mobileImage: prixAsset('vast_mob_12_3.webp'),
       text: 'Push together right after filling.',
     },
     {
       image: prixAsset('vast_12_4.webp'),
+      mobileImage: prixAsset('vast_mob_12_4.webp'),
       text: 'Enjoy it.',
     },
   ],
