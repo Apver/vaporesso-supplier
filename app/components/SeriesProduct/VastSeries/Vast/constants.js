@@ -17,7 +17,7 @@ export const PRIX_KV_SECTION_DATA = {
 
 export const PRIX_BRIEF_SECTION_DATA = {
   title: 'Industry-first Insta-juiced Open System Pod',
-  desc: 'VAPORESSO VAST is the first no-wait 10mL refillable pod built for effortless, long-lasting use. With 1s priming, you can instantly start to use after fill. The pioneering Tri-core Mesh Tech integrates 3 different resistances in one pod, providing versatile experiences for all MTL users, with no bother to choose.  With a 1600mAh battery, and mesh life tested up to 105K puffs, it delivers more choice with less waiting and fewer interruptions.*',
+  desc: 'VAPORESSO VAST is the first no-wait 10mL refillable pod built for effortless, long-lasting use. With 1s priming, you can instantly start to use after fill. The pioneering Tri-core Mesh Tech integrates 3 different resistances in one pod, providing versatile experiences for all MTL users, with no bother to choose.  With a 1600mAh battery, and mesh life tested up to 150K puffs, it delivers more choice with less waiting and fewer interruptions.*',
   pcImageUrl: prixAsset('vast_02.webp'),
   mobImageUrl: prixAsset('vast_mob_02.webp'),
 };
@@ -141,7 +141,7 @@ export const VAST_CUSTOMIZATION_SECTION_DATA = {
 
 export const VAST_CORE_GUARD_DATA = {
   eyebrow: 'CoreGuard Tech',
-  title: 'Keep All 105K Looking\nAnd Tasting The Same',
+  title: 'Keep All 150K Looking\nAnd Tasting The Same',
   description: 'A nano-scale coating protects the heating wire from e-liquid corrosion, improving durability, stability, and flavor.',
   dayImage: prixAsset('vast_08_1.webp'),
   nightImage: prixAsset('vast_08_2.webp'),

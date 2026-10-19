@@ -7,7 +7,7 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffec
 const CoreGuardChart = () => {
   const uid = `coreguard-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   return (
-    <svg className="vast-core-guard__chart-svg" viewBox="0 0 453 260" fill="none" role="img" aria-label="Flavor comparison between VAST and other devices over 105K puffs">
+    <svg className="vast-core-guard__chart-svg" viewBox="0 0 453 260" fill="none" role="img" aria-label="Flavor comparison between VAST and other devices over 150K puffs">
       <path d="M20.7586 18.5186C20.4928 18.2528 20.0619 18.2528 19.796 18.5186L15.4645 22.8502C15.1987 23.116 15.1987 23.547 15.4645 23.8128C15.7303 24.0786 16.1613 24.0786 16.4271 23.8128L20.2773 19.9625L24.1276 23.8128C24.3934 24.0786 24.8244 24.0786 25.0902 23.8128C25.356 23.547 25.356 23.116 25.0902 22.8502L20.7586 18.5186ZM20.2773 242.96L20.958 242.96L20.958 18.9999L20.2773 18.9999L19.5967 18.9999L19.5967 242.96L20.2773 242.96Z" fill="white" />
       <path d="M415.666 243.136C415.932 242.87 415.932 242.439 415.666 242.173L411.334 237.841C411.069 237.576 410.638 237.576 410.372 237.841C410.106 238.107 410.106 238.538 410.372 238.804L414.222 242.654L410.372 246.505C410.106 246.77 410.106 247.201 410.372 247.467C410.638 247.733 411.069 247.733 411.334 247.467L415.666 243.136ZM20 242.654V243.335H415.185V242.654V241.974H20V242.654Z" fill="white" />
       <mask id={`${uid}-mask0_4660_620`} style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="20" y="35" width="382" height="207">
@@ -88,7 +88,7 @@ export const VastCoreGuard = ({ data = {} }) => {
   const rootRef = useRef(null);
   const {
     eyebrow = 'CoreGuard Tech',
-    title = 'Keep All 105K Looking\nAnd Tasting The Same',
+    title = 'Keep All 150K Looking\nAnd Tasting The Same',
     description = 'A nano-scale coating protects the heating wire from e-liquid corrosion, improving durability, stability, and flavor.',
     dayImage,
     nightImage,
@@ -167,26 +167,26 @@ export const VastCoreGuard = ({ data = {} }) => {
             //   },
             // });
             const timeline = gsap.timeline({
-                defaults: { ease: 'none' },
-                scrollTrigger: mobile
-                  ? {
-                      trigger: scene,
-                      start: 'top 20%',
-                      toggleActions: 'play none none none',
-                      once: true,
-                    }
-                  : {
-                      trigger: stage,
-                      start: () => `top top+=${offset()}`,
-                      end: () =>
-                        `+=${Math.max(1, Number(distance) || 1) * window.innerHeight}`,
-                      pin: true,
-                      pinSpacing: true,
-                      scrub: Math.max(0, Number(scrub) || 0),
-                      anticipatePin: 1,
-                      invalidateOnRefresh: true,
-                    },
-              });
+              defaults: { ease: 'none' },
+              scrollTrigger: mobile
+                ? {
+                  trigger: scene,
+                  start: 'top 20%',
+                  toggleActions: 'play none none none',
+                  once: true,
+                }
+                : {
+                  trigger: stage,
+                  start: () => `top top+=${offset()}`,
+                  end: () =>
+                    `+=${Math.max(1, Number(distance) || 1) * window.innerHeight}`,
+                  pin: true,
+                  pinSpacing: true,
+                  scrub: Math.max(0, Number(scrub) || 0),
+                  anticipatePin: 1,
+                  invalidateOnRefresh: true,
+                },
+            });
 
             // 0—0.13 保留初始画面；中段切图与绘图；最后停留完整曲线。
             timeline.to({}, { duration: 1 }, 0);
@@ -269,7 +269,7 @@ export const VastCoreGuard = ({ data = {} }) => {
                 </li>
               ))}
             </ul>
-            </div>
+          </div>
         </div>
       </div>
     </section>
