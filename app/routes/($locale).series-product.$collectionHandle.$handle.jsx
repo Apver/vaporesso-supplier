@@ -210,18 +210,20 @@ export default function Product() {
 
   const resolvedProductNav = useMemo(() => {
     const navRow = localizedProductNavRows?.[0];
+    const layoutNavName = overviewLayoutEntry?.navName;
     if (!navRow) {
-      return filterProductNavTabs(PRODUCT_NAV_CONTENT, show3DExhibit);
+      const fallback = filterProductNavTabs(PRODUCT_NAV_CONTENT, show3DExhibit);
+      return layoutNavName ? {...fallback, name: layoutNavName} : fallback;
     }
 
     return {
-      name: navRow.name || PRODUCT_NAV_CONTENT.name,
+      name: layoutNavName || navRow.name || PRODUCT_NAV_CONTENT.name,
       heroHref: navRow.heroHref || '#overview',
       buyHref: navRow.buyHref || PRODUCT_NAV_CONTENT.buyHref,
       buyLabel: navRow.buyLabel || PRODUCT_NAV_CONTENT.buyLabel,
       tabs: buildNavTabs(navRow.tabs, show3DExhibit),
     };
-  }, [localizedProductNavRows, show3DExhibit]);
+  }, [localizedProductNavRows, show3DExhibit, overviewLayoutEntry?.navName]);
 
   const localized3DRows = useMemo(
     () => getLocalizedDataset(sheets?.product3dviewer ?? [], locale),

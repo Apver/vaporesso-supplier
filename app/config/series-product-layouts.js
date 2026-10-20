@@ -127,6 +127,7 @@ export const SERIES_PRODUCT_LAYOUT_ENTRIES = {
   'xros6-mini': {
     Layout: Xros6MiniLayout,
     specElementId: 'check-specs-xros-6-mini',
+    navName: 'XROS 6 MINI',
   },
   'xros-mini-retro': {
     Layout: XrosMiniRetroLayout,
