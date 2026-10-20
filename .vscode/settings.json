@@ -23,7 +23,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.css-language-features"
   },
   "stylelint.validate": ["css", "scss"],
   "stylelint.packageManager": "npm"
