@@ -1366,6 +1366,7 @@
       &__text {
         max-width: 2.9rem;
         font-size: 0.28rem;
+        font-family: var(--deb);
       }
     }
   }
@@ -1822,6 +1823,7 @@
       &__eyebrow {
         margin-bottom: 0.24rem;
         font-size: 0.32rem;
+        font-family: var(--deb);
       }
 
       &__title {
@@ -2195,6 +2197,7 @@
       &__eyebrow {
         margin-bottom: 0.2rem;
         font-size: 0.32rem;
+        font-family: var(--deb);
       }
 
       &__title {
@@ -2249,9 +2252,11 @@
       }
 
       &__body h3 {
-        margin-bottom: 0.2rem;
-        font-size: 0.4rem;
-        line-height: 1.2;
+        margin-bottom: 0.19rem;
+        font-size: 0.42rem;
+        line-height: normal;
+        letter-spacing: -0.00286rem;
+
       }
 
       &__body p {

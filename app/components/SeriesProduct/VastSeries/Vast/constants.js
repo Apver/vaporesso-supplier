@@ -16,7 +16,7 @@ export const PRIX_KV_SECTION_DATA = {
 
 
 export const PRIX_BRIEF_SECTION_DATA = {
-  title: 'Industry-first Insta-juiced Open System Pod',
+  title: "World's First Open System With No Priming Wait",
   desc: 'VAPORESSO VAST is the first no-wait 10mL refillable pod built for effortless, long-lasting use. With 1s priming, you can instantly start to use after fill. The pioneering Tri-core Mesh Tech integrates 3 different resistances in one pod, providing versatile experiences for all MTL users, with no bother to choose.  With a 1600mAh battery, and mesh life tested up to 150K puffs, it delivers more choice with less waiting and fewer interruptions.*',
   pcImageUrl: prixAsset('vast_02.webp'),
   mobImageUrl: prixAsset('vast_mob_02.webp'),
