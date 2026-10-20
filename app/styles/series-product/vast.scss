@@ -15,10 +15,8 @@
 
   .to-top {
     opacity: 0;
-    transform: translateY(20%);
-    transition:
-      transform 0.7s ease-in-out,
-      opacity 0.7s ease-in-out;
+    transform: translateY(100px);
+    transition: transform 0.8s, opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
 
   .to-top.appear {
@@ -31,24 +29,12 @@
 
     .mobile-to-top {
       opacity: 0;
-      transform: translateY(24px);
-      transition: transform 1.2s ecubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s ease;
-    }
-
-    .mobile-to-top.appear {
-      opacity: 1;
-      transform: translateY(0);
+      transform: translateY(100px);
+      transition: transform 0.8s, opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
       will-change: transform, opacity;
     }
 
-    .to-top {
-      transform: translateY(24px);
-      transition:
-        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 1.2s ease;
-    }
-
-    .to-top.appear {
+    .mobile-to-top.appear {
       opacity: 1;
       transform: translateY(0);
     }
