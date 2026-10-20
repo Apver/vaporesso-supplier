@@ -278,6 +278,7 @@ export function ColorSpec({
 
   isNoMaxWidthFinish = false,
   bottomTitle = false,
+  colorColumns,
 }) {
   // 「 /」前的空格 + / 转为换行；\n 转为 <br/>（保留 0.6/0.8Ω 等电阻写法里的 /）
   const formatLineBreaks = (value) => {
@@ -371,12 +372,16 @@ export function ColorSpec({
     });
   };
 
+  const colorColsClass = colorColumns
+    ? `ui_v3-color-cols-${colorColumns}`
+    : '';
+
   //----------------------------------------
   // 💡 返回 UI
   //----------------------------------------
   return (
     <ul
-      className={`f ${isNoMaxWidthFinish ? 'ui_v3-no_max_width_finish' : ''}`}
+      className={`f ${isNoMaxWidthFinish ? 'ui_v3-no_max_width_finish' : ''} ${colorColsClass}`.trim()}
       key={key}
     >
       <li className="f_24 f-d-bold">{itemTitle}</li>
@@ -520,6 +525,7 @@ export function SpecSectionJsData({isActive = true, data}) {
               noSubtitle,
               id,
               podList,
+              colorColumns,
             } = item;
             const key = `item-${itemTitle}-${index}`;
             if (itemType.toLowerCase() === 'textwithimage')
@@ -557,6 +563,7 @@ export function SpecSectionJsData({isActive = true, data}) {
                   secondaryColorLabel={secondaryColorLabel}
                   isNoMaxWidthFinish={isNoMaxWidthFinish}
                   bottomTitle={bottomTitle}
+                  colorColumns={colorColumns}
                 />
               );
             else if (itemType.toLowerCase() === 'replacementpodlink') {

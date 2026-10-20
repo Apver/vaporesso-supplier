@@ -3,12 +3,12 @@ import {useEffect, useRef} from 'react';
 const ASSET =
   'https://cdn.shopify.com/s/files/1/0703/9873/8521/files';
 
-const VAPORESSO_EASIER = ['Remove and Reinstall in 3 Easy Steps'];
+const VAPORESSO_EASIER = ['Remove and reinstall in 3 easy steps.'];
 
 const VAPORESSO_SAFER = [
-  'Separated Terminals, Short-Circuit Protection',
-  'Peak Current >15A, Perfectly balance the flavor and safe',
-  'Impact-Resistant Hard Shell, Reduced Fire Risk',
+  'Isolated terminals with short-circuit protection.',
+  'Peak current: >15 A, balancing flavor performance and safety.',
+  'Impact-resistant hard shell for a reduced risk of fire.',
 ];
 
 const OTHER_DIFFICULT = [
@@ -16,9 +16,9 @@ const OTHER_DIFFICULT = [
 ];
 
 const OTHER_RISKIER = [
-  'Cutting wires directly increases the risk.',
-  'Peak Current: <12 A; prone to short circuits.',
-  'Pouch cells are prone to catching fire upon impact.',
+  'Cutting wires directly increases safety risks.',
+  'Pouch cells are more likely to catch fire upon impact.',
+  'Pouch cells are more likely to catch fire upon impact.',
 ];
 
 function SafeIcon() {

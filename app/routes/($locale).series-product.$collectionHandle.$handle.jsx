@@ -18,33 +18,21 @@ import {getShopifyLanguageCode} from '~/lib/i18n';
 import {parseExcelFromUrl} from '~/lib/excel';
 import {getLocalizedDataset, buildSheetTranslationStatus} from '~/lib/localization';
 import {useLocaleAutoTranslate} from '~/lib/useLocaleAutoTranslate';
-import {Xros6MiniSeo} from '~/components/SeriesProduct/XrosSeries/Xros6Mini';
-
-/** handle → 本地 SEO 覆盖（优先于 Shopify seo 字段） */
-const SERIES_PRODUCT_SEO_OVERRIDES = {
-  'xros6-mini': Xros6MiniSeo,
-};
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = ({data}) => {
-  const seoOverride = SERIES_PRODUCT_SEO_OVERRIDES[data?.product?.handle];
   return [
     {
-      title:
-        seoOverride?.title ??
-        (data?.product?.seo?.title
-          ? `${data?.product.seo.title}`
-          : `${data?.collection.title ?? ''} | ${data?.product.title ?? ''}`),
+      title: data?.product?.seo?.title
+        ? `${data?.product.seo.title}`
+        : `${data?.collection.title ?? ''} | ${data?.product.title ?? ''}`,
     },
     {
       name: 'description',
       content:
-        seoOverride?.description ??
-        data?.product?.seo?.description ??
-        data?.product.description ??
-        '',
+        data?.product?.seo?.description ?? data?.product.description ?? '',
     },
     {
       rel: 'canonical',

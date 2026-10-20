@@ -2,20 +2,13 @@ import {specImg} from '~/utils/ui_v3_utils';
 
 const SPEC_IMG = 'https://cdn.shopify.com/s/files/1/0703/9873/8521/files';
 
-/** 产品页 SEO（title / meta description） */
-export const Xros6MiniSeo = {
-  title: 'XROS 6 MINI & R',
-  description:
-    'XROS 6 MINI & R is designed for those who want vaping made simple. Featuring 60s Smart Prime for quick startup, a 1600mAh battery that lasts up to 4 days, and precise airflow adjustment for personalized MTL control, it delivers a smooth and effortless experience. Powered by COREX 3.0 and protected by SSS leak-resistant technology, XROS 6 MINI makes great flavour easier than ever. The XROS 6 MINI R feature removable batteries that users can remove in just 3 steps.',
-};
-
 export const Xros6MiniProductSpecData = {
-  primaryProductTitle: 'XROS 6 Mini & R',
+  primaryProductTitle: 'XROS 6 Mini',
   isNoMaxWidthFinish: true,
   items: [
     {
-      id: 'finish',
-      itemTitle: 'Finish',
+      id: 'XROS 6 MINI',
+      itemTitle: 'XROS 6 MINI',
       itemType: 'color',
       primaryColorImages: [
         `${SPEC_IMG}/xros_6_mini-colors.webp`,
@@ -76,6 +69,41 @@ export const Xros6MiniProductSpecData = {
       ],
     },
     {
+      id: 'XROS 6 MINI R',
+      itemTitle: 'XROS 6 MINI R',
+      itemType: 'color',
+      primaryColorImages: [
+        `${SPEC_IMG}/XROS_6_mini-quanse.webp`,
+      ],
+      primaryColorTitle: [
+        [
+          'Titanium\nBlack',
+          'Titanium\nSilver',
+          'Plume\nWhite',
+          'Plume\nPink',
+          'Plume\nBlue',
+          'Leather\nPink',
+          'Leather\nSilver'
+        ],
+      ],
+      primaryColorLabel: [
+        [],
+      ],
+      primaryColorImagesMobile: [
+        `${SPEC_IMG}/Mob-XROS_6_mini_R-quanse-1.webp`,
+        `${SPEC_IMG}/Mob-XROS_6_mini_R-quanse-2.webp`,
+      ],
+      primaryColorTitleMobile: [
+        ['Titanium\nBlack', 'Titanium\nSilver', 'Plume\nWhite', 'Plume\nPink'],
+        ['Plume\nBlue', 'Leather\nPink', 'Leather\nSilver', ''],
+      ],
+      primaryColorLabelMobile: [
+        [],
+        [],
+      ],
+      colorColumns: 4,
+    },
+    {
       id: 'msrp',
       itemTitle: 'MSRP',
       itemType: 'textWithImage',
@@ -87,7 +115,14 @@ export const Xros6MiniProductSpecData = {
       itemType: 'textWithImage',
       primaryTextWithImage: [
         specImg(`${SPEC_IMG}/xros_6_mini-size.webp?v=1786959528`),
+        'XROS 6 MINI',
         'Dimension: 110.7*24.55*14.65mm',
+        'Weight: 55.2g',
+      ],
+      secondaryTextWithImage: [
+        specImg(`${SPEC_IMG}/XROS_6_MINI_R_KIT-size.webp`),
+        'XROS 6 MINI R',
+        'Dimension: 118.2*24.55*14.65mm',
         'Weight: 55.2g',
       ],
     },
@@ -129,6 +164,15 @@ export const Xros6MiniProductSpecData = {
         specImg(
           `${SPEC_IMG}/xros_6_mini-package-2ML.webp`,
           `${SPEC_IMG}/xros_6_mini-Mob-package-2ML.webp`,
+        ),
+        '<XROS 6 MINI R KIT INCLUDES>',
+        '1 x XROS 6 MINI R Battery',
+        '1 x XROS Series 0.6Ω MESH POD',
+        '1 x User Manual & Warranty Card',
+        '1 x Reminder Card',
+        specImg(
+          `${SPEC_IMG}/xros6-mini-R-package.webp`,
+          `${SPEC_IMG}/xros6-mini-package.webp`,
         ),
       ],
     },
