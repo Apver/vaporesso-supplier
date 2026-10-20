@@ -166,7 +166,7 @@
     color: #000;
     font-weight: 700;
     font-size: 80px;
-    font-family: 'DinExp';
+    font-family: "DinExp-Bold";
     line-height: 1;
   }
 
@@ -438,9 +438,9 @@
   }
 
   .feature-card-cnt h3 {
-    font-weight: 700;
+    font-weight: 700 !important;
     font-size: 20px;
-    font-family: 'DinExp-Bold';
+    font-family: 'DinExp-Bold' !important;
     line-height: 1;
   }
 
@@ -1067,7 +1067,7 @@
     color: #ffffff;
     font-weight: 700;
     font-size: 4.8rem;
-    font-family: 'DinExp';
+    font-family: 'DinExp-Bold' !important;
     line-height: 108.333%;
   }
 
@@ -2480,7 +2480,7 @@
 
   .xros6-mini-battery-remove__note {
     margin: 8px 0 0;
-    font-family: 'DinExp';
+    font-family: 'DinExp-Bold' !important;
     font-weight: 700;
     font-size: 18px;
     color: #297DD0;
@@ -2558,7 +2558,7 @@
 
   .xros6-mini-battery-remove__tab.is-active {
     color: #fff;
-    font-family: 'DinExp';
+    font-family: 'DinExp-Bold' !important;
     font-weight: 700;
   }
 
@@ -3477,13 +3477,13 @@
     }
 
     .xros6-mini-why-choose__icon {
-      width: 0.28rem;
+      width: 0.48rem;
       height: 0.33rem;
     }
 
     .xros6-mini-why-choose__icon_danger {
-      width: 0.51rem;
-      height: 0.42rem;
+      width: 0.4rem;
+      height: 0.35rem;
     }
 
     .xros6-mini-why-choose__list {
@@ -3757,7 +3757,7 @@
         margin: 0 auto 0.8rem;
         font-size: 0.5rem;
         line-height: 0.55rem;
-        font-family: 'DinExp';
+        font-family: 'DinExp-Bold';
         font-weight: 700;
       }
 
@@ -3796,6 +3796,22 @@
     .colors {
       width: 102%;
       margin-left: -1%;
+
+      .item {
+        width: 82.5px;
+      }
+    }
+
+    // XROS 6 MINI R：4 列色块，覆盖固定 82.5px，保证末行与上方列对齐
+    &.ui_v3-color-cols-4 .colors {
+      flex-wrap: wrap;
+
+      .item {
+        flex: 0 0 25%;
+        width: 25%;
+        max-width: 25%;
+        box-sizing: border-box;
+      }
     }
   }
 

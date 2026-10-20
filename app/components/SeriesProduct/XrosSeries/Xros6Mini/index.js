@@ -1,4 +1,4 @@
-export {Xros6MiniProductSpecData, Xros6MiniSeo} from './languageText.js';
+export {Xros6MiniProductSpecData} from './languageText.js';
 export {Xros6MiniKVSection} from './KVSection';
 export {Xros6MiniSalesSection} from './SalesSection';
 export {Xros6MiniShowCaseOne} from './ShowCaseOne';

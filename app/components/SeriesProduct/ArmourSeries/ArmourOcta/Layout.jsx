@@ -34,9 +34,9 @@ export function ArmourOctaLayout({children, onCheckSpecs}) {
   }, []);
   const KvSectionData = {
     mobBanner:
-      'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-01-1-3x.webp',
+      'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-mob-01-1-3x.webp?v=0.1',
     pcBanner:
-      'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-01-1-2x.webp',
+      'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/armour-octa-01-1-2x.webp?v=0.1',
   };
   const BriefSectionData = {
     // title: 'Swap Panels, Premium Style',
