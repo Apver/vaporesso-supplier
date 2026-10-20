@@ -95,7 +95,7 @@ export const Xros6MiniProductSpecData = {
       ],
       primaryColorTitleMobile: [
         ['Titanium\nBlack', 'Titanium\nSilver', 'Plume\nWhite', 'Plume\nPink'],
-        ['Plume\nBlue', 'Leather\nPink', 'Leather\nSilver'],
+        ['Plume\nBlue', 'Leather\nPink', 'Leather\nSilver', ''],
       ],
       primaryColorLabelMobile: [
         [],

@@ -3802,16 +3802,35 @@
       }
     }
 
-    // XROS 6 MINI R：4 列色块，覆盖固定 82.5px，保证末行与上方列对齐
-    &.ui_v3-color-cols-4 .colors {
-      flex-wrap: wrap;
+    // XROS 6 MINI R：PC 单行 7 色，固定列宽
+    &.ui_v3-color-cols-4 .colors .item {
+      flex: none;
+      width: 84.15px;
+      max-width: none;
+    }
+  }
 
-      .item {
-        flex: 0 0 25%;
-        width: 25%;
-        max-width: 25%;
-        box-sizing: border-box;
+  // Size and weight：两侧图片高度不同时，文字顶部对齐
+  .spec-content ul.l {
+    align-items: flex-start;
+
+    > .d.size {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+
+      > picture,
+      > img {
+        margin-top: auto;
       }
+    }
+  }
+
+  // Packing list：第三张（末张）包装图去掉底边距
+  .spec-content .package-list .d {
+    > picture:last-of-type img,
+    > img:last-of-type {
+      margin-bottom: 0;
     }
   }
 
@@ -3824,6 +3843,21 @@
         width: 123%;
         margin-left: -12%;
         padding-right: 0;
+      }
+
+      // 移动端与上方 XROS 6 MINI 一致
+      &.ui_v3-color-cols-4 .colors .item {
+        width: 82.5px;
+      }
+    }
+
+    // 移动端上下堆叠，取消 PC 顶对齐逻辑
+    .spec-content ul.l > .d.size {
+      display: block;
+
+      > picture,
+      > img {
+        margin-top: 0;
       }
     }
   }
