@@ -191,23 +191,82 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           overviewEntrance.fromTo(techHeading,
             { y: 32, autoAlpha: 0 },
             { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out' }, 0);
-          gsap.fromTo(
-            techModes,
-            { x: 100, autoAlpha: 0 },
-            {
-              x: 0,
-              autoAlpha: 1,
-              duration: 0.85,
-              stagger: 0.18,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: techStage,
-                start: 'top 70%',
-                toggleActions: 'play none none none',
-                once: true,
-              },
+          // gsap.fromTo(
+          //   techModes,
+          //   { x: 100, autoAlpha: 0 },
+          //   {
+          //     x: 0,
+          //     autoAlpha: 1,
+          //     duration: 0.85,
+          //     stagger: 0.18,
+          //     ease: 'power3.out',
+          //     scrollTrigger: {
+          //       trigger: techStage,
+          //       start: 'top 70%',
+          //       toggleActions: 'play none none none',
+          //       once: true,
+          //     },
+          //   },
+          // );
+          // 外层不再整体移动，分别控制组内元素。
+          gsap.set(techModes, { x: 0, autoAlpha: 1 });
+
+          const cardsEntrance = gsap.timeline({
+            scrollTrigger: {
+              trigger: techStage,
+              start: 'top 70%',
+              toggleActions: 'play none none none',
+              once: true,
             },
-          );
+          });
+
+          techModes.forEach((mode, index) => {
+            const ruler = mode.querySelector('.vast-tri-core__ruler');
+            const copy = mode.querySelector('.vast-tri-core__coil-copy');
+            const image = mode.querySelector('.vast-tri-core__coil-image');
+
+            // 每组间隔 1.65 秒。
+            const start = index * 0.5;
+
+            // 先出现 0.8Ω / 0.6Ω / 0.4Ω 和标尺，移动距离短。
+            cardsEntrance.fromTo(
+              ruler,
+              { x: 40, autoAlpha: 0 },
+              {
+                x: 0,
+                autoAlpha: 1,
+                duration: 0.7,
+                ease: 'power2.out',
+              },
+              start,
+            );
+
+            // 再出现指示灯、模式名称和说明，移动距离稍长。
+            cardsEntrance.fromTo(
+              copy,
+              { x: 80, autoAlpha: 0 },
+              {
+                x: 0,
+                autoAlpha: 1,
+                duration: 0.85,
+                ease: 'power2.out',
+              },
+              start + 0.3,
+            );
+
+            // 最后出现线圈图片，移动距离最长。
+            cardsEntrance.fromTo(
+              image,
+              { x: 140, autoAlpha: 0 },
+              {
+                x: 0,
+                autoAlpha: 1,
+                duration: 1,
+                ease: 'power2.out',
+              },
+              start + 0.65,
+            );
+          });
           const moodEntrance = gsap.timeline({ paused: true });
           moodEntrance.fromTo(moodHeading,
             { y: 32, autoAlpha: 0 },
