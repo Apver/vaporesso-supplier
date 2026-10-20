@@ -322,7 +322,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
               );
 
               gsap.set(word, {
-                autoAlpha: wordIn * wordOut,
+                autoAlpha: wordIn * (i === 2 ? 1 : wordOut),
               });
 
               // 右边数字：到达产品右边缘时完全消失。
@@ -340,7 +340,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
               );
 
               gsap.set(metric, {
-                autoAlpha: metricIn * metricOut,
+                autoAlpha: metricIn * (i === 2 ? 1 : metricOut),
               });
             }
             if (frame >= start) dominant = i;
