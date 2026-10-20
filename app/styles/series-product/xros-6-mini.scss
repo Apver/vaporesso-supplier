@@ -1,4 +1,22 @@
+@media (min-width: 1024px) {
+  html:has(.product-xros6-mini) {
+    font-size: 0.5208333333vw;
+  }
+}
+
+/* product.css 的 overflow:hidden 会使子元素 position:sticky 失效 */
+.product.product-xros6-mini {
+  overflow-x: hidden;
+
+  @supports (overflow: clip) {
+    overflow-x: clip;
+  }
+}
+
 .product-xros6-mini {
+  --container-gutter: 40px;
+  --rpx: calc(1vw * 100 / 1920);
+
   background-color: #fff;
 
   .custom__container {
