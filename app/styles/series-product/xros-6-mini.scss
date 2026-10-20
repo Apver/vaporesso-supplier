@@ -2754,6 +2754,131 @@
     }
   }
 
+  /* 笔记本档：与同页其它模块一致按 ≈0.8 缩放 */
+  @media (min-width: 1024px) and (max-width: 1450px) {
+    .xros6-mini-battery-remove {
+      padding-top: 128px;
+    }
+
+    .xros6-mini-battery-remove__eyebrow {
+      margin: 0 0 6px;
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    .xros6-mini-battery-remove__title {
+      font-size: 38px;
+      line-height: 42px;
+    }
+
+    .xros6-mini-battery-remove__note {
+      margin: 6px 0 0;
+      font-size: 14px;
+      line-height: 15px;
+    }
+
+    .xros6-mini-battery-remove__tabs {
+      width: 260px;
+      height: 46px;
+      margin-top: 29px;
+      padding: 5px;
+      border-radius: 40px;
+    }
+
+    .xros6-mini-battery-remove__tabs-thumb {
+      top: 5px;
+      left: 5px;
+      width: 120px;
+      height: 36px;
+      border-radius: 32px;
+    }
+
+    .xros6-mini-battery-remove__tabs[data-tab='reinstall']
+      .xros6-mini-battery-remove__tabs-thumb {
+      /* 260 - 5*2 - 120 = 130 */
+      transform: translateX(130px);
+    }
+
+    .xros6-mini-battery-remove__tab {
+      height: 36px;
+      border-radius: 32px;
+      font-size: 15px;
+      line-height: 36px;
+    }
+
+    .xros6-mini-battery-remove__panel {
+      margin-top: 38px;
+    }
+
+    .xros6-mini-battery-remove__steps {
+      gap: 12px;
+    }
+
+    .xros6-mini-battery-remove__step {
+      padding: 16px;
+    }
+
+    .xros6-mini-battery-remove__step-copy {
+      padding: 0 8px;
+    }
+
+    .xros6-mini-battery-remove__step-num {
+      width: 29px;
+      height: 29px;
+      font-size: 16px;
+    }
+
+    .xros6-mini-battery-remove__step-text {
+      margin: 21px 0 10px;
+      width: 224px;
+      height: 140px;
+      font-size: 14px;
+      line-height: 19px;
+
+      > .xros6-mini-battery-remove__step-warn {
+        margin-top: 19px;
+      }
+    }
+
+    .xros6-mini-battery-remove__step-warn {
+      font-size: 14px;
+      line-height: 19px;
+    }
+
+    .xros6-mini-battery-remove__reinstall {
+      grid-template-columns: 296px 440px;
+      column-gap: 64px;
+      padding: 16px 16px 16px 24px;
+    }
+
+    .xros6-mini-battery-remove__reinstall-copy
+      .xros6-mini-battery-remove__step-num {
+      width: 29px;
+      height: 29px;
+      font-size: 16px;
+    }
+
+    .xros6-mini-battery-remove__reinstall-text {
+      margin: 32px 0 0;
+      height: 379px;
+      font-size: 14px;
+      line-height: 19px;
+    }
+
+    .xros6-mini-battery-remove__reinstall-note {
+      margin: 16px 0 0;
+      font-size: 14px;
+    }
+
+    .xros6-mini-battery-remove__reinstall-pic {
+      width: 440px;
+
+      img {
+        height: 440px;
+      }
+    }
+  }
+
   /* WHY CHOOSE US? — 距上个模块 200px */
   .xros6-mini-why-choose {
     padding-top: 200px;
@@ -2833,18 +2958,6 @@
   .why-choose-split-reveal.appear .xros6-mini-why-choose__page--right {
     opacity: 1;
     transform: translateX(0);
-  }
-
-  /* 中屏视口放不下 1050 时整体等比缩放，避免 overflow-x 裁切左卡 */
-  @media (min-width: 1024px) and (max-width: 1120px) {
-    .xros6-mini-why-choose__stage {
-      width: 100%;
-    }
-
-    .xros6-mini-why-choose__book {
-      transform: scale(0.82);
-      transform-origin: top center;
-    }
   }
 
   .xros6-mini-why-choose__head {
@@ -2988,6 +3101,89 @@
 
   .xros6-mini-why-choose__page--right .xros6-mini-why-choose__list li::before {
     background: #000;
+  }
+
+  /* WHY CHOOSE US 笔记本档：≈0.8，双卡 412+16+412=840 */
+  @media (min-width: 1024px) and (max-width: 1450px) {
+    .xros6-mini-why-choose {
+      padding-top: 160px;
+      padding-bottom: 109px;
+
+      .custom__container1 {
+        max-width: 840px;
+      }
+    }
+
+    .xros6-mini-why-choose__title {
+      margin: 0 0 32px;
+      font-size: 38px;
+      line-height: 38px;
+    }
+
+    .xros6-mini-why-choose__stage {
+      width: 840px;
+    }
+
+    .xros6-mini-why-choose__book {
+      width: 840px;
+      gap: 16px;
+      transform: none;
+    }
+
+    .xros6-mini-why-choose__page {
+      flex: 0 0 412px;
+      width: 412px;
+    }
+
+    .xros6-mini-why-choose__head {
+      height: 54px;
+      font-size: 22px;
+    }
+
+    .xros6-mini-why-choose__body {
+      width: 412px;
+      height: 323px;
+    }
+
+    .xros6-mini-why-choose__body > .xros6-mini-why-choose__block:first-child {
+      padding: 29px 45px 0;
+    }
+
+    .xros6-mini-why-choose__body > .xros6-mini-why-choose__block:last-child {
+      padding: 38px 45px 0 45px;
+    }
+
+    .xros6-mini-why-choose__label {
+      gap: 9px;
+      margin: 0 0 10px;
+      padding: 0 0 10px;
+      font-size: 16px;
+      line-height: 18px;
+    }
+
+    .xros6-mini-why-choose__icon {
+      width: 18px;
+    }
+
+    .xros6-mini-why-choose__list {
+      font-size: 14px;
+      line-height: 19px;
+
+      li {
+        margin: 0 0 10px;
+        padding: 0 0 0 19px;
+        font-size: 14px;
+        line-height: 19px;
+      }
+    }
+
+    .why-choose-split-reveal .xros6-mini-why-choose__page--left {
+      transform: translateX(64px);
+    }
+
+    .why-choose-split-reveal .xros6-mini-why-choose__page--right {
+      transform: translateX(-64px);
+    }
   }
 
   @media (max-width: 1023px) {
