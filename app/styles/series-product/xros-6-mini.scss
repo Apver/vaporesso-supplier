@@ -3802,11 +3802,13 @@
       }
     }
 
-    // XROS 6 MINI R：PC 单行 7 色，固定列宽
-    &.ui_v3-color-cols-4 .colors .item {
-      flex: none;
-      width: 80px;
-      max-width: none;
+    // XROS 6 MINI R：仅 PC 单行 7 色固定列宽
+    @media screen and (min-width: 1024px) {
+      &.ui_v3-color-cols-4 .colors .item {
+        flex: none;
+        width: 80px;
+        max-width: none;
+      }
     }
   }
 
@@ -3834,20 +3836,6 @@
     }
   }
 
-  // Spec：对齐蓝湖 D-DinExp / D-DinExp-Bold
-  .spec-content {
-    font-family: 'D-DinExp' !important;
-
-    .f-d-bold,
-    .f_24,
-    .f_28,
-    .title,
-    .colors .item,
-    .f-price {
-      font-family: 'D-DinExp-Bold' !important;
-    }
-  }
-
   @media screen and (max-width: 1023px) {
     --container-gutter: 0.3rem;
     --rpx: calc(1vw * 100 / 750);
@@ -3857,11 +3845,6 @@
         width: 123%;
         margin-left: -12%;
         padding-right: 0;
-      }
-
-      // 移动端与上方 XROS 6 MINI 一致
-      &.ui_v3-color-cols-4 .colors .item {
-        width: 82.5px;
       }
     }
 
