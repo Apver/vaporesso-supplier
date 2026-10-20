@@ -1,68 +1,69 @@
 export function initScrollAppear(root) {
-  if (!root || typeof window === 'undefined') return () => { };
-
-  const elements = [...root.querySelectorAll(
-    '.to-top, .mobile-to-top, .cricle-animate',
-  )].filter((el) => !el.classList.contains('appear'));
-
-  if (!elements.length) return () => { };
-
-  if (
-    !('IntersectionObserver' in window) ||
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  ) {
-    elements.forEach((el) => el.classList.add('appear'));
-    return () => { };
-  }
-
+  const animationClassNames = [
+    'to-top',
+    'mobile-to-top',
+    'cricle-animate',
+  ];
+  const classSelector = animationClassNames.map((cls) => `.${cls}`).join(',');
+  const animateElements = root.querySelectorAll(classSelector);
   const isMobile = window.matchMedia('(max-width: 1023px)').matches;
-  const intervals = new Set();
-  const frames = new Set();
-  let disposed = false;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting || disposed) return;
+  if (animateElements.length === 0) return () => { };
 
-        const el = entry.target;
-        observer.unobserve(el);
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px 50px 0px',
+    threshold: isMobile ? 0.5 : 0.4,
+  };
 
-        const frame = requestAnimationFrame(() => {
-          frames.delete(frame);
-          if (disposed) return;
+  const shakeIntervals = [];
 
+  const handleIntersect = (entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      const el = entry.target;
+      if (el.classList.contains('shake-once')) {
+        const intervalId = window.setInterval(() => {
+          el.classList.remove('appear');
+          void el.offsetWidth;
           el.classList.add('appear');
-
-          if (el.classList.contains('shake-once')) {
-            const interval = window.setInterval(() => {
-              el.classList.remove('appear');
-              void el.offsetWidth;
-              el.classList.add('appear');
-            }, 3000);
-
-            intervals.add(interval);
-          }
+        }, 3000);
+        shakeIntervals.push(intervalId);
+      } else {
+        requestAnimationFrame(() => {
+          el.classList.add('appear');
         });
+      }
 
-        frames.add(frame);
-      });
-    },
-    {
-      root: null,
-      rootMargin: isMobile
-        ? `0px 0px -${Math.round(window.innerHeight * 0.2)}px 0px`
-        : '0px 0px 50px 0px',
-      threshold: isMobile ? 0 : 0.4,
-    },
-  );
+      observer.unobserve(el);
+    });
+  };
 
-  elements.forEach((el) => observer.observe(el));
+  const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+  const observeInBatches = (elements, batchSize = 20) => {
+    let index = 0;
+
+    const observeNextBatch = () => {
+      const batch = Array.from(elements).slice(index, index + batchSize);
+      batch.forEach((el) => observer.observe(el));
+      index += batchSize;
+
+      if (index < elements.length) {
+        (window.requestIdleCallback || ((cb) => window.setTimeout(cb, 150)))(
+          observeNextBatch,
+        );
+      }
+    };
+
+    observeNextBatch();
+  };
+
+  observeInBatches(animateElements);
 
   return () => {
-    disposed = true;
     observer.disconnect();
-    frames.forEach((id) => cancelAnimationFrame(id));
-    intervals.forEach((id) => window.clearInterval(id));
+    shakeIntervals.forEach((id) => window.clearInterval(id));
   };
 }
