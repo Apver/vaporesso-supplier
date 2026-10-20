@@ -91,25 +91,6 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
                 stagger: { each: 0.018, from: 'start' }, ease: 'power3.out'
               }, 0.12);
         });
-        // const firstHeadlineChars = gsap.utils.toArray('.vast-sequence__headline--1 .vast-sequence__word .vast-sequence__char', root,);
-        // const firstMetric = root.querySelector('.vast-sequence__headline--1 .vast-sequence__metric',);
-        // const firstHeadlineTargets = [...firstHeadlineChars, firstMetric];
-        // const firstHeadlineTimeline = gsap.timeline({ paused: true }).fromTo(firstHeadlineTargets,
-        //   {
-        //     yPercent: 120,
-        //     autoAlpha: 0,
-        //     rotate: 6,
-        //   },
-        //   {
-        //     yPercent: 0,
-        //     autoAlpha: 1,
-        //     rotate: 0,
-        //     duration: 0.8,
-        //     stagger: 0.12,
-        //     ease: 'power3.out',
-        //   },
-        //   0,
-        // );
         const firstWord = headlines[0].querySelector('.vast-sequence__word');
         const firstMetric = headlines[0].querySelector('.vast-sequence__metric');
 
@@ -267,82 +248,146 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
             const end = ENDS[i];
             const duration = Math.max(1, end - start);
             const local = clamp((frame - start) / duration, 0, 1);
-            const entry = i === 0 ? 1 : ease((frame - (start - transition * 0.4)) / (transition * 1.2));
-            const exit = i === 2 ? 1 : 1 - ease((frame - (STARTS[i + 1] - transition * 0.8)) / (transition * 1.35));
-            const alpha = clamp(entry * exit * (i === 0 && !firstEntered ? 0 : 1), 0, 1);
 
-            // 用缩放后的实际文字宽度来计算最终位置
             const inner = headlineInners[i];
-            const scale = Number(root.style.getPropertyValue('--vast-letter-scale')) || 0.65;
-            // const visualWidth = inner.offsetWidth * scale;
-            const visualWidth = mobile
-              ? inner.offsetWidth * scale
-              : inner.getBoundingClientRect().width;
-            const centeredX = (width - visualWidth) / 2;
-            // 第一屏默认居中，随后随滚动向左退出；第二、三屏仍由右侧进入。
-            const from = i === 0 ? centeredX : width + width * (mobile ? 0.04 : 0.08);
-            const to = i === 2 ? centeredX - width * (mobile ? 0 : 0.1) : -visualWidth - width * 0.08;
-            const x = reducedMotion ? (width - visualWidth) / 2 : from + (to - from) * ease(local);
-            // gsap.set(headline, { x, autoAlpha: alpha, force3D: true });
-            // 第一屏独立出场期间，不覆盖它的透明度动画。
-            const enteringFirst =
-              i === 0 && firstHeadlineTimeline.progress() < 1;
 
-            if (mobile || reducedMotion || enteringFirst) {
+            // 移动端继续使用原来的移动和透明度逻辑。
+            if (mobile || reducedMotion) {
+              const entry = i === 0
+                ? 1
+                : ease(
+                  (frame - (start - transition * 0.4)) /
+                  (transition * 1.2),
+                );
+
+              const exit = i === 2
+                ? 1
+                : 1 - ease(
+                  (frame - (STARTS[i + 1] - transition * 0.8)) /
+                  (transition * 1.35),
+                );
+
+              const scale =
+                Number(root.style.getPropertyValue('--vast-letter-scale')) || 0.65;
+
+              const visualWidth = inner.offsetWidth * scale;
+              const centeredX = (width - visualWidth) / 2;
+
+              const from = i === 0 ? centeredX : width * 1.04;
+              const to = i === 2 ? centeredX : -visualWidth - width * 0.08;
+
               gsap.set(headline, {
-                x,
-                autoAlpha: alpha,
+                x: reducedMotion
+                  ? centeredX
+                  : from + (to - from) * ease(local),
+                autoAlpha:
+                  entry * exit * (i === 0 && !firstEntered ? 0 : 1),
                 force3D: true,
               });
             } else {
-              // PC：父级负责位置和切屏，子级分别渐显、渐隐。
-              gsap.set(headline, {
-                x,
-                autoAlpha: exit * (i === 0 && !firstEntered ? 0 : 1),
-                force3D: true,
-              });
-
               const word = headline.querySelector('.vast-sequence__word');
               const metric = headline.querySelector('.vast-sequence__metric');
-              const pinLeft = pin.getBoundingClientRect().left;
 
-              // 左边单词：到画面中央完全显示，再往左逐渐消失。
-              const wordRect = word.getBoundingClientRect();
-              const wordCenter =
-                wordRect.left - pinLeft + wordRect.width / 2;
+              const visualWidth = inner.getBoundingClientRect().width;
+              const centeredX = (width - visualWidth) / 2;
 
-              const wordIn = ease(
-                (width - wordCenter) / (width * 0.5),
-              );
-              // 单词右边缘接近画面左侧时，才渐隐。
-              const wordRight = wordRect.right - pinLeft;
+              // 整组以居中位置为基准，保留最后一屏原来的左移微调。
+              const baseX = centeredX - (i === 2 ? width * 0.1 : 0);
 
-              const wordOut = ease(
-                wordRight / (width * 0.25),
-              );
+              const inScene =
+                frame >= start &&
+                (i === 2 || frame < STARTS[i + 1]);
 
-              gsap.set(word, {
-                autoAlpha: wordIn * (i === 2 ? 1 : wordOut),
-              });
+              // 第一屏独立出场动画仍由原来的时间线控制。
+              const enteringFirst =
+                i === 0 && firstHeadlineTimeline.progress() < 1;
 
-              // 右边数字：到达产品右边缘时完全消失。
-              const metricRect = metric.getBoundingClientRect();
-              const metricLeft = metricRect.left - pinLeft;
+              if (enteringFirst) {
+                gsap.set(headline, {
+                  x: baseX,
+                  autoAlpha: firstEntered ? 1 : 0,
+                  force3D: true,
+                });
+              } else {
+                // 左边先走：前 35% 的进度完成。
+                const wordProgress = ease(local / 0.35);
 
-              const productRight = width * 0.56;
+                // 第一、二句最后 30% 的进度一起缓慢渐隐。
+                const fadeOut = i === 2
+                  ? 1
+                  : 1 - ease((local - 0.7) / 0.3);
 
-              const metricIn = ease(
-                (width - metricLeft) / (width * 0.08),
-              );
+                // 第一、二句继续向左退场，第三句停住。
+                const exitProgress = i === 2
+                  ? 0
+                  : ease((local - 0.55) / 0.45);
 
-              const metricOut = ease(
-                (metricLeft - productRight) / (width * 0.12),
-              );
+                gsap.set(headline, {
+                  x: baseX - width * 0.3 * exitProgress,
+                  autoAlpha: inScene ? fadeOut : 0,
+                  force3D: true,
+                });
 
-              gsap.set(metric, {
-                autoAlpha: metricIn * (i === 2 ? 1 : metricOut),
-              });
+                const innerScale =
+                  inner.getBoundingClientRect().width / inner.offsetWidth || 1;
+
+                const pinLeft = pin.getBoundingClientRect().left;
+
+                // 扣除已有位移，得到单词最终位置的右边缘。
+                const wordRect = word.getBoundingClientRect();
+                const wordX = Number(gsap.getProperty(word, 'x')) || 0;
+
+                const restingWordRight =
+                  wordRect.right - pinLeft - wordX * innerScale;
+
+                const productLeft = width * 0.44;
+
+                // 左边向左移到产品左侧，随后右边开始。
+                const wordTravel = Math.max(
+                  120,
+                  (width * 0.5 - (restingWordRight - wordRect.width)) /
+                  innerScale,
+                );
+
+                gsap.set(word, {
+                  x: i === 0 ? 0 : wordTravel * 0.3 * (1 - wordProgress),
+                  autoAlpha: i === 0 ? 1 : ease(local / 0.12),
+                  force3D: true,
+                });
+
+                // 根据单词右边缘是否到达产品左侧，计算右组启动时机。
+                const requiredProgress = clamp(
+                  1 -
+                  (productLeft - restingWordRight) /
+                  Math.max(1, wordTravel * innerScale),
+                  0,
+                  1,
+                );
+
+                // ease 的反函数用二分求出对应的时间进度。
+                let low = 0;
+                let high = 1;
+
+                for (let step = 0; step < 12; step += 1) {
+                  const middle = (low + high) / 2;
+                  if (ease(middle) < requiredProgress) low = middle;
+                  else high = middle;
+                }
+
+                const metricStart = ((low + high) / 2) * 0.35;
+
+                const metricProgress = ease(
+                  (local - metricStart) / 0.3,
+                );
+
+                gsap.set(metric, {
+                  x: i === 0 ? 0 : 75 * (1 - metricProgress) + (i === 2 ? width * 0.04 : 0),
+                  autoAlpha: i === 0 ? 1 : ease((local - metricStart) / 0.12),
+                  force3D: true,
+                });
+              }
             }
+
             if (frame >= start) dominant = i;
           });
           activateScene(dominant);
