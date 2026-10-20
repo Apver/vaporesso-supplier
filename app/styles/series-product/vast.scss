@@ -1,11 +1,5 @@
 @use 'sass:meta';
 
-@media (min-width: 1024px) {
-  html:has(.product-vast) {
-    font-size: 0.5208333333vw;
-  }
-}
-
 .product-vast {
   --deb: "DinExp-Bold";
   --de: 'DinExp';

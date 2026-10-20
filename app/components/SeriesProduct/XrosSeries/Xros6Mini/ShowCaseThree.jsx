@@ -17,7 +17,7 @@ export function Xros6MiniShowCaseThree() {
             <div className="spec-showcase3-item spec-showcase3-item1">
               <div className="showcase3-item1-cnt mobile-to-top">
                 <div className="showcase3-subtle">Tidal battery indicator</div>
-                <h3 className="showcase3-tle">Know Your State Better</h3>
+                <div className="showcase3-tle">Know Your State Better</div>
                 <div className="showcase3-txt">
                   The XROS 6 MINI features the tidal battery indicator to help
                   you know your battery level better.

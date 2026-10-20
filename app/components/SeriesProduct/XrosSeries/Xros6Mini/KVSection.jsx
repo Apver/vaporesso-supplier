@@ -55,7 +55,7 @@ export function Xros6MiniKVSection() {
         <div className="banner_content-inner" ref={textWrapperRef}>
           <div className="">
             <div className="banner_content">
-              <h1 className="banner-h1">XROS 6 MINI</h1>
+              <div className="banner-h1">XROS 6 MINI</div>
               <div className="banner-txt">Premium Touch, Modern Styles</div>
             </div>
           </div>
