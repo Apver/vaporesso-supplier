@@ -91,25 +91,84 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
                 stagger: { each: 0.018, from: 'start' }, ease: 'power3.out'
               }, 0.12);
         });
-        const firstHeadlineChars = gsap.utils.toArray('.vast-sequence__headline--1 .vast-sequence__word .vast-sequence__char', root,);
-        const firstMetric = root.querySelector('.vast-sequence__headline--1 .vast-sequence__metric',);
-        const firstHeadlineTargets = [...firstHeadlineChars, firstMetric];
-        const firstHeadlineTimeline = gsap.timeline({ paused: true }).fromTo(firstHeadlineTargets,
-          {
-            yPercent: 120,
-            autoAlpha: 0,
-            rotate: 6,
-          },
-          {
-            yPercent: 0,
-            autoAlpha: 1,
-            rotate: 0,
-            duration: 0.8,
-            stagger: 0.12,
-            ease: 'power3.out',
-          },
-          0,
+        // const firstHeadlineChars = gsap.utils.toArray('.vast-sequence__headline--1 .vast-sequence__word .vast-sequence__char', root,);
+        // const firstMetric = root.querySelector('.vast-sequence__headline--1 .vast-sequence__metric',);
+        // const firstHeadlineTargets = [...firstHeadlineChars, firstMetric];
+        // const firstHeadlineTimeline = gsap.timeline({ paused: true }).fromTo(firstHeadlineTargets,
+        //   {
+        //     yPercent: 120,
+        //     autoAlpha: 0,
+        //     rotate: 6,
+        //   },
+        //   {
+        //     yPercent: 0,
+        //     autoAlpha: 1,
+        //     rotate: 0,
+        //     duration: 0.8,
+        //     stagger: 0.12,
+        //     ease: 'power3.out',
+        //   },
+        //   0,
+        // );
+        const firstWord = headlines[0].querySelector('.vast-sequence__word');
+        const firstMetric = headlines[0].querySelector('.vast-sequence__metric');
+
+        const firstHeadlineChars = gsap.utils.toArray(
+          '.vast-sequence__headline--1 .vast-sequence__word .vast-sequence__char',
+          root,
         );
+
+        const firstHeadlineTimeline = gsap.timeline({ paused: true });
+
+        if (mobile) {
+          firstHeadlineTimeline.fromTo(
+            [...firstHeadlineChars, firstMetric],
+            {
+              yPercent: 120,
+              autoAlpha: 0,
+              rotate: 6,
+            },
+            {
+              yPercent: 0,
+              autoAlpha: 1,
+              rotate: 0,
+              duration: 0.8,
+              stagger: 0.12,
+              ease: 'power3.out',
+            },
+            0,
+          );
+        } else {
+          firstHeadlineTimeline
+            .fromTo(
+              firstWord,
+              {
+                x: 120,
+                autoAlpha: 0,
+              },
+              {
+                x: 0,
+                autoAlpha: 1,
+                duration: 0.65,
+                ease: 'power2.out',
+              },
+              0,
+            )
+            .fromTo(
+              firstMetric,
+              {
+                x: 160,
+                autoAlpha: 0,
+              },
+              {
+                x: 0,
+                autoAlpha: 1,
+                duration: 1.2,
+                ease: 'power2.out',
+              },
+              '+=0.15',
+            );
+        }
         let firstEntered = false;
         let activeCaption = -1;
         let firstEntranceTrigger;
@@ -215,48 +274,16 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
             // 用缩放后的实际文字宽度来计算最终位置
             const inner = headlineInners[i];
             const scale = Number(root.style.getPropertyValue('--vast-letter-scale')) || 0.65;
-            const visualWidth = inner.offsetWidth * scale;
+            // const visualWidth = inner.offsetWidth * scale;
+            const visualWidth = !mobile && i === 0
+              ? inner.getBoundingClientRect().width
+              : inner.offsetWidth * scale;
             const centeredX = (width - visualWidth) / 2;
             // 第一屏默认居中，随后随滚动向左退出；第二、三屏仍由右侧进入。
             const from = i === 0 ? centeredX : width + width * (mobile ? 0.04 : 0.08);
             const to = i === 2 ? centeredX - width * (mobile ? 0 : 0.1) : -visualWidth - width * 0.08;
             const x = reducedMotion ? (width - visualWidth) / 2 : from + (to - from) * ease(local);
-            // gsap.set(headline, { x, autoAlpha: alpha, force3D: true });
-            if (!mobile && !reducedMotion && i > 0) {
-              // 父级只控制整组退场。
-              gsap.set(headline, {
-                x,
-                autoAlpha: exit,
-                force3D: true,
-              });
-
-              const pinLeft = pin.getBoundingClientRect().left;
-
-              [
-                headline.querySelector('.vast-sequence__word'),
-                headline.querySelector('.vast-sequence__metric'),
-              ].forEach((element) => {
-                const rect = element.getBoundingClientRect();
-                const centerX = rect.left - pinLeft + rect.width / 2;
-
-                // 各自中心从视口右边缘移到视口中央：透明度 0 → 1。
-                const progress = clamp(
-                  (width - centerX) / (width / 2),
-                  0,
-                  1,
-                );
-
-                gsap.set(element, {
-                  autoAlpha: ease(progress),
-                });
-              });
-            } else {
-              gsap.set(headline, {
-                x,
-                autoAlpha: alpha,
-                force3D: true,
-              });
-            }
+            gsap.set(headline, { x, autoAlpha: alpha, force3D: true });
             if (frame >= start) dominant = i;
           });
           activateScene(dominant);
