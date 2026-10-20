@@ -38,7 +38,7 @@ function DangerIcon() {
     <img
       src={`${ASSET}/xros6-mini-danger-icon.svg`}
       alt=""
-      className="xros6-mini-why-choose__icon"
+      className="xros6-mini-why-choose__icon_danger"
       width={20}
       height={24}
     />
