@@ -26,10 +26,10 @@ export function Xros6MiniProductCompare() {
                   <div className="vibe-compare-img-wrap">
                     <img
                       src="https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros_6_mini-12-2.webp"
-                      alt="XROS 6 MINI"
+                      alt="XROS 6 MINI & R"
                     />
                   </div>
-                  <h3>XROS 6 MINI</h3>
+                  <h3>XROS 6 MINI & R</h3>
                 </th>
                 <th>
                   <div className="vibe-compare-img-wrap">

@@ -122,7 +122,7 @@ export const BatterySection = () => {
           </div>
           <div className="product-prix-battery-content-list-item">
             <p className="product-prix-battery-content-list-item-title">
-              45 Mins
+              60 Mins
             </p>
             <p className="product-prix-battery-content-list-item-description">
               Full Charged

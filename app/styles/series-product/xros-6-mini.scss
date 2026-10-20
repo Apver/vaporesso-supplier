@@ -166,7 +166,7 @@
     color: #000;
     font-weight: 700;
     font-size: 80px;
-    font-family: 'DinExp-Bold';
+    font-family: 'DinExp';
     line-height: 1;
   }
 
@@ -214,7 +214,7 @@
     .banner_content-inner .banner-h1 {
       margin-bottom: 0.16rem;
       font-size: 0.92rem;
-      line-height: 1.3;
+      line-height: 1.2rem;
     }
 
     .banner_content-inner .banner-txt {
@@ -1064,10 +1064,10 @@
   }
 
   .showcase2-cnt1-tle {
-    color: #f6faff;
+    color: #ffffff;
     font-weight: 700;
     font-size: 4.8rem;
-    font-family: 'DinExp-Bold';
+    font-family: 'DinExp';
     line-height: 108.333%;
   }
 
@@ -1507,9 +1507,22 @@
 
     .showcase2-cnt1-tle {
       display: flex;
-      gap: 0.15rem;
-      font-size: 0.6rem;
-      line-height: 1.2;
+      flex-wrap: nowrap;
+      align-items: baseline;
+      /* 略小于同区块 0.6rem，避免窄屏下 Flow Made / Smoother 挤成两行 */
+      font-size: 0.54rem;
+      line-height: 0.66rem;
+
+      p {
+        flex-shrink: 0;
+        margin-right: 0.12rem;
+        white-space: nowrap;
+      }
+
+      .js-cnt1-tle1 {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
     }
 
     .showcase2-cnt1-txt {
@@ -1644,9 +1657,21 @@
 
     .showcase2-cnt3-tle {
       display: flex;
+      flex-wrap: nowrap;
+      align-items: baseline;
       gap: 0.15rem;
       font-size: 0.6rem;
       line-height: 1.2;
+
+      p {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+
+      .js-cnt1-tle3 {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
     }
 
     .showcase2-cnt3-txt {
@@ -2059,15 +2084,23 @@
   }
 
   @media screen and (max-width: 1023px) {
+    /* 高度交给 GSAP pinSpacing（end:+=150%），避免 250vh 比 pin-spacer 多出 ~pinTop 白边 */
     .spec-showcase3 {
-      height: 250vh;
+      height: auto;
     }
 
+    /*
+     * 用 svh：按「浏览器底栏展开」时的可视高度定高，避免不同机型
+     * 100dvh + overflow:hidden 把底部 0-20% 电量档裁掉。
+     */
     .spec-showcase3__stick {
       position: relative;
       top: 0;
+      /* fallback → svh：底栏展开时也能完整显示 5 档电量 */
       height: calc(100dvh - var(--xros6-mini-showcase3-pin-top, 0.88rem));
+      height: calc(100svh - var(--xros6-mini-showcase3-pin-top, 0.88rem));
       max-height: calc(100dvh - var(--xros6-mini-showcase3-pin-top, 0.88rem));
+      max-height: calc(100svh - var(--xros6-mini-showcase3-pin-top, 0.88rem));
       backface-visibility: hidden;
       backface-visibility: hidden;
     }
@@ -2078,9 +2111,11 @@
 
     .spec-showcase3-item1 {
       flex-direction: column;
-      gap: 0.81rem;
-      justify-content: space-between;
+      gap: 0.4rem;
+      justify-content: flex-start;
       overflow: hidden;
+      padding-bottom: 0.24rem;
+      box-sizing: border-box;
     }
 
     .spec-showcase3__wrapper {
@@ -2088,9 +2123,10 @@
     }
 
     .showcase3-item1-cnt {
+      flex-shrink: 0;
       width: 100%;
       margin-left: 0;
-      padding: 1.2rem 0.9rem 0 0.7rem;
+      padding: 0.72rem 0.9rem 0 0.7rem;
     }
 
     .showcase3-subtle {
@@ -2104,23 +2140,43 @@
     }
 
     .showcase3-txt {
-      margin-top: 0.32rem;
+      margin-top: 0.24rem;
       font-size: 0.3rem;
       line-height: 1.4;
     }
 
     .showcase3-item1-cot {
-      gap: 0.58rem;
+      display: flex;
+      flex: 1 1 auto;
+      gap: 0.4rem;
+      align-items: flex-end;
+      justify-content: center;
+      min-height: 0;
+      width: 100%;
+      padding: 0 0.4rem;
+      box-sizing: border-box;
+      transform-origin: bottom center;
     }
 
     .showcase3-pic__biox {
-      width: 2.6rem;
+      flex-shrink: 1;
+      width: 2.4rem;
+      max-height: 100%;
+      min-height: 0;
+    }
+
+    .showcase3-pic__biox .showcase3-pic,
+    .showcase3-pic__biox .showcase3-pic img {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+      object-fit: contain;
     }
 
     .showcase3-pic__biox .charging-container {
       gap: 0.12rem;
       width: 0.22rem;
-      margin-bottom: 2.68rem;
+      margin-bottom: 2.48rem;
     }
 
     .showcase3-pic__biox .indicator {
@@ -2130,38 +2186,39 @@
     }
 
     .showcase3-indicator-light {
-      gap: 0.32rem 0.4rem;
-      width: 3.04rem;
-      margin-bottom: 0.2rem;
+      flex-shrink: 0;
+      gap: 0.2rem 0.36rem;
+      width: 2.9rem;
+      margin-bottom: 0;
     }
 
     .indicator-light-item {
-      width: calc((100% - 0.4rem) / 2);
+      width: calc((100% - 0.36rem) / 2);
     }
 
     .charging-container {
-      gap: 0.07rem;
-      width: 0.7rem;
-      height: 1.24rem;
-      padding-bottom: 0.29rem;
+      gap: 0.06rem;
+      width: 0.64rem;
+      height: 1.12rem;
+      padding-bottom: 0.24rem;
       border-radius: 1rem;
     }
 
     .indicator {
-      width: 0.19rem;
-      height: 0.06rem;
+      width: 0.17rem;
+      height: 0.055rem;
       border-radius: 0.095rem;
     }
 
     .indicator-light-tle {
-      margin-top: 0.12rem;
-      font-size: 0.3rem;
+      margin-top: 0.08rem;
+      font-size: 0.28rem;
       line-height: 1.1;
     }
 
     .indicator-light-txt {
-      margin-top: 0.08rem;
-      font-size: 0.24rem;
+      margin-top: 0.04rem;
+      font-size: 0.22rem;
       line-height: 1.1;
     }
 
@@ -2169,6 +2226,31 @@
       .indicator-light-item:last-child
       .indicator-light-txt {
       white-space: nowrap;
+    }
+
+    /* 矮屏机型再压一档，保证 5 档电量都露出来 */
+    @media screen and (max-height: 740px) {
+      .showcase3-item1-cnt {
+        padding-top: 0.48rem;
+      }
+
+      .showcase3-item1-cot {
+        transform: scale(0.9);
+      }
+    }
+
+    @media screen and (max-height: 660px) {
+      .showcase3-item1-cnt {
+        padding-top: 0.32rem;
+      }
+
+      .showcase3-txt {
+        margin-top: 0.16rem;
+      }
+
+      .showcase3-item1-cot {
+        transform: scale(0.8);
+      }
     }
 
     .showcase3-item2-cnt-wrapper {
@@ -2413,6 +2495,7 @@
     position: relative;
     display: inline-flex;
     align-items: center;
+    overflow: hidden;
     width: 325px;
     height: 58px;
     margin-top: 36px;
@@ -2446,23 +2529,37 @@
     z-index: 1;
     flex: 1 1 0;
     height: 46px;
+    margin: 0;
     padding: 0;
-    border: 0;
+    appearance: none;
+    border: none;
     border-radius: 40px;
+    outline: none;
     background: transparent;
+    box-shadow: none;
     color: #000;
-    font-weight: 700;
+    font-family: 'DinExp';
+    font-weight: 400;
     font-size: 19px;
-    font-family: 'DinExp-Bold' !important;
-    letter-spacing: 0.04em;
     line-height: 46px;
     text-align: center;
+    text-decoration: none;
     cursor: pointer;
     transition: color 0.25s ease;
+    -webkit-appearance: none;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none;
+      box-shadow: none;
+    }
   }
 
   .xros6-mini-battery-remove__tab.is-active {
     color: #fff;
+    font-family: 'DinExp';
+    font-weight: 700;
   }
 
   /* tab 内容渐隐 / 渐显 */
@@ -2512,13 +2609,13 @@
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
+    padding: 0 10px;
   }
 
   .xros6-mini-battery-remove__step-num {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 10px;
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -2530,7 +2627,7 @@
   }
 
   .xros6-mini-battery-remove__step-text {
-    margin: 26px 10px 13px;
+    margin: 26px 0 13px;
     width: 280px;
     height: 175px;
     box-sizing: border-box;
@@ -2598,7 +2695,7 @@
     column-gap: 80px;
     align-items: start;
     justify-content: start;
-    padding: 20px;
+    padding: 20px 20px 20px 30px;
     background: #eef6fd;
     text-align: left;
   }
@@ -2607,7 +2704,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-top: 8px;
   }
 
   .xros6-mini-battery-remove__reinstall-copy .xros6-mini-battery-remove__step-num {
@@ -2897,7 +2993,7 @@
   @media (max-width: 1023px) {
     /* —— Battery Remove H5：REMOVE 左右分栏 / REINSTALL 上下堆叠 —— */
     .xros6-mini-battery-remove {
-      padding-top: 0.6rem;
+      padding-top: 1.6rem;
     }
 
     .xros6-mini-battery-remove__eyebrow {
@@ -2948,12 +3044,15 @@
     .xros6-mini-battery-remove__tab {
       height: 0.8rem;
       padding: 0;
-      font-size: 0.24rem;
-      line-height: 0.8rem;
+      font-family: 'DinExp';
+      font-weight: 400;
+      font-size: 0.3rem;
+      color: #000000;
+      line-height: 0.28rem;
     }
 
     .xros6-mini-battery-remove__panel {
-      margin-top: 0.36rem;
+      margin-top: 0.78rem;
     }
 
     .xros6-mini-battery-remove__steps {
@@ -3182,7 +3281,13 @@
     }
 
     .xros6-mini-why-choose__icon {
-      width: 0.32rem;
+      width: 0.28rem;
+      height: 0.33rem;
+    }
+
+    .xros6-mini-why-choose__icon_danger {
+      width: 0.51rem;
+      height: 0.42rem;
     }
 
     .xros6-mini-why-choose__list {
@@ -3456,6 +3561,8 @@
         margin: 0 auto 0.8rem;
         font-size: 0.5rem;
         line-height: 0.55rem;
+        font-family: 'DinExp';
+        font-weight: 700;
       }
 
       .ui_v3-video_section-description {

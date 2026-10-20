@@ -2,8 +2,15 @@ import {specImg} from '~/utils/ui_v3_utils';
 
 const SPEC_IMG = 'https://cdn.shopify.com/s/files/1/0703/9873/8521/files';
 
+/** 产品页 SEO（title / meta description） */
+export const Xros6MiniSeo = {
+  title: 'XROS 6 MINI & R',
+  description:
+    'XROS 6 MINI & R is designed for those who want vaping made simple. Featuring 60s Smart Prime for quick startup, a 1600mAh battery that lasts up to 4 days, and precise airflow adjustment for personalized MTL control, it delivers a smooth and effortless experience. Powered by COREX 3.0 and protected by SSS leak-resistant technology, XROS 6 MINI makes great flavour easier than ever. The XROS 6 MINI R feature removable batteries that users can remove in just 3 steps.',
+};
+
 export const Xros6MiniProductSpecData = {
-  primaryProductTitle: 'XROS 6 Mini',
+  primaryProductTitle: 'XROS 6 Mini & R',
   isNoMaxWidthFinish: true,
   items: [
     {

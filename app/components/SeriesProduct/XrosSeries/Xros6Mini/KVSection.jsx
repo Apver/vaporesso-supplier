@@ -48,14 +48,14 @@ export function Xros6MiniKVSection() {
           <img
             src="https://cdn.shopify.com/s/files/1/0703/9873/8521/files/xros_6-01-kv-1.webp"
             className="banner-image"
-            alt="XROS 6 MINI"
+            alt="XROS 6 MINI & R"
             ref={imageRef}
           />
         </picture>
         <div className="banner_content-inner" ref={textWrapperRef}>
           <div className="">
             <div className="banner_content">
-              <h1 className="banner-h1">XROS 6 MINI</h1>
+              <h1 className="banner-h1">XROS 6 MINI & R</h1>
               <div className="banner-txt">Premium Touch, Modern Styles</div>
             </div>
           </div>
