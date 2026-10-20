@@ -221,7 +221,42 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
             const from = i === 0 ? centeredX : width + width * (mobile ? 0.04 : 0.08);
             const to = i === 2 ? centeredX - width * (mobile ? 0 : 0.1) : -visualWidth - width * 0.08;
             const x = reducedMotion ? (width - visualWidth) / 2 : from + (to - from) * ease(local);
-            gsap.set(headline, { x, autoAlpha: alpha, force3D: true });
+            // gsap.set(headline, { x, autoAlpha: alpha, force3D: true });
+            if (!mobile && !reducedMotion && i > 0) {
+              // 父级只控制整组退场。
+              gsap.set(headline, {
+                x,
+                autoAlpha: exit,
+                force3D: true,
+              });
+
+              const pinLeft = pin.getBoundingClientRect().left;
+
+              [
+                headline.querySelector('.vast-sequence__word'),
+                headline.querySelector('.vast-sequence__metric'),
+              ].forEach((element) => {
+                const rect = element.getBoundingClientRect();
+                const centerX = rect.left - pinLeft + rect.width / 2;
+
+                // 各自中心从视口右边缘移到视口中央：透明度 0 → 1。
+                const progress = clamp(
+                  (width - centerX) / (width / 2),
+                  0,
+                  1,
+                );
+
+                gsap.set(element, {
+                  autoAlpha: ease(progress),
+                });
+              });
+            } else {
+              gsap.set(headline, {
+                x,
+                autoAlpha: alpha,
+                force3D: true,
+              });
+            }
             if (frame >= start) dominant = i;
           });
           activateScene(dominant);
