@@ -275,15 +275,74 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
             const inner = headlineInners[i];
             const scale = Number(root.style.getPropertyValue('--vast-letter-scale')) || 0.65;
             // const visualWidth = inner.offsetWidth * scale;
-            const visualWidth = !mobile && i === 0
-              ? inner.getBoundingClientRect().width
-              : inner.offsetWidth * scale;
+            const visualWidth = mobile
+              ? inner.offsetWidth * scale
+              : inner.getBoundingClientRect().width;
             const centeredX = (width - visualWidth) / 2;
             // 第一屏默认居中，随后随滚动向左退出；第二、三屏仍由右侧进入。
             const from = i === 0 ? centeredX : width + width * (mobile ? 0.04 : 0.08);
             const to = i === 2 ? centeredX - width * (mobile ? 0 : 0.1) : -visualWidth - width * 0.08;
             const x = reducedMotion ? (width - visualWidth) / 2 : from + (to - from) * ease(local);
-            gsap.set(headline, { x, autoAlpha: alpha, force3D: true });
+            // gsap.set(headline, { x, autoAlpha: alpha, force3D: true });
+            // 第一屏独立出场期间，不覆盖它的透明度动画。
+            const enteringFirst =
+              i === 0 && firstHeadlineTimeline.progress() < 1;
+
+            if (mobile || reducedMotion || enteringFirst) {
+              gsap.set(headline, {
+                x,
+                autoAlpha: alpha,
+                force3D: true,
+              });
+            } else {
+              // PC：父级负责位置和切屏，子级分别渐显、渐隐。
+              gsap.set(headline, {
+                x,
+                autoAlpha: exit * (i === 0 && !firstEntered ? 0 : 1),
+                force3D: true,
+              });
+
+              const word = headline.querySelector('.vast-sequence__word');
+              const metric = headline.querySelector('.vast-sequence__metric');
+              const pinLeft = pin.getBoundingClientRect().left;
+
+              // 左边单词：到画面中央完全显示，再往左逐渐消失。
+              const wordRect = word.getBoundingClientRect();
+              const wordCenter =
+                wordRect.left - pinLeft + wordRect.width / 2;
+
+              const wordIn = ease(
+                (width - wordCenter) / (width * 0.5),
+              );
+              // 单词右边缘接近画面左侧时，才渐隐。
+              const wordRight = wordRect.right - pinLeft;
+
+              const wordOut = ease(
+                wordRight / (width * 0.25),
+              );
+
+              gsap.set(word, {
+                autoAlpha: wordIn * wordOut,
+              });
+
+              // 右边数字：到达产品右边缘时完全消失。
+              const metricRect = metric.getBoundingClientRect();
+              const metricLeft = metricRect.left - pinLeft;
+
+              const productRight = width * 0.56;
+
+              const metricIn = ease(
+                (width - metricLeft) / (width * 0.08),
+              );
+
+              const metricOut = ease(
+                (metricLeft - productRight) / (width * 0.12),
+              );
+
+              gsap.set(metric, {
+                autoAlpha: metricIn * metricOut,
+              });
+            }
             if (frame >= start) dominant = i;
           });
           activateScene(dominant);
