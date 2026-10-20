@@ -1,22 +1,4 @@
-@media (min-width: 1024px) {
-  html:has(.product-xros6-mini) {
-    font-size: 0.5208333333vw;
-  }
-}
-
-/* product.css 的 overflow:hidden 会使子元素 position:sticky 失效 */
-.product.product-xros6-mini {
-  overflow-x: hidden;
-
-  @supports (overflow: clip) {
-    overflow-x: clip;
-  }
-}
-
 .product-xros6-mini {
-  --container-gutter: 40px;
-  --rpx: calc(1vw * 100 / 1920);
-
   background-color: #fff;
 
   .custom__container {
@@ -168,6 +150,7 @@
     font-size: 80px;
     font-family: "DinExp-Bold" !important;
     line-height: 1;
+    white-space: nowrap;
   }
 
   .banner_content-inner .banner-txt {
@@ -206,8 +189,10 @@
 
     .banner-section .banner_content-inner {
       top: 1.2rem;
-      left: 1.02rem;
-      max-width: 5.46rem;
+      left: 0.4rem;
+      right: 0.4rem;
+      max-width: none;
+      width: auto;
       text-align: center;
     }
 
@@ -215,6 +200,7 @@
       margin-bottom: 0.16rem;
       font-size: 0.92rem;
       line-height: 1.2rem;
+      white-space: nowrap;
     }
 
     .banner_content-inner .banner-txt {
@@ -437,7 +423,7 @@
     padding: 36px 25px;
   }
 
-  .feature-card-cnt h3 {
+  .feature-card-cnt .feature-card-tle {
     font-weight: 700 !important;
     font-size: 20px;
     font-family: 'DinExp-Bold' !important;
@@ -452,7 +438,7 @@
     line-height: 1.1;
   }
 
-  .feature-card-1 .feature-card-cnt h3 {
+  .feature-card-1 .feature-card-cnt .feature-card-tle {
     max-width: 224px;
     font-size: 28px;
   }
@@ -471,11 +457,11 @@
     padding: 42px 24px;
   }
 
-  .feature-card-2 .feature-card-cnt h3 {
+  .feature-card-2 .feature-card-cnt .feature-card-tle {
     max-width: 244px;
   }
 
-  .feature-grid-inner .feature-card-3 h3 {
+  .feature-grid-inner .feature-card-3 .feature-card-tle {
     max-width: 202px;
   }
 
@@ -483,7 +469,7 @@
     max-width: 106px;
   }
 
-  .feature-grid-inner .feature-card-4 h3 {
+  .feature-grid-inner .feature-card-4 .feature-card-tle {
     max-width: 229px;
   }
 
@@ -530,7 +516,7 @@
       padding: 34px 29px;
     }
 
-    .feature-card-1 .feature-card-cnt h3 {
+    .feature-card-1 .feature-card-cnt .feature-card-tle {
       max-width: 179px;
       font-size: 22px;
     }
@@ -539,19 +525,19 @@
       padding: 34px 19px;
     }
 
-    .feature-card-cnt h3 {
+    .feature-card-cnt .feature-card-tle {
       font-size: 16px;
     }
 
-    .feature-card-2 .feature-card-cnt h3 {
+    .feature-card-2 .feature-card-cnt .feature-card-tle {
       max-width: 195px;
     }
 
-    .feature-grid-inner .feature-card-3 h3 {
+    .feature-grid-inner .feature-card-3 .feature-card-tle {
       max-width: 162px;
     }
 
-    .feature-grid-inner .feature-card-4 h3 {
+    .feature-grid-inner .feature-card-4 .feature-card-tle {
       max-width: 183px;
     }
 
@@ -628,19 +614,19 @@
       padding: 0.36rem 0.32rem;
     }
 
-    .feature-card-cnt h3 {
+    .feature-card-cnt .feature-card-tle {
       font-size: 0.3rem;
       line-height: 1.2;
       text-align: left;
     }
 
-    .feature-card-1 .feature-card-cnt h3 {
+    .feature-card-1 .feature-card-cnt .feature-card-tle {
       width: 3.381rem;
       max-width: 100%;
       font-size: 0.36rem;
     }
 
-    .feature-grid-inner .feature-card-3 h3 {
+    .feature-grid-inner .feature-card-3 .feature-card-tle {
       max-width: 100%;
     }
 
@@ -648,12 +634,12 @@
       padding: 0.36rem 0.32rem;
     }
 
-    .feature-card-2 .feature-card-cnt h3 {
+    .feature-card-2 .feature-card-cnt .feature-card-tle {
       max-width: 100%;
       letter-spacing: -0.0064rem;
     }
 
-    .feature-grid-inner .feature-card-4 h3 {
+    .feature-grid-inner .feature-card-4 .feature-card-tle {
       width: 2.9rem;
       max-width: 100%;
     }
@@ -3542,7 +3528,7 @@
     width: 100%;
   }
 
-  .vibe-compare-table th h3 {
+  .vibe-compare-table th .vibe-compare-name {
     margin: 0;
     color: #000;
     font-weight: 700;
@@ -3606,7 +3592,7 @@
       margin: 0 auto 29px;
     }
 
-    .vibe-compare-table th h3 {
+    .vibe-compare-table th .vibe-compare-name {
       font-size: 19px;
     }
 
@@ -3672,7 +3658,7 @@
       margin-bottom: 0.48rem;
     }
 
-    .vibe-compare-table th h3 {
+    .vibe-compare-table th .vibe-compare-name {
       font-size: 0.36rem;
     }
 
@@ -3802,11 +3788,13 @@
       }
     }
 
-    // XROS 6 MINI R：PC 单行 7 色，固定列宽
-    &.ui_v3-color-cols-4 .colors .item {
-      flex: none;
-      width: 80px;
-      max-width: none;
+    // XROS 6 MINI R：仅 PC 单行 7 色固定列宽
+    @media screen and (min-width: 1024px) {
+      &.ui_v3-color-cols-4 .colors .item {
+        flex: none;
+        width: 80px;
+        max-width: none;
+      }
     }
   }
 
@@ -3834,20 +3822,6 @@
     }
   }
 
-  // Spec：对齐蓝湖 DinExp / DinExp-Bold
-  .spec-content {
-    font-family: 'DinExp' !important;
-
-    .f-d-bold,
-    .f_24,
-    .f_28,
-    .title,
-    .colors .item,
-    .f-price {
-      font-family: 'DinExp-Bold' !important;
-    }
-  }
-
   @media screen and (max-width: 1023px) {
     --container-gutter: 0.3rem;
     --rpx: calc(1vw * 100 / 750);
@@ -3857,11 +3831,6 @@
         width: 123%;
         margin-left: -12%;
         padding-right: 0;
-      }
-
-      // 移动端与上方 XROS 6 MINI 一致
-      &.ui_v3-color-cols-4 .colors .item {
-        width: 82.5px;
       }
     }
 

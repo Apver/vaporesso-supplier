@@ -83,7 +83,7 @@ export function Xros6MiniWhyChooseUsSection() {
   return (
     <section className="xros6-mini-why-choose">
       <div className="custom__container1">
-        <h2 className="xros6-mini-why-choose__title to-top">WHY CHOOSE US?</h2>
+        <div className="xros6-mini-why-choose__title to-top">WHY CHOOSE US?</div>
 
         <div className="xros6-mini-why-choose__stage">
           <div

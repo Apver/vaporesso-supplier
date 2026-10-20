@@ -71,9 +71,9 @@ export function Xros6MiniBatteryRemoveSection() {
         <p className="xros6-mini-battery-remove__eyebrow to-top">
           How to remove the battery
         </p>
-        <h2 className="xros6-mini-battery-remove__title to-top">
+        <div className="xros6-mini-battery-remove__title to-top">
           XROS 6 MINI R Version
-        </h2>
+        </div>
         <p className="xros6-mini-battery-remove__note to-top">
           (Only Available in Europe)
         </p>

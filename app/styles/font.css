@@ -264,37 +264,20 @@
     U+FFFD;
 }
 
-/* 蓝湖 UI：正文 DinExp / 标题 DinExp-Bold（独立 family 名） */
 @font-face {
   font-family: 'DinExp';
-  font-style: normal;
-  font-weight: 400;
   src:
     url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp.woff2') format('woff2'),
-    url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp.otf') format('opentype');
+    url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp.otf');
   font-display: swap;
 }
 
 @font-face {
   font-family: 'DinExp-Bold';
-  font-style: normal;
-  font-weight: 400;
   src:
     url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp-Bold.woff2') format('woff2'),
     url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp-Bold.woff') format('woff'),
-    url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp-Bold.otf') format('opentype');
-  font-display: swap;
-}
-
-/* 兼容声明里同时写 font-weight: 700 + DinExp-Bold 的用法，避免浏览器伪加粗 */
-@font-face {
-  font-family: 'DinExp-Bold';
-  font-style: normal;
-  font-weight: 700;
-  src:
-    url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp-Bold.woff2') format('woff2'),
-    url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp-Bold.woff') format('woff'),
-    url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp-Bold.otf') format('opentype');
+    url('https://cdn.shopify.com/s/files/1/0703/9873/8521/files/D-DINExp-Bold.otf');
   font-display: swap;
 }
 @font-face {

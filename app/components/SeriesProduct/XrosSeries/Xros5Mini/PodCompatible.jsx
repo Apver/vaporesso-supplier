@@ -1,7 +1,7 @@
 export function PodCompatible({title, description, podList, className}) {
   return (
     <div className={`ui_v3-pod_compatible ${className || ''}`}>
-      <h3 className="ui_v3-pod_compatible-title to-top">{title}</h3>
+      <div className="ui_v3-pod_compatible-title to-top">{title}</div>
       {description && (
         <p className="ui_v3-pod_compatible-description to-top">{description}</p>
       )}

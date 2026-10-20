@@ -2,10 +2,10 @@ export function Xros6MiniProductCompare() {
   return (
     <div className="product-compare-md">
       <div className="custom__container1">
-        <h3 className="cus-h3 to-top">
+        <div className="cus-h3 to-top">
           Vibe Series all compatible,<br/>
           fit for Sticks & Box Mods
-        </h3>
+        </div>
         <div
           className="product-compare_table-acroll to-top"
           style={{transitionDelay: '0.2s'}}
@@ -20,7 +20,7 @@ export function Xros6MiniProductCompare() {
                       alt="XROS 6"
                     />
                   </div>
-                  <h3>XROS 6</h3>
+                  <div className="vibe-compare-name">XROS 6</div>
                 </th>
                 <th>
                   <div className="vibe-compare-img-wrap">
@@ -29,7 +29,7 @@ export function Xros6MiniProductCompare() {
                       alt="XROS 6 MINI"
                     />
                   </div>
-                  <h3>XROS 6 MINI</h3>
+                  <div className="vibe-compare-name">XROS 6 MINI</div>
                 </th>
                 <th>
                   <div className="vibe-compare-img-wrap">
@@ -38,7 +38,7 @@ export function Xros6MiniProductCompare() {
                       alt="XROS 5"
                     />
                   </div>
-                  <h3>XROS 5</h3>
+                  <div className="vibe-compare-name">XROS 5</div>
                 </th>
                 <th>
                   <div className="vibe-compare-img-wrap">
@@ -47,7 +47,7 @@ export function Xros6MiniProductCompare() {
                       alt="XROS 5 MINI"
                     />
                   </div>
-                  <h3>XROS 5 MINI</h3>
+                  <div className="vibe-compare-name">XROS 5 MINI</div>
                 </th>
               </tr>
             </thead>

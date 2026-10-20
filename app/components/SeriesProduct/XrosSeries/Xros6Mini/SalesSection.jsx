@@ -7,7 +7,7 @@ export function Xros6MiniSalesSection() {
         <div className="feature-grid-inner">
           <div className="feature-card feature-card-1 to-top">
             <div className="feature-card-cnt">
-              <h3>60s Coil Priming, Ready in 1 minute</h3>
+              <div className="feature-card-tle">60s Coil Priming, Ready in 1 minute</div>
             </div>
             <picture className="feature-card-bgpic">
               <source
@@ -30,7 +30,7 @@ export function Xros6MiniSalesSection() {
             style={{transitionDelay: '0.1s'}}
           >
             <div className="feature-card-cnt">
-              <h3>VENTURI Airflow, Smoother & Intenser</h3>
+              <div className="feature-card-tle">VENTURI Airflow, Smoother & Intenser</div>
             </div>
             <picture className="feature-card-bgpic">
               <source
@@ -53,7 +53,7 @@ export function Xros6MiniSalesSection() {
             style={{transitionDelay: '0.2s'}}
           >
             <div className="feature-card-cnt">
-              <h3>1600mAh Long Lasting Battery</h3>
+              <div className="feature-card-tle">1600mAh Long Lasting Battery</div>
             </div>
             <picture className="feature-card-bgpic">
               <source
@@ -76,7 +76,7 @@ export function Xros6MiniSalesSection() {
             style={{transitionDelay: '0.3s'}}
           >
             <div className="feature-card-cnt">
-              <h3>Precisely Adjustable Airflow</h3>
+              <div className="feature-card-tle">Precisely Adjustable Airflow</div>
               <div className="feature-airflow-container">
                 <div className="feature-airflow-item ">
                   <picture className="toggle-icon">

@@ -27,12 +27,12 @@ export function Xros6MiniShowCaseTwo() {
               <div className="showcase2-cnt1-rt mobile-to-top">
                 <div className="showcase2-cnt1-box js-showcase2-cnt">
                   <div className="showcase2-cnt1-subtle">Venturi Airflow</div>
-                  <h3 className="showcase2-cnt1-tle">
-                    <p>Flow Made</p>
+                  <div className="showcase2-cnt1-tle">
+                    <div>Flow Made</div>
                     <div className="js-cnt1-tle1">
                       <SplitText className="js-hero-text1">Smoother</SplitText>
                     </div>
-                  </h3>
+                  </div>
                   <div className="showcase2-cnt1-txt">
                     Powered by the industry-first Venturi Airflow System,
                     airflow is optimized through fluid dynamics to reduce
@@ -196,12 +196,12 @@ export function Xros6MiniShowCaseTwo() {
                   className="showcase2-cnt2-ico"
                 />
                 <div className="showcase2-cnt2-subtle">SSS 2.0 TECH</div>
-                <h3 className="showcase2-cnt2-tle mb-cnt2__pst">
-                  <p>Leak-resistance Made</p>
+                <div className="showcase2-cnt2-tle mb-cnt2__pst">
+                  <div>Leak-resistance Made</div>
                   <div className="js-cnt1-tle2">
                     <SplitText className="js-hero-text2">Stronger</SplitText>
                   </div>
-                </h3>
+                </div>
                 <div className="showcase2-cnt2-txt">
                   With upgraded SSS Leak-Resistant Technology 2.0, thermal
                   leak-prevention design and improved structural sealing work
@@ -233,12 +233,12 @@ export function Xros6MiniShowCaseTwo() {
                     alt=""
                     className="showcase2-cnt3-ico"
                   />
-                  <h3 className="showcase2-cnt3-tle">
-                    <p>Flavor Made</p>
+                  <div className="showcase2-cnt3-tle">
+                    <div>Flavor Made</div>
                     <div className="js-cnt1-tle3">
                       <SplitText className="js-hero-text3">Richer</SplitText>
                     </div>
-                  </h3>
+                  </div>
                   <div className="showcase2-cnt3-txt">
                     Applying the new Hive Mesh Structure with Nano-Microfiber
                     Process and Aerospace Grade cotton Materials, the COREX 3.0
