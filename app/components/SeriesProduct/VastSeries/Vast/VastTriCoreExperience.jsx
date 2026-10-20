@@ -79,6 +79,8 @@ export const VastTriCoreExperience = ({ data = {} }) => {
     mobileMoodScrollDistance = 2400,
     scrub = 0.65,
     pinOffset = 0,
+    techEyebrowImage,
+    moodEyebrowImage,
   } = data;
 
   const modes = useMemo(() => DEFAULT_MODES.map((defaults, index) => {
@@ -146,7 +148,7 @@ export const VastTriCoreExperience = ({ data = {} }) => {
         gsap.set(captions, { autoAlpha: (index) => index === 0 ? 1 : 0 });
 
         // 灰色页只有一份标题。以下时间线仅处理标题下面的图片与模式说明。
-        const buildMoodSequence = (timeline, startAt) => {
+        const buildMoodSequence = (timeline, startAt, onSequenceUpdate) => {
           const boundaries = [];
           const landings = [startAt + 0.3];
           let time = startAt;
@@ -162,6 +164,7 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           timeline.to({}, { duration: 1 }, time);
           timeline.eventCallback('onUpdate', () => {
             const current = timeline.time();
+            onSequenceUpdate?.(current);
             publishMood(current >= boundaries[1] ? 2 : current >= boundaries[0] ? 1 : 0);
           });
           navigateRef.current = (index) => {
@@ -174,6 +177,43 @@ export const VastTriCoreExperience = ({ data = {} }) => {
         if (!mobile) {
           gsap.set(overview, { autoAlpha: 1 });
           gsap.set(mood, { autoAlpha: 0 });
+          const techHeading = Array.from(overview.querySelectorAll('.vast-tri-core__eyebrow, .vast-tri-core__tech-title'));
+          const moodHeading = Array.from(mood.querySelectorAll('.vast-tri-core__eyebrow, .vast-tri-core__mood-title'));
+
+          const overviewEntrance = gsap.timeline({
+            scrollTrigger: {
+              trigger: root,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+              once: true,
+            },
+          });
+          overviewEntrance.fromTo(techHeading,
+            { y: 32, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out' }, 0);
+          gsap.fromTo(
+            techModes,
+            { x: 100, autoAlpha: 0 },
+            {
+              x: 0,
+              autoAlpha: 1,
+              duration: 0.85,
+              stagger: 0.18,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: techStage,
+                start: 'top 70%',
+                toggleActions: 'play none none none',
+                once: true,
+              },
+            },
+          );
+          const moodEntrance = gsap.timeline({ paused: true });
+          moodEntrance.fromTo(moodHeading,
+            { y: 32, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out' }, 0);
+          let moodEntered = false;
+
           const timeline = gsap.timeline({
             scrollTrigger: {
               trigger: root,
@@ -189,10 +229,26 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           timeline.to({}, { duration: 0.7 }, 0);
           timeline.to(overview, { autoAlpha: 0, duration: 0.6, ease: 'power1.inOut' }, 0.7);
           timeline.to(mood, { autoAlpha: 1, duration: 0.6, ease: 'power1.inOut' }, 0.7);
-          buildMoodSequence(timeline, 1.3);
+          buildMoodSequence(timeline, 1.3, (time) => {
+            // 灰色页随主时间线淡入时，独立触发标题动画，只播放一次。
+            if (time >= 0.7 && !moodEntered) {
+              moodEntered = true;
+              moodEntrance.play(0);
+            }
+          });
         } else {
           gsap.set(techModes, { autoAlpha: 1 });
           gsap.set(techStage, { x: 0 });
+          const techPosition = (index) => -(techModes[index].offsetLeft - techModes[0].offsetLeft);
+
+          // 原来的通用 to-top 移到本组件处理，避免与 PC 入场动画重复控制。
+          [overview, mood].forEach((section) => {
+            const heading = section.querySelector('header');
+            gsap.fromTo(heading, { y: 28, autoAlpha: 0 }, {
+              y: 0, autoAlpha: 1, duration: 0.7, ease: 'power3.out',
+              scrollTrigger: { trigger: section, start: 'top 85%', once: true, toggleActions: 'play none none none' },
+            });
+          });
 
           const boundaries = [1.1, 2.7];
           let lastTech = -1;
@@ -220,7 +276,7 @@ export const VastTriCoreExperience = ({ data = {} }) => {
             techStage,
             { x: 0 },
             {
-              x: () => -techStage.clientWidth,
+              x: () => techPosition(1),
               duration: 0.6,
               ease: 'none',
               immediateRender: false,
@@ -230,9 +286,9 @@ export const VastTriCoreExperience = ({ data = {} }) => {
 
           techTimeline.fromTo(
             techStage,
-            { x: () => -techStage.clientWidth },
+            { x: () => techPosition(1) },
             {
-              x: () => -techStage.clientWidth * 2,
+              x: () => techPosition(2),
               duration: 0.6,
               ease: 'none',
               immediateRender: false,
@@ -296,8 +352,10 @@ export const VastTriCoreExperience = ({ data = {} }) => {
       <div className="vast-tri-core__pin">
         <section className="vast-tri-core__overview" aria-label="Tri-core mesh technology">
           <header className="vast-tri-core__tech-header">
-            <p className="vast-tri-core__eyebrow to-top">{techEyebrow}</p>
-            <h2 className="vast-tri-core__tech-title to-top">{splitLines(techTitle)}</h2>
+            <div className="vast-tri-core__eyebrow">
+              <img src={techEyebrowImage} alt={techEyebrow} width="178" height="70" />
+            </div>
+            <h2 className="vast-tri-core__tech-title">{splitLines(techTitle)}</h2>
           </header>
           <div className="vast-tri-core__tech-stage">
             {modes.map((mode, index) => (
@@ -320,8 +378,10 @@ export const VastTriCoreExperience = ({ data = {} }) => {
         </section>
 
         <section className="vast-tri-core__mood" aria-label="One click to switch your mood">
-          <header className="vast-tri-core__mood-header to-top">
-            <p className="vast-tri-core__eyebrow">{moodEyebrow}</p>
+          <header className="vast-tri-core__mood-header">
+            <div className="vast-tri-core__eyebrow">
+              <img src={moodEyebrowImage} alt={moodEyebrow} width="178" height="70" />
+            </div>
             <h2 className="vast-tri-core__mood-title">{splitLines(moodTitle)}</h2>
           </header>
           <div className="vast-tri-core__showcase to-top">

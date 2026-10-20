@@ -6,13 +6,14 @@ export function initScrollAppear(root) {
   ];
   const classSelector = animationClassNames.map((cls) => `.${cls}`).join(',');
   const animateElements = root.querySelectorAll(classSelector);
+  const isMobile = window.matchMedia('(max-width: 1023px)').matches;
 
-  if (animateElements.length === 0) return () => {};
+  if (animateElements.length === 0) return () => { };
 
   const observerOptions = {
     root: null,
     rootMargin: '0px 0px 50px 0px',
-    threshold: 0.4,
+    threshold: isMobile ? 0.5 : 0.4,
   };
 
   const shakeIntervals = [];

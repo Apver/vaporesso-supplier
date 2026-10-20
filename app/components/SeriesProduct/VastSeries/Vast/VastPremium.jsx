@@ -22,10 +22,10 @@ export const VastPremium = ({ data = {} }) => {
           decoding="async"
         />
       </picture>
-      <div className="vast-premium__container to-top">
+      <div className="vast-premium__container">
         <div className="vast-premium__content">
-          <h2 className="vast-premium__title">{title}</h2>
-          <p className="vast-premium__description">{description}</p>
+          <h2 className="vast-premium__title to-top">{title}</h2>
+          <p className="vast-premium__description to-top">{description}</p>
         </div>
       </div>
     </section>

@@ -104,18 +104,22 @@ export const PRIX_INTASTART_SECTION_DATA = {
   slides: [
     {
       image: prixAsset('vast_12_1.webp'),
+      mobileImage: prixAsset('vast_mob_12_1.webp'),
       text: 'Fill E-juice to the minimum line.',
     },
     {
       image: prixAsset('vast_12_2.webp'),
+      mobileImage: prixAsset('vast_mob_12_2.webp'),
       text: 'Remove the silicone.',
     },
     {
       image: prixAsset('vast_12_3.webp'),
+      mobileImage: prixAsset('vast_mob_12_3.webp'),
       text: 'Push together right after filling.',
     },
     {
       image: prixAsset('vast_12_4.webp'),
+      mobileImage: prixAsset('vast_mob_12_4.webp'),
       text: 'Enjoy it.',
     },
   ],
@@ -175,7 +179,8 @@ export const VAST_TRI_CORE_DATA = {
   techTitle: 'One Pod, Three Experiences\nFor All MTL Vapers',
   moodEyebrow: 'Tri-core Mesh Technology',
   moodTitle: 'One Click To Switch\nYour Mood',
-
+  techEyebrowImage: prixAsset('vast_05_5.svg'),
+  moodEyebrowImage: prixAsset('vast_06_5.svg'),
   desktopScrollDistance: 4800,
   mobileTechScrollDistance: 2000,
   mobileMoodScrollDistance: 2400,

@@ -153,19 +153,6 @@ export const VastCoreGuard = ({ data = {} }) => {
               const navHeight = window.matchMedia('(max-width: 1023px)').matches ? 0 : 0;
               return navHeight + Math.max(0, Number(pinOffset) || 0);
             };
-            // const timeline = gsap.timeline({
-            //   defaults: { ease: 'none' },
-            //   scrollTrigger: {
-            //     trigger: pinTarget,
-            //     start: () => `top top+=${offset()}`,
-            //     end: () => `+=${Math.max(1, Number(distance) || 1) * window.innerHeight}`,
-            //     pin: true,
-            //     pinSpacing: true,
-            //     scrub: Math.max(0, Number(scrub) || 0),
-            //     anticipatePin: 1,
-            //     invalidateOnRefresh: true,
-            //   },
-            // });
             const timeline = gsap.timeline({
               defaults: { ease: 'none' },
               scrollTrigger: mobile
@@ -178,11 +165,11 @@ export const VastCoreGuard = ({ data = {} }) => {
                 : {
                   trigger: stage,
                   start: () => `top top+=${offset()}`,
-                  end: () =>
-                    `+=${Math.max(1, Number(distance) || 1) * window.innerHeight}`,
+                  end: () => `+=800`,
                   pin: true,
                   pinSpacing: true,
-                  scrub: Math.max(0, Number(scrub) || 0),
+                  scrub: false,
+                  toggleActions: 'play none none reverse',
                   anticipatePin: 1,
                   invalidateOnRefresh: true,
                 },
@@ -246,13 +233,13 @@ export const VastCoreGuard = ({ data = {} }) => {
         </div>
         <div className="vast-core-guard__panel">
           <div className="vast-core-guard__intro">
-            <p className="vast-core-guard__eyebrow">{eyebrow}</p>
-            <h2 className="vast-core-guard__title">
+            <p className="vast-core-guard__eyebrow to-top">{eyebrow}</p>
+            <h2 className="vast-core-guard__title to-top">
               {String(title).split('\n').map((line, index) => <span key={index}>{line}</span>)}
             </h2>
-            <p className="vast-core-guard__description">{description}</p>
+            <p className="vast-core-guard__description to-top">{description}</p>
           </div>
-          <div className="vast-core-guard__bottom">
+          <div className="vast-core-guard__bottom to-top">
 
             <div className="vast-core-guard__detail">
               <ResponsiveImage image={detailImage} mobileImage={mobileDetailImage} alt={detailAlt} />
