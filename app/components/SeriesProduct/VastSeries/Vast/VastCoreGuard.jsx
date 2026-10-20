@@ -233,13 +233,13 @@ export const VastCoreGuard = ({ data = {} }) => {
         </div>
         <div className="vast-core-guard__panel">
           <div className="vast-core-guard__intro">
-            <p className="vast-core-guard__eyebrow">{eyebrow}</p>
-            <h2 className="vast-core-guard__title">
+            <p className="vast-core-guard__eyebrow to-top">{eyebrow}</p>
+            <h2 className="vast-core-guard__title to-top">
               {String(title).split('\n').map((line, index) => <span key={index}>{line}</span>)}
             </h2>
-            <p className="vast-core-guard__description">{description}</p>
+            <p className="vast-core-guard__description to-top">{description}</p>
           </div>
-          <div className="vast-core-guard__bottom">
+          <div className="vast-core-guard__bottom to-top">
 
             <div className="vast-core-guard__detail">
               <ResponsiveImage image={detailImage} mobileImage={mobileDetailImage} alt={detailAlt} />
