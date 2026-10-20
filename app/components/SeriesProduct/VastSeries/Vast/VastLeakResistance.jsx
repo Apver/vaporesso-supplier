@@ -107,7 +107,7 @@ export const VastLeakResistance = ({ data = {} }) => {
         gsap.set(right, { xPercent: 0, x: () => -startOffset() });
         // 卡片整体先藏在舞台下方，通过 stage 的 overflow:hidden 裁切。
         // gsap.set(tech, { autoAlpha: 1, yPercent: 105 });
-        gsap.set(tech, { autoAlpha: 0, yPercent: 105 });
+        gsap.set(tech, { autoAlpha: 0, yPercent: 15 });
         gsap.set([...dots, ...labels], { autoAlpha: 0 });
         lines.forEach((line) => {
           const length = line.getTotalLength();
@@ -134,18 +134,24 @@ export const VastLeakResistance = ({ data = {} }) => {
         if (lines.length) {
           annotations.to(lines, {
             strokeDashoffset: 0,
-            duration: 0.45,
-            stagger: 0.07,
-            ease: 'power1.inOut',
+            duration: 0.18,
+            stagger: 0.02,
+            ease: 'none',
           });
         }
-        if (dots.length) annotations.to(dots, { autoAlpha: 1, duration: 0.1 });
-        // 不写重叠时间位置：全部线条画完后，才开始显示文字。
+
+        if (dots.length) {
+          annotations.to(dots, {
+            autoAlpha: 1,
+            duration: 0.05,
+          });
+        }
+
         if (labels.length) {
           annotations.to(labels, {
             autoAlpha: 1,
-            duration: 0.25,
-            stagger: 0.05,
+            duration: 0.16,
+            stagger: 0.02,
             ease: 'power1.out',
           });
         }
@@ -160,8 +166,8 @@ export const VastLeakResistance = ({ data = {} }) => {
         };
 
         // 第二段：top top 定屏，中间卡片随滚动从下方移出。
-        // 上移占定屏距离的 65%，剩余 35% 留给完整卡片的展示。
-        const riseEnd = 0.65;
+        // 上移占定屏距离的 45%，剩余 55% 留给完整卡片的展示。
+        const riseEnd = 0.45;
         const rise = gsap.timeline({
           onUpdate: function updateRise() {
             const trigger = this.scrollTrigger;
@@ -284,20 +290,6 @@ export const VastLeakResistance = ({ data = {} }) => {
           <SceneCard item={tripData} className="vast-leak-resistance__side--trip" />
           <article className="vast-leak-resistance__tech mobile-to-top" aria-label="SSS 3.0 leak resistance structure">
             <Image image={techImage} mobileImage={mobileTechImage} alt="Exploded view of the leak-resistant pod" />
-            {/* <svg className="vast-leak-resistance__annotations" viewBox="0 0 472 650" aria-label="Leak resistance technical features" role="img">
-              {callouts.map((item, index) => {
-                const last = item.points[item.points.length - 1];
-                return (
-                  <g key={index}>
-                    <polyline data-leak-line="" points={item.points.map((point) => point.join(',')).join(' ')} fill="none" stroke="currentColor" strokeWidth="1" />
-                    <circle data-leak-dot="" cx={last[0]} cy={last[1]} r="2.5" fill="currentColor" />
-                    <text data-leak-label="" x={item.x} y={item.y} textAnchor={item.align || 'start'} dominantBaseline="hanging" fill="currentColor">
-                      {item.text.split('\n').map((line, lineIndex) => <tspan x={item.x} dy={lineIndex ? 20 : 0} key={lineIndex}>{line}</tspan>)}
-                    </text>
-                  </g>
-                );
-              })}
-            </svg> */}
             {[
               { device: 'desktop', items: callouts },
               { device: 'mobile', items: MOBILE_CALLOUTS },

@@ -1,68 +1,68 @@
 export function initScrollAppear(root) {
-  const animationClassNames = [
-    'to-top',
-    'mobile-to-top',
-    'cricle-animate',
-  ];
-  const classSelector = animationClassNames.map((cls) => `.${cls}`).join(',');
-  const animateElements = root.querySelectorAll(classSelector);
+  if (!root || typeof window === 'undefined') return () => { };
 
-  if (animateElements.length === 0) return () => {};
+  const elements = [...root.querySelectorAll(
+    '.to-top, .mobile-to-top, .cricle-animate',
+  )].filter((el) => !el.classList.contains('appear'));
 
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px 0px 50px 0px',
-    threshold: 0.4,
-  };
+  if (!elements.length) return () => { };
 
-  const shakeIntervals = [];
+  if (
+    !('IntersectionObserver' in window) ||
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ) {
+    elements.forEach((el) => el.classList.add('appear'));
+    return () => { };
+  }
 
-  const handleIntersect = (entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
+  const isMobile = window.matchMedia('(max-width: 1023px)').matches;
+  const intervals = new Set();
+  const frames = new Set();
+  let disposed = false;
 
-      const el = entry.target;
-      if (el.classList.contains('shake-once')) {
-        const intervalId = window.setInterval(() => {
-          el.classList.remove('appear');
-          void el.offsetWidth;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting || disposed) return;
+
+        const el = entry.target;
+        observer.unobserve(el);
+
+        const frame = requestAnimationFrame(() => {
+          frames.delete(frame);
+          if (disposed) return;
+
           el.classList.add('appear');
-        }, 3000);
-        shakeIntervals.push(intervalId);
-      } else {
-        requestAnimationFrame(() => {
-          el.classList.add('appear');
+
+          if (el.classList.contains('shake-once')) {
+            const interval = window.setInterval(() => {
+              el.classList.remove('appear');
+              void el.offsetWidth;
+              el.classList.add('appear');
+            }, 3000);
+
+            intervals.add(interval);
+          }
         });
-      }
 
-      observer.unobserve(el);
-    });
-  };
+        frames.add(frame);
+      });
+    },
+    {
+      root: null,
+      rootMargin: isMobile
+        ? `0px 0px -${Math.round(window.innerHeight * 0.2)}px 0px`
+        : '0px 0px 50px 0px',
+      threshold: isMobile ? 0 : 0.4,
+    },
+  );
 
-  const observer = new IntersectionObserver(handleIntersect, observerOptions);
-
-  const observeInBatches = (elements, batchSize = 20) => {
-    let index = 0;
-
-    const observeNextBatch = () => {
-      const batch = Array.from(elements).slice(index, index + batchSize);
-      batch.forEach((el) => observer.observe(el));
-      index += batchSize;
-
-      if (index < elements.length) {
-        (window.requestIdleCallback || ((cb) => window.setTimeout(cb, 150)))(
-          observeNextBatch,
-        );
-      }
-    };
-
-    observeNextBatch();
-  };
-
-  observeInBatches(animateElements);
+  elements.forEach((el) => observer.observe(el));
 
   return () => {
+    disposed = true;
     observer.disconnect();
-    shakeIntervals.forEach((id) => window.clearInterval(id));
+    frames.forEach((id) => cancelAnimationFrame(id));
+    intervals.forEach((id) => window.clearInterval(id));
   };
 }

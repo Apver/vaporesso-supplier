@@ -179,7 +179,8 @@ export const VAST_TRI_CORE_DATA = {
   techTitle: 'One Pod, Three Experiences\nFor All MTL Vapers',
   moodEyebrow: 'Tri-core Mesh Technology',
   moodTitle: 'One Click To Switch\nYour Mood',
-
+  techEyebrowImage: prixAsset('vast_05_5.svg'),
+  moodEyebrowImage: prixAsset('vast_06_5.svg'),
   desktopScrollDistance: 4800,
   mobileTechScrollDistance: 2000,
   mobileMoodScrollDistance: 2400,
