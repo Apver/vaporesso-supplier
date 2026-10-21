@@ -292,7 +292,8 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
               const centeredX = (width - visualWidth) / 2;
 
               // 整组以居中位置为基准，保留最后一屏原来的左移微调。
-              const baseX = centeredX - (i === 2 ? width * 0.1 : 0);
+              // const baseX = centeredX - (i === 2 ? width * 0.1 : 0);
+              const baseX = centeredX - (i === 1 ? width * 0.06 : i === 2 ? width * 0.1 : 0);
 
               const inScene =
                 frame >= start &&
