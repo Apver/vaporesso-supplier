@@ -374,15 +374,21 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
                   else high = middle;
                 }
 
-                const metricStart = ((low + high) / 2) * 0.35;
+                // const metricStart = ((low + high) / 2) * 0.35;
+                const metricStart = 0.1;
 
                 const metricProgress = ease(
-                  (local - metricStart) / 0.3,
+                  (local - metricStart) / 0.18,
                 );
 
                 gsap.set(metric, {
-                  x: i === 0 ? 0 : 75 * (1 - metricProgress) + (i === 2 ? width * 0.04 : 0),
-                  autoAlpha: i === 0 ? 1 : ease((local - metricStart) / 0.12),
+                  x: i === 0
+                    ? 0
+                    : 75 * (1 - metricProgress) +
+                    (i === 2 ? width * 0.005 : 0),
+                  autoAlpha: i === 0
+                    ? 1
+                    : ease((local - metricStart) / 0.08),
                   force3D: true,
                 });
               }
