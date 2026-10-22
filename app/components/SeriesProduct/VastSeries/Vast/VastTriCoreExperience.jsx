@@ -154,10 +154,15 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           let time = startAt;
           for (let index = 1; index < 3; index += 1) {
             time += 1;
-            boundaries.push(time + 0.3);
-            timeline.to(scenes[index], { autoAlpha: 1, duration: 0.6, ease: 'power1.inOut' }, time);
-            timeline.to(captions[index - 1], { autoAlpha: 0, duration: 0.2 }, time);
-            timeline.to(captions[index], { autoAlpha: 1, duration: 0.25 }, time + 0.3);
+            const switchAt = time + 0.3;
+            boundaries.push(switchAt);
+            // timeline.to(scenes[index], { autoAlpha: 1, duration: 0.6, ease: 'power1.inOut' }, time);
+            // timeline.to(captions[index - 1], { autoAlpha: 0, duration: 0.2 }, time);
+            // timeline.to(captions[index], { autoAlpha: 1, duration: 0.25 }, time + 0.3);
+            timeline.set([scenes[index - 1], captions[index - 1]], { autoAlpha: 0 }, switchAt);
+            timeline.set([scenes[index], captions[index]], { autoAlpha: 1 }, switchAt);
+
+
             time += 0.6;
             landings.push(time + 0.3);
           }

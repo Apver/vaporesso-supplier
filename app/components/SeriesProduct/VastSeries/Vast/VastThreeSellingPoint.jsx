@@ -91,6 +91,21 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
                 stagger: { each: 0.018, from: 'start' }, ease: 'power3.out'
               }, 0.12);
         });
+        // 三组 PC 大字共用同一套入场参数。
+        function addDesktopEntrance(timeline, word, metric) {
+          return timeline
+            .fromTo(word,
+              { x: 120, autoAlpha: 0 },
+              { x: 0, autoAlpha: 1, duration: 0.65, ease: 'power2.out' },
+              0,
+            )
+            .fromTo(metric,
+              { x: 160, autoAlpha: 0 },
+              { x: 0, autoAlpha: 1, duration: 1.1, ease: 'power2.out' },
+              '+=0.15',
+            );
+        }
+
         const firstWord = headlines[0].querySelector('.vast-sequence__word');
         const firstMetric = headlines[0].querySelector('.vast-sequence__metric');
 
@@ -120,35 +135,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
             0,
           );
         } else {
-          firstHeadlineTimeline
-            .fromTo(
-              firstWord,
-              {
-                x: 120,
-                autoAlpha: 0,
-              },
-              {
-                x: 0,
-                autoAlpha: 1,
-                duration: 0.65,
-                ease: 'power2.out',
-              },
-              0,
-            )
-            .fromTo(
-              firstMetric,
-              {
-                x: 160,
-                autoAlpha: 0,
-              },
-              {
-                x: 0,
-                autoAlpha: 1,
-                duration: 1.2,
-                ease: 'power2.out',
-              },
-              '+=0.15',
-            );
+          addDesktopEntrance(firstHeadlineTimeline, firstWord, firstMetric);
         }
         let firstEntered = false;
         let activeCaption = -1;
@@ -173,7 +160,7 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
           if (dead || firstEntered) return;
           firstEntered = true;
           if (reducedMotion) firstHeadlineTimeline.progress(1).pause();
-          else firstHeadlineTimeline.play(0);
+          else if (mobile) firstHeadlineTimeline.play(0);
           // 仅在第一屏时显示第一组小字；越过第一屏不会抢回当前字幕。
           if (activeScene <= 0) setActiveCaption(0);
           updateVisuals();
@@ -210,6 +197,96 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
         let raf = 0;
         let resizeObserver;
         let intersectionObserver;
+        // PC：位置计算与自动播放动画分开，滚动只负责切换场景。
+        const desktopOffsets = headlines.map(() => ({ x: 0 }));
+        const desktopExits = headlines.map(() => null);
+        let desktopHeadline = -1;
+        let desktopVisible = -1;
+        let desktopExiting = false;
+        const desktopEntries = [];
+
+        if (!mobile && !reducedMotion) {
+          headlines.forEach((headline, index) => {
+            if (index === 0) {
+              // 复用第一句现有的先左后右出场，不修改它的参数。
+              desktopEntries.push(firstHeadlineTimeline);
+              return;
+            }
+            const word = headline.querySelector('.vast-sequence__word');
+            const metric = headline.querySelector('.vast-sequence__metric');
+            const entrance = gsap.timeline({ paused: true });
+            addDesktopEntrance(entrance, word, metric);
+            desktopEntries.push(entrance);
+          });
+          gsap.set(headlines, { autoAlpha: 0 });
+        }
+
+        function positionDesktopHeadlines() {
+          if (!width || mobile || reducedMotion) return;
+          headlines.forEach((headline, index) => {
+            const visualWidth = headlineInners[index].getBoundingClientRect().width;
+            const correction = index === 1 ? width * 0.06 : index === 2 ? width * 0.1 : 0;
+            gsap.set(headline, {
+              x: (width - visualWidth) / 2 - correction + desktopOffsets[index].x,
+              force3D: true,
+            });
+          });
+        }
+
+        function showDesktopHeadline(index) {
+          if (desktopHeadline === index) return;
+          desktopHeadline = index;
+          advanceDesktopHeadline();
+        }
+
+        function advanceDesktopHeadline() {
+          if (dead || desktopExiting || desktopVisible === desktopHeadline) return;
+
+          if (desktopVisible >= 0) {
+            const previous = desktopVisible;
+            desktopExiting = true;
+            desktopEntries[previous].pause();
+            desktopExits[previous]?.kill();
+            // 完全退场后才允许下一组入场，快速滚动只保留最新目标。
+            desktopExits[previous] = gsap.timeline({
+              onComplete: () => {
+                if (dead) return;
+                gsap.set(headlines[previous], { autoAlpha: 0 });
+                desktopVisible = -1;
+                desktopExiting = false;
+                desktopExits[previous] = null;
+                advanceDesktopHeadline();
+              },
+            })
+              .to(desktopOffsets[previous], {
+                x: -width * 0.3, duration: 1.1,
+                ease: 'power1.inOut', onUpdate: positionDesktopHeadlines,
+              }, 0)
+              .to(headlines[previous], {
+                autoAlpha: 0, duration: 1.1, ease: 'power1.inOut',
+              }, 0);
+            return;
+          }
+
+          const index = desktopHeadline;
+          if (index < 0) return;
+          // 父级保持隐藏，先重置子级，再显示并播放，防止重放时闪现。
+          gsap.set(headlines, { autoAlpha: 0 });
+          desktopOffsets[index].x = 0;
+          desktopEntries[index].pause(0).invalidate();
+          // 父级显示之前显式复位，右侧等待期间始终保持隐藏。
+          gsap.set(headlines[index].querySelector('.vast-sequence__word'), {
+            x: 120, autoAlpha: 0,
+          });
+          gsap.set(headlines[index].querySelector('.vast-sequence__metric'), {
+            x: 160, autoAlpha: 0,
+          });
+          positionDesktopHeadlines();
+          desktopVisible = index;
+          gsap.set(headlines[index], { autoAlpha: 1 });
+          desktopEntries[index].restart();
+        }
+
         function frameUrl(index) {
           const prefix = mobile && mobileFramePrefix ? mobileFramePrefix : framePrefix;
           return `${frameBase.replace(/\/$/, '')}/${prefix}${String(index).padStart(3, '0')}.webp`;
@@ -242,6 +319,20 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
             gsap.set(background, { autoAlpha: phase });
           });
 
+          // PC 大字只在场景改变时触发，停止滚动后仍会自动播放完。
+          if (!mobile && !reducedMotion) {
+            let desktopScene = 0;
+            STARTS.forEach((start, index) => {
+              if (frame >= start) desktopScene = index;
+            });
+            activateScene(desktopScene);
+            showDesktopHeadline(
+              desktopScene === 0 && !firstEntered ? -1 : desktopScene,
+            );
+            positionDesktopHeadlines();
+            return;
+          }
+
           let dominant = 0;
           headlines.forEach((headline, i) => {
             const start = STARTS[i];
@@ -251,149 +342,38 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
 
             const inner = headlineInners[i];
 
-            // 移动端继续使用原来的移动和透明度逻辑。
-            if (mobile || reducedMotion) {
-              const entry = i === 0
-                ? 1
-                : ease(
-                  (frame - (start - transition * 0.4)) /
-                  (transition * 1.2),
-                );
 
-              const exit = i === 2
-                ? 1
-                : 1 - ease(
-                  (frame - (STARTS[i + 1] - transition * 0.8)) /
-                  (transition * 1.35),
-                );
+            const entry = i === 0
+              ? 1
+              : ease(
+                (frame - (start - transition * 0.4)) /
+                (transition * 1.2),
+              );
 
-              const scale =
-                Number(root.style.getPropertyValue('--vast-letter-scale')) || 0.65;
+            const exit = i === 2
+              ? 1
+              : 1 - ease(
+                (frame - (STARTS[i + 1] - transition * 0.8)) /
+                (transition * 1.35),
+              );
 
-              const visualWidth = inner.offsetWidth * scale;
-              const centeredX = (width - visualWidth) / 2;
+            const scale =
+              Number(root.style.getPropertyValue('--vast-letter-scale')) || 0.65;
 
-              const from = i === 0 ? centeredX : width * 1.04;
-              const to = i === 2 ? centeredX : -visualWidth - width * 0.08;
+            const visualWidth = inner.offsetWidth * scale;
+            const centeredX = (width - visualWidth) / 2;
 
-              gsap.set(headline, {
-                x: reducedMotion
-                  ? centeredX
-                  : from + (to - from) * ease(local),
-                autoAlpha:
-                  entry * exit * (i === 0 && !firstEntered ? 0 : 1),
-                force3D: true,
-              });
-            } else {
-              const word = headline.querySelector('.vast-sequence__word');
-              const metric = headline.querySelector('.vast-sequence__metric');
+            const from = i === 0 ? centeredX : width * 1.04;
+            const to = i === 2 ? centeredX : -visualWidth - width * 0.08;
 
-              const visualWidth = inner.getBoundingClientRect().width;
-              const centeredX = (width - visualWidth) / 2;
-
-              // 整组以居中位置为基准，保留最后一屏原来的左移微调。
-              // const baseX = centeredX - (i === 2 ? width * 0.1 : 0);
-              const baseX = centeredX - (i === 1 ? width * 0.06 : i === 2 ? width * 0.1 : 0);
-
-              const inScene =
-                frame >= start &&
-                (i === 2 || frame < STARTS[i + 1]);
-
-              // 第一屏独立出场动画仍由原来的时间线控制。
-              const enteringFirst =
-                i === 0 && firstHeadlineTimeline.progress() < 1;
-
-              if (enteringFirst) {
-                gsap.set(headline, {
-                  x: baseX,
-                  autoAlpha: firstEntered ? 1 : 0,
-                  force3D: true,
-                });
-              } else {
-                // 左边先走：前 35% 的进度完成。
-                const wordProgress = ease(local / 0.35);
-
-                // 第一、二句最后 30% 的进度一起缓慢渐隐。
-                const fadeOut = i === 2
-                  ? 1
-                  : 1 - ease((local - 0.7) / 0.3);
-
-                // 第一、二句继续向左退场，第三句停住。
-                const exitProgress = i === 2
-                  ? 0
-                  : ease((local - 0.55) / 0.45);
-
-                gsap.set(headline, {
-                  x: baseX - width * 0.3 * exitProgress,
-                  autoAlpha: inScene ? fadeOut : 0,
-                  force3D: true,
-                });
-
-                const innerScale =
-                  inner.getBoundingClientRect().width / inner.offsetWidth || 1;
-
-                const pinLeft = pin.getBoundingClientRect().left;
-
-                // 扣除已有位移，得到单词最终位置的右边缘。
-                const wordRect = word.getBoundingClientRect();
-                const wordX = Number(gsap.getProperty(word, 'x')) || 0;
-
-                const restingWordRight =
-                  wordRect.right - pinLeft - wordX * innerScale;
-
-                const productLeft = width * 0.44;
-
-                // 左边向左移到产品左侧，随后右边开始。
-                const wordTravel = Math.max(
-                  120,
-                  (width * 0.5 - (restingWordRight - wordRect.width)) /
-                  innerScale,
-                );
-
-                gsap.set(word, {
-                  x: i === 0 ? 0 : wordTravel * 0.3 * (1 - wordProgress),
-                  autoAlpha: i === 0 ? 1 : ease(local / 0.12),
-                  force3D: true,
-                });
-
-                // 根据单词右边缘是否到达产品左侧，计算右组启动时机。
-                const requiredProgress = clamp(
-                  1 -
-                  (productLeft - restingWordRight) /
-                  Math.max(1, wordTravel * innerScale),
-                  0,
-                  1,
-                );
-
-                // ease 的反函数用二分求出对应的时间进度。
-                let low = 0;
-                let high = 1;
-
-                for (let step = 0; step < 12; step += 1) {
-                  const middle = (low + high) / 2;
-                  if (ease(middle) < requiredProgress) low = middle;
-                  else high = middle;
-                }
-
-                // const metricStart = ((low + high) / 2) * 0.35;
-                const metricStart = 0.1;
-
-                const metricProgress = ease(
-                  (local - metricStart) / 0.18,
-                );
-
-                gsap.set(metric, {
-                  x: i === 0
-                    ? 0
-                    : 75 * (1 - metricProgress) +
-                    (i === 2 ? width * 0.005 : 0),
-                  autoAlpha: i === 0
-                    ? 1
-                    : ease((local - metricStart) / 0.08),
-                  force3D: true,
-                });
-              }
-            }
+            gsap.set(headline, {
+              x: reducedMotion
+                ? centeredX
+                : from + (to - from) * ease(local),
+              autoAlpha:
+                entry * exit * (i === 0 && !firstEntered ? 0 : 1),
+              force3D: true,
+            });
 
             if (frame >= start) dominant = i;
           });
@@ -643,6 +623,10 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
           window.removeEventListener('load', refreshLayout);
           firstEntranceTrigger?.kill();
           firstHeadlineTimeline.kill();
+          desktopEntries.forEach((timeline) => {
+            if (timeline !== firstHeadlineTimeline) timeline.kill();
+          });
+          desktopExits.forEach((timeline) => timeline?.kill());
           captionTimelines.forEach((timeline) => timeline.kill());
           smoothFrame.tween?.kill();
           discardImages();
