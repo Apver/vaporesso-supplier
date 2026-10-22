@@ -92,18 +92,26 @@ export function VastThreeSellingPoint({ data = {}, className = '' }) {
               }, 0.12);
         });
         // 三组 PC 大字共用同一套入场参数。
+        // function addDesktopEntrance(timeline, word, metric) {
+        //   return timeline
+        //     .fromTo(word,
+        //       { x: 120, autoAlpha: 0 },
+        //       { x: 0, autoAlpha: 1, duration: 0.65, ease: 'power2.out' },
+        //       0,
+        //     )
+        //     .fromTo(metric,
+        //       { x: 160, autoAlpha: 0 },
+        //       { x: 0, autoAlpha: 1, duration: 1.1, ease: 'power2.out' },
+        //       '+=0.15',
+        //     );
+        // }
         function addDesktopEntrance(timeline, word, metric) {
-          return timeline
-            .fromTo(word,
-              { x: 120, autoAlpha: 0 },
-              { x: 0, autoAlpha: 1, duration: 0.65, ease: 'power2.out' },
-              0,
-            )
-            .fromTo(metric,
-              { x: 160, autoAlpha: 0 },
-              { x: 0, autoAlpha: 1, duration: 1.1, ease: 'power2.out' },
-              '+=0.15',
-            );
+          return timeline.fromTo(
+            [word, metric],
+            { x: (index) => index === 0 ? 120 : 160, autoAlpha: 0 },
+            { x: 0, autoAlpha: 1, duration: 0.8, ease: 'power2.out' },
+            0,
+          );
         }
 
         const firstWord = headlines[0].querySelector('.vast-sequence__word');
