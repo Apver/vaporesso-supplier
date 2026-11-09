@@ -36,6 +36,10 @@ import {
   VastLayout,
   VastProductSpecData,
 } from '~/components/SeriesProduct/VastSeries/Vast';
+import {
+  VastPodLayout,
+  VastPodProductSpecData,
+} from '~/components/SeriesProduct/VastSeries/VastPod';
 /** 不展示 ProductNav / SpecSection / Product3DViewer 的 template 值 */
 export const SERIES_PRODUCT_NO_NAV_TEMPLATES = [];
 
@@ -164,8 +168,8 @@ export const SERIES_PRODUCT_LAYOUT_ENTRIES = {
     /** 本页 Specs 页签用自己的组件，不走共享的 SpecSectionJsData */
     SpecComponent: ArmourG2SpecSection,
   },
-  vast: {
-    Layout: VastLayout,
+  'vast-pod': {
+    Layout: VastPodLayout,
     specElementId: 'check-specs-vast',
   },
 };

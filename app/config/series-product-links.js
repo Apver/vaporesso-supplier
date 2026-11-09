@@ -8,6 +8,7 @@ import prixKitStyles from '~/styles/series-product/prix.scss?url';
 import armourOctaStyles from '~/styles/series-product/armour-octa.scss?url';
 import armourG2Styles from '~/styles/series-product/armour-g2.scss?url';
 import vastStyles from '~/styles/series-product/vast.scss?url';
+import vastPodStyles from '~/styles/series-product/vast-pod.scss?url';
 
 /** URL / Shopify handle → template（metafield 缺失时的回退） */
 export const SERIES_PRODUCT_HANDLE_TEMPLATE_MAP = {
@@ -85,6 +86,7 @@ const SERIES_PRODUCT_STYLESHEETS_BY_TEMPLATE = {
   'armour-octa': [productStyles, uiV4Styles, armourOctaStyles],
   'armour-g2': [productStyles, uiV4Styles, armourG2Styles],
   vast: [productStyles, uiV4Styles, vastStyles],
+  'vast-pod': [productStyles, uiV4Styles, vastPodStyles]
 };
 
 function hrefsToStylesheetDescriptors(hrefs) {
