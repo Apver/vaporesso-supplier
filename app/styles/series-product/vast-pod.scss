@@ -1628,11 +1628,18 @@
       pointer-events: none;
     }
 
-    &__chart-svg {
+    &__chart-svg,
+    &__chart-img {
       display: block;
       width: 100%;
       height: auto;
       overflow: visible;
+    }
+
+    &__chart-img img {
+      display: block;
+      width: 100%;
+      height: auto;
     }
 
     &__panel {
@@ -2369,20 +2376,6 @@
     font-family: var(--de);
     color: #000;
 
-    /* Picture 双图切换：与 JSX 中 --pc / --mob 配套，缺则两张图叠在一起撑破 showcase */
-    &__media--mob {
-      display: none;
-    }
-
-    @media (max-width: 1023px) {
-      &__media--pc {
-        display: none;
-      }
-
-      &__media--mob {
-        display: block;
-      }
-    }
 
     &__pin {
       position: relative;
@@ -2604,7 +2597,6 @@
       width: min(1020px, calc(100vw - 96px), calc((100svh - 440px) * 2.161017));
       max-width: 100%;
       aspect-ratio: 1020 / 472;
-      overflow: hidden;
     }
 
     &__mood-scene {
@@ -2619,16 +2611,38 @@
       visibility: visible;
     }
 
+    &__media {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+
+      &--mob {
+        display: none;
+      }
+    }
+
     &__scene-photo {
       position: absolute;
       inset: 0 0 0 8.3%;
       display: block;
 
       img {
+        position: absolute;
+        inset: 0;
         display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
+
+      .vast-tri-core__media--mob {
+        display: none;
+      }
+
+      .vast-tri-core__media--pc {
+        display: block;
       }
     }
 
@@ -2642,10 +2656,20 @@
       width: 16.666667%;
 
       img {
+        position: absolute;
+        inset: 0;
         display: block;
         width: 100%;
         height: 100%;
         object-fit: contain;
+      }
+
+      .vast-tri-core__media--mob {
+        display: none;
+      }
+
+      .vast-tri-core__media--pc {
+        display: block;
       }
     }
 
@@ -2751,40 +2775,6 @@
       &__mood-header {
         margin-bottom: 6rem;
       }
-    }
-
-    @media screen and (max-width: 1450px) and (min-width: 1024px) {
-      // &__overview {
-      //   padding-top: 54px;
-      // }
-
-      // &__tech-header {
-      //   margin-bottom: 36px;
-      // }
-
-      // &__tech-title {
-      //   font-size: 36px;
-      // }
-
-      // &__ruler {
-      //   margin-bottom: 26px;
-      // }
-
-      // &__mood-header {
-      //   margin-bottom: 36px;
-      // }
-
-      // &__showcase {
-      //   width: min(1020px, calc(100vw - 96px), calc((100svh - 460px) * 2.161017));
-      // }
-
-      // &__coil-copy h3 {
-      //   font-size: 24px;
-      // }
-
-      // &__coil-copy p {
-      //   font-size: 14px;
-      // }
     }
 
     @media (max-width: 1023px) {
@@ -2927,6 +2917,8 @@
       }
 
       &__showcase {
+        flex: none;
+        max-height: none;
         width: min(100%, 10.4rem, calc((100svh - 7rem) * 1.135593));
         max-width: 100%;
         aspect-ratio: 335 / 295;
@@ -2934,10 +2926,26 @@
 
       &__scene-photo {
         left: 16.552239%;
+
+        .vast-tri-core__media--pc {
+          display: none;
+        }
+
+        .vast-tri-core__media--mob {
+          display: block;
+        }
       }
 
       &__product-image {
         width: 31.716418%;
+
+        .vast-tri-core__media--pc {
+          display: none;
+        }
+
+        .vast-tri-core__media--mob {
+          display: block;
+        }
       }
 
       &__control {
@@ -3098,55 +3106,100 @@
     }
 
   }
-}
 
-/* 3D Exhibit：约束 cloudimage 原图像素，避免 canvas 撑破弹窗
-   Product3DViewer 与 .product-vast 同级，不能嵌套在 .product-vast 下 */
-.section-3d {
-  .content {
-    overflow: hidden;
+  /* Specs Finish：颜色文字与全局 .f img（width:110% + translateX(-5%)）同步；边缘列微调对准机身 */
+  @media screen and (max-width: 1023px) {
+    .ui_v3-no_max_width_finish.f {
+      .colors {
+        width: 110%;
+        transform: translateX(-5%);
+
+        .item:nth-child(1) {
+          transform: translateX(-0.12rem);
+        }
+
+        .item:nth-child(4) {
+          transform: translateX(0.12rem);
+        }
+      }
+    }
   }
 
-  .content .detail {
-    overflow: hidden;
-  }
+  /* Specs Packing list：文案与图 40/36；图底边距 80（含末张到底部 80px） */
+  .spec-content .package-list {
 
-  .content .detail .cloudimage-360 {
-    overflow: hidden;
-    position: relative;
-  }
+    img,
+    picture {
+      margin-top: 40px;
+      margin-bottom: 80px;
+    }
 
-  .cloudimage-360-inner-box,
-  .ui-cloudimage-360-inner-box {
-    box-sizing: border-box !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    width: 100% !important;
-    height: 100% !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    overflow: hidden;
-  }
+    @media screen and (max-width: 1023px) {
+      padding-bottom: 0;
 
-  .cloudimage-360 canvas,
-  .cloudimage-360 img {
-    box-sizing: border-box !important;
-    display: block !important;
-    width: auto !important;
-    height: auto !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    margin: 0 auto;
-    object-fit: contain;
-    transform: none !important;
+      img,
+      picture {
+        margin-top: 36px;
+        margin-bottom: 80px;
+      }
+    }
   }
 
   @media screen and (max-width: 1023px) {
-
-    .content .detail .cloudimage-360 canvas,
-    .content .detail.single .cloudimage-360 canvas {
-      transform: none !important;
+    .spec-content ul .d.size img {
+      width: 325px;
+      margin: 0;
     }
   }
+
+  /* 3D Exhibit：约束 cloudimage 原图像素，避免 canvas 撑破弹窗 */
+  .section-3d {
+    .content {
+      overflow: hidden;
+    }
+
+    .content .detail {
+      overflow: hidden;
+    }
+
+    .content .detail .cloudimage-360 {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cloudimage-360-inner-box,
+    .ui-cloudimage-360-inner-box {
+      box-sizing: border-box !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      overflow: hidden;
+    }
+
+    .cloudimage-360 canvas,
+    .cloudimage-360 img {
+      box-sizing: border-box !important;
+      display: block !important;
+      width: auto !important;
+      height: auto !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      margin: 0 auto;
+      object-fit: contain;
+      transform: none !important;
+    }
+
+    @media screen and (max-width: 1023px) {
+
+      .content .detail .cloudimage-360 canvas,
+      .content .detail.single .cloudimage-360 canvas {
+        transform: none !important;
+      }
+    }
+  }
+
 }
