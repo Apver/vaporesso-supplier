@@ -190,7 +190,8 @@
 
   .vast-features__row--bottom {
     grid-template-columns: minmax(0, 920fr) minmax(0, 820fr);
-    aspect-ratio: 980 / 226;
+    /*加高以完整展示 logo + 文案 */
+    aspect-ratio: 980 / 300;
   }
 
   .vast-features__card {
@@ -3151,55 +3152,56 @@
       margin: 0;
     }
   }
+}
 
-  /* 3D Exhibit：约束 cloudimage 原图像素，避免 canvas 撑破弹窗 */
-  .section-3d {
-    .content {
-      overflow: hidden;
-    }
-
-    .content .detail {
-      overflow: hidden;
-    }
-
-    .content .detail .cloudimage-360 {
-      overflow: hidden;
-      position: relative;
-    }
-
-    .cloudimage-360-inner-box,
-    .ui-cloudimage-360-inner-box {
-      box-sizing: border-box !important;
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      width: 100% !important;
-      height: 100% !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      overflow: hidden;
-    }
-
-    .cloudimage-360 canvas,
-    .cloudimage-360 img {
-      box-sizing: border-box !important;
-      display: block !important;
-      width: auto !important;
-      height: auto !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      margin: 0 auto;
-      object-fit: contain;
-      transform: none !important;
-    }
-
-    @media screen and (max-width: 1023px) {
-
-      .content .detail .cloudimage-360 canvas,
-      .content .detail.single .cloudimage-360 canvas {
-        transform: none !important;
-      }
-    }
+/* 3D Exhibit：必须写在 .product-vast 外。
+   Product3DViewer（#pro3D.section-3d）与 .product-vast 是兄弟节点，
+   嵌套在 .product-vast 下会编译成 .product-vast .section-3d，永远匹配不到。 */
+.section-3d {
+  .content {
+    overflow: hidden;
   }
 
+  .content .detail {
+    overflow: hidden;
+  }
+
+  .content .detail .cloudimage-360 {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .cloudimage-360-inner-box,
+  .ui-cloudimage-360-inner-box {
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden;
+  }
+
+  .cloudimage-360 canvas,
+  .cloudimage-360 img {
+    box-sizing: border-box !important;
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    margin: 0 auto;
+    object-fit: contain;
+    transform: none !important;
+  }
+
+  @media screen and (max-width: 1023px) {
+
+    .content .detail .cloudimage-360 canvas,
+    .content .detail.single .cloudimage-360 canvas {
+      transform: none !important;
+    }
+  }
 }

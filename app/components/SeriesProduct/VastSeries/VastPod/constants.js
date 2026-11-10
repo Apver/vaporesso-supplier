@@ -160,18 +160,3 @@ export const VAST_LEAK_RESISTANCE_DATA =
   scrub: 0.7,
   pinOffset: 0
 };
-
-export const VAST_TRI_CORE_DATA = {
-  assetBase: PRIX_CDN,
-  techEyebrow: 'Tri-core Mesh Technology',
-  techTitle: 'One Pod, Three Experiences\nFor All MTL Vapers',
-  moodEyebrow: 'Tri-core Mesh Technology',
-  moodTitle: 'One Click To Switch\nYour Mood',
-  techEyebrowImage: prixAsset('vast_05_5.svg'),
-  moodEyebrowImage: prixAsset('vast_06_5.svg'),
-  desktopScrollDistance: 4800,
-  mobileTechScrollDistance: 2000,
-  mobileMoodScrollDistance: 2400,
-  scrub: 0.65,
-  pinOffset: 0,
-};
