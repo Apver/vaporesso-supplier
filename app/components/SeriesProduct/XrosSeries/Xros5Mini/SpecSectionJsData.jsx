@@ -82,7 +82,6 @@ const renderResponsiveImage = (image, keyBase, alt) => {
 };
 
 export function TextWithImageSpec({
-  key,
   id,
   itemTitle,
   primaryProductTitle,
@@ -102,18 +101,18 @@ export function TextWithImageSpec({
     const altTitle = title || primaryProductTitle || 'XROS 5 MINI';
     let hasImage = false;
 
-    const nodes = parts.map((part) => {
+    const nodes = parts.map((part, index) => {
       const image = parseImagePart(part);
       if (image) {
         hasImage = true;
-        const keyBase = `${altTitle}-${image.pc}-img`;
+        const keyBase = `${altTitle}-${index}-img`;
         const alt = isPackageList ? `${altTitle} package list` : '';
         return renderResponsiveImage(image, keyBase, alt);
       }
 
       const line = typeof part === 'string' ? part : String(part);
       if (!line) {
-        const keyBase = `${altTitle}-${line}-br`;
+        const keyBase = `${altTitle}-${index}-br`;
         return (
           <p key={keyBase}>
             <br />
@@ -145,7 +144,8 @@ export function TextWithImageSpec({
         content = content.replace(/^\((.+)\)$/, '$1');
       }
 
-      const keyBase = `${altTitle}-${content}-p`;
+      // 用 index 保证 Standard / TPD 等重复文案 key 唯一
+      const keyBase = `${altTitle}-${index}-p`;
 
       // 加 class：
       // - 尖括号触发时保留原有行为：'f-d-bold title'，并在非括号包裹时添加 'grey'
@@ -183,7 +183,7 @@ export function TextWithImageSpec({
       : null;
 
   return (
-    <ul className={isPackageList ? 'package-list' : 'l'} key={key}>
+    <ul className={isPackageList ? 'package-list' : 'l'}>
       <li className="f_24 f-d-bold">{itemTitle}</li>
 
       {/* PRIMARY BLOCK */}
@@ -251,7 +251,6 @@ export function TextWithImageSpec({
 }
 
 export function ColorSpec({
-  key,
   itemTitle,
   primaryProductTitle,
   secondaryProductTitle,
@@ -382,7 +381,6 @@ export function ColorSpec({
   return (
     <ul
       className={`f ${isNoMaxWidthFinish ? 'ui_v3-no_max_width_finish' : ''} ${colorColsClass}`.trim()}
-      key={key}
     >
       <li className="f_24 f-d-bold">{itemTitle}</li>
 
@@ -451,9 +449,9 @@ export function ColorSpec({
     </ul>
   );
 }
-export function ReplacementPodSpec({key, itemTitle, podList}) {
+export function ReplacementPodSpec({itemTitle, podList}) {
   return (
-    <ul className="r" key={key}>
+    <ul className="r">
       <li className="f_24 f-d-bold">{itemTitle}</li>
       <li className="f_15 d w">
         {podList.map((pod, index) => (

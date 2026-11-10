@@ -100,6 +100,7 @@ export const SERIES_PRODUCT_SPEC_DATA_IN_JS = [
   'armour-octa',
   'armour-g2',
   'vast',
+  'vast-pod',
 ];
 
 /** template → 硬编码 Spec 数据（见各产品目录 languageText.js） */
@@ -113,6 +114,7 @@ export const SERIES_PRODUCT_SPEC_DATA_BY_TEMPLATE = {
   'armour-octa': ArmourOctaProductSpecData,
   'armour-g2': ArmourG2ProductSpecData,
   vast: VastProductSpecData,
+  'vast-pod': VastPodProductSpecData,
 };
 
 /**
@@ -168,9 +170,14 @@ export const SERIES_PRODUCT_LAYOUT_ENTRIES = {
     /** 本页 Specs 页签用自己的组件，不走共享的 SpecSectionJsData */
     SpecComponent: ArmourG2SpecSection,
   },
+  'vast': {
+    Layout: VastLayout,
+    specElementId: 'check-specs-vast',
+  },
   'vast-pod': {
     Layout: VastPodLayout,
-    specElementId: 'check-specs-vast',
+    specElementId: 'check-specs-vast-pod',
+    navName: 'VAST POD',
   },
 };
   

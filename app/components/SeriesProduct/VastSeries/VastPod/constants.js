@@ -7,8 +7,8 @@ export function prixAsset(file) {
   return `${PRIX_CDN}/${file}`;
 }
 
-export const PRIX_KV_SECTION_DATA = {
-  name: 'VAST',
+export const VAST_POD_PRIX_KV_SECTION_DATA = {
+  name: 'VAST POD',
   slogan: 'VAST, FAST, LAST',
   mobBanner: prixAsset('vast_mob_01.webp'),
   pcBanner: prixAsset('vast_01.webp'),

@@ -18,7 +18,7 @@ import VastTriCoreExperience from './VastTriCoreExperience';
 
 
 import {
-  PRIX_KV_SECTION_DATA,
+  VAST_POD_PRIX_KV_SECTION_DATA,
   PRIX_BRIEF_SECTION_DATA,
   PRIX_END_PRODUCT_DATA,
   VAST_FEATURES_DATA,
@@ -46,7 +46,7 @@ export function VastPodLayout({ children, onCheckSpecs }) {
     <div className="product-vast" ref={rootRef}>
       <KvSectionV4
         className="product-vast-kv"
-        data={PRIX_KV_SECTION_DATA}
+        data={VAST_POD_PRIX_KV_SECTION_DATA}
       />
       <VastFeatures data={VAST_FEATURES_DATA} />
       <VastThreeSellingPoint />

@@ -2369,6 +2369,20 @@
     font-family: var(--de);
     color: #000;
 
+    /* Picture 双图切换：与 JSX 中 --pc / --mob 配套，缺则两张图叠在一起撑破 showcase */
+    &__media--mob {
+      display: none;
+    }
+
+    @media (max-width: 1023px) {
+      &__media--pc {
+        display: none;
+      }
+
+      &__media--mob {
+        display: block;
+      }
+    }
 
     &__pin {
       position: relative;
@@ -2590,6 +2604,7 @@
       width: min(1020px, calc(100vw - 96px), calc((100svh - 440px) * 2.161017));
       max-width: 100%;
       aspect-ratio: 1020 / 472;
+      overflow: hidden;
     }
 
     &__mood-scene {
