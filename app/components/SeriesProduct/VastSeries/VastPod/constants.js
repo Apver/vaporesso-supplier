@@ -108,7 +108,7 @@ export const PRIX_PREMIUM_SECTION_DATA = {
   mobileImage: prixAsset('vast_mob_11.webp?v=0.1'),
 };
 export const PRIX_INTASTART_SECTION_DATA = {
-  title: '3 Steps to Insta Start',
+  title: '4 Steps to Insta Start',
   slides: [
     {
       image: prixAsset('vast_12_1.webp'),
@@ -124,6 +124,11 @@ export const PRIX_INTASTART_SECTION_DATA = {
       image: prixAsset('vast_12_3.webp'),
       mobileImage: prixAsset('vast_mob_12_3.webp'),
       text: 'Push together right after filling.',
+    },
+    {
+      image: prixAsset('vast_12_4.webp'),
+      mobileImage: prixAsset('vast_mob_12_4.webp'),
+      text: 'Enjoy it.',
     },
   ],
 };
@@ -186,6 +191,8 @@ export const VAST_TRI_CORE_DATA = {
   moodTitle: 'One Click To Switch\nYour Mood',
   techEyebrowImage: prixAsset('vast_05_5.svg'),
   moodEyebrowImage: prixAsset('vast_06_5.svg'),
+  /** Vast Pod：不展示 Mood（One Click To Switch Your Mood），仅保留 Overview */
+  hideMood: true,
   desktopScrollDistance: 4800,
   mobileTechScrollDistance: 2000,
   mobileMoodScrollDistance: 2400,

@@ -74,6 +74,7 @@ export const VastTriCoreExperience = ({ data = {} }) => {
     techTitle = 'One Pod, Three Experiences\nFor All MTL Vapers',
     moodEyebrow = 'Tri-core Mesh Technology',
     moodTitle = 'One Click To Switch\nYour Mood',
+    hideMood = false,
     desktopScrollDistance = 4800,
     mobileTechScrollDistance = 2000,
     mobileMoodScrollDistance = 2400,
@@ -119,11 +120,12 @@ export const VastTriCoreExperience = ({ data = {} }) => {
         const techModes = Array.from(root.querySelectorAll('.vast-tri-core__tech-mode'));
         const scenes = Array.from(root.querySelectorAll('.vast-tri-core__mood-scene'));
         const captions = Array.from(root.querySelectorAll('.vast-tri-core__mode-caption'));
-        const offset = Math.max(0, Number(pinOffset) || 0);
         const follow = Math.max(0, Number(scrub) || 0);
         let lastMood = -1;
+        const showMood = Boolean(mood) && !hideMood;
 
         const publishMood = (index) => {
+          if (!showMood) return;
           if (index === lastMood) return;
           lastMood = index;
           setActiveMood(index);
@@ -131,21 +133,25 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           scenes.forEach((scene, i) => scene.setAttribute('aria-hidden', String(i !== index)));
           captions.forEach((caption, i) => caption.setAttribute('aria-hidden', String(i !== index)));
         };
-        publishMood(0);
+        if (showMood) publishMood(0);
         techModes.forEach((mode) => mode.removeAttribute('aria-hidden'));
 
         if (reduced) {
           // 系统减少动态效果时静态显示；指示灯仍可直接切换场景。
-          navigateRef.current = (index) => {
-            gsap.set(scenes, { autoAlpha: (i) => i === index ? 1 : 0 });
-            gsap.set(captions, { autoAlpha: (i) => i === index ? 1 : 0 });
-            publishMood(index);
-          };
+          navigateRef.current = showMood
+            ? (index) => {
+              gsap.set(scenes, { autoAlpha: (i) => i === index ? 1 : 0 });
+              gsap.set(captions, { autoAlpha: (i) => i === index ? 1 : 0 });
+              publishMood(index);
+            }
+            : null;
           return () => { navigateRef.current = null; };
         }
 
-        gsap.set(scenes, { autoAlpha: (index) => index === 0 ? 1 : 0 });
-        gsap.set(captions, { autoAlpha: (index) => index === 0 ? 1 : 0 });
+        if (showMood) {
+          gsap.set(scenes, { autoAlpha: (index) => index === 0 ? 1 : 0 });
+          gsap.set(captions, { autoAlpha: (index) => index === 0 ? 1 : 0 });
+        }
 
         // 灰色页只有一份标题。以下时间线仅处理标题下面的图片与模式说明。
         const buildMoodSequence = (timeline, startAt, onSequenceUpdate) => {
@@ -178,9 +184,8 @@ export const VastTriCoreExperience = ({ data = {} }) => {
 
         if (!mobile) {
           gsap.set(overview, { autoAlpha: 1 });
-          gsap.set(mood, { autoAlpha: 0 });
+          if (showMood) gsap.set(mood, { autoAlpha: 0 });
           const techHeading = Array.from(overview.querySelectorAll('.vast-tri-core__eyebrow, .vast-tri-core__tech-title'));
-          const moodHeading = Array.from(mood.querySelectorAll('.vast-tri-core__eyebrow, .vast-tri-core__mood-title'));
 
           const overviewEntrance = gsap.timeline({
             scrollTrigger: {
@@ -193,23 +198,6 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           overviewEntrance.fromTo(techHeading,
             { y: 32, autoAlpha: 0 },
             { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out' }, 0);
-          // gsap.fromTo(
-          //   techModes,
-          //   { x: 100, autoAlpha: 0 },
-          //   {
-          //     x: 0,
-          //     autoAlpha: 1,
-          //     duration: 0.85,
-          //     stagger: 0.18,
-          //     ease: 'power3.out',
-          //     scrollTrigger: {
-          //       trigger: techStage,
-          //       start: 'top 70%',
-          //       toggleActions: 'play none none none',
-          //       once: true,
-          //     },
-          //   },
-          // );
           // 外层不再整体移动，分别控制组内元素。
           gsap.set(techModes, { x: 0, autoAlpha: 1 });
 
@@ -269,41 +257,47 @@ export const VastTriCoreExperience = ({ data = {} }) => {
               start + 0.65,
             );
           });
-          const moodEntrance = gsap.timeline({ paused: true });
-          moodEntrance.fromTo(moodHeading,
-            { y: 32, autoAlpha: 0 },
-            { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out' }, 0);
-          let moodEntered = false;
 
-          const timeline = gsap.timeline({
-            scrollTrigger: {
-              trigger: root,
-              start: () => `top top+=52`,
-              end: () => `+=${distance(desktopScrollDistance, 4800)}`,
-              pin,
-              pinSpacing: true,
-              scrub: follow,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-            },
-          });
-          timeline.to({}, { duration: 0.7 }, 0);
-          timeline.to(overview, { autoAlpha: 0, duration: 0.6, ease: 'power1.inOut' }, 0.7);
-          timeline.to(mood, { autoAlpha: 1, duration: 0.6, ease: 'power1.inOut' }, 0.7);
-          buildMoodSequence(timeline, 1.3, (time) => {
-            // 灰色页随主时间线淡入时，独立触发标题动画，只播放一次。
-            if (time >= 0.7 && !moodEntered) {
-              moodEntered = true;
-              moodEntrance.play(0);
-            }
-          });
+          // 仅 Overview：不做 pin 切到 Mood，保留入场即可
+          if (showMood) {
+            const moodHeading = Array.from(mood.querySelectorAll('.vast-tri-core__eyebrow, .vast-tri-core__mood-title'));
+            const moodEntrance = gsap.timeline({ paused: true });
+            moodEntrance.fromTo(moodHeading,
+              { y: 32, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out' }, 0);
+            let moodEntered = false;
+
+            const timeline = gsap.timeline({
+              scrollTrigger: {
+                trigger: root,
+                start: () => `top top+=52`,
+                end: () => `+=${distance(desktopScrollDistance, 4800)}`,
+                pin,
+                pinSpacing: true,
+                scrub: follow,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+              },
+            });
+            timeline.to({}, { duration: 0.7 }, 0);
+            timeline.to(overview, { autoAlpha: 0, duration: 0.6, ease: 'power1.inOut' }, 0.7);
+            timeline.to(mood, { autoAlpha: 1, duration: 0.6, ease: 'power1.inOut' }, 0.7);
+            buildMoodSequence(timeline, 1.3, (time) => {
+              // 灰色页随主时间线淡入时，独立触发标题动画，只播放一次。
+              if (time >= 0.7 && !moodEntered) {
+                moodEntered = true;
+                moodEntrance.play(0);
+              }
+            });
+          }
         } else {
           gsap.set(techModes, { autoAlpha: 1 });
           gsap.set(techStage, { x: 0 });
           const techPosition = (index) => -(techModes[index].offsetLeft - techModes[0].offsetLeft);
 
           // 原来的通用 to-top 移到本组件处理，避免与 PC 入场动画重复控制。
-          [overview, mood].forEach((section) => {
+          const mobileSections = showMood ? [overview, mood] : [overview];
+          mobileSections.forEach((section) => {
             const heading = section.querySelector('header');
             gsap.fromTo(heading, { y: 28, autoAlpha: 0 }, {
               y: 0, autoAlpha: 1, duration: 0.7, ease: 'power3.out',
@@ -370,19 +364,21 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           techTimeline.eventCallback('onUpdate', syncTechMode);
           syncTechMode();
 
-          const moodTimeline = gsap.timeline({
-            scrollTrigger: {
-              trigger: mood,
-              start: () => `top top+=44`,
-              end: () => `+=${distance(mobileMoodScrollDistance, 2400)}`,
-              pin: true,
-              pinSpacing: true,
-              scrub: follow,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-            },
-          });
-          buildMoodSequence(moodTimeline, 0);
+          if (showMood) {
+            const moodTimeline = gsap.timeline({
+              scrollTrigger: {
+                trigger: mood,
+                start: () => `top top+=44`,
+                end: () => `+=${distance(mobileMoodScrollDistance, 2400)}`,
+                pin: true,
+                pinSpacing: true,
+                scrub: follow,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+              },
+            });
+            buildMoodSequence(moodTimeline, 0);
+          }
         }
         return () => { navigateRef.current = null; };
       }, root);
@@ -406,10 +402,10 @@ export const VastTriCoreExperience = ({ data = {} }) => {
       root.removeAttribute('data-mood');
       root.removeAttribute('data-tech-mode');
     };
-  }, [modes, desktopScrollDistance, mobileTechScrollDistance, mobileMoodScrollDistance, scrub, pinOffset]);
+  }, [modes, hideMood, desktopScrollDistance, mobileTechScrollDistance, mobileMoodScrollDistance, scrub, pinOffset]);
 
   return (
-    <div className="vast-tri-core" ref={rootRef}>
+    <div className={`vast-tri-core${hideMood ? ' vast-tri-core--overview-only' : ''}`} ref={rootRef}>
       <div className="vast-tri-core__pin">
         <section className="vast-tri-core__overview" aria-label="Tri-core mesh technology">
           <header className="vast-tri-core__tech-header">
@@ -438,26 +434,28 @@ export const VastTriCoreExperience = ({ data = {} }) => {
           </div>
         </section>
 
-        <section className="vast-tri-core__mood" aria-label="One click to switch your mood">
-          <header className="vast-tri-core__mood-header">
-            <div className="vast-tri-core__eyebrow">
-              <img src={moodEyebrowImage} alt={moodEyebrow} width="178" height="70" />
-            </div>
-            <h2 className="vast-tri-core__mood-title">{splitLines(moodTitle)}</h2>
-          </header>
-          <div className="vast-tri-core__showcase to-top">
-            {modes.map((mode, index) => (
-              <div className={`vast-tri-core__mood-scene vast-tri-core__mood-scene--${index + 1}`} key={mode.key} aria-hidden={index !== 0}>
-                <Picture className="vast-tri-core__scene-photo" image={mode.sceneImage} mobileImage={mode.mobileSceneImage} alt={mode.sceneAlt || mode.caption} style={{ '--scene-position': mode.position }} />
-                <Picture className="vast-tri-core__product-image" image={mode.productImage} mobileImage={mode.mobileProductImage} alt={`${mode.name} device indicator`} />
+        {!hideMood && (
+          <section className="vast-tri-core__mood" aria-label="One click to switch your mood">
+            <header className="vast-tri-core__mood-header">
+              <div className="vast-tri-core__eyebrow">
+                <img src={moodEyebrowImage} alt={moodEyebrow} width="178" height="70" />
               </div>
-            ))}
-          </div>
-          <ModeControl modes={modes} active={activeMood} onSelect={(index) => navigateRef.current?.(index)} />
-          <div className="vast-tri-core__mode-captions" aria-live="polite" aria-atomic="true">
-            {modes.map((mode, index) => <p className={`vast-tri-core__mode-caption vast-tri-core__mode-caption--${index + 1}`} key={mode.key} aria-hidden={index !== activeMood}>{mode.caption}</p>)}
-          </div>
-        </section>
+              <h2 className="vast-tri-core__mood-title">{splitLines(moodTitle)}</h2>
+            </header>
+            <div className="vast-tri-core__showcase to-top">
+              {modes.map((mode, index) => (
+                <div className={`vast-tri-core__mood-scene vast-tri-core__mood-scene--${index + 1}`} key={mode.key} aria-hidden={index !== 0}>
+                  <Picture className="vast-tri-core__scene-photo" image={mode.sceneImage} mobileImage={mode.mobileSceneImage} alt={mode.sceneAlt || mode.caption} style={{ '--scene-position': mode.position }} />
+                  <Picture className="vast-tri-core__product-image" image={mode.productImage} mobileImage={mode.mobileProductImage} alt={`${mode.name} device indicator`} />
+                </div>
+              ))}
+            </div>
+            <ModeControl modes={modes} active={activeMood} onSelect={(index) => navigateRef.current?.(index)} />
+            <div className="vast-tri-core__mode-captions" aria-live="polite" aria-atomic="true">
+              {modes.map((mode, index) => <p className={`vast-tri-core__mode-caption vast-tri-core__mode-caption--${index + 1}`} key={mode.key} aria-hidden={index !== activeMood}>{mode.caption}</p>)}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );

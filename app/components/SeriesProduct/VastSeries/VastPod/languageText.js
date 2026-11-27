@@ -11,9 +11,9 @@ export const VastPodProductSpecData = {
       itemType: 'color',
       colorColumns: 1,
       primaryColorImages: [VAST_POD_ASSETS.colorsMob],
-      primaryColorTitle: [['Space\nBlack']],
+      primaryColorTitle: [],
       primaryColorImagesMobile: [VAST_POD_ASSETS.colorsMob],
-      primaryColorTitleMobile: [['Space\nBlack']],
+      primaryColorTitleMobile: [],
     },
     {
       id: 'msrp',

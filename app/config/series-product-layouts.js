@@ -178,6 +178,7 @@ export const SERIES_PRODUCT_LAYOUT_ENTRIES = {
     Layout: VastPodLayout,
     specElementId: 'check-specs-vast-pod',
     navName: 'VAST POD',
+    show3DExhibit: false,
   },
 };
   

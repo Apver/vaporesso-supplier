@@ -640,9 +640,8 @@
     }
 
     .vast-features__card--logo .vast-features__logo {
-      width: auto;
-      height: 1.4rem;
-      max-height: none;
+      width: 1.48rem;
+      height: 1.48rem;
       flex-shrink: 0;
     }
 
@@ -651,16 +650,19 @@
     }
 
     .vast-features__card--4 .vast-features__content {
-      gap: 0.28rem;
+      gap: 0.48rem;
     }
 
     .vast-features__card--4 .vast-features__title {
-      font-size: 0.4rem;
-      line-height: 1.1;
+      font-size: 0.64rem;
+      letter-spacing: -0.01rem;
+      line-height: 0.77rem;
     }
 
     .vast-features__card--4 .vast-features__desc {
+      margin: 0;
       font-size: 0.26rem;
+      line-height: 0.31rem;
     }
 
     .vast-features__logo {
@@ -2503,6 +2505,19 @@
     font-family: var(--de);
     color: #000;
 
+    /* Vast Pod：仅 Overview，无 Mood 叠层 pin */
+    &--overview-only {
+      .vast-tri-core__pin {
+        height: auto;
+      }
+
+      .vast-tri-core__overview {
+        position: relative;
+        inset: auto;
+        height: calc(100vh - var(--vast-nav-height));
+        height: calc(100svh - var(--vast-nav-height));
+      }
+    }
 
     &__pin {
       position: relative;
