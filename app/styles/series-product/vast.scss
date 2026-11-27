@@ -838,15 +838,14 @@
       margin-left: -0.225rem;
     }
 
-    .product-vast .vast-sequence__metric .vast-sequence__unit {
+    /* 已在 .product-vast 内，勿再写 .product-vast，否则编译成 .product-vast .product-vast… 永远匹配不到 */
+    .vast-sequence__metric .vast-sequence__unit {
       font-size: 0.9rem;
       letter-spacing: -0.027rem;
-
     }
 
-    .product-vast .vast-sequence__metric .vast-sequence__value {
+    .vast-sequence__metric .vast-sequence__value {
       letter-spacing: -0.045rem;
-
     }
 
     .vast-sequence__headline-inner {
@@ -855,7 +854,7 @@
       align-items: center;
     }
 
-    .product-vast .vast-sequence__metric {
+    .vast-sequence__metric {
       margin-top: -1.3rem;
     }
 

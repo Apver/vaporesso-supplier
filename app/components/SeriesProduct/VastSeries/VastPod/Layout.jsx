@@ -11,6 +11,7 @@ import { VastThreeSellingPoint } from './VastThreeSellingPoint';
 import VastInstaStart from './VastInstaStart';
 import VastCoreGuard from './VastCoreGuard';
 import VastLeakResistance from './VastLeakResistance';
+import VastTriCoreExperience from './VastTriCoreExperience';
 
 import {
   VAST_POD_PRIX_KV_SECTION_DATA,
@@ -19,6 +20,7 @@ import {
   PRIX_INTASTART_SECTION_DATA,
   VAST_CORE_GUARD_DATA,
   VAST_LEAK_RESISTANCE_DATA,
+  VAST_TRI_CORE_DATA,
 } from './constants';
 
 export function VastPodLayout({ children, onCheckSpecs }) {
@@ -40,6 +42,7 @@ export function VastPodLayout({ children, onCheckSpecs }) {
       />
       <VastFeatures data={VAST_FEATURES_DATA} />
       <VastThreeSellingPoint />
+      <VastTriCoreExperience data={VAST_TRI_CORE_DATA} />
       <VastLeakResistance data={VAST_LEAK_RESISTANCE_DATA} />
       <VastCoreGuard data={VAST_CORE_GUARD_DATA} />
       <VastInstaStart data={PRIX_INTASTART_SECTION_DATA} />

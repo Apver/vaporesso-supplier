@@ -18,7 +18,7 @@ export const VAST_POD_ASSETS = {
   kvPc: vastPodAsset('pc-vast-pod-kv.webp?v=1795743681'),
   hot: vastPodAsset('hot-vast-pod.webp?v=1795743684'),
   navbar: vastPodAsset('vast-pod-navbar.webp?v=1795743967'),
-  productPc: vastPodAsset('pc-vast-pod-product.webp?v=1795743967'),
+  productPc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/vast-pod-last.webp?v=0.1',
   size: vastPodAsset('vast-pod-size.webp?v=1795743967'),
   colorsMob: vastPodAsset('Mob-vast-pod-colors.webp?v=1795743967'),
   packagePc: vastPodAsset('pc-vast-pod-package.webp?v=1795743968'),
@@ -82,7 +82,7 @@ export const VAST_FEATURES_DATA = {
     {
       key: 'sss-tech',
       type: 'logo',
-      logo: prixAsset('vast_03_4.svg'),
+      logo: "https://cdn.shopify.com/s/files/1/0703/9873/8521/files/vast_pod_03_4.svg?v=0.1",
       title: 'SSS 3.0 Tech',
       desc: 'Ultra Leak Resistance',
       color: '#115a9b',
@@ -176,4 +176,19 @@ export const VAST_LEAK_RESISTANCE_DATA =
   scrollDistance: 2,
   scrub: 0.7,
   pinOffset: 0
+};
+
+export const VAST_TRI_CORE_DATA = {
+  assetBase: PRIX_CDN,
+  techEyebrow: 'Tri-core Mesh Technology',
+  techTitle: 'One Pod, Three Experiences\nFor All MTL Vapers',
+  moodEyebrow: 'Tri-core Mesh Technology',
+  moodTitle: 'One Click To Switch\nYour Mood',
+  techEyebrowImage: prixAsset('vast_05_5.svg'),
+  moodEyebrowImage: prixAsset('vast_06_5.svg'),
+  desktopScrollDistance: 4800,
+  mobileTechScrollDistance: 2000,
+  mobileMoodScrollDistance: 2400,
+  scrub: 0.65,
+  pinOffset: 0,
 };
