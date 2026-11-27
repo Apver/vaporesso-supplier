@@ -92,8 +92,7 @@
       height: 12rem !important;
 
       .ui-v4-kv-content {
-        top: auto;
-        bottom: 1.44rem;
+        top: 1rem;
 
         &__title {
           font-size: 2.08rem;
@@ -105,6 +104,10 @@
         }
       }
     }
+  }
+
+  .ui-v4-end-product {
+    padding: 150px 0 200px;
   }
 
   .ui-v4-brief {
@@ -170,7 +173,10 @@
   }
 
   .vast-features__grid {
+    /* 三列对齐：左列上下同宽；底行右侧 = 上面两列之和 */
     display: grid;
+    grid-template-columns: minmax(0, 400fr) minmax(0, 280fr) minmax(0, 280fr);
+    grid-template-rows: auto auto;
     gap: 10px;
     width: 100%;
     max-width: 980px;
@@ -178,20 +184,8 @@
   }
 
   .vast-features__row {
-    display: grid;
-    gap: 10px;
+    display: contents;
     min-width: 0;
-  }
-
-  .vast-features__row--top {
-    grid-template-columns: minmax(0, 400fr) minmax(0, 280fr) minmax(0, 280fr);
-    aspect-ratio: 980 / 400;
-  }
-
-  .vast-features__row--bottom {
-    grid-template-columns: minmax(0, 920fr) minmax(0, 820fr);
-    /*加高以完整展示 logo + 文案 */
-    aspect-ratio: 980 / 300;
   }
 
   .vast-features__card {
@@ -200,6 +194,39 @@
     min-height: 0;
     overflow: hidden;
     background: #ededed;
+  }
+
+  /* 上行三卡 */
+  .vast-features__card--1 {
+    grid-column: 1;
+    grid-row: 1;
+    aspect-ratio: 400 / 400;
+  }
+
+  .vast-features__card--2 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .vast-features__card--3 {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  /* 底行：SSS 与左上同宽；Tri-core 跨右两列；两卡同高 */
+  .vast-features__card--4 {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: stretch;
+    height: auto;
+  }
+
+  .vast-features__card--5 {
+    grid-column: 2 / -1;
+    grid-row: 2;
+    /* 以右侧宽度定行高，左侧 SSS 随行拉伸同高 */
+    aspect-ratio: 560 / 226;
+    align-self: stretch;
   }
 
   .vast-features__picture,
@@ -229,6 +256,39 @@
     text-align: center;
   }
 
+  /* SSS：图标左 + 文案右，适配较矮底行 */
+  .vast-features__card--logo .vast-features__content {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 24px;
+    text-align: left;
+  }
+
+  .vast-features__card--logo .vast-features__logo {
+    width: auto;
+    height: 72%;
+    max-height: 140px;
+    flex-shrink: 0;
+  }
+
+  .vast-features__card--logo .vast-features__text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .vast-features__card--logo .vast-features__title {
+    font-size: 32px;
+    letter-spacing: -0.5px;
+  }
+
+  .vast-features__card--logo .vast-features__desc {
+    font-size: 15px;
+  }
+
   .vast-features__logo {
     display: block;
     width: 37%;
@@ -251,6 +311,7 @@
   }
 
   .vast-features__desc {
+    margin: 0;
     color: #000;
     font-family: var(--deb);
     font-size: 16px;
@@ -331,6 +392,19 @@
       padding: 14px 8px;
     }
 
+    .vast-features__card--logo .vast-features__content {
+      gap: 16px;
+      padding: 12px 18px;
+    }
+
+    .vast-features__card--logo .vast-features__title {
+      font-size: 26px;
+    }
+
+    .vast-features__card--logo .vast-features__desc {
+      font-size: 13px;
+    }
+
     .vast-features__title {
       font-size: 32px;
       letter-spacing: -1px;
@@ -372,6 +446,7 @@
 
     .vast-features__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: none;
       gap: 0.12rem;
     }
 
@@ -381,6 +456,7 @@
 
     .vast-features__card {
       container-type: inline-size;
+      grid-row: auto;
     }
 
     .vast-features__card--1 {
@@ -391,11 +467,13 @@
 
     .vast-features__card--2 {
       order: 2;
+      grid-column: auto;
       aspect-ratio: 169 / 240;
     }
 
     .vast-features__card--3 {
       order: 3;
+      grid-column: auto;
       aspect-ratio: 169 / 240;
     }
 
@@ -405,14 +483,20 @@
       aspect-ratio: 345 / 161;
     }
 
+    /* SSS：与上行同宽 100%，高度与 Tri-core 一致 */
     .vast-features__card--4 {
       order: 5;
-      aspect-ratio: 169 / 175;
+      grid-column: 1 / -1;
+      aspect-ratio: 345 / 161;
     }
 
     .vast-features__card--6 {
       order: 6;
       aspect-ratio: 169 / 175;
+    }
+
+    .ui-v4-kv-content__title {
+      font-size: 2.08rem;
     }
 
     .vast-features__media {
@@ -534,8 +618,41 @@
       padding: 0.4rem 0rem;
     }
 
+    .vast-features__card--logo .vast-features__content {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 0.28rem;
+      padding: 0.24rem 0.4rem;
+      text-align: left;
+    }
+
+    .ui-v4-end-product {
+      padding: 1.6rem 0 1.6rem;
+    }
+
+    .vast-features__card--logo .vast-features__logo {
+      width: auto;
+      height: 1.4rem;
+      max-height: none;
+      flex-shrink: 0;
+    }
+
+    .vast-features__card--logo .vast-features__text {
+      gap: 0.06rem;
+    }
+
     .vast-features__card--4 .vast-features__content {
-      gap: 0.24rem;
+      gap: 0.28rem;
+    }
+
+    .vast-features__card--4 .vast-features__title {
+      font-size: 0.4rem;
+      line-height: 1.1;
+    }
+
+    .vast-features__card--4 .vast-features__desc {
+      font-size: 0.26rem;
     }
 
     .vast-features__logo {
@@ -547,10 +664,6 @@
     .vast-features__title {
       font-size: 0.64rem;
       letter-spacing: -0.01rem;
-    }
-
-    .vast-features__card--4 .vast-features__title {
-      line-height: 1.1;
     }
 
     .vast-features__desc {
@@ -3150,6 +3263,58 @@
     .spec-content ul .d.size img {
       width: 325px;
       margin: 0;
+    }
+  }
+}
+
+/* Specs Color：单色图缩小；色名与图同宽对齐（#spec 在 .product-vast 外，挂在 .product-vast-pod 上） */
+.product-vast-pod {
+  .spec-content .f img {
+    display: block;
+    width: 220px;
+    max-width: 220px;
+    height: auto;
+    margin: 0;
+    transform: none;
+  }
+
+  .spec-content .f .colors {
+    display: flex;
+    width: 220px;
+    max-width: 220px;
+    margin: 0;
+    transform: none;
+  }
+
+  .spec-content .f .colors .item {
+    flex: none;
+    width: 30%;
+    text-align: center;
+  }
+
+  .section-spec {
+    padding: 0;
+  }
+
+  @media screen and (max-width: 1023px) {
+    .spec-content .f img {
+      width: 3.6rem;
+      max-width: 3.6rem;
+      transform: none;
+    }
+
+    .spec-content .f .colors {
+      width: 1.6rem;
+      max-width: 1.6rem;
+      transform: none;
+    }
+
+    .spec-content .f .colors .item {
+      width: 70%;
+    }
+
+    .section-spec {
+      padding: 0;
     }
   }
 }

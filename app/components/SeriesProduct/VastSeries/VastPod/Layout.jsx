@@ -4,9 +4,7 @@
  */
 import { useEffect, useRef } from 'react';
 import { initScrollAppearAnimate } from '~/utils/scroll_appear_animate';
-import { KvSectionV4, BriefSectionV4 } from '~/components/ui-v4';
-
-
+import { KvSectionV4, EndProduct } from '~/components/ui-v4';
 
 import { VastFeatures } from './VastFeatures';
 import { VastThreeSellingPoint } from './VastThreeSellingPoint';
@@ -14,20 +12,15 @@ import VastInstaStart from './VastInstaStart';
 import VastCoreGuard from './VastCoreGuard';
 import VastLeakResistance from './VastLeakResistance';
 
-
-
 import {
   VAST_POD_PRIX_KV_SECTION_DATA,
-  PRIX_BRIEF_SECTION_DATA,
   PRIX_END_PRODUCT_DATA,
   VAST_FEATURES_DATA,
-  PRIX_BATTERY_SECTION_DATA,
-  PRIX_PREMIUM_SECTION_DATA,
   PRIX_INTASTART_SECTION_DATA,
-  VAST_CUSTOMIZATION_SECTION_DATA,
   VAST_CORE_GUARD_DATA,
   VAST_LEAK_RESISTANCE_DATA,
 } from './constants';
+
 export function VastPodLayout({ children, onCheckSpecs }) {
   const rootRef = useRef(null);
   useEffect(() => {
@@ -40,7 +33,6 @@ export function VastPodLayout({ children, onCheckSpecs }) {
     return cleanup;
   }, []);
   return (
-
     <div className="product-vast" ref={rootRef}>
       <KvSectionV4
         className="product-vast-kv"
@@ -51,6 +43,11 @@ export function VastPodLayout({ children, onCheckSpecs }) {
       <VastLeakResistance data={VAST_LEAK_RESISTANCE_DATA} />
       <VastCoreGuard data={VAST_CORE_GUARD_DATA} />
       <VastInstaStart data={PRIX_INTASTART_SECTION_DATA} />
+      <EndProduct
+        className="product-vast-end-product"
+        data={PRIX_END_PRODUCT_DATA}
+        onCheckSpecs={onCheckSpecs}
+      />
       {children}
     </div>
   );

@@ -1,5 +1,6 @@
 
 export const PRIX_CDN = 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files';
+export const VAST_POD_CDN = 'https://cdn.shopify.com/s/files/1/0703/9873/8521/files';
 export const PRIX_ASSET_PREFIX = 'prix';
 
 /** @param {string} file — 原始文件名，如 `01-1.webp`、`Mob-01-1.webp` */
@@ -7,11 +8,28 @@ export function prixAsset(file) {
   return `${PRIX_CDN}/${file}`;
 }
 
+/** Vast Pod 专用 CDN 资源（含 ?v= 时直接拼完整路径） */
+export function vastPodAsset(file) {
+  return `${VAST_POD_CDN}/${file}`;
+}
+
+export const VAST_POD_ASSETS = {
+  kvMob: vastPodAsset('Mob-vast-pod-kv.webp?v=1795743680'),
+  kvPc: vastPodAsset('pc-vast-pod-kv.webp?v=1795743681'),
+  hot: vastPodAsset('hot-vast-pod.webp?v=1795743684'),
+  navbar: vastPodAsset('vast-pod-navbar.webp?v=1795743967'),
+  productPc: vastPodAsset('pc-vast-pod-product.webp?v=1795743967'),
+  size: vastPodAsset('vast-pod-size.webp?v=1795743967'),
+  colorsMob: vastPodAsset('Mob-vast-pod-colors.webp?v=1795743967'),
+  packagePc: vastPodAsset('pc-vast-pod-package.webp?v=1795743968'),
+  packageMob: vastPodAsset('Mob-vast-pod-package.webp?v=1795743968'),
+};
+
 export const VAST_POD_PRIX_KV_SECTION_DATA = {
   name: 'VAST POD',
   slogan: 'VAST, FAST, LAST',
-  mobBanner: prixAsset('vast_mob_01.webp'),
-  pcBanner: prixAsset('vast_01.webp'),
+  mobBanner: VAST_POD_ASSETS.kvMob,
+  pcBanner: VAST_POD_ASSETS.kvPc,
 };
 
 
@@ -23,15 +41,14 @@ export const PRIX_BRIEF_SECTION_DATA = {
 };
 
 export const PRIX_END_PRODUCT_DATA = {
-  title: 'VAST',
-  imgUrl: prixAsset('vast_13.webp'),
+  title: 'VAST POD',
+  imgUrl: VAST_POD_ASSETS.productPc,
   salesList: [
     { id: 'sales1', text: '10mL Pod Capacity' },
     { id: 'sales2', text: '1s Insta Juiced, Insta Start' },
-    { id: 'sales3', text: 'Up to 150K Puffs Per Pod Lifespan' },
+    { id: 'sales3', text: 'Up to 6 Refills Puffs Per Pod Lifespan' },
     { id: 'sales4', text: 'Tri-core Tech, One Pod For All MTL' },
     { id: 'sales5', text: 'SSS 3.0 Tech, Ultra Leak Resistance' },
-    { id: 'sales6', text: '1600mAh Battery Capacity' },
   ],
 };
 
@@ -63,19 +80,19 @@ export const VAST_FEATURES_DATA = {
       color: '#000',
     },
     {
-      key: 'tri-core',
-      image: { pc: prixAsset('vast_03_5.webp'), mobile: prixAsset('vast_03_5.webp') },
-      alt: 'Tri-core Tech, One Pod For All MTL: 0.8Ω, 0.6Ω, 0.4Ω',
-      title: 'Tri-core Tech, One Pod For All MTL',
-      color: '#fff',
-    },
-    {
       key: 'sss-tech',
       type: 'logo',
       logo: prixAsset('vast_03_4.svg'),
       title: 'SSS 3.0 Tech',
       desc: 'Ultra Leak Resistance',
       color: '#115a9b',
+    },
+    {
+      key: 'tri-core',
+      image: { pc: prixAsset('vast_03_5.webp'), mobile: prixAsset('vast_03_5.webp') },
+      alt: 'Tri-core Tech, One Pod For All MTL: 0.8Ω, 0.6Ω, 0.4Ω',
+      title: 'Tri-core Tech, One Pod For All MTL',
+      color: '#fff',
     },
   ],
 };
@@ -91,7 +108,7 @@ export const PRIX_PREMIUM_SECTION_DATA = {
   mobileImage: prixAsset('vast_mob_11.webp?v=0.1'),
 };
 export const PRIX_INTASTART_SECTION_DATA = {
-  title: '4 Steps to Insta Start',
+  title: '3 Steps to Insta Start',
   slides: [
     {
       image: prixAsset('vast_12_1.webp'),
