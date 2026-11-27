@@ -3,14 +3,13 @@ import {VAST_POD_ASSETS} from './constants';
 
 export const VastPodProductSpecData = {
   primaryProductTitle: 'VAST POD',
-  isNoMaxWidthFinish: false,
+  isNoMaxWidthFinish: true,
   items: [
     {
       id: 'finish',
       itemTitle: 'Color',
       itemType: 'color',
-      colorColumns: 1,
-      primaryColorImages: [VAST_POD_ASSETS.colorsMob],
+      primaryColorImages: [VAST_POD_ASSETS.colorsPc],
       primaryColorTitle: [],
       primaryColorImagesMobile: [VAST_POD_ASSETS.colorsMob],
       primaryColorTitleMobile: [],

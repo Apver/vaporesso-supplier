@@ -20,7 +20,8 @@ export const VAST_POD_ASSETS = {
   navbar: vastPodAsset('vast-pod-navbar.webp?v=1795743967'),
   productPc: 'https://cdn.shopify.com/s/files/1/0999/4249/8609/files/vast-pod-last.webp?v=0.1',
   size: vastPodAsset('vast-pod-size.webp?v=1795743967'),
-  colorsMob: vastPodAsset('Mob-vast-pod-colors.webp?v=1795743967'),
+  colorsPc: vastPodAsset('pc-vast-pod-colors.webp?v=0.1'),
+  colorsMob: vastPodAsset('Mob-vast-pod-colors.webp?v=0.1'),
   packagePc: vastPodAsset('pc-vast-pod-package.webp?v=1795743968'),
   packageMob: vastPodAsset('Mob-vast-pod-package.webp?v=1795743968'),
 };
